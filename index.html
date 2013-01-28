@@ -2,60 +2,18 @@
 <html>
 	<head>
 		<title>ROLL IT !</title>
-		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/cls/Partie.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Bille.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Point.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Terrain.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Evenements.js" type="text/javascript" defer="defer"></script> 
 	</head>
 	<body>
-	
 		<div id="sphere"></div>
-		<script>
-			requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-			var canvas = document.createElement("canvas");
-			var context = canvas.getContext("2d");
-			var sphere = document.getElementById("sphere");
-			var x = 0, y = 0, vx = 0, vy = 0, ax = 0, ay = 0;
-			
-			if(window.DeviceMotionEvent != undefined) {
-				window.ondevicemotion = function(e){
-					ax = event.accelerationIncludingGravity.x * 10;
-					ay = event.accelerationIncludingGravity.y * 10;
-				}
-			}
-						
-			function theGame() {
-				vy = vy - ay;
-				vx = vx + ax;
-				vx = vx * 0.98;
-				vy = vy * 0.98;
-				y = parseInt(y + vy / 50);
-				x = parseInt(x + vx / 50);
-				boundingBoxCheck();
-				sphere.style.top = y + "px";
-				sphere.style.left = x + "px";
-				
-				requestAnimationFrame(theGame);
-			}
-			
-			function boundingBoxCheck() {
-				if(x < 0) {
-					x = 0;
-					vx =- vx;
-				}
-				if(y < 0) {
-					y = 0;
-					vy =- vy;
-				}
-				if(x > document.documentElement.clientWidth - 20){
-					x = document.documentElement.clientWidth - 20;
-					vx =- vx;
-				}
-				if(y > document.documentElement.clientHeight - 20){
-					y = document.documentElement.clientHeight - 20;
-					vy =- vy;
-				}
-			}
-			
-			theGame();
-			
-		</script>
+		
+		<script type="text/javascript"
+            data-main="js/app.js"
+            src="js/lib/require.js" defer="defer"></script>
 	</body>
 </html>
