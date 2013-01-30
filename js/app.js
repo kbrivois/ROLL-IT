@@ -15,10 +15,14 @@ var initPartie = function()
 {
 	oPartie = new Partie();
 	
-	if(window.DeviceMotionEvent != undefined) 
-	{
-		window.ondevicemotion = function(e)
-		{
+	if (window.DeviceOrientationEvent != undefined) {
+	
+		window.addEventListener("deviceorientation", function( event ) {
+			oPartie.oBille.fAccelerationX = event.alpha * 10;
+			oPartie.oBille.fAccelerationY = event.beta * 10;
+		}, false);
+		
+		window.ondevicemotion = function(e){
 			oPartie.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
 			oPartie.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
 		}
