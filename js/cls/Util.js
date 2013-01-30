@@ -13,12 +13,9 @@ var calculChrono = function()
 	}
 	
 	if(oPartie.oChrono.iChronoS < 10)
-		document.getElementById('time-sec').innerHTML.innerHTML = "0" + oPartie.oChrono.iChronoS;
+		document.getElementById('time-sec').innerHTML = "0" + oPartie.oChrono.iChronoS;
 	else
 		document.getElementById('time-sec').innerHTML = oPartie.oChrono.iChronoS;
-		
-	
-	console.log(oPartie.oChrono.iChronoS);
 		
 	if(oPartie.oChrono.iChronoM < 10)
 		document.getElementById('time-min').innerHTML = "0" + oPartie.oChrono.iChronoM;
