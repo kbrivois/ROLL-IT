@@ -11,7 +11,7 @@ function Bille()
 	this.fAccelerationX = 0;
 	this.fAccelerationY = 0; 
 	// Taille
-	this.iTaille = 50;
+	this.iTaille = 15;
 };
 
 // Vérification des collisions
@@ -19,8 +19,8 @@ Bille.prototype.rouler = function()
 {
 	this.fVitesseY = this.fVitesseY - this.fAccelerationY;
 	this.fVitesseX = this.fVitesseX + this.fAccelerationX;
-	this.fVitesseY = this.fVitesseY * 0.98;
-	this.fVitesseX = this.fVitesseX * 0.98;
+	this.fVitesseY = this.fVitesseY * 0.94;
+	this.fVitesseX = this.fVitesseX * 0.94;
 	this.oPosition.y = parseInt(this.oPosition.y + this.fVitesseY / 50);
 	this.oPosition.x = parseInt(this.oPosition.x + this.fVitesseX / 50);
 	this.verifierCollisions();
