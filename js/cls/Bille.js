@@ -10,6 +10,8 @@ function Bille()
 	// Accélération
 	this.fAccelerationX = 0;
 	this.fAccelerationY = 0; 
+	// Taille
+	this.iTaille = 50;
 };
 
 // Vérification des collisions
@@ -27,8 +29,73 @@ Bille.prototype.rouler = function()
 };
 
 // Vérification des collisions
-Bille.prototype.verifierCollisions = function()
-{
+Bille.prototype.verifierCollisions = function(){
+
+	for(var i=0; i<oPartie.oTerrain.aListeMurs.length; i++){
+
+		// mur horizontal
+		if(oPartie.oTerrain.aListeMurs[i][0].y == oPartie.oTerrain.aListeMurs[i][1].y){
+			
+			// si la bille est en dessous du mur
+			if(this.oPosition.y >= oPartie.oTerrain.aListeMurs[i][0].y
+			&& this.oPosition.x >= Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x) 
+			&& this.oPosition.x <= Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)){
+				// si au prochain déplacement de la bille on s'aperçoit qu'elle a traversé le mur
+				if( parseInt(this.oPosition.y + this.fVitesseY / 50) < oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur ){
+					this.oPosition.y = oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur;
+					this.fVitesseY =- this.fVitesseY;
+				}
+			}
+			// si la bille est au-dessus du mur
+			if(this.oPosition.y + this.iTaille <= oPartie.oTerrain.aListeMurs[i][0].y
+			&& this.oPosition.x >= Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x) 
+			&& this.oPosition.x <= Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)){
+				// si au prochain déplacement de la bille on s'aperçoit qu'elle a traversé le mur
+				if( parseInt(this.oPosition.y + this.fVitesseY / 50) + this.iTaille > oPartie.oTerrain.aListeMurs[i][0].y){
+					this.oPosition.y = oPartie.oTerrain.aListeMurs[i][0].y - this.iTaille;
+					this.fVitesseY =- this.fVitesseY;
+				}
+			}
+			// // si la bille est en dessous du mur
+			// if(this.oPosition.y >= oPartie.oTerrain.aListeMurs[i][0].y
+			// && this.oPosition.x >= Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x) 
+			// && this.oPosition.x <= Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)){
+				// // si au prochain déplacement de la bille on s'aperçoit qu'elle a traversé le mur
+				// if( parseInt(this.oPosition.y + this.fVitesseY / 50) <= oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur ){
+					// this.oPosition.y = oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur;
+					// this.fVitesseY =- this.fVitesseY;
+				// }
+			// }
+			// // si la bille est en dessous du mur
+			// if(this.oPosition.y >= oPartie.oTerrain.aListeMurs[i][0].y
+			// && this.oPosition.x >= Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x) 
+			// && this.oPosition.x <= Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)){
+				// // si au prochain déplacement de la bille on s'aperçoit qu'elle a traversé le mur
+				// if( parseInt(this.oPosition.y + this.fVitesseY / 50) <= oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur ){
+					// this.oPosition.y = oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur;
+					// this.fVitesseY =- this.fVitesseY;
+				// }
+			// }
+		}
+		
+		// // mur vertical
+		// if(oPartie.oTerrain.aListeMurs[i][0].y == oPartie.oTerrain.aListeMurs[i][1].y){
+			// // si la bille et en dessous du mur
+			// if(this.oPosition.y < oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur){
+				// // si au prochain déplacement de la bille on s'aperçoit qu'elle a traversé le mur
+				// if( parseInt(this.oPosition.y + this.fVitesseY / 50) > oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur ){
+					// this.oPosition.y = oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur;
+					// this.fVitesseY =- this.fVitesseY;
+				// }
+			// }
+		// }
+		
+		// {
+			// this.oPosition.y = oPartie.oTerrain.aListeMurs[i][0].y;
+			// this.fVitesseY =- this.fVitesseY;
+		// }
+	}
+	
 	if(this.oPosition.x < 0) 
 	{
 		this.oPosition.x = 0;
@@ -39,14 +106,14 @@ Bille.prototype.verifierCollisions = function()
 		this.oPosition.y = 0;
 		this.fVitesseY =- this.fVitesseY;
 	}
-	if(this.oPosition.x > document.documentElement.clientWidth - 20)
+	if(parseInt(this.oPosition.x + this.fVitesseY / 50)+this.iTaille > document.documentElement.clientWidth)
 	{
-		this.oPosition.x = document.documentElement.clientWidth - 20;
+		this.oPosition.x = document.documentElement.clientWidth - this.iTaille;
 		this.fVitesseX =- this.fVitesseX;
 	}
-	if(this.oPosition.y > document.documentElement.clientHeight - 20)
+	if(parseInt(this.oPosition.y + this.fVitesseY / 50)+this.iTaille > document.documentElement.clientHeight)
 	{
-		this.oPosition.y = document.documentElement.clientHeight - 20;
+		this.oPosition.y = document.documentElement.clientHeight - this.iTaille;
 		this.fVitesseY =- this.fVitesseY;
 	}
 };
