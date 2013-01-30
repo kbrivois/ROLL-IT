@@ -3,6 +3,7 @@
 	<head>
 		<title>ROLL IT !</title>
 		<link rel="stylesheet" href="css/style.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<script src="js/cls/Partie.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Bille.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Point.js" type="text/javascript" defer="defer"></script> 
@@ -10,10 +11,16 @@
 		<script src="js/cls/Evenements.js" type="text/javascript" defer="defer"></script> 
 	</head>
 	<body>
-		<div id="sphere"></div>
+		<div id="top">
+			<span id="level">Niveau 0</span>
+			<span id="time-min"></span>
+			:
+			<span id="time-sec"></span>
+		</div>
+		<div id="terrain">
+			<div id="sphere"></div>
+		</div>
 		
-		<script type="text/javascript"
-            data-main="js/app.js"
-            src="js/lib/require.js" defer="defer"></script>
+		<script type="text/javascript" data-main="js/app.js" src="js/lib/require.js" defer="defer"></script>
 	</body>
 </html>
