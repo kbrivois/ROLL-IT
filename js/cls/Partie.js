@@ -6,13 +6,12 @@ function Partie()
 
 	iCompteurImages = 0;
 	iNombresImages = 0;
-	
-	iSec = 0;
-	
+
 	this.oBille = new Bille();
 	this.oTerrain = new Terrain();
-	
 	this.oTerrain.tracer();
+	this.oChrono = new Chrono();
+	this.oChrono.start();
 };
 
 /**
