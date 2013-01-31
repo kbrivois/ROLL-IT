@@ -11,6 +11,7 @@ function Bille()
 	this.fAccelerationX = 0;
 	this.fAccelerationY = 0; 
 	// Taille
+	this.iTaille = 50;
 	this.iTaille = 15;
 	this.oSphereDiv.style.width = this.iTaille;
 	this.oSphereDiv.style.height = this.iTaille;
