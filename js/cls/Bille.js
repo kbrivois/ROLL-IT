@@ -11,7 +11,9 @@ function Bille()
 	this.fAccelerationX = 0;
 	this.fAccelerationY = 0; 
 	// Taille
-	this.iTaille = 50;
+	this.iTaille = 15;
+	this.oSphereDiv.style.width = this.iTaille;
+	this.oSphereDiv.style.height = this.iTaille;
 };
 
 // Vérification des collisions
@@ -19,8 +21,8 @@ Bille.prototype.rouler = function()
 {
 	this.fVitesseY = this.fVitesseY - this.fAccelerationY;
 	this.fVitesseX = this.fVitesseX + this.fAccelerationX;
-	this.fVitesseY = this.fVitesseY * 0.98;
-	this.fVitesseX = this.fVitesseX * 0.98;
+	this.fVitesseY = this.fVitesseY * 0.96;
+	this.fVitesseX = this.fVitesseX * 0.96;
 	this.oPosition.y = parseInt(this.oPosition.y + this.fVitesseY / 50);
 	this.oPosition.x = parseInt(this.oPosition.x + this.fVitesseX / 50);
 	this.verifierCollisions();
@@ -40,8 +42,8 @@ Bille.prototype.verifierCollisions = function(){
 			if(this.oPosition.y >= oPartie.oTerrain.aListeMurs[i][0].y
 			&& this.oPosition.x >= Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x) 
 			&& this.oPosition.x <= Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)){
-				// si au prochain déplacement de la bille on s'aperçoit qu'elle a traversé le mur
-				if( this.oPosition.y < oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur ){
+				// si on s'aperçoit qu'elle a traversé le mur
+				if(this.oPosition.y + (this.fVitesseY/50) < oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur ){
 					this.oPosition.y = oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.iTailleMur;
 					this.fVitesseY =- this.fVitesseY;
 				}
@@ -50,12 +52,23 @@ Bille.prototype.verifierCollisions = function(){
 			if(this.oPosition.y <= oPartie.oTerrain.aListeMurs[i][0].y
 			&& this.oPosition.x >= Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x) 
 			&& this.oPosition.x <= Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)){
-				// si au prochain déplacement de la bille on s'aperçoit qu'elle a traversé le mur
-				if( this.oPosition.y + this.iTaille > oPartie.oTerrain.aListeMurs[i][0].y){
-					this.oPosition.y = oPartie.oTerrain.aListeMurs[i][0].y - this.iTaille;
+				// si on s'aperçoit qu'elle a traversé le mur
+				if(this.oPosition.y + this.iTaille + (this.fVitesseY/50) > oPartie.oTerrain.aListeMurs[i][0].y){
+					this.oPosition.y = oPartie.oTerrain.aListeMurs[i][0].y - this.iTaille + 1;
 					this.fVitesseY =- this.fVitesseY;
 				}
 			}
+			
+			// si la bille est à gauche du mur
+			// if(this.oPosition.y <= oPartie.oTerrain.aListeMurs[i][0].y
+			// && this.oPosition.x >= Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x) 
+			// && this.oPosition.x <= Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)){
+				// // si on s'aperçoit qu'elle a traversé le mur
+				// if( this.oPosition.y + this.iTaille > oPartie.oTerrain.aListeMurs[i][0].y){
+					// this.oPosition.y = oPartie.oTerrain.aListeMurs[i][0].y - this.iTaille;
+					// this.fVitesseY =- this.fVitesseY;
+				// }
+			// }
 		}
 		
 		// // mur vertical
@@ -76,24 +89,22 @@ Bille.prototype.verifierCollisions = function(){
 		// }
 	}
 	
-	if(this.oPosition.x < 0) 
-	{
+	if(this.oPosition.x + this.fVitesseX/50 < 0) {
 		this.oPosition.x = 0;
 		this.fVitesseX =- this.fVitesseX;
 	}
-	if(this.oPosition.y < 0) 
-	{
+	if(this.oPosition.y + this.fVitesseY/50 < 0) {
 		this.oPosition.y = 0;
 		this.fVitesseY =- this.fVitesseY;
 	}
-	if(parseInt(this.oPosition.x + this.fVitesseY / 50)+this.iTaille > document.documentElement.clientWidth)
-	{
-		this.oPosition.x = document.documentElement.clientWidth - this.iTaille;
+	// bord droit
+	if(this.oPosition.x + this.iTaille + this.fVitesseX/50 > oPartie.oTerrain.iTerrainWidth){
+		this.oPosition.x = oPartie.oTerrain.iTerrainWidth - this.iTaille + 1;
 		this.fVitesseX =- this.fVitesseX;
 	}
-	if(parseInt(this.oPosition.y + this.fVitesseY / 50)+this.iTaille > document.documentElement.clientHeight)
-	{
-		this.oPosition.y = document.documentElement.clientHeight - this.iTaille;
+	// bord bas
+	if(this.oPosition.y + this.iTaille + this.fVitesseY/50 > oPartie.oTerrain.iTerrainHeight){
+		this.oPosition.y = oPartie.oTerrain.iTerrainHeight - this.iTaille + 1;
 		this.fVitesseY =- this.fVitesseY;
 	}
 };
