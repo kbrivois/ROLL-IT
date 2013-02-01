@@ -10,6 +10,7 @@ body {
 	padding: 0 10px;
 	height: 20px;
 	font-size: 12px;
+	line-height: 20px;
 }
 #top span#level {
 	margin-right: 15px;
