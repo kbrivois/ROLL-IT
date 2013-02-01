@@ -11,7 +11,6 @@ function Bille()
 	this.fAccelerationX = 0;
 	this.fAccelerationY = 0; 
 	// Taille
-	this.iTaille = 50;
 	this.iTaille = 15;
 	this.oSphereDiv.style.width = this.iTaille;
 	this.oSphereDiv.style.height = this.iTaille;
@@ -24,8 +23,8 @@ Bille.prototype.rouler = function()
 	this.fVitesseX = this.fVitesseX + this.fAccelerationX;
 	this.fVitesseY = this.fVitesseY * 0.96;
 	this.fVitesseX = this.fVitesseX * 0.96;
-	this.oPosition.y = parseInt(this.oPosition.y + this.fVitesseY / 50);
-	this.oPosition.x = parseInt(this.oPosition.x + this.fVitesseX / 50);
+	this.oPosition.y = this.oPosition.y + this.fVitesseY / 50;
+	this.oPosition.x = this.oPosition.x + this.fVitesseX / 50;
 	this.verifierCollisions();
 	this.oSphereDiv.style.top = this.oPosition.y + "px";
 	this.oSphereDiv.style.left = this.oPosition.x + "px";
@@ -90,22 +89,22 @@ Bille.prototype.verifierCollisions = function(){
 		// }
 	}
 	
-	if(this.oPosition.x + this.fVitesseX/50 < 0) {
+	if(this.oPosition.x < 0){
 		this.oPosition.x = 0;
 		this.fVitesseX =- this.fVitesseX;
 	}
-	if(this.oPosition.y + this.fVitesseY/50 < 0) {
+	if(this.oPosition.y < 0){
 		this.oPosition.y = 0;
 		this.fVitesseY =- this.fVitesseY;
 	}
 	// bord droit
-	if(this.oPosition.x + this.iTaille + this.fVitesseX/50 > oPartie.oTerrain.iTerrainWidth){
-		this.oPosition.x = oPartie.oTerrain.iTerrainWidth - this.iTaille + 1;
-		this.fVitesseX =- this.fVitesseX;
+	if(this.oPosition.x + this.iTaille > oPartie.oTerrain.iTerrainWidth){
+		this.oPosition.x = oPartie.oTerrain.iTerrainWidth - this.iTaille;
+		this.fVitesseX =- this.fVitesseX;		
 	}
 	// bord bas
-	if(this.oPosition.y + this.iTaille + this.fVitesseY/50 > oPartie.oTerrain.iTerrainHeight){
-		this.oPosition.y = oPartie.oTerrain.iTerrainHeight - this.iTaille + 1;
+	if(this.oPosition.y + this.iTaille > oPartie.oTerrain.iTerrainHeight){
+		this.oPosition.y = oPartie.oTerrain.iTerrainHeight - this.iTaille;
 		this.fVitesseY =- this.fVitesseY;
 	}
 };
