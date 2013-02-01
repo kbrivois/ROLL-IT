@@ -10,13 +10,27 @@ body {
 	padding: 0 10px;
 	height: 20px;
 	font-size: 12px;
+	background: rgba(182, 200, 220, 0.8);
 	line-height: 20px;
 }
+
 #top span#level {
-	margin-right: 15px;
+	width: 25%;
+	float: left;
 }
+#time {
+	width: 50%;
+	margin: auto;
+	float: left;
+	text-align: center;
+}
+#menu {
+	width: 25%;
+	float: right;
+	text-align: right;
+}
+
 #terrain {
-	border: 1px red dashed;
 	overflow: hidden;
 	margin: 0 auto;
 	position: relative;
