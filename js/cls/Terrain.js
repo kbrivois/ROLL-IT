@@ -1,6 +1,6 @@
 function Terrain()  
 {  
-	this.iTerrainWidth = document.documentElement.clientWidth - 22;
+	this.iTerrainWidth = document.documentElement.clientWidth - 2;
 	this.iTerrainHeight = document.documentElement.clientHeight - 22;
 	this.oTerrainDiv = document.getElementById("terrain");
 	this.oTerrainDiv.style.width = this.iTerrainWidth + "px";	
