@@ -8,10 +8,9 @@ function Terrain()
 	
 	this.aListeMurs = new Array();
 	
-	this.aListeMurs.push(new Array(new Point(100,0), new Point(100,100))); // premier mur
-	this.aListeMurs.push(new Array(new Point(0,200), new Point(80,200))); // 2eme mur
-	
-	this.iTailleMur = 10;
+	// Liste des murs (point1, point2, largeur)
+	this.aListeMurs.push(new Array(new Point(100,50), new Point(100,150), 30)); // mur vertical
+	this.aListeMurs.push(new Array(new Point(100,200), new Point(200,200), 50)); // mur horizontal
 };
 
 // Méthode de reset
@@ -22,21 +21,21 @@ Terrain.prototype.tracer = function()
 		var oMur = document.createElement("div");
 		oMur.className = "mur";
 		oMur.style.position = "absolute";
-		oMur.style.left = this.aListeMurs[i][0].x+"px";
-		oMur.style.top = this.aListeMurs[i][0].y+"px";
+		oMur.style.left = (Math.min(this.aListeMurs[i][0].x,this.aListeMurs[i][1].x))+"px";
+		oMur.style.top = (Math.min(this.aListeMurs[i][0].y,this.aListeMurs[i][1].y))+"px";
 		
 		// mur horizontal
 		if(this.aListeMurs[i][0].y == this.aListeMurs[i][1].y)
 		{
-			oMur.style.width = this.aListeMurs[i][1].x+"px";
-			oMur.style.height = this.iTailleMur+"px";
+			oMur.style.width = Math.max(this.aListeMurs[i][0].x,this.aListeMurs[i][1].x) - Math.min(this.aListeMurs[i][0].x,this.aListeMurs[i][1].x)+"px";
+			oMur.style.height = this.aListeMurs[i][2]+"px";
 		}
 		
 		// mur vertical
 		if(this.aListeMurs[i][0].x == this.aListeMurs[i][1].x)
 		{
-			oMur.style.width = this.iTailleMur+"px";
-			oMur.style.height = this.aListeMurs[i][1].y+"px";
+			oMur.style.width = this.aListeMurs[i][2]+"px";
+			oMur.style.height = Math.max(this.aListeMurs[i][0].y,this.aListeMurs[i][1].y) - Math.min(this.aListeMurs[i][0].y,this.aListeMurs[i][1].y) +"px";
 		}
 		
 		oMur.style.backgroundColor = "black";
