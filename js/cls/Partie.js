@@ -21,7 +21,12 @@ function Partie()
 **/
 Partie.prototype.lancer = function()
 {
-	this.oBille.rouler();
+	if(this.oBille.bTombeDansTrou){
+		this.oBille.tomber();
+	}
+	else{
+		this.oBille.rouler();
+	}
 };
 
 /**

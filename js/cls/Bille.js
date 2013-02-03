@@ -15,9 +15,11 @@ function Bille()
 	this.iTaille = 15;
 	this.oSphereDiv.style.width = this.iTaille;
 	this.oSphereDiv.style.height = this.iTaille;
+	// Variable à true quand la balle tombe dans un trou
+	this.bTombeDansTrou = false;
 };
 
-// Vérification des collisions
+// On fait rouler la bille
 Bille.prototype.rouler = function()
 {
 	this.fCoefficientVitesse = 0.96;
@@ -32,6 +34,30 @@ Bille.prototype.rouler = function()
 	this.verifierCollisions();
 	this.oSphereDiv.style.top = this.oPosition.y + "px";
 	this.oSphereDiv.style.left = this.oPosition.x + "px";
+};
+
+// La bille tombe dans un trou, on la fait disparaitre
+Bille.prototype.tomber = function()
+{
+	if(this.iTaille > 0){
+		var fPas = 0.3;
+		this.oPosition.y += fPas/2;
+		this.oPosition.x += fPas/2;
+		this.oSphereDiv.style.top = this.oPosition.y + "px";
+		this.oSphereDiv.style.left = this.oPosition.x + "px";
+		this.iTaille -= fPas;
+		this.oSphereDiv.style.height = this.iTaille+"px";
+		this.oSphereDiv.style.width = this.iTaille+"px";
+	}
+	else{
+		this.bTombeDansTrou = false;
+		this.iTaille = 15;
+		this.oPosition = new Point(0,0);
+		this.oSphereDiv.style.top = this.oPosition.y + "px";
+		this.oSphereDiv.style.left = this.oPosition.x + "px";
+		this.oSphereDiv.style.height = this.iTaille+"px";
+		this.oSphereDiv.style.width = this.iTaille+"px";
+	}
 };
 
 // Vérification des collisions
@@ -148,6 +174,21 @@ Bille.prototype.verifierCollisions = function(){
 					this.fVitesseX =- this.fVitesseX;
 				}
 			}
+		}
+	}
+	
+	/****** Les trous ******/
+	var oPointMilieuSphere = new Point(this.oPosition.x + this.iTaille/2, this.oPosition.y + this.iTaille/2);
+	
+	for(var i=0; i<oPartie.oTerrain.aListeTrous.length; i++){
+		
+		var oPointMilieuTrou = new Point(oPartie.oTerrain.aListeTrous[i].x + oPartie.oTerrain.iTailleTrous/2, 
+										 oPartie.oTerrain.aListeTrous[i].y + oPartie.oTerrain.iTailleTrous/2);
+		
+		if(distance(this.oPosition, oPartie.oTerrain.aListeTrous[i]) < oPartie.oTerrain.iTailleTrous/2){
+			this.oPosition.x = oPartie.oTerrain.aListeTrous[i].x + 1; // +1 car border trou = 1px
+			this.oPosition.y = oPartie.oTerrain.aListeTrous[i].y + 1;
+			this.bTombeDansTrou = true;
 		}
 	}
 };

@@ -40,8 +40,6 @@ body {
 	z-index: 99;
 	width: 15px;
 	height: 15px;
-	background-image: url(../img/ball-15.png);
-	background-repeat: no-repeat;
 }
 
 #win {
