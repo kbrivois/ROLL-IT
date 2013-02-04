@@ -33,6 +33,12 @@ var initPartie = function()
 		}
 	}
 	
+	// Evénement pour mettre en pause la partie
+	document.getElementById("top-pause").addEventListener("click", pausePartie, false);
+	
+	// Evénement pour reprendre la partie, une fois en pause
+	document.getElementById("button-resume").addEventListener("click", resumePartie, false);
+	
 	mainPartie();
 }
 
