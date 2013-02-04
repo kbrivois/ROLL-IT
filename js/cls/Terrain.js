@@ -2,6 +2,7 @@ function Terrain()
 {  
 	this.iTerrainWidth = document.documentElement.clientWidth - 2;
 	this.iTerrainHeight = document.documentElement.clientHeight - 22;
+	alert("Largeur : "+this.iTerrainWidth+"\n"+"Hauteur : "+this.iTerrainHeight);
 	this.oTerrainDiv = document.getElementById("terrain");
 	this.oTerrainDiv.style.width = this.iTerrainWidth + "px";	
 	this.oTerrainDiv.style.height = this.iTerrainHeight + "px";	
@@ -15,18 +16,25 @@ function Terrain()
 	this.aListeTrous = new Array();
 	
 	// Liste des trous
-	this.aListeTrous.push(new Point(30,30)); // 1er trou
-	this.aListeTrous.push(new Point(50,30)); // 1er trou
-	this.aListeTrous.push(new Point(70,30)); // 1er trou
-	this.aListeTrous.push(new Point(90,30)); // 1er trou
-	this.aListeTrous.push(new Point(110,30)); // 1er trou
-	this.aListeTrous.push(new Point(130,30)); // 1er trou
-	this.aListeTrous.push(new Point(150,30)); // 1er trou
-	this.aListeTrous.push(new Point(170,30)); // 1er trou
-	this.aListeTrous.push(new Point(190,30)); // 1er trou
-	this.aListeTrous.push(new Point(210,30)); // 1er trou
-	this.aListeTrous.push(new Point(230,30)); // 1er trou
+	// this.aListeTrous.push(new Point(30,30)); // 1er trou
+	// this.aListeTrous.push(new Point(50,30)); 
+	// this.aListeTrous.push(new Point(70,30)); 
+	// this.aListeTrous.push(new Point(90,30)); 
+	// this.aListeTrous.push(new Point(110,30)); 
+	// this.aListeTrous.push(new Point(130,30)); 
+	// this.aListeTrous.push(new Point(150,30)); 
+	// this.aListeTrous.push(new Point(170,30)); 
+	// this.aListeTrous.push(new Point(190,30)); 
+	// this.aListeTrous.push(new Point(210,30)); 
+	// this.aListeTrous.push(new Point(230,30)); 
 	this.iTailleTrous = 15;
+	
+	this.aListeTrappes = new Array();
+	
+	// Liste des trappes
+	this.aListeTrappes.push(new Point(30,100)); // 1ere trappe
+	this.iTailleTrappes = 15;
+	
 };
 
 // Méthode de reset
@@ -76,6 +84,23 @@ Terrain.prototype.tracer = function()
 		oTrou.style.MozBorderRadius = '1em'; // mozilla
 		oTrou.style.border = "1px solid black";
 		this.oTerrainDiv.appendChild(oTrou);
+	}
+	
+	// trappes
+	for(var i=0; i<this.aListeTrappes.length; i++)
+	{
+		var oTrappe = document.createElement("div");
+		oTrappe.className = "trappe";
+		oTrappe.style.position = "absolute";
+		oTrappe.style.left = this.aListeTrappes[i].x + "px";
+		oTrappe.style.top = this.aListeTrappes[i].y + "px";
+		
+		oTrappe.style.width = this.iTailleTrappes + "px";
+		oTrappe.style.height = this.iTailleTrappes + "px";
+		
+		oTrappe.style.backgroundColor = "rgb(150,150,150)";
+		oTrappe.style.border = "1px solid black";
+		this.oTerrainDiv.appendChild(oTrappe);
 	}
 };
 

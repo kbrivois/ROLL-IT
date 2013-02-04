@@ -48,8 +48,7 @@ Bille.prototype.tomber = function()
 		this.iTaille -= fPas;
 		this.oSphereDiv.style.height = this.iTaille+"px";
 		this.oSphereDiv.style.width = this.iTaille+"px";
-	}
-	else{
+	}else{
 		this.bTombeDansTrou = false;
 		this.iTaille = 15;
 		this.oPosition = new Point(0,0);
@@ -100,7 +99,7 @@ Bille.prototype.verifierCollisions = function(){
 				}
 			}
 			// si la bille est en dessous du mur
-			else if(this.oPositionPrecedente.y >= oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.aListeMurs[i][2]
+			if(this.oPositionPrecedente.y >= oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.aListeMurs[i][2]
 			&& this.oPositionPrecedente.x + this.iTaille >= Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)
 			&& this.oPositionPrecedente.x <= Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)){
 				// si on s'aperçoit qu'elle a traversé le mur
@@ -110,7 +109,7 @@ Bille.prototype.verifierCollisions = function(){
 				}
 			}
 			// si la bille est à gauche du mur
-			else if(this.oPositionPrecedente.x + this.iTaille <= Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)
+			if(this.oPositionPrecedente.x + this.iTaille <= Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)
 			&& this.oPositionPrecedente.y + this.iTaille >= oPartie.oTerrain.aListeMurs[i][0].y
 			&& this.oPositionPrecedente.y <= oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.aListeMurs[i][2]){
 				// si on s'aperçoit qu'elle a traversé le mur
@@ -120,7 +119,7 @@ Bille.prototype.verifierCollisions = function(){
 				}
 			}
 			// si la bille est à droite du mur
-			else if(this.oPositionPrecedente.x >= Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)
+			if(this.oPositionPrecedente.x >= Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)
 			&& this.oPositionPrecedente.y + this.iTaille >= oPartie.oTerrain.aListeMurs[i][0].y
 			&& this.oPositionPrecedente.y <= oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.aListeMurs[i][2]){
 				// si on s'aperçoit qu'elle a traversé le mur
@@ -129,10 +128,27 @@ Bille.prototype.verifierCollisions = function(){
 					this.fVitesseX =- this.fVitesseX;
 				}
 			}
+			
+			// // si la bille entre par le coin d'un mur
+			// if(this.oPosition.x > Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)
+			// && this.oPosition.x < Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)
+			// && this.oPosition.y + this.iTaille > oPartie.oTerrain.aListeMurs[i][0].y
+			// && this.oPosition.y < oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.aListeMurs[i][2]){
+			
+				// alert("Place = "+sPosition+"\n"+
+					  // "Position Précedente = ("+this.oPositionPrecedente.x+", "+this.oPositionPrecedente.y+")\n"+
+					  // "Position Actuelle = ("+this.oPosition.x+", "+this.oPosition.y+")\n"+
+					  // "Bord Gauche = ("+Math.min(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)+")\n"+
+					  // "Bord Droit = ("+Math.max(oPartie.oTerrain.aListeMurs[i][0].x, oPartie.oTerrain.aListeMurs[i][1].x)+")\n"+
+					  // "Bord Haut = ("+oPartie.oTerrain.aListeMurs[i][0].y+")\n"+
+					  // "Bord Bas = ("+(oPartie.oTerrain.aListeMurs[i][0].y + oPartie.oTerrain.aListeMurs[i][2])+")"
+					  // );
+			// }
+			
 		}
 		
 		// mur vertical
-		else if(oPartie.oTerrain.aListeMurs[i][0].x == oPartie.oTerrain.aListeMurs[i][1].x){
+		if(oPartie.oTerrain.aListeMurs[i][0].x == oPartie.oTerrain.aListeMurs[i][1].x){
 			
 			// si la bille était au-dessus du mur
 			if(this.oPositionPrecedente.y + this.iTaille <= Math.min(oPartie.oTerrain.aListeMurs[i][0].y, oPartie.oTerrain.aListeMurs[i][1].y)
@@ -145,7 +161,7 @@ Bille.prototype.verifierCollisions = function(){
 				}
 			}
 			// si la bille est en dessous du mur
-			else if(this.oPositionPrecedente.y >= Math.max(oPartie.oTerrain.aListeMurs[i][0].y, oPartie.oTerrain.aListeMurs[i][1].y)
+			if(this.oPositionPrecedente.y >= Math.max(oPartie.oTerrain.aListeMurs[i][0].y, oPartie.oTerrain.aListeMurs[i][1].y)
 			&& this.oPositionPrecedente.x + this.iTaille >= oPartie.oTerrain.aListeMurs[i][0].x
 			&& this.oPositionPrecedente.x <= oPartie.oTerrain.aListeMurs[i][0].x + oPartie.oTerrain.aListeMurs[i][2]){
 				// si on s'aperçoit qu'elle a traversé le mur
@@ -155,7 +171,7 @@ Bille.prototype.verifierCollisions = function(){
 				}
 			}
 			// si la bille est à gauche du mur
-			else if(this.oPositionPrecedente.x + this.iTaille <= oPartie.oTerrain.aListeMurs[i][0].x
+			if(this.oPositionPrecedente.x + this.iTaille <= oPartie.oTerrain.aListeMurs[i][0].x
 			&& this.oPositionPrecedente.y + this.iTaille >= Math.min(oPartie.oTerrain.aListeMurs[i][0].y, oPartie.oTerrain.aListeMurs[i][1].y)
 			&& this.oPositionPrecedente.y <= Math.max(oPartie.oTerrain.aListeMurs[i][0].y, oPartie.oTerrain.aListeMurs[i][1].y)){
 				// si on s'aperçoit qu'elle a traversé le mur
@@ -165,7 +181,7 @@ Bille.prototype.verifierCollisions = function(){
 				}
 			}
 			// si la bille est à droite du mur
-			else if(this.oPositionPrecedente.x >= oPartie.oTerrain.aListeMurs[i][0].x + oPartie.oTerrain.aListeMurs[i][2]
+			if(this.oPositionPrecedente.x >= oPartie.oTerrain.aListeMurs[i][0].x + oPartie.oTerrain.aListeMurs[i][2]
 			&& this.oPositionPrecedente.y + this.iTaille >= Math.min(oPartie.oTerrain.aListeMurs[i][0].y, oPartie.oTerrain.aListeMurs[i][1].y)
 			&& this.oPositionPrecedente.y <= Math.max(oPartie.oTerrain.aListeMurs[i][0].y, oPartie.oTerrain.aListeMurs[i][1].y)){
 				// si on s'aperçoit qu'elle a traversé le mur

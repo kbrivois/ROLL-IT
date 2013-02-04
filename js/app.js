@@ -9,6 +9,12 @@ var oPartie = null;
 // Compteur d'images
 var iCompteurImages = 0;
 var iNombresImages = 0;
+// Largeur et hauteur qui vont nous servir pour calculer les ratio selon les différentes tailles d'écran
+var iLargeurDeBase = 318;
+var iHauteurDeBase = 329;
+// Les ratios selon la taille de l'écran
+var fRatioLargeur = iLargeurDeBase / document.documentElement.clientWidth - 2;
+var fRatioHauteur = iHauteurDeBase / document.documentElement.clientHeight - 27;
 
 // on initialise la partie
 var initPartie = function() 
@@ -16,10 +22,9 @@ var initPartie = function()
 	oPartie = new Partie();
 	
 	if (window.DeviceOrientationEvent != undefined) {
-	
 		window.addEventListener("deviceorientation", function( event ) {
-			oPartie.oBille.fAccelerationX = event.alpha * 10;
-			oPartie.oBille.fAccelerationY = event.beta * 10;
+			oPartie.oBille.fAccelerationX = event.gamma * -2;
+			oPartie.oBille.fAccelerationY = event.beta * 2;
 		}, false);
 		
 		window.ondevicemotion = function(e){
