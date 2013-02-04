@@ -17,4 +17,7 @@ Chrono.prototype.start = function()
 // Méthode de reset
 Chrono.prototype.reset = function()
 {
+	this.iChronoCs = 0;
+	this.iChronoS = 0;
+	this.iChronoM = 0;
 };

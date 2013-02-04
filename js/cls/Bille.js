@@ -189,6 +189,7 @@ Bille.prototype.verifierCollisions = function(){
 			this.oPosition.x = oPartie.oTerrain.aListeTrous[i].x + 1; // +1 car border trou = 1px
 			this.oPosition.y = oPartie.oTerrain.aListeTrous[i].y + 1;
 			this.bTombeDansTrou = true;
+			oPartie.oChrono.reset();
 		}
 	}
 };
