@@ -2,16 +2,15 @@ function Terrain()
 {  
 	this.iTerrainWidth = document.documentElement.clientWidth - 2;
 	this.iTerrainHeight = document.documentElement.clientHeight - 22;
-	alert("Largeur : "+this.iTerrainWidth+"\n"+"Hauteur : "+this.iTerrainHeight);
 	this.oTerrainDiv = document.getElementById("terrain");
 	this.oTerrainDiv.style.width = this.iTerrainWidth + "px";	
 	this.oTerrainDiv.style.height = this.iTerrainHeight + "px";	
 	
 	this.aListeMurs = new Array();
 	
-	// Liste des murs (point1, point2, largeur)
-	this.aListeMurs.push(new Array(new Point(100,60), new Point(100,160), 30)); // mur vertical
-	this.aListeMurs.push(new Array(new Point(100,200), new Point(200,200), 50)); // mur horizontal
+	// Liste des murs (point1, point2, largeur, repulsion)
+	this.aListeMurs.push(new Array(new Point(100,60), new Point(100,160), 30, false)); // mur vertical
+	this.aListeMurs.push(new Array(new Point(100,200), new Point(200,200), 30, true)); // mur horizontal
 	
 	this.aListeTrous = new Array();
 	
@@ -63,7 +62,12 @@ Terrain.prototype.tracer = function()
 			oMur.style.height = Math.max(this.aListeMurs[i][0].y,this.aListeMurs[i][1].y) - Math.min(this.aListeMurs[i][0].y,this.aListeMurs[i][1].y) +"px";
 		}
 		
-		oMur.style.backgroundColor = "black";
+		// mur qui repousse
+		if(this.aListeMurs[i][3] == true)
+			oMur.style.backgroundColor = "red";
+		else
+			oMur.style.backgroundColor = "black";
+			
 		this.oTerrainDiv.appendChild(oMur);
 	}
 	
