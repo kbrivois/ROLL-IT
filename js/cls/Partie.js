@@ -10,6 +10,7 @@ function Partie()
 	this.oTerrain.tracer();
 	this.oChrono = new Chrono();
 	this.oChrono.start();
+	this.bPause = false;
 };
 /**
 *** ==========================================================================================================================================
