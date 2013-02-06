@@ -45,8 +45,14 @@ var initPartie = function()
 // on lance la partie
 var mainPartie = function() 
 {	
+	now = Date.now();
+	delta = now - then;
+	
 	oPartie.lancer();
 	requestAnimationFrame(mainPartie);
 }
 
+var then = Date.now();
+var now = then;
+var delta = 0;
 initPartie();

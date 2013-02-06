@@ -2,28 +2,37 @@ function Partie()
 {  
 	/*** ================================================================================================================================================
 	déclaration des variables
-	====================================================================================================================================================*/
+	====================================================================================================================================================*/
+
 	iCompteurImages = 0;
-	iNombresImages = 0;
+	iNombresImages = 0;
+
 	this.oBille = new Bille();
 	this.oTerrain = new Terrain();
 	this.oTerrain.tracer();
 	this.oChrono = new Chrono();
 	this.oChrono.start();
-};
+};
+
 /**
 *** ==========================================================================================================================================
 **** on lance la partie
 *** ========================================================================================================================================== 
 **/
-Partie.prototype.lancer = function(){
+Partie.prototype.lancer = function()
+{
+	// on fait tomber la bille ou on la fait rouler selon le contexte
 	if(this.oBille.bTombeDansTrou){
 		this.oBille.tomber();
 	}
 	else{
 		this.oBille.rouler();
 	}
-};
+	
+	// on ouvre ou ferme les trappes
+	this.oTerrain.actionnerTrappes();
+};
+
 /**
 *** ==========================================================================================================================================
 **** on stope la partie
@@ -32,7 +41,8 @@ Partie.prototype.lancer = function(){
 Partie.prototype.pause = function()
 {
 	this.oChrono.reset();
-};
+};
+
 /**
 *** ==========================================================================================================================================
 **** reset de la partie
@@ -40,4 +50,4 @@ Partie.prototype.pause = function()
 **/
 Partie.prototype.reset = function()
 {
-};
+};

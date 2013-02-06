@@ -360,6 +360,22 @@ Bille.prototype.verifierCollisions = function(){
 			oPartie.oChrono.reset();
 		}
 	}
+	
+	/****** Les trappes ******/
+	for(var i=0; i<oPartie.oTerrain.aListeTrappes.length; i++){
+		// si la trappe est ouverte
+		if(oPartie.oTerrain.aListeTrappes[i][2]){
+			if(oPointMilieuSphere.x > oPartie.oTerrain.aListeTrappes[i][0].x 
+			&& oPointMilieuSphere.x < oPartie.oTerrain.aListeTrappes[i][0].x + oPartie.oTerrain.iTailleTrappes
+			&& oPointMilieuSphere.y > oPartie.oTerrain.aListeTrappes[i][0].y
+			&& oPointMilieuSphere.y < oPartie.oTerrain.aListeTrappes[i][0].y + oPartie.oTerrain.iTailleTrappes){
+				this.oPosition.x = oPartie.oTerrain.aListeTrappes[i][0].x + 1; // +1 car border trou = 1px
+				this.oPosition.y = oPartie.oTerrain.aListeTrappes[i][0].y + 1;
+				this.bTombeDansTrou = true;
+				oPartie.oChrono.reset();
+			}
+		}
+	}
 };
 
 // Méthode de reset
