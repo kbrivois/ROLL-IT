@@ -37,7 +37,7 @@ var initPartie = function()
 	document.getElementById("top-pause").addEventListener("click", pausePartie, false);
 	
 	// Evénement pour reprendre la partie, une fois en pause
-	document.getElementById("button-resume").addEventListener("click", resumePartie, false);
+	document.getElementById("button-resume").addEventListener("click", reprendrePartie, false);
 	
 	mainPartie();
 }
@@ -48,7 +48,8 @@ var mainPartie = function()
 	now = Date.now();
 	delta = now - then;
 	
-	oPartie.lancer();
+	if(!oPartie.bPause)
+		oPartie.lancer();
 	requestAnimationFrame(mainPartie);
 }
 
