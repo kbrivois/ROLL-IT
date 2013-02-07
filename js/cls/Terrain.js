@@ -8,22 +8,32 @@ function Terrain()
 	
 	this.aListeMurs = new Array();
 	
-	// Liste des murs (point1, point2, largeur, repulsion, div)
-	this.aListeMurs.push(new Array(new Point(100,60), new Point(100,160), 30, false, "")); // mur vertical
-	this.aListeMurs.push(new Array(new Point(100,200), new Point(200,200), 30, true, "")); // mur horizontal
+	// Liste des murs
+	this.aListeMurs.push({"div":"", 
+					      "position1":new Point(100,60), 
+						  "position2":new Point(100,160), 
+						  "taille":30, 
+						  "repousse":false}); // mur vertical
+	this.aListeMurs.push({"div":"", 
+						  "position1":new Point(100,200), 
+						  "position2":new Point(200,200), 
+						  "taille":30, 
+						  "repousse":true}); // mur horizontal
 	// Force de répulsion des murs qui repoussent
 	this.iForceRepulsion = 700;
 	
-	this.aListeTrous = new Array();
-	
 	// Liste des trous
-	// this.aListeTrous.push(new Array(new Point(30,30), "")); // 1er trou
+	this.aListeTrous = new Array();
+	// this.aListeTrous.push({"div":"", "position":new Point(30,30)}); // 1er trou
 	this.iTailleTrous = 15;
 	
+	// Liste des trappes
 	this.aListeTrappes = new Array();
-	
-	// Liste des trappes (position, temps d'ouverture et de fermeture en ms, ouverte: true / fermée: false)
-	this.aListeTrappes.push(new Array(new Point(30,100), 1000, true, "")); // 1ere trappe
+	this.aListeTrappes.push({"div":"",
+   						     "position":new Point(30,100), 
+						     "temps":1000, 
+						     "ouvert":true, 
+						     "then":Date.now()}); // 1ere trappe
 	this.iTailleTrappes = 15;
 	
 };
@@ -35,26 +45,26 @@ Terrain.prototype.tracer = function()
 	for(var i=0; i<this.aListeMurs.length; i++){
 		var oMur = document.createElement("div");
 		// on ajoute le div dans la liste
-		this.aListeMurs[i][4] = oMur;
+		this.aListeMurs[i]["div"] = oMur;
 		oMur.className = "mur";
 		oMur.style.position = "absolute";
-		oMur.style.left = (Math.min(this.aListeMurs[i][0].x,this.aListeMurs[i][1].x))+"px";
-		oMur.style.top = (Math.min(this.aListeMurs[i][0].y,this.aListeMurs[i][1].y))+"px";
+		oMur.style.left = (Math.min(this.aListeMurs[i]["position1"].x,this.aListeMurs[i]["position2"].x))+"px";
+		oMur.style.top = (Math.min(this.aListeMurs[i]["position1"].y,this.aListeMurs[i]["position2"].y))+"px";
 		
 		// mur horizontal
-		if(this.aListeMurs[i][0].y == this.aListeMurs[i][1].y){
-			oMur.style.width = Math.max(this.aListeMurs[i][0].x,this.aListeMurs[i][1].x) - Math.min(this.aListeMurs[i][0].x,this.aListeMurs[i][1].x)+"px";
-			oMur.style.height = this.aListeMurs[i][2]+"px";
+		if(this.aListeMurs[i]["position1"].y == this.aListeMurs[i]["position2"].y){
+			oMur.style.width = Math.max(this.aListeMurs[i]["position1"].x,this.aListeMurs[i]["position2"].x) - Math.min(this.aListeMurs[i]["position1"].x,this.aListeMurs[i]["position2"].x)+"px";
+			oMur.style.height = this.aListeMurs[i]["taille"]+"px";
 		}
 		
 		// mur vertical
-		if(this.aListeMurs[i][0].x == this.aListeMurs[i][1].x){
-			oMur.style.width = this.aListeMurs[i][2]+"px";
-			oMur.style.height = Math.max(this.aListeMurs[i][0].y,this.aListeMurs[i][1].y) - Math.min(this.aListeMurs[i][0].y,this.aListeMurs[i][1].y) +"px";
+		if(this.aListeMurs[i]["position1"].x == this.aListeMurs[i]["position2"].x){
+			oMur.style.width = this.aListeMurs[i]["taille"]+"px";
+			oMur.style.height = Math.max(this.aListeMurs[i]["position1"].y,this.aListeMurs[i]["position2"].y) - Math.min(this.aListeMurs[i]["position1"].y,this.aListeMurs[i]["position2"].y) +"px";
 		}
 		
 		// mur qui repousse
-		if(this.aListeMurs[i][3] == true)
+		if(this.aListeMurs[i]["repousse"] == true)
 			oMur.style.backgroundColor = "red";
 		else
 			oMur.style.backgroundColor = "black";
@@ -66,11 +76,11 @@ Terrain.prototype.tracer = function()
 	for(var i=0; i<this.aListeTrous.length; i++){
 		var oTrou = document.createElement("div");
 		// on ajoute le div dans la liste
-		this.aListeTrous[i][1] = oTrou;
+		this.aListeTrous[i]["div"] = oTrou;
 		oTrou.className = "trou";
 		oTrou.style.position = "absolute";
-		oTrou.style.left = this.aListeTrous[i].x + "px";
-		oTrou.style.top = this.aListeTrous[i].y + "px";
+		oTrou.style.left = this.aListeTrous[i]["position"].x + "px";
+		oTrou.style.top = this.aListeTrous[i]["position"].y + "px";
 		
 		oTrou.style.width = this.iTailleTrous + "px";
 		oTrou.style.height = this.iTailleTrous + "px";
@@ -86,11 +96,11 @@ Terrain.prototype.tracer = function()
 	for(var i=0; i<this.aListeTrappes.length; i++){
 		var oTrappe = document.createElement("div");
 		// on ajoute le div dans la liste
-		this.aListeTrappes[i][3] = oTrappe;
+		this.aListeTrappes[i]["div"] = oTrappe;
 		oTrappe.className = "trappe";
 		oTrappe.style.position = "absolute";
-		oTrappe.style.left = this.aListeTrappes[i][0].x + "px";
-		oTrappe.style.top = this.aListeTrappes[i][0].y + "px";
+		oTrappe.style.left = this.aListeTrappes[i]["position"].x + "px";
+		oTrappe.style.top = this.aListeTrappes[i]["position"].y + "px";
 		
 		oTrappe.style.width = this.iTailleTrappes + "px";
 		oTrappe.style.height = this.iTailleTrappes + "px";
@@ -107,19 +117,22 @@ Terrain.prototype.actionnerTrappes = function()
 	// si la bille ne tombe pas dans un trou
 	if(!oPartie.oBille.bTombeDansTrou){
 		for(var i=0; i<this.aListeTrappes.length; i++){
-			if(delta > this.aListeTrappes[i][1]){
+			
+			var iDeltaTrappe = Date.now() - this.aListeTrappes[i]["then"];
+			
+			if(iDeltaTrappe > this.aListeTrappes[i]["temps"]){
 				// si la trappe est ouverte
-				if(this.aListeTrappes[i][2]){
-					this.aListeTrappes[i][2] = false;
+				if(this.aListeTrappes[i]["ouvert"]){
+					this.aListeTrappes[i]["ouvert"] = false;
 					// on met la trappe en display none
-					this.aListeTrappes[i][3].style.display = "none";
+					this.aListeTrappes[i]["div"].style.display = "none";
 				}
-				else if(!this.aListeTrappes[i][2]){
-					this.aListeTrappes[i][2] = true;
+				else if(!this.aListeTrappes[i]["ouvert"]){
+					this.aListeTrappes[i]["ouvert"] = true;
 					// on met la trappe en display block
-					this.aListeTrappes[i][3].style.display = "block";
+					this.aListeTrappes[i]["div"].style.display = "block";
 				}
-				then = Date.now();
+				this.aListeTrappes[i]["then"] = Date.now();
 			}
 		}
 	}
