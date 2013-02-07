@@ -39,6 +39,20 @@ var initPartie = function()
 	// Evénement pour reprendre la partie, une fois en pause
 	document.getElementById("button-resume").addEventListener("click", reprendrePartie, false);
 	
+	// Evénement pour lancer une nouvelle partie
+	var oButtonNewLevel = document.getElementsByClassName("button-new-level");
+	for(var i in oButtonNewLevel) {
+		if(oButtonNewLevel[i] instanceof Element)
+			oButtonNewLevel[i].addEventListener("click", nouvellePartie, false); 
+	}
+	
+	// Evénement pour quitter la partie et retourner au menu
+	var oButtonMenu = document.getElementsByClassName("button-menu");
+	for(var i in oButtonMenu) {
+		if(oButtonMenu[i] instanceof Element)
+			oButtonMenu[i].addEventListener("click", quitterPartie, false); 
+	}
+	
 	mainPartie();
 }
 

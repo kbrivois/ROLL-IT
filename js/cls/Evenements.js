@@ -17,6 +17,7 @@ function quitterPartie() {
 	document.getElementById('pause').style.display = 'none';
 	document.getElementById('terrain').style.display = 'none';
 	document.getElementById('top').style.display = 'none';
+	document.getElementById('new-game').style.display = 'none';
 	oPartie.oChrono.pause();
 	oPartie.bPause = true;
 	document.getElementById('hp').style.display = 'block';

@@ -28,8 +28,8 @@ body {
 	width: 25%;
 	float: right;
 	text-align: right;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-
 #terrain {
 	overflow: hidden;
 	margin: 0 auto;
@@ -40,6 +40,45 @@ body {
 	z-index: 99;
 	width: 15px;
 	height: 15px;
+}
+.trou {
+	background: url(../img/trou-34.png);
+}
+
+/* NEW GAME */
+#select-level {
+	width: 100%;
+	height: 58%;
+	z-index: 105;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	text-align: left;
+	margin: 0 0 10px 0;
+}
+#show-level {
+	width: 3000px;
+	height: 100%;
+}
+#show-level div.show-level-item {
+	height: 100%;
+	display: inline-block;
+	text-align: center;
+	margin: 0 10px;
+	padding: 0;
+}
+#show-level div.show-level-item img {
+	height: 80%;
+}
+#show-level div.show-level-text {
+	height: 20%;
+	font-size: 14px;
+	line-height: 14px;
+}
+#show-level div.show-level-text span {
+	display: inline-block;
+}
+#show-level div.show-level-text span.nlevel {
+	font-weight: bold;
 }
 
 /* OVERLAY */
@@ -57,6 +96,7 @@ body {
 	height: 100px;
 	display: block;
 	font-size: 60px;
+	line-height: 100px;
 	color: black;
 	margin: 0;
 	padding: 0;
@@ -87,6 +127,9 @@ body {
 	background-image: url(../img/bt-blue.png);
 	margin: auto;
 	line-height: 31px;	
+}
+#button-new-level {
+	margin-top: 15px;
 }
 #button-resume {
 	margin: 10px auto 15px auto;
