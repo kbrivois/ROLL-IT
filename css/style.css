@@ -44,6 +44,9 @@ body {
 .trou {
 	background: url(../img/trou-34.png);
 }
+#arrivee {
+	background: url(../img/croix.png);
+}
 
 /* NEW GAME */
 #select-level {

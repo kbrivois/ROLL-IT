@@ -115,10 +115,6 @@ Terrain.prototype.tracer = function()
 	
 	// trou de fin, arrivee
 	var oArrivee = document.createElement("div");
-	oArrivee.style.backgroundColor = "rgb(150,150,150)";
-	oArrivee.style.borderRadius = '1em'; // w3c
-	oArrivee.style.MozBorderRadius = '1em'; // mozilla
-	oArrivee.style.border = "1px solid black";
 	oArrivee.id = "arrivee";
 	oArrivee.style.position = "absolute";
 	
