@@ -36,6 +36,9 @@ function Terrain()
 						     "then":Date.now()}); // 1ere trappe
 	this.iTailleTrappes = 15;
 	
+	// Trou de fin
+	this.oPositionArrivee = new Point(35,180); 
+	this.iTailleArrivee = 20;
 };
 
 // Méthode de reset
@@ -109,6 +112,22 @@ Terrain.prototype.tracer = function()
 		oTrappe.style.border = "1px solid black";
 		this.oTerrainDiv.appendChild(oTrappe);
 	}
+	
+	// trou de fin, arrivee
+	var oArrivee = document.createElement("div");
+	oArrivee.style.backgroundColor = "rgb(150,150,150)";
+	oArrivee.style.borderRadius = '1em'; // w3c
+	oArrivee.style.MozBorderRadius = '1em'; // mozilla
+	oArrivee.style.border = "1px solid black";
+	oArrivee.id = "arrivee";
+	oArrivee.style.position = "absolute";
+	
+	oArrivee.style.left = this.oPositionArrivee.x + "px";
+	oArrivee.style.top = this.oPositionArrivee.y + "px";
+	
+	oArrivee.style.width = this.iTailleArrivee + "px";
+	oArrivee.style.height = this.iTailleArrivee + "px";
+	this.oTerrainDiv.appendChild(oArrivee);
 };
 
 // on actionne les trappes toutes les X secondes selon la trappe

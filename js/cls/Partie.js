@@ -13,6 +13,7 @@ function Partie()
 	this.oChrono = new Chrono();
 	this.oChrono.start();
 	this.bPause = false;
+	this.bGagne = false;
 };
 
 /**
@@ -22,11 +23,11 @@ function Partie()
 **/
 Partie.prototype.lancer = function()
 {
-	// on fait tomber la bille ou on la fait rouler selon le contexte
-	if(this.oBille.bTombeDansTrou){
+	if(this.oBille.bTombeDansTrou) {
 		this.oBille.tomber();
-	}
-	else{
+	} else if(this.bGagne) {
+		this.gagner();
+	} else {
 		this.oBille.rouler();
 	}
 	
@@ -42,6 +43,20 @@ Partie.prototype.lancer = function()
 Partie.prototype.pause = function()
 {
 	this.oChrono.reset();
+};
+
+/**
+*** ==========================================================================================================================================
+**** on gagne une partie
+*** ========================================================================================================================================== 
+**/
+Partie.prototype.gagner = function()
+{
+	document.getElementById('win').style.display = 'block';
+	var iGagneSecondes = document.getElementById('time-sec').innerHTML;
+	var iGagneMinutes = document.getElementById('time-min').innerHTML;
+	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
+	document.getElementById('win-time').innerHTML = sTempsGagne;
 };
 
 /**

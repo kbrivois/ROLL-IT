@@ -376,6 +376,18 @@ Bille.prototype.verifierCollisions = function(){
 			}
 		}
 	}
+	
+	/****** Arrivée, trou de fin ******/
+	var oPointMilieuArrivee = new Point(oPartie.oTerrain.oPositionArrivee.x + oPartie.oTerrain.iTailleArrivee/2, 
+										oPartie.oTerrain.oPositionArrivee.y + oPartie.oTerrain.iTailleArrivee/2);
+		
+	if(distance(this.oPosition, oPartie.oTerrain.oPositionArrivee) < oPartie.oTerrain.iTailleArrivee/2){
+		this.oPosition.x = oPartie.oTerrain.oPositionArrivee.x + 1; // +1 car border trou = 1px
+		this.oPosition.y = oPartie.oTerrain.oPositionArrivee.y + 1;
+		oPartie.oChrono.pause();
+		oPartie.bGagne = true;
+	}
+	
 };
 
 // Méthode de reset
