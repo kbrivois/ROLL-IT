@@ -8,10 +8,10 @@ body {
 }
 #top {
 	padding: 0 10px;
-	height: 20px;
-	font-size: 12px;
+	height: 25px;
+	font-size: 13px;
 	background: rgba(182, 200, 220, 0.8);
-	line-height: 20px;
+	line-height: 25px;
 }
 
 #top span#level {
@@ -24,7 +24,7 @@ body {
 	float: left;
 	text-align: center;
 }
-#top-menu {
+#top-pause {
 	width: 25%;
 	float: right;
 	text-align: right;
@@ -52,7 +52,14 @@ body {
 	background: rgba(217, 217, 217, 0.8);
 	text-align: center;
 }
-#win-text{
+#pause {
+	
+}
+.overlay {
+	
+	
+}
+.overlay-title {
 	height: 100px;
 	display: block;
 	font-size: 60px;

@@ -1,7 +1,7 @@
 function Terrain()  
 {  
 	this.iTerrainWidth = document.documentElement.clientWidth - 2;
-	this.iTerrainHeight = document.documentElement.clientHeight - 22;
+	this.iTerrainHeight = document.documentElement.clientHeight - 27;
 	this.oTerrainDiv = document.getElementById("terrain");
 	this.oTerrainDiv.style.width = this.iTerrainWidth + "px";	
 	this.oTerrainDiv.style.height = this.iTerrainHeight + "px";	
@@ -15,6 +15,7 @@ function Terrain()
 	this.aListeTrous = new Array();
 	
 	// Liste des trous
+/*
 	this.aListeTrous.push(new Point(30,30)); // 1er trou
 	this.aListeTrous.push(new Point(50,30)); // 1er trou
 	this.aListeTrous.push(new Point(70,30)); // 1er trou
@@ -26,6 +27,7 @@ function Terrain()
 	this.aListeTrous.push(new Point(190,30)); // 1er trou
 	this.aListeTrous.push(new Point(210,30)); // 1er trou
 	this.aListeTrous.push(new Point(230,30)); // 1er trou
+*/
 	this.iTailleTrous = 15;
 };
 

@@ -15,6 +15,7 @@ var initPartie = function()
 {
 	oPartie = new Partie();
 	
+	// Ajout des événements liés à la partie
 	if (window.DeviceOrientationEvent != undefined) {
 	
 		window.addEventListener("deviceorientation", function( event ) {
@@ -27,6 +28,13 @@ var initPartie = function()
 			oPartie.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
 		}
 	}
+	
+	// Evénement pour mettre en pause la partie
+	document.getElementById("top-pause").addEventListener("click", pausePartie, false);
+	
+	// Evénement pour reprendre la partie
+	document.getElementById("button-resume").addEventListener("click", pausePartie, false);
+	
 	
 	mainPartie();
 }
