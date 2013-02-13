@@ -13,7 +13,7 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Roll-it by kbrivois</title>
+    <title>Roll-it !</title>
   </head>
 
   <body>
@@ -27,34 +27,85 @@
 
     <div id="content-wrapper">
       <div class="inner clearfix">
-        <section id="main-content">
-          <h3>Welcome to GitHub Pages.</h3>
+		<section id="main-content">
+			<h3>Point sur le projet (13-02-2013)</h3>
+		
+			<p>Le projet se dirige tranquillement vers la version 0.2. Les commits sont plus rares en ce moment. En effet, d'autres échéances arrivent à grands pas, notamment le projet R&D. Il est à rendre pour le 24 février. C'est pourquoi les membres du projet mettent les bouchées doubles pour terminer ce travail dans leur groupe respectif.</p>
+			
+			<p>Cependant, le projet ROLL IT! continue d'avancer.</p>
+			
+			<ul>
+				<li>Une nouvelle branche a été créée ; gh-pages. Cette nouvelle branche nous permettra de bénéficier d'un serveur HTTP, grâce aux services de GitHub. Ainsi, le wiki va être dupliqué sur la page d'accueil du serveur et une version de production sera déposée dans le dossier /jeu/ du serveur. L'adresse du serveur est la suivante : <a href="http://kbrivois.github.com/ROLL-IT" title="ROLL-IT">http://kbrivois.github.com/ROLL-IT</a></li>
+				<li>Le mécanisme des menus se perfectionne de commit en commit. Dans l'ensemble, le fonctionnement de ces derniers est maintenant déterminé, reste à implémenter ce mécanisme dans les prochains menus qui n'ont pas encore vu le jour.</li>
+				<li>Une première version de l'icône pour FirefoxOS a été déposée sur le dépôt.</li>
+				<li>Au niveau du code, la déclaration des pièges et obstacles a été modifiée. Dorénavant, un tableau a été mis en place pour chaque élément de la zone de jeu. Nous avons pris cette décision pour plus de lisibilité et de maintenabilité.</li>
+				<li>En ce qui concerne le trou de fin, cette fonctionnalité a été développée et est dorénavant en ligne sur le dépôt.</li>
+			</ul>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+			
+			<h3>Menu (06-02-2013)</h3>
+			
+			<p>Le temps passe et les issues se ferment ! Le projet continue à bien avancer. Une première version du menu du jeu devrait être mise en ligne dans les prochains jours. En ce qui concerne les pièges et les obstacles :</p>
+			
+			<ul>
+				<li>Le développement du fonctionnement des trous est terminé. Pour ce qui est du design de ces derniers, une première version est sur le point d'être validée par l'équipe du projet.</li>
+				<li>Autre piège, le développement des trappes est sur le point d'être achevé, mais le design n'a pas encore commencé.</li>
+				<li>Les murs rebondissants en sont au même point que les trappes.</li>
+				<li>Tandis que pour les shurikens, le design des étoiles de ninja est fait, mais le développement commence tout juste.</li>
+			</ul>
+			
+			<p>Pour rappel :</p>
+			
+			<ul>
+				<li>Piège par excellence pour une bille, le trou est aussi simple que redoutable. Si la bille tombe dedans, le joueur recommence le niveau.</li>
+				<li>Les trappes sont similaires aux trous, à l'exception près qu'elles apparaissent et disparaissent à intervalle régulier à une position fixe.</li>
+				<li>Les shurikens, les célèbres étoiles de ninja, traverseront la zone de jeu de manière linéaire. Si par malheur un shuriken frappe la bille, le joueur doit recommencer le niveau.</li>
+				<li>Obstacles imprévisibles, les murs rebondissants seront sans nul doute les ennemis les plus redoutables. Si la bille heurte un mur rebondissant, elle est alors repoussée dans le sens inverse.</li>
+			</ul>
+			
+			<p>La structure du fichier où seront stockés les niveaux se dessine petit à petit. La pause en cours de partie est désormais complètement fonctionnelle.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+			<p>Ci-dessous un lien pour un aperçu du menu pour choisir le niveau du jeu. A noter qu'il faut se déplacer en scrollant horizontalement dans la liste pour parcourir la totalité des niveaux disponibles.<br /><a href="http://www.aymeric-auberton.fr/projets/dll/blog/screen-test-13-02-06.png" target="_blank">Aperçu du menu</a>
+			</p>
+			
+			
+			<h3>Normes (04-02-2013)</h3>
+			
+			<p>Pour le bon déroulement du projet, nous nous sommes fixés quelques règles et normes pour coder. Ainsi, nous appliquons pour nos variables le principe de lowerCamelCase. Nos variables JavaScript sont également typées grâce à la première lettre. Par exemple, pour une variable integer : var iVariable = 12;</p>		
+			
+			<p>En ce qui concerne les commits, nous avons décidé de respecter la norme suivante :</p>
+			
+			<ul>
+				<li>[+] Une nouvelle fonctionnalité</li>
+				<li>[*] Une amélioration</li>
+				<li>[-] Un bug résolu</li>
+				<li>[~] Une fonctionnalité enlevée</li>
+			</ul>
+			
+			
+			<h3>Win overlay (02-02-2013)</h3>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+			<p>Le projet avance. La version 0.1 finale est terminée et nous travaillons sur la prochaine version du jeu. Le système de collisions est sur le point d'être finalisé. Nous commençons à travailler sur le système de pièges et de trappes.</p>
 
-<h3>Designer Templates</h3>
+			<p>Étant donné que nous testons principalement sur des iPhones 3GS et donc Safari mobile, nous avons été surpris quand nous avons testé avec Firefox sur Android. Cette version du navigateur a un comportement similaire à celle présente sous FirefoxOS. Malheureusement, l'API Device Motion n'est pas supportée. C'est fort contraignant car elle marche très bien sur les versions mobiles de Safari. De ce fait, nous nous sommes attardés à gérer la compatibilité. Nous utiliserons donc en absence de l'API Device Motion, l'API Device Orientation. Elles sont similaires mais ne renvoient pas exactement les mêmes valeurs.</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+			<p>Côté interface, le style du menu est terminé. Ci-après un lien pour un aperçu de l'écran de fin d'un niveau.<br /><a href="http://www.aymeric-auberton.fr/projets/dll/blog/screen-test-13-02-06.png" target="_blank">Style des menus</a></p>
+    
+			
+			<h3>Test de l'interface (30-01-2013)</h3>
+			
+			<p>La version 0.1 finale n'est pas encore sortie, mais nous travaillons parallèlement déjà sur la 0.2. En ce qui concerne la version 0.1 finale, elle devrait sortir comme prévu initialement, pour le 4 février.</p>
 
-<h3>Rather Drive Stick?</h3>
+			<p><a href="https://github.com/kbrivois">@kbrivois</a> travaille sur le problème de rebond sur le bord inférieur et sur le bord droit. La détection des collisions sera son gros chantier pour la 0.2. Déjà mis en place par ses soins sur le projet Spacelash, c'est tout naturellement qu'il prend le lead sur le développement de cette fonctionnalité.</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+			<p><a href="https://github.com/pmarine">@PMarine</a> a attaqué le développement d'une fonctionnalité indispensable du jeu prévue pour la 0.2, à savoir les menus. La sélection du niveau se fera en scroll horizontal dans un div. Un aperçu visuel des niveaux et leurs numéros permettront de les identifier.</p>
 
-<h3>Authors and Contributors</h3>
+			<p><a href="https://github.com/aaymeric">@AAymeric</a> a déjà mis en place une première version du chronomètre du jeu. La version finale de cette fonctionnalité sera présente dans la 0.2. La boule du jeu, élément graphique incontournable et centrale, en est à sa première version.</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+			<p>Pour tester, le jeu il faut impérativement avoir un smartphone supportant l'API Device Motion. Chaque personne du projet possède un iPhone 3GS. Les tests initiaux sont donc effectués sur ce type de smartphone.</p>
 
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
+			<p>Nous avons créé un environnement de test dédié pour chaque membre du projet sur un de nos serveurs webs. Ainsi, chacun peut effectuer ses propres tests, indépendamment des autres.</p>
+		</section>
 
         <aside id="sidebar">
           <a href="https://github.com/kbrivois/ROLL-IT/zipball/master" class="button">
@@ -66,7 +117,7 @@ $ git checkout gh-pages
             .tar.gz file
           </a>
 
-          <p class="repo-owner"><a href="https://github.com/kbrivois/ROLL-IT"></a> is maintained by <a href="https://github.com/kbrivois">kbrivois</a>.</p>
+          <p class="repo-owner"><a href="https://github.com/kbrivois/ROLL-IT"></a> is maintained by <a href="https://github.com/kbrivois">@kbrivois</a>, <a href="https://github.com/pmarine">@PMarine</a> and <a href="https://github.com/aaymeric">@AAymeric</a>.</p>
 
           <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
