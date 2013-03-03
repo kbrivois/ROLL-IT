@@ -39,307 +39,179 @@ Bille.prototype.rouler = function()
 // La bille tombe dans un trou, on la fait disparaitre
 Bille.prototype.tomber = function()
 {
+	var oSphereStyle = this.oSphereDiv.style;
+
 	if(this.iTaille > 0){
 		var fPas = 0.3;
+		this.iTaille -= fPas;
 		this.oPosition.y += fPas/2;
 		this.oPosition.x += fPas/2;
-		this.oSphereDiv.style.top = this.oPosition.y + "px";
-		this.oSphereDiv.style.left = this.oPosition.x + "px";
-		this.iTaille -= fPas;
-		this.oSphereDiv.style.height = this.iTaille+"px";
-		this.oSphereDiv.style.width = this.iTaille+"px";
+		oSphereStyle.top = this.oPosition.y + "px";
+		oSphereStyle.left = this.oPosition.x + "px";
+		oSphereStyle.height = this.iTaille+"px";
+		oSphereStyle.width = this.iTaille+"px";
 	}else{
 		this.bTombeDansTrou = false;
 		this.iTaille = 15;
 		this.oPosition = new Point(0,0);
-		this.oSphereDiv.style.top = this.oPosition.y + "px";
-		this.oSphereDiv.style.left = this.oPosition.x + "px";
-		this.oSphereDiv.style.height = this.iTaille+"px";
-		this.oSphereDiv.style.width = this.iTaille+"px";
+		oSphereStyle.top = this.oPosition.y + "px";
+		oSphereStyle.left = this.oPosition.x + "px";
+		oSphereStyle.height = this.iTaille+"px";
+		oSphereStyle.width = this.iTaille+"px";
 	}
 };
 
 // Vérification des collisions
 Bille.prototype.verifierCollisions = function(){
 
-	/****** Les bords ******/
+	/****** Les bords du terrain ******/
+	// bord gauche
 	if(this.oPosition.x < 0){
 		this.oPosition.x = 0;
 		this.fVitesseX =- this.fVitesseX;
 	}
+	// bord haut
 	if(this.oPosition.y < 0){
 		this.oPosition.y = 0;
 		this.fVitesseY =- this.fVitesseY;
 	}
 	// bord droit
-	if(this.oPosition.x + this.iTaille > oPartie.oTerrain.iTerrainWidth){
-		this.oPosition.x = oPartie.oTerrain.iTerrainWidth - this.iTaille;
+	if(this.oPosition.x + this.iTaille > oPartie.oTerrain.iLargeur){
+		this.oPosition.x = oPartie.oTerrain.iLargeur - this.iTaille;
 		this.fVitesseX =- this.fVitesseX;		
 	}
 	// bord bas
-	if(this.oPosition.y + this.iTaille > oPartie.oTerrain.iTerrainHeight){
-		this.oPosition.y = oPartie.oTerrain.iTerrainHeight - this.iTaille;
+	if(this.oPosition.y + this.iTaille > oPartie.oTerrain.iHauteur){
+		this.oPosition.y = oPartie.oTerrain.iHauteur - this.iTaille;
 		this.fVitesseY =- this.fVitesseY;
 	}
 
 	/****** Les murs ******/
 	for(var i=0; i<oPartie.oTerrain.aListeMurs.length; i++){
 
-		///////////////// mur horizontal
-		if(oPartie.oTerrain.aListeMurs[i]["position1"].y == oPartie.oTerrain.aListeMurs[i]["position2"].y){
-			
-			// si la bille était au-dessus du mur
-			if(this.oPositionPrecedente.y + this.iTaille <= oPartie.oTerrain.aListeMurs[i]["position1"].y
-			&& this.oPositionPrecedente.x + this.iTaille >= Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x) 
-			&& this.oPositionPrecedente.x <= Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)){
-				// si on s'aperçoit qu'elle a traversé le mur
-				if(this.oPosition.y + this.iTaille > oPartie.oTerrain.aListeMurs[i]["position1"].y){
-					this.oPosition.y = oPartie.oTerrain.aListeMurs[i]["position1"].y - this.iTaille;				
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true)
-						this.fVitesseY =- oPartie.oTerrain.iForceRepulsion;
-					else
-						this.fVitesseY =- this.fVitesseY;
-				}
+		var oMur = oPartie.oTerrain.aListeMurs[i];
+	
+		// si la bille était au-dessus du mur
+		if(this.oPositionPrecedente.y + this.iTaille <= oMur.oPosition.y
+		&& this.oPositionPrecedente.x + this.iTaille >= oMur.oPosition.x
+		&& this.oPositionPrecedente.x <= oMur.oPosition.x + oMur.iLargeur){
+			// si on s'aperçoit qu'elle a traversé le mur
+			if(this.oPosition.y + this.iTaille > oMur.oPosition.y){
+				this.oPosition.y = oMur.oPosition.y - this.iTaille;				
+				// si mur qui repousse
+				if(oMur.bRepousse)
+					this.fVitesseY =- oMur.iForceRepulsion;
+				else
+					this.fVitesseY =- this.fVitesseY;
 			}
-			// si la bille est en dessous du mur
-			if(this.oPositionPrecedente.y >= oPartie.oTerrain.aListeMurs[i]["position1"].y + oPartie.oTerrain.aListeMurs[i]["taille"]
-			&& this.oPositionPrecedente.x + this.iTaille >= Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)
-			&& this.oPositionPrecedente.x <= Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)){
-				// si on s'aperçoit qu'elle a traversé le mur
-				if(this.oPosition.y < oPartie.oTerrain.aListeMurs[i]["position1"].y + oPartie.oTerrain.aListeMurs[i]["taille"] ){
-					this.oPosition.y = oPartie.oTerrain.aListeMurs[i]["position1"].y + oPartie.oTerrain.aListeMurs[i]["taille"];			
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true)
-						this.fVitesseY = oPartie.oTerrain.iForceRepulsion;
-					else
-						this.fVitesseY =- this.fVitesseY;
-				}
+		}
+		// si la bille est en dessous du mur
+		if(this.oPositionPrecedente.y >= oMur.oPosition.y + oMur.iHauteur
+		&& this.oPositionPrecedente.x + this.iTaille >= oMur.oPosition.x
+		&& this.oPositionPrecedente.x <= oMur.oPosition.x + oMur.iLargeur){
+			// si on s'aperçoit qu'elle a traversé le mur
+			if(this.oPosition.y < oMur.oPosition.y + oMur.iHauteur){
+				this.oPosition.y = oMur.oPosition.y + oMur.iHauteur;			
+				// si mur qui repousse
+				if(oMur.bRepousse)
+					this.fVitesseY = oMur.iForceRepulsion;
+				else
+					this.fVitesseY =- this.fVitesseY;
 			}
-			// si la bille est à gauche du mur
-			if(this.oPositionPrecedente.x + this.iTaille <= Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)
-			&& this.oPositionPrecedente.y + this.iTaille >= oPartie.oTerrain.aListeMurs[i]["position1"].y
-			&& this.oPositionPrecedente.y <= oPartie.oTerrain.aListeMurs[i]["position1"].y + oPartie.oTerrain.aListeMurs[i]["taille"]){
-				// si on s'aperçoit qu'elle a traversé le mur
-				if(this.oPosition.x  + this.iTaille > Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)){
-					this.oPosition.x = Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x) - this.iTaille;
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true)
-						this.fVitesseX =- oPartie.oTerrain.iForceRepulsion;
-					else
-						this.fVitesseX =- this.fVitesseX;
-				}
+		}
+		// si la bille est à gauche du mur
+		if(this.oPositionPrecedente.x + this.iTaille <= oMur.oPosition.x
+		&& this.oPositionPrecedente.y + this.iTaille >= oMur.oPosition.y
+		&& this.oPositionPrecedente.y <= oMur.oPosition.y + oMur.iHauteur){
+			// si on s'aperçoit qu'elle a traversé le mur
+			if(this.oPosition.x  + this.iTaille > oMur.oPosition.x){
+				this.oPosition.x = oMur.oPosition.x - this.iTaille;
+				// si mur qui repousse
+				if(oMur.bRepousse)
+					this.fVitesseX =- oMur.iForceRepulsion;
+				else
+					this.fVitesseX =- this.fVitesseX;
 			}
-			// si la bille est à droite du mur
-			if(this.oPositionPrecedente.x >= Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)
-			&& this.oPositionPrecedente.y + this.iTaille >= oPartie.oTerrain.aListeMurs[i]["position1"].y
-			&& this.oPositionPrecedente.y <= oPartie.oTerrain.aListeMurs[i]["position1"].y + oPartie.oTerrain.aListeMurs[i]["taille"]){
-				// si on s'aperçoit qu'elle a traversé le mur
-				if(this.oPosition.x < Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)){
-					this.oPosition.x = Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x);
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true)
-						this.fVitesseX = oPartie.oTerrain.iForceRepulsion;
-					else
-						this.fVitesseX =- this.fVitesseX;
-				}
+		}
+		// si la bille est à droite du mur
+		if(this.oPositionPrecedente.x >= oMur.oPosition.x + oMur.iLargeur
+		&& this.oPositionPrecedente.y + this.iTaille >= oMur.oPosition.y
+		&& this.oPositionPrecedente.y <= oMur.oPosition.y + oMur.iHauteur){
+			// si on s'aperçoit qu'elle a traversé le mur
+			if(this.oPosition.x < oMur.oPosition.x + oMur.iLargeur){
+				this.oPosition.x = oMur.oPosition.x + oMur.iLargeur;
+				// si mur qui repousse
+				if(oMur.bRepousse)
+					this.fVitesseX = oMur.iForceRepulsion;
+				else
+					this.fVitesseX =- this.fVitesseX;
 			}
-			
-			// si la bille entre par l'angle d'un mur
-			if(this.oPosition.x + this.iTaille > Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)
-			&& this.oPosition.x < Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)
-			&& this.oPosition.y + this.iTaille > oPartie.oTerrain.aListeMurs[i]["position1"].y
-			&& this.oPosition.y < oPartie.oTerrain.aListeMurs[i]["position1"].y + oPartie.oTerrain.aListeMurs[i]["taille"]){
-			
-				// Dans l'angle en haut à gauche du mur
-				if(this.oPositionPrecedente.y + this.iTaille <= oPartie.oTerrain.aListeMurs[i]["position1"].y 
-				&& this.oPositionPrecedente.x + this.iTaille <= Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)) {
-					this.oPosition.x = Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x) - this.iTaille;
-					this.oPosition.y = oPartie.oTerrain.aListeMurs[i]["position1"].y - this.iTaille;	
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true){
-						this.fVitesseX =- oPartie.oTerrain.iForceRepulsion;
-						this.fVitesseY =- oPartie.oTerrain.iForceRepulsion;
-					}
-					else{
-						this.fVitesseX =- this.fVitesseX;
-						this.fVitesseY =- this.fVitesseY;
-					}
-				}
-				// Dans l'angle en haut à droite du mur
-				if(this.oPositionPrecedente.y + this.iTaille <= oPartie.oTerrain.aListeMurs[i]["position1"].y 
-				&& this.oPositionPrecedente.x >= Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x)) {
-					this.oPosition.x = Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x);
-					this.oPosition.y = oPartie.oTerrain.aListeMurs[i]["position1"].y - this.iTaille;
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true){
-						this.fVitesseX = oPartie.oTerrain.iForceRepulsion;
-						this.fVitesseY =- oPartie.oTerrain.iForceRepulsion;
-					}
-					else{
-						this.fVitesseX =- this.fVitesseX;
-						this.fVitesseY =- this.fVitesseY;
-					}
-				}
-				// Dans l'angle en bas à gauche du mur
-				if(this.oPositionPrecedente.y >= oPartie.oTerrain.aListeMurs[i]["position1"].y + oPartie.oTerrain.aListeMurs[i]["taille"]
-				&& this.oPositionPrecedente.x + this.iTaille <= oPartie.oTerrain.aListeMurs[i]["position1"].x) {
-					this.oPosition.x = Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x) - this.iTaille;
-					this.oPosition.y = oPartie.oTerrain.aListeMurs[i]["position1"].y + oPartie.oTerrain.aListeMurs[i]["taille"];
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true){
-						this.fVitesseX =- oPartie.oTerrain.iForceRepulsion;
-						this.fVitesseY = oPartie.oTerrain.iForceRepulsion;
-					}
-					else{
-						this.fVitesseX =- this.fVitesseX;
-						this.fVitesseY =- this.fVitesseY;
-					}
-				}
-				// Dans l'angle en bas à droite du mur
-				if(this.oPositionPrecedente.y >= oPartie.oTerrain.aListeMurs[i]["position1"].y + oPartie.oTerrain.aListeMurs[i]["taille"]
-				&& this.oPositionPrecedente.x >= oPartie.oTerrain.aListeMurs[i]["position1"].x) {
-					this.oPosition.x = Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].x, oPartie.oTerrain.aListeMurs[i]["position2"].x) - this.iTaille;
-					this.oPosition.y = oPartie.oTerrain.aListeMurs[i]["position1"].y + oPartie.oTerrain.aListeMurs[i]["taille"];
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true){
-						this.fVitesseX = oPartie.oTerrain.iForceRepulsion;
-						this.fVitesseY = oPartie.oTerrain.iForceRepulsion;
-					}
-					else{
-						this.fVitesseX =- this.fVitesseX;
-						this.fVitesseY =- this.fVitesseY;
-					}
-				}
-			}
-			
 		}
 		
-		///////////////// mur vertical
-		if(oPartie.oTerrain.aListeMurs[i]["position1"].x == oPartie.oTerrain.aListeMurs[i]["position2"].x){
-			
-			// si la bille était au-dessus du mur
-			if(this.oPositionPrecedente.y + this.iTaille <= Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)
-			&& this.oPositionPrecedente.x + this.iTaille >= oPartie.oTerrain.aListeMurs[i]["position1"].x
-			&& this.oPositionPrecedente.x <= oPartie.oTerrain.aListeMurs[i]["position1"].x + oPartie.oTerrain.aListeMurs[i]["taille"]){
-				// si on s'aperçoit qu'elle a traversé le mur
-				if(this.oPosition.y + this.iTaille > Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)){
-					this.oPosition.y = Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y) - this.iTaille;
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true)
-						this.fVitesseY =- oPartie.oTerrain.iForceRepulsion;
-					else
-						this.fVitesseY =- this.fVitesseY;
+		// si la bille entre par l'angle d'un mur
+		if(this.oPosition.x + this.iTaille > oMur.oPosition.x
+		&& this.oPosition.x < oMur.oPosition.x + oMur.iLargeur
+		&& this.oPosition.y + this.iTaille > oMur.oPosition.y
+		&& this.oPosition.y < oMur.oPosition.y + oMur.iHauteur){
+		
+			// Dans l'angle en haut à gauche du mur
+			if(this.oPositionPrecedente.y + this.iTaille <= oMur.oPosition.y
+			&& this.oPositionPrecedente.x + this.iTaille <= oMur.oPosition.x) {
+				this.oPosition.x = oMur.oPosition.x - this.iTaille;
+				this.oPosition.y = oMur.oPosition.y - this.iTaille;	
+				// si mur qui repousse
+				if(oMur.bRepousse){
+					this.fVitesseX =- oMur.iForceRepulsion;
+					this.fVitesseY =- oMur.iForceRepulsion;
+				}
+				else{
+					this.fVitesseX =- this.fVitesseX;
+					this.fVitesseY =- this.fVitesseY;
 				}
 			}
-			// si la bille est en dessous du mur
-			if(this.oPositionPrecedente.y >= Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)
-			&& this.oPositionPrecedente.x + this.iTaille >= oPartie.oTerrain.aListeMurs[i]["position1"].x
-			&& this.oPositionPrecedente.x <= oPartie.oTerrain.aListeMurs[i]["position1"].x + oPartie.oTerrain.aListeMurs[i]["taille"]){
-				// si on s'aperçoit qu'elle a traversé le mur
-				if(this.oPosition.y < Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)){
-					this.oPosition.y = Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y);
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true)
-						this.fVitesseY = oPartie.oTerrain.iForceRepulsion;
-					else
-						this.fVitesseY =- this.fVitesseY;
+			// Dans l'angle en haut à droite du mur
+			if(this.oPositionPrecedente.y + this.iTaille <= oMur.oPosition.y
+			&& this.oPositionPrecedente.x >= oMur.oPosition.x + oMur.iLargeur) {
+				this.oPosition.x = oMur.oPosition.x + oMur.iLargeur;
+				this.oPosition.y = oMur.oPosition.y - this.iTaille;
+				// si mur qui repousse
+				if(oMur.bRepousse){
+					this.fVitesseX = oMur.iForceRepulsion;
+					this.fVitesseY =- oMur.iForceRepulsion;
+				}
+				else{
+					this.fVitesseX =- this.fVitesseX;
+					this.fVitesseY =- this.fVitesseY;
 				}
 			}
-			// si la bille est à gauche du mur
-			if(this.oPositionPrecedente.x + this.iTaille <= oPartie.oTerrain.aListeMurs[i]["position1"].x
-			&& this.oPositionPrecedente.y + this.iTaille >= Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)
-			&& this.oPositionPrecedente.y <= Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)){
-				// si on s'aperçoit qu'elle a traversé le mur
-				if(this.oPosition.x  + this.iTaille > oPartie.oTerrain.aListeMurs[i]["position1"].x){
-					this.oPosition.x = oPartie.oTerrain.aListeMurs[i]["position1"].x - this.iTaille;
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true)
-						this.fVitesseX =- oPartie.oTerrain.iForceRepulsion;
-					else
-						this.fVitesseX =- this.fVitesseX;
+			// Dans l'angle en bas à gauche du mur
+			if(this.oPositionPrecedente.y >= oMur.oPosition.y + oMur.iHauteur
+			&& this.oPositionPrecedente.x + this.iTaille <= oMur.oPosition.x) {
+				this.oPosition.x = oMur.oPosition.x - this.iTaille;
+				this.oPosition.y = oMur.oPosition.y + oMur.iHauteur;
+				// si mur qui repousse
+				if(oMur.bRepousse){
+					this.fVitesseX =- oMur.iForceRepulsion;
+					this.fVitesseY = oMur.iForceRepulsion;
+				}
+				else{
+					this.fVitesseX =- this.fVitesseX;
+					this.fVitesseY =- this.fVitesseY;
 				}
 			}
-			// si la bille est à droite du mur
-			if(this.oPositionPrecedente.x >= oPartie.oTerrain.aListeMurs[i]["position1"].x + oPartie.oTerrain.aListeMurs[i]["taille"]
-			&& this.oPositionPrecedente.y + this.iTaille >= Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)
-			&& this.oPositionPrecedente.y <= Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)){
-				// si on s'aperçoit qu'elle a traversé le mur
-				if(this.oPosition.x < oPartie.oTerrain.aListeMurs[i]["position1"].x + oPartie.oTerrain.aListeMurs[i]["taille"]){
-					this.oPosition.x = oPartie.oTerrain.aListeMurs[i]["position1"].x + oPartie.oTerrain.aListeMurs[i]["taille"];
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true)
-						this.fVitesseX = oPartie.oTerrain.iForceRepulsion;
-					else
-						this.fVitesseX =- this.fVitesseX;
+			// Dans l'angle en bas à droite du mur
+			if(this.oPositionPrecedente.y >= oMur.oPosition.y + oMur.iHauteur
+			&& this.oPositionPrecedente.x >= oMur.oPosition.x + oMur.iLargeur) {
+				this.oPosition.x = oMur.oPosition.x + oMur.iLargeur;
+				this.oPosition.y = oMur.oPosition.y + oMur.iHauteur;
+				// si mur qui repousse
+				if(oMur.bRepousse){
+					this.fVitesseX = oMur.iForceRepulsion;
+					this.fVitesseY = oMur.iForceRepulsion;
 				}
-			}
-			
-			// si la bille entre par l'angle d'un mur
-			if(this.oPosition.x + this.iTaille > oPartie.oTerrain.aListeMurs[i]["position1"].x
-			&& this.oPosition.x < oPartie.oTerrain.aListeMurs[i]["position1"].x + oPartie.oTerrain.aListeMurs[i]["taille"]
-			&& this.oPosition.y + this.iTaille > Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)
-			&& this.oPosition.y < Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)){
-				
-				// Dans l'angle en haut à gauche du mur
-				if(this.oPositionPrecedente.y + this.iTaille <= Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)
-				&& this.oPositionPrecedente.x + this.iTaille <= oPartie.oTerrain.aListeMurs[i]["position1"].x) {
-					this.oPosition.x = oPartie.oTerrain.aListeMurs[i]["position1"].x - this.iTaille;
-					this.oPosition.y = Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y) - this.iTaille;
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true){
-						this.fVitesseX =- oPartie.oTerrain.iForceRepulsion;
-						this.fVitesseY =- oPartie.oTerrain.iForceRepulsion;
-					}
-					else{
-						this.fVitesseX =- this.fVitesseX;
-						this.fVitesseY =- this.fVitesseY;
-					}
-				}
-				// Dans l'angle en haut à droite du mur
-				if(this.oPositionPrecedente.y + this.iTaille <= Math.min(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)
-				&& this.oPositionPrecedente.x >= oPartie.oTerrain.aListeMurs[i]["position1"].x + oPartie.oTerrain.aListeMurs[i]["taille"]) {
-					this.oPosition.x = oPartie.oTerrain.aListeMurs[i]["position1"].x + oPartie.oTerrain.aListeMurs[i]["taille"];
-					this.oPosition.y = oPartie.oTerrain.aListeMurs[i]["position1"].y - this.iTaille;
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true){
-						this.fVitesseX = oPartie.oTerrain.iForceRepulsion;
-						this.fVitesseY =- oPartie.oTerrain.iForceRepulsion;
-					}
-					else{
-						this.fVitesseX =- this.fVitesseX;
-						this.fVitesseY =- this.fVitesseY;
-					}
-				}
-				// Dans l'angle en bas à gauche du mur
-				if(this.oPositionPrecedente.y >= Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)
-				&& this.oPositionPrecedente.x + this.iTaille <= oPartie.oTerrain.aListeMurs[i]["position1"].x) {
-					this.oPosition.x = oPartie.oTerrain.aListeMurs[i]["position1"].x - this.iTaille;
-					this.oPosition.y = Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y);
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true){
-						this.fVitesseX =- oPartie.oTerrain.iForceRepulsion;
-						this.fVitesseY = oPartie.oTerrain.iForceRepulsion;
-					}
-					else{
-						this.fVitesseX =- this.fVitesseX;
-						this.fVitesseY =- this.fVitesseY;
-					}
-				}
-				// Dans l'angle en bas à droite du mur
-				if(this.oPositionPrecedente.y >= Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y)
-				&& this.oPositionPrecedente.x >= oPartie.oTerrain.aListeMurs[i]["position1"].x + oPartie.oTerrain.aListeMurs[i]["taille"]) {
-					this.oPosition.x = oPartie.oTerrain.aListeMurs[i]["position1"].x + oPartie.oTerrain.aListeMurs[i]["taille"];
-					this.oPosition.y = Math.max(oPartie.oTerrain.aListeMurs[i]["position1"].y, oPartie.oTerrain.aListeMurs[i]["position2"].y);
-					// si mur qui repousse
-					if(oPartie.oTerrain.aListeMurs[i]["repousse"] == true){
-						this.fVitesseX = oPartie.oTerrain.iForceRepulsion;
-						this.fVitesseY = oPartie.oTerrain.iForceRepulsion;
-					}
-					else{
-						this.fVitesseX =- this.fVitesseX;
-						this.fVitesseY =- this.fVitesseY;
-					}
+				else{
+					this.fVitesseX =- this.fVitesseX;
+					this.fVitesseY =- this.fVitesseY;
 				}
 			}
 		}
@@ -353,9 +225,9 @@ Bille.prototype.verifierCollisions = function(){
 		var oPointMilieuTrou = new Point(oPartie.oTerrain.aListeTrous[i]["position"].x + oPartie.oTerrain.iTailleTrous/2, 
 										 oPartie.oTerrain.aListeTrous[i]["position"].y + oPartie.oTerrain.iTailleTrous/2);
 		
-		if(distance(this.oPosition, oPartie.oTerrain.aListeTrous[i]) < oPartie.oTerrain.iTailleTrous/2){
-			this.oPosition.x = oPartie.oTerrain.aListeTrous[i]["position"].x + 1; // +1 car border trou = 1px
-			this.oPosition.y = oPartie.oTerrain.aListeTrous[i]["position"].y + 1;
+		if(distance(oPointMilieuSphere, oPointMilieuTrou) < oPartie.oTerrain.iTailleTrous/2){
+			this.oPosition.x = oPartie.oTerrain.aListeTrous[i]["position"].x + oPartie.oTerrain.iTailleTrous/2 - this.iTaille/2; // +1 car border trou = 1px
+			this.oPosition.y = oPartie.oTerrain.aListeTrous[i]["position"].y + oPartie.oTerrain.iTailleTrous/2 - this.iTaille/2;
 			this.bTombeDansTrou = true;
 			oPartie.oChrono.reset();
 		}
@@ -363,14 +235,17 @@ Bille.prototype.verifierCollisions = function(){
 	
 	/****** Les trappes ******/
 	for(var i=0; i<oPartie.oTerrain.aListeTrappes.length; i++){
+		
+		var oTrappe = oPartie.oTerrain.aListeTrappes[i];
+		
 		// si la trappe est ouverte
-		if(oPartie.oTerrain.aListeTrappes[i]["ouvert"]){
-			if(oPointMilieuSphere.x > oPartie.oTerrain.aListeTrappes[i]["position"].x 
-			&& oPointMilieuSphere.x < oPartie.oTerrain.aListeTrappes[i]["position"].x + oPartie.oTerrain.iTailleTrappes
-			&& oPointMilieuSphere.y > oPartie.oTerrain.aListeTrappes[i]["position"].y
-			&& oPointMilieuSphere.y < oPartie.oTerrain.aListeTrappes[i]["position"].y + oPartie.oTerrain.iTailleTrappes){
-				this.oPosition.x = oPartie.oTerrain.aListeTrappes[i]["position"].x + 1; // +1 car border trou = 1px
-				this.oPosition.y = oPartie.oTerrain.aListeTrappes[i]["position"].y + 1;
+		if(oTrappe.bOuvert){
+			if(oPointMilieuSphere.x > oTrappe.oPosition.x 
+			&& oPointMilieuSphere.x < oTrappe.oPosition.x + oTrappe.iTaille
+			&& oPointMilieuSphere.y > oTrappe.oPosition.y
+			&& oPointMilieuSphere.y < oTrappe.oPosition.y + oTrappe.iTaille){
+				this.oPosition.x = oTrappe.oPosition.x + oTrappe.iTaille/2 - this.iTaille/2; // +1 car border trou = 1px
+				this.oPosition.y = oTrappe.oPosition.y + oTrappe.iTaille/2 - this.iTaille/2;
 				this.bTombeDansTrou = true;
 				oPartie.oChrono.reset();
 			}
@@ -380,10 +255,10 @@ Bille.prototype.verifierCollisions = function(){
 	/****** Arrivée, trou de fin ******/
 	var oPointMilieuArrivee = new Point(oPartie.oTerrain.oPositionArrivee.x + oPartie.oTerrain.iTailleArrivee/2, 
 										oPartie.oTerrain.oPositionArrivee.y + oPartie.oTerrain.iTailleArrivee/2);
-		
-	if(distance(this.oPosition, oPartie.oTerrain.oPositionArrivee) < oPartie.oTerrain.iTailleArrivee/2){
-		this.oPosition.x = oPartie.oTerrain.oPositionArrivee.x + 1; // +1 car border trou = 1px
-		this.oPosition.y = oPartie.oTerrain.oPositionArrivee.y + 1;
+										
+	if(distance(oPointMilieuSphere, oPointMilieuArrivee) < oPartie.oTerrain.iTailleArrivee/2){
+		this.oPosition.x = oPartie.oTerrain.oPositionArrivee.x + oPartie.oTerrain.iTailleArrivee/2 - this.iTaille/2; // +1 car border trou = 1px
+		this.oPosition.y = oPartie.oTerrain.oPositionArrivee.y + oPartie.oTerrain.iTailleArrivee/2 - this.iTaille/2;
 		oPartie.oChrono.pause();
 		oPartie.bGagne = true;
 	}
