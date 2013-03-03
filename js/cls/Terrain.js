@@ -19,7 +19,7 @@ function Terrain()
 	
 	// ************************* Liste des trappes
 	this.aListeTrappes = new Array();
-	this.aListeTrappes.push(new Trappe(new Point(30,100), 1000, true));	
+	this.aListeTrappes.push(new Trappe(new Point(30,100), 1500, true));	
 	
 	// ************************* Trou de fin
 	this.oPositionArrivee = new Point(35,180); 
