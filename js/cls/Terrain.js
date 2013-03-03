@@ -14,12 +14,18 @@ function Terrain()
 	
 	// ************************* Liste des trous
 	this.aListeTrous = new Array();
-	this.aListeTrous.push({"div":"", "position":new Point(30,30)}); // 1er trou
+	this.aListeTrous.push({"div":"", "position":new Point(30,80)}); // 1er trou
 	this.iTailleTrous = 17;
 	
 	// ************************* Liste des trappes
 	this.aListeTrappes = new Array();
-	this.aListeTrappes.push(new Trappe(new Point(30,100), 1500, true));	
+	this.aListeTrappes.push(new Trappe(new Point(30,30), 1500, false));	
+	this.aListeTrappes.push(new Trappe(new Point(50,30), 1500, true));	
+	this.aListeTrappes.push(new Trappe(new Point(70,30), 1500, false));	
+	this.aListeTrappes.push(new Trappe(new Point(90,30), 1500, true));	
+	this.aListeTrappes.push(new Trappe(new Point(110,30), 1500, false));	
+	this.aListeTrappes.push(new Trappe(new Point(130,30), 1500, true));	
+	this.aListeTrappes.push(new Trappe(new Point(150,30), 1500, false));	
 	
 	// ************************* Trou de fin
 	this.oPositionArrivee = new Point(35,180); 

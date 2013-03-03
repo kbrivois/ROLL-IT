@@ -2,6 +2,8 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 {  
 	// Element HTML de la trappe
 	this.oDiv = "";
+	// Liste des elements HTML images de la trappe
+	this.aListeImgHTML = new Array();
 	// Position
 	this.oPosition = oPositionTemp;
 	// Temps d'ouverture et de fermeture
@@ -30,7 +32,7 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 // On dessine la trappe
 Trappe.prototype.tracer = function()
 {
-	var oTrappe = document.createElement("img");
+	var oTrappe = document.createElement("div");
 
 	// on ajoute le div dans la liste
 	this.oDiv = oTrappe;
@@ -41,17 +43,32 @@ Trappe.prototype.tracer = function()
 	oTrappe.style.top = this.oPosition.y + "px";
 	oTrappe.style.width = this.iTaille + "px";
 	oTrappe.style.height = this.iTaille + "px";
-	
-	if(this.bOuvert){
-		oTrappe.src = this.aListeImages[this.aListeImages.length-1];
-		this.iImageActuelle = this.aListeImages.length-1;
-	}
-	else{
-		oTrappe.src = this.aListeImages[0];
-		this.iImageActuelle = 0;
-	}
 
 	document.getElementById("terrain").appendChild(oTrappe);
+
+	for(var i=0; i<this.aListeImages.length; i++){
+		
+		var oImgTrappe = document.createElement("img");
+		
+		// on ajoute le div dans la liste
+		oImgTrappe.className = "img-trappe";
+		
+		if(this.bOuvert && i == this.aListeImages.length-1){
+			oImgTrappe.src = this.aListeImages[this.aListeImages.length-1];
+			this.iImageActuelle = this.aListeImages.length-1;
+		}
+		else if(!this.bOuvert && i == 0){
+			oImgTrappe.src = this.aListeImages[0];
+			this.iImageActuelle = 0;
+		}
+		else{
+			oImgTrappe.src = this.aListeImages[i];
+			oImgTrappe.style.display = "none";
+		}
+
+		this.oDiv.appendChild(oImgTrappe);
+		this.aListeImgHTML.push(oImgTrappe);
+	}
 }
 
 // Méthode qui ouvre ou ferme les trappes
@@ -63,12 +80,16 @@ Trappe.prototype.actionner = function()
 		// si la trappe est ouverte
 		if(this.bOuvert){
 			this.bOuvert = false;
+			// on fait disparaitre l'image "ouverte" de la trappe
+			this.aListeImgHTML[this.iImageActuelle].style.display = "none";
 			// on change l'image de la trappe
 			this.iImageActuelle--;
 		}
 		// si elle est fermée
 		else{
 			this.bOuvert = true;
+			// on fait disparaitre l'image "fermée" de la trappe
+			this.aListeImgHTML[this.iImageActuelle].style.display = "none";
 			// on change l'image de la trappe
 			this.iImageActuelle++;
 		}
@@ -85,13 +106,15 @@ Trappe.prototype.actionner = function()
 		if(iDeltaImage > this.iTempsImages){
 			// si la trappe doit se refermer
 			if(!this.bOuvert){
+				this.aListeImgHTML[this.iImageActuelle].style.display = "none";
 				this.iImageActuelle--;
 			}
 			else{
+				this.aListeImgHTML[this.iImageActuelle].style.display = "none";
 				this.iImageActuelle++;
 			}
 			
-			this.oDiv.src = this.aListeImages[this.iImageActuelle];
+			this.aListeImgHTML[this.iImageActuelle].style.display = "block";
 			this.iThenImages = Date.now();
 		}
 	}
