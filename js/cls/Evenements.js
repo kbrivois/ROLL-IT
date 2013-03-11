@@ -36,11 +36,27 @@ function nouvellePartie() {
 	document.getElementById('new-game').style.display = 'block';
 }
 
+// Détecte le click pour accéder au menu des langues
+function menuLangues() {
+	for(var i in oPage) {
+		if(oPage[i] instanceof Element)
+			oPage[i].style.display = 'none';
+	}
+	document.getElementById('languages').style.display = 'block';
+}
+
 // Détecte le click pour changer la langue
 function changerLangue() {
 	var isolangue = this.id;
 	var oDivLangue = document.getElementsByClassName("txt-langue");
-
+	var oDivDrapeaux = document.getElementsByClassName("iso-langue");
+	
+	for(var j in oDivDrapeaux) {
+		if(oDivDrapeaux[j] instanceof Element)
+			oDivDrapeaux[j].style.opacity = 0.6;
+	}
+	this.style.opacity = 1;
+	
 	for(var i in oDivLangue) {
 		if(oDivLangue[i] instanceof Element) {
 			var selecteurHTML = oDivLangue[i].getAttribute("data-lang");

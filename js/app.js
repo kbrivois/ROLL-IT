@@ -47,6 +47,9 @@ var initPartie = function()
 	// Evénement pour reprendre la partie, une fois en pause
 	document.getElementById("button-resume").addEventListener("click", reprendrePartie, false);
 	
+	// Evénement pour accéder au menu des langues
+	document.getElementById("button-languages").addEventListener("click", menuLangues, false);
+	
 	// Evénement pour lancer une nouvelle partie
 	var oButtonNewLevel = document.getElementsByClassName("button-new-level");
 	for(var i in oButtonNewLevel) {

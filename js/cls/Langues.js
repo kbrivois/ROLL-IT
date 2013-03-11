@@ -52,5 +52,11 @@ var dataLangue = {
 						"uk": "Resume",
 						"es": "Reanudar",
 						"pt": "Retomar"
+					},
+					"languages": {
+						"fr": "Langues",
+						"uk": "Languages",
+						"es": "Idiomas",
+						"pt": "Idiomas"
 					}
 				};
