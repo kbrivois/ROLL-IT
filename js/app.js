@@ -62,12 +62,25 @@ var mainPartie = function()
 	now = Date.now();
 	delta = now - then;
 	
-	if(!oPartie.bPause)
-		oPartie.lancer();
+	var progression =  (new Date().getTime()) - tempsGlobal;
+	iCompteurFrames += progression;
+	
+	if(iCompteurFrames > 30){
+		if(!oPartie.bPause)
+			oPartie.lancer();
+		
+		iCompteurFrames -= 30;
+	}
+	
+	tempsGlobal = new Date().getTime();
 	requestAnimationFrame(mainPartie);
 }
 
 var then = Date.now();
 var now = then;
 var delta = 0;
+
+var tempsGlobal = new Date().getTime();
+var iCompteurFrames = 0;
+
 initPartie();

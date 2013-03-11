@@ -9,17 +9,21 @@ function Terrain()
 	this.aListeMurs = new Array();
 	
 	// ************************* Liste des murs
-	this.aListeMurs.push(new Mur(new Point(100,60), 60, 60, false));
-	this.aListeMurs.push(new Mur(new Point(100,200), 60, 60, true));
+	this.aListeMurs.push(new Mur(new Point(30,0), 10, 100, false));
+	this.aListeMurs.push(new Mur(new Point(30,100), 100, 10, false));
+	this.aListeMurs.push(new Mur(new Point(0,140), 75, 10, false));
+	this.aListeMurs.push(new Mur(new Point(75,140), 27, 10, true));
+	this.aListeMurs.push(new Mur(new Point(102,140), 28, 10, false));
 	
 	// ************************* Liste des trous
 	this.aListeTrous = new Array();
-	this.aListeTrous.push({"div":"", "position":new Point(30,80)}); // 1er trou
+	this.aListeTrous.push({"div":"", "position":new Point(80,110)}); // 1er trou
 	this.iTailleTrous = 17;
 	
 	// ************************* Liste des trappes
 	this.aListeTrappes = new Array();
-	this.aListeTrappes.push(new Trappe(new Point(30,30), 1500, false));	
+	this.aListeTrappes.push(new Trappe(new Point(0,125), 1000, false));	
+	this.aListeTrappes.push(new Trappe(new Point(15,110), 1000, false));	
 	this.aListeTrappes.push(new Trappe(new Point(50,30), 1500, true));	
 	this.aListeTrappes.push(new Trappe(new Point(70,30), 1500, false));	
 	this.aListeTrappes.push(new Trappe(new Point(90,30), 1500, true));	
@@ -27,13 +31,20 @@ function Terrain()
 	this.aListeTrappes.push(new Trappe(new Point(130,30), 1500, true));	
 	this.aListeTrappes.push(new Trappe(new Point(150,30), 1500, false));	
 	
-	// ************************* Trou de fin
-	this.oPositionArrivee = new Point(35,180); 
-	this.iTailleArrivee = 20;
-	
 	// ************************* Liste des diamants
 	this.aListeDiamants = new Array();
 	this.aListeDiamants.push(new Diamant(new Point(30,150)));
+	this.iNbreDiamants = 1;
+	this.iNbreDiamantsAttrapes = 0;
+
+	// ************************* Liste des projectiles
+	this.aListeProjectiles = new Array();
+	//this.aListeProjectiles.push(new GroupeProjectiles(new Projectile(), new Point(0,100), new Point(50,150), 2, 1000));
+	this.aListeProjectiles.push(new GroupeProjectiles(new Projectile(), new Point(0,50), new Point(50,50), 2, 800));
+	
+	// ************************* Trou de fin
+	this.oPositionArrivee = new Point(35,180); 
+	this.iTailleArrivee = 20;
 };
 
 // Méthode de reset
@@ -95,10 +106,19 @@ Terrain.prototype.actionnerMecanismes = function()
 		for(var i=0; i<this.aListeTrappes.length; i++){
 			this.aListeTrappes[i].actionner();
 		}
+		
+		// ===== projectiles ===== //
+		for(var i=0; i<this.aListeProjectiles.length; i++){
+			this.aListeProjectiles[i].lancer();
+		}
 	}
 };
 
 // Méthode de reset
 Terrain.prototype.reset = function()
 {
+	// ===== projectiles ===== //
+	for(var i=0; i<this.aListeProjectiles.length; i++){
+		this.aListeProjectiles[i].reset();
+	}
 };

@@ -93,8 +93,8 @@ Bille.prototype.verifierCollisions = function(){
 	
 		// si la bille était au-dessus du mur
 		if(this.oPositionPrecedente.y + this.iTaille <= oMur.oPosition.y
-		&& this.oPositionPrecedente.x + this.iTaille >= oMur.oPosition.x
-		&& this.oPositionPrecedente.x <= oMur.oPosition.x + oMur.iLargeur){
+		&& this.oPositionPrecedente.x + this.iTaille > oMur.oPosition.x
+		&& this.oPositionPrecedente.x < oMur.oPosition.x + oMur.iLargeur){
 			// si on s'aperçoit qu'elle a traversé le mur
 			if(this.oPosition.y + this.iTaille > oMur.oPosition.y){
 				this.oPosition.y = oMur.oPosition.y - this.iTaille;				
@@ -107,8 +107,8 @@ Bille.prototype.verifierCollisions = function(){
 		}
 		// si la bille est en dessous du mur
 		if(this.oPositionPrecedente.y >= oMur.oPosition.y + oMur.iHauteur
-		&& this.oPositionPrecedente.x + this.iTaille >= oMur.oPosition.x
-		&& this.oPositionPrecedente.x <= oMur.oPosition.x + oMur.iLargeur){
+		&& this.oPositionPrecedente.x + this.iTaille > oMur.oPosition.x
+		&& this.oPositionPrecedente.x < oMur.oPosition.x + oMur.iLargeur){
 			// si on s'aperçoit qu'elle a traversé le mur
 			if(this.oPosition.y < oMur.oPosition.y + oMur.iHauteur){
 				this.oPosition.y = oMur.oPosition.y + oMur.iHauteur;			
@@ -121,8 +121,8 @@ Bille.prototype.verifierCollisions = function(){
 		}
 		// si la bille est à gauche du mur
 		if(this.oPositionPrecedente.x + this.iTaille <= oMur.oPosition.x
-		&& this.oPositionPrecedente.y + this.iTaille >= oMur.oPosition.y
-		&& this.oPositionPrecedente.y <= oMur.oPosition.y + oMur.iHauteur){
+		&& this.oPositionPrecedente.y + this.iTaille > oMur.oPosition.y
+		&& this.oPositionPrecedente.y < oMur.oPosition.y + oMur.iHauteur){
 			// si on s'aperçoit qu'elle a traversé le mur
 			if(this.oPosition.x  + this.iTaille > oMur.oPosition.x){
 				this.oPosition.x = oMur.oPosition.x - this.iTaille;
@@ -135,8 +135,8 @@ Bille.prototype.verifierCollisions = function(){
 		}
 		// si la bille est à droite du mur
 		if(this.oPositionPrecedente.x >= oMur.oPosition.x + oMur.iLargeur
-		&& this.oPositionPrecedente.y + this.iTaille >= oMur.oPosition.y
-		&& this.oPositionPrecedente.y <= oMur.oPosition.y + oMur.iHauteur){
+		&& this.oPositionPrecedente.y + this.iTaille > oMur.oPosition.y
+		&& this.oPositionPrecedente.y < oMur.oPosition.y + oMur.iHauteur){
 			// si on s'aperçoit qu'elle a traversé le mur
 			if(this.oPosition.x < oMur.oPosition.x + oMur.iLargeur){
 				this.oPosition.x = oMur.oPosition.x + oMur.iLargeur;
@@ -217,26 +217,29 @@ Bille.prototype.verifierCollisions = function(){
 		}
 	}
 	
+	var oTerrain = oPartie.oTerrain;
+	
 	/****** Les trous ******/
 	var oPointMilieuSphere = new Point(this.oPosition.x + this.iTaille/2, this.oPosition.y + this.iTaille/2);
 	
-	for(var i=0; i<oPartie.oTerrain.aListeTrous.length; i++){
+	for(var i=0; i<oTerrain.aListeTrous.length; i++){
 		
-		var oPointMilieuTrou = new Point(oPartie.oTerrain.aListeTrous[i]["position"].x + oPartie.oTerrain.iTailleTrous/2, 
-										 oPartie.oTerrain.aListeTrous[i]["position"].y + oPartie.oTerrain.iTailleTrous/2);
+		var oPointMilieuTrou = new Point(oTerrain.aListeTrous[i]["position"].x + oTerrain.iTailleTrous/2, 
+										 oTerrain.aListeTrous[i]["position"].y + oTerrain.iTailleTrous/2);
 		
-		if(distance(oPointMilieuSphere, oPointMilieuTrou) < oPartie.oTerrain.iTailleTrous/2){
-			this.oPosition.x = oPartie.oTerrain.aListeTrous[i]["position"].x + oPartie.oTerrain.iTailleTrous/2 - this.iTaille/2; // +1 car border trou = 1px
-			this.oPosition.y = oPartie.oTerrain.aListeTrous[i]["position"].y + oPartie.oTerrain.iTailleTrous/2 - this.iTaille/2;
+		if(distance(oPointMilieuSphere, oPointMilieuTrou) < oTerrain.iTailleTrous/2){
+			this.oPosition.x = oTerrain.aListeTrous[i]["position"].x + oTerrain.iTailleTrous/2 - this.iTaille/2; // +1 car border trou = 1px
+			this.oPosition.y = oTerrain.aListeTrous[i]["position"].y + oTerrain.iTailleTrous/2 - this.iTaille/2;
 			this.bTombeDansTrou = true;
 			oPartie.oChrono.reset();
+			oTerrain.reset();
 		}
 	}
 	
 	/****** Les trappes ******/
-	for(var i=0; i<oPartie.oTerrain.aListeTrappes.length; i++){
+	for(var i=0; i<oTerrain.aListeTrappes.length; i++){
 		
-		var oTrappe = oPartie.oTerrain.aListeTrappes[i];
+		var oTrappe = oTerrain.aListeTrappes[i];
 		
 		// si la trappe est ouverte
 		if(oTrappe.bOuvert){
@@ -244,25 +247,56 @@ Bille.prototype.verifierCollisions = function(){
 			&& oPointMilieuSphere.x < oTrappe.oPosition.x + oTrappe.iTaille
 			&& oPointMilieuSphere.y > oTrappe.oPosition.y
 			&& oPointMilieuSphere.y < oTrappe.oPosition.y + oTrappe.iTaille){
-				this.oPosition.x = oTrappe.oPosition.x + oTrappe.iTaille/2 - this.iTaille/2; // +1 car border trou = 1px
+				this.oPosition.x = oTrappe.oPosition.x + oTrappe.iTaille/2 - this.iTaille/2;
 				this.oPosition.y = oTrappe.oPosition.y + oTrappe.iTaille/2 - this.iTaille/2;
 				this.bTombeDansTrou = true;
 				oPartie.oChrono.reset();
+				oTerrain.reset();
+			}
+		}
+	}
+	
+	
+	/****** Projectiles ******/
+	// liste des groupes de projectiles
+	for(var i=0; i<oTerrain.aListeProjectiles.length; i++){
+		// liste des projectiles appartenant au groupe i
+		for(var j=0; j<oTerrain.aListeProjectiles[i].aListeProjectiles.length; j++){
+			
+			var oProjectile = oTerrain.aListeProjectiles[i].aListeProjectiles[j];
+			var oPointMilieuProjectile = new Point(	oProjectile.oPosition.x + oProjectile.iTaille/2, 
+													oProjectile.oPosition.y + oProjectile.iTaille/2);
+												
+			if(distance(oPointMilieuSphere, oPointMilieuProjectile) < oProjectile.iTaille/2 + this.iTaille/2){
+				
 			}
 		}
 	}
 	
 	/****** Arrivée, trou de fin ******/
-	var oPointMilieuArrivee = new Point(oPartie.oTerrain.oPositionArrivee.x + oPartie.oTerrain.iTailleArrivee/2, 
-										oPartie.oTerrain.oPositionArrivee.y + oPartie.oTerrain.iTailleArrivee/2);
+	var oPointMilieuArrivee = new Point(oTerrain.oPositionArrivee.x + oTerrain.iTailleArrivee/2, 
+										oTerrain.oPositionArrivee.y + oTerrain.iTailleArrivee/2);
 										
-	if(distance(oPointMilieuSphere, oPointMilieuArrivee) < oPartie.oTerrain.iTailleArrivee/2){
-		this.oPosition.x = oPartie.oTerrain.oPositionArrivee.x + oPartie.oTerrain.iTailleArrivee/2 - this.iTaille/2; // +1 car border trou = 1px
-		this.oPosition.y = oPartie.oTerrain.oPositionArrivee.y + oPartie.oTerrain.iTailleArrivee/2 - this.iTaille/2;
+	if(distance(oPointMilieuSphere, oPointMilieuArrivee) < oTerrain.iTailleArrivee/2){
+		this.oPosition.x = oTerrain.oPositionArrivee.x + oTerrain.iTailleArrivee/2 - this.iTaille/2;
+		this.oPosition.y = oTerrain.oPositionArrivee.y + oTerrain.iTailleArrivee/2 - this.iTaille/2;
 		oPartie.oChrono.pause();
 		oPartie.bGagne = true;
 	}
-	
+
+	/****** Diamants ******/
+	for(var i=0; i<oTerrain.aListeDiamants.length; i++){
+		var oDiamant = oTerrain.aListeDiamants[i];
+		
+		var oPointMilieuDiamants = new Point(oDiamant.oPosition.x + oDiamant.iTaille/2, 
+											 oDiamant.oPosition.y + oDiamant.iTaille/2);
+
+		if(distance(oPointMilieuSphere, oPointMilieuDiamants) < oDiamant.iTaille/2 + this.iTaille/2){
+			// on cache le diamant et on augmente le nombre de diamants attrapés
+			oDiamant.oDiv.style.display = "none";
+			oTerrain.iNbreDiamantsAttrapes++;
+		}
+	}
 };
 
 // Méthode de reset

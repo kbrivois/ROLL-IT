@@ -10,8 +10,9 @@ function Chrono()
 
 Chrono.prototype.start = function()
 {
+	var t = this;
 	this.iChronoInterval = setInterval(function(){
-							  calculChrono();
+							 t.calculChronometre();
 						   },100);
 };
 
@@ -28,4 +29,27 @@ Chrono.prototype.reset = function()
 	this.iChronoCs = 0;
 	this.iChronoS = 0;
 	this.iChronoM = 0;
+};
+
+Chrono.prototype.calculChronometre = function()
+{
+	this.iChronoCs++;
+	if (this.iChronoCs > 9) {
+		this.iChronoCs = 0;
+		this.iChronoS++;
+	}
+	if (this.iChronoS > 59) {
+		this.iChronoS = 0;
+		this.iChronoM++;
+	}
+	
+	if(this.iChronoS < 10)
+		document.getElementById('time-sec').innerHTML = "0" + this.iChronoS;
+	else
+		document.getElementById('time-sec').innerHTML = this.iChronoS;
+		
+	if(this.iChronoM < 10)
+		document.getElementById('time-min').innerHTML = "0" + this.iChronoM;
+	else
+		document.getElementById('time-min').innerHTML = this.iChronoM;
 };

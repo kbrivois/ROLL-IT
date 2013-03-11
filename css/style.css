@@ -14,6 +14,12 @@ body {
 	line-height: 25px;
 }
 
+#fps {
+	position: absolute;
+	font-size: 18px;
+	bottom:30px;
+}
+
 #top span#level {
 	width: 25%;
 	float: left;

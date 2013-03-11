@@ -13,8 +13,8 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	// Then de la trappe afin de savoir quand il faut la fermer ou l'ouvrir
 	this.iThen = Date.now();
 	// Temps entre chaque images
-	this.iTempsImages = 110;
-	// Then des images de la trappes afin de les faires défiler au bon moment
+	this.iTempsImages = 150;
+	// Then des images de la trappes afin de les faire défiler au bon moment
 	this.iThenImages = Date.now();
 	// taille de la trappe
 	this.iTaille = 15;
@@ -49,6 +49,10 @@ Trappe.prototype.tracer = function()
 	for(var i=0; i<this.aListeImages.length; i++){
 		
 		var oImgTrappe = document.createElement("img");
+		oImgTrappe.style.position = "absolute";
+		
+		oImgTrappe.style.width = this.iTaille + "px";
+		oImgTrappe.style.height = this.iTaille + "px";
 		
 		// on ajoute le div dans la liste
 		oImgTrappe.className = "img-trappe";
@@ -95,12 +99,12 @@ Trappe.prototype.actionner = function()
 		}
 		
 		this.oDiv.src = this.aListeImages[this.iImageActuelle];
-		this.iThen = Date.now();
+		this.iThen = Date.now() - (iDeltaTrappe-this.iTempsOF);
 	}
 	
 	// si l'ouverture ou la fermeture ne sont pas terminées
 	if(this.iImageActuelle != this.aListeImages.length-1 && this.iImageActuelle != 0){
-	
+	  
 		var iDeltaImage = Date.now() - this.iThenImages;
 		
 		if(iDeltaImage > this.iTempsImages){
