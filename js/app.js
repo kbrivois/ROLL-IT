@@ -53,6 +53,13 @@ var initPartie = function()
 			oButtonMenu[i].addEventListener("click", quitterPartie, false); 
 	}
 	
+	// Evénement pour changer la langue du jeu
+	var oButtonLangue = document.getElementsByClassName("iso-langue");
+	for(var i in oButtonLangue) {
+		if(oButtonLangue[i] instanceof Element)
+			oButtonLangue[i].addEventListener("click", changerLangue, false); 
+	}
+	
 	mainPartie();
 }
 

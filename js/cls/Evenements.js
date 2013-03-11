@@ -35,3 +35,17 @@ function nouvellePartie() {
 	oPartie.bPause = true;
 	document.getElementById('new-game').style.display = 'block';
 }
+
+
+// Détecte le click pour changer la langue
+function changerLangue() {
+	var isolangue = this.id;
+	var oDivLangue = document.getElementsByClassName("txt-langue");
+
+	for(var i in oDivLangue) {
+		if(oDivLangue[i] instanceof Element) {
+			var selecteurHTML = oDivLangue[i].getAttribute("data-lang");
+			oDivLangue[i].innerHTML = dataLangue[selecteurHTML][isolangue];
+		}
+	}
+}
