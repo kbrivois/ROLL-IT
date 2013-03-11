@@ -21,22 +21,25 @@ var initPartie = function()
 {
 	oPartie = new Partie();
 	
-	if (window.DeviceOrientationEvent != undefined) {
-		// Iphone ou Ipad
-		if (navigator.platform === "iPad" || navigator.platform === "iPhone") {
-			window.ondevicemotion = function(e){
-				oPartie.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
-				oPartie.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
-			}
-		}
-		// autre
-		else{
-			window.addEventListener("deviceorientation", function( event ) {
-				oPartie.oBille.fAccelerationX = event.gamma * -2;
-				oPartie.oBille.fAccelerationY = event.beta * 2;
-			}, false);
-		}
+	// standard API (Firefox, Chrome...)
+	if (window.DeviceMotionEvent) {
+		window.addEventListener("devicemotion", function( event ) {
+			oPartie.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
+			oPartie.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
+		}, false);
+		console.log('device motion');
 	}
+	else if (window.DeviceOrientationEvent) {
+		window.addEventListener("deviceorientation", function( event ) {
+			oPartie.oBille.fAccelerationX = event.gamma * 2;
+			oPartie.oBille.fAccelerationY = event.beta * -2;
+		}, false);
+		console.log('device orientation');
+	}
+	/* unsupported
+	else {
+		alert('unsupported browser');
+	} */
 
 	// Evénement pour mettre en pause la partie
 	document.getElementById("top-pause").addEventListener("click", pausePartie, false);
