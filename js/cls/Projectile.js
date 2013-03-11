@@ -8,6 +8,8 @@ function Projectile()
 	this.aListeImgHTML = new Array();
 	// Then des images afin de les faire défiler au bon moment
 	this.iThenImages = Date.now();
+	// Temps entre chaque images
+	this.iTempsEntreImages = 20;
 	// taille
 	this.iTaille = 15;
 	// image actuelle
@@ -21,7 +23,7 @@ function Projectile()
 									"img/projectiles/6.png");
 };
 
-// On dessine la trappe
+// On dessine le projectile
 Projectile.prototype.tracer = function()
 {
 	var oProjectile = document.createElement("div");
@@ -49,9 +51,9 @@ Projectile.prototype.tracer = function()
 		// on ajoute le div dans la liste
 		oImgProjectile.className = "img-projectile";
 				
-		oImgProjectile.src = this.aListeImages[this.aListeImages.length-1];
+		oImgProjectile.src = this.aListeImages[i];
 		oImgProjectile.style.display = "none";
-		this.iImageActuelle = this.aListeImages.length-1;
+		this.iImageActuelle = i;
 
 		this.oDiv.appendChild(oImgProjectile);
 		this.aListeImgHTML.push(oImgProjectile);
@@ -61,13 +63,17 @@ Projectile.prototype.tracer = function()
 // Méthode qui va rendre visible le projectile
 Projectile.prototype.rendreVisible = function()
 {
-	this.aListeImgHTML[this.aListeImages.length-1].style.display = "block";
+	image = this.aListeImgHTML[this.iImgeActuelle];
+	if (image)
+		image.style.display = "block";
 };
 
 // Méthode qui va cacher le projectile
 Projectile.prototype.cacher = function()
 {
-	this.aListeImgHTML[this.aListeImages.length-1].style.display = "none";
+	image = this.aListeImgHTML[this.iImgeActuelle];
+	if (image)
+		image.style.display = "none";
 };
 
 // Méthode qui retrace le projectile
@@ -75,6 +81,20 @@ Projectile.prototype.deplacer = function()
 {
 	this.oDiv.style.top = this.oPosition.y+"px";
 	this.oDiv.style.left = this.oPosition.x+"px";
+	
+	// on anime le projectile
+	var deltaImage = Date.now() - this.iThenImages;
+	if(deltaImage > this.iTempsEntreImages){
+		
+		this.aListeImgHTML[this.iImageActuelle].style.display = "none";
+		
+		this.iImageActuelle++;
+		if(this.iImageActuelle >= this.aListeImages.length)
+			this.iImageActuelle = 0;
+
+		this.aListeImgHTML[this.iImageActuelle].style.display = "block";
+		this.iThenImages = Date.now();
+	}
 };
 
 // Méthode de reset

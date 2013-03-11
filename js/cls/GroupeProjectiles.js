@@ -4,14 +4,15 @@ function GroupeProjectiles(oProjectileTemp, oPositionDepartTemp, oPositionArrive
 	oProjectileTemp.oPosition.x = oPositionDepartTemp.x;
 	oProjectileTemp.oPosition.y = oPositionDepartTemp.y;
 	oProjectileTemp.tracer();
-	oProjectileTemp.rendreVisible();
 	this.oProjectile = oProjectileTemp;
 	this.aListeProjectiles = new Array();
 	this.aListeProjectiles.push(oProjectileTemp);
 	// Temps entre chaque projectile de la liste
 	this.iTempsEntreProjectiles = iTempsEntreProjectilesTemp;
-	// then
-	this.iThen = Date.now();
+	// Compteur de temps
+	this.iCompteurTemps = 0;
+	// Ecart de temps
+	this.iEcartTemps = 0;
 	// Vitesse
 	this.fVitesse = fVitesseTemp;
 	// Position de départ
@@ -42,17 +43,18 @@ GroupeProjectiles.prototype.calculerDeplacement = function()
 // On lance les projectiles
 GroupeProjectiles.prototype.lancer = function()
 {	
-	var iDeltaProjectile = Date.now() - this.iThen;
+	var iCompteur = this.iCompteurTemps*iCompteurTempsAffichage - this.iEcartTemps;
 	
 	// quand il est temps de lancer un nouveau projectile
-	if(iDeltaProjectile > this.iTempsEntreProjectiles){
+	if(iCompteur > this.iTempsEntreProjectiles){
 		var oProjectile = new Projectile();
 		oProjectile.oPosition.x = this.oPositionDepart.x;
 		oProjectile.oPosition.y = this.oPositionDepart.y;
 		oProjectile.tracer();
 		oProjectile.rendreVisible();
 		this.aListeProjectiles.push(oProjectile);
-		this.iThen = Date.now() + (this.iTempsEntreProjectiles);
+		this.iCompteurTemps = 0;
+		this.iEcartTemps = iCompteur - this.iTempsEntreProjectiles;
 	}
 
 	var aElemA_Supprimer = new Array();

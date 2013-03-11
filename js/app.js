@@ -22,17 +22,22 @@ var initPartie = function()
 	oPartie = new Partie();
 	
 	if (window.DeviceOrientationEvent != undefined) {
-		window.addEventListener("deviceorientation", function( event ) {
-			oPartie.oBille.fAccelerationX = event.gamma * -2;
-			oPartie.oBille.fAccelerationY = event.beta * 2;
-		}, false);
-		
-		window.ondevicemotion = function(e){
-			oPartie.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
-			oPartie.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
+		// Iphone ou Ipad
+		if (navigator.platform === "iPad" || navigator.platform === "iPhone") {
+			window.ondevicemotion = function(e){
+				oPartie.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
+				oPartie.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
+			}
+		}
+		// autre
+		else{
+			window.addEventListener("deviceorientation", function( event ) {
+				oPartie.oBille.fAccelerationX = event.gamma * -2;
+				oPartie.oBille.fAccelerationY = event.beta * 2;
+			}, false);
 		}
 	}
-	
+
 	// Evénement pour mettre en pause la partie
 	document.getElementById("top-pause").addEventListener("click", pausePartie, false);
 	
@@ -53,41 +58,27 @@ var initPartie = function()
 			oButtonMenu[i].addEventListener("click", quitterPartie, false); 
 	}
 	
-	// Evénement pour changer la langue du jeu
-	var oButtonLangue = document.getElementsByClassName("iso-langue");
-	for(var i in oButtonLangue) {
-		if(oButtonLangue[i] instanceof Element)
-			oButtonLangue[i].addEventListener("click", changerLangue, false); 
-	}
-	
 	mainPartie();
 }
 
 // on lance la partie
 var mainPartie = function() 
-{	
-	now = Date.now();
-	delta = now - then;
-	
+{
 	var progression =  (new Date().getTime()) - tempsGlobal;
-	iCompteurFrames += progression;
+	iCompteurTemps += progression;
 	
-	if(iCompteurFrames > 30){
+	if(iCompteurTemps > iCompteurTempsAffichage){
 		if(!oPartie.bPause)
 			oPartie.lancer();
-		
-		iCompteurFrames -= 30;
+		iCompteurTemps -= iCompteurTempsAffichage;
 	}
 	
 	tempsGlobal = new Date().getTime();
 	requestAnimationFrame(mainPartie);
 }
 
-var then = Date.now();
-var now = then;
-var delta = 0;
-
 var tempsGlobal = new Date().getTime();
-var iCompteurFrames = 0;
+var iCompteurTemps = 0;
+var iCompteurTempsAffichage = 30;
 
 initPartie();

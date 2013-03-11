@@ -40,7 +40,7 @@ function Terrain()
 	// ************************* Liste des projectiles
 	this.aListeProjectiles = new Array();
 	//this.aListeProjectiles.push(new GroupeProjectiles(new Projectile(), new Point(0,100), new Point(50,150), 2, 1000));
-	this.aListeProjectiles.push(new GroupeProjectiles(new Projectile(), new Point(0,50), new Point(50,50), 2, 800));
+	this.aListeProjectiles.push(new GroupeProjectiles(new Projectile(), new Point(0,50), new Point(150,50), 2, 800));
 	
 	// ************************* Trou de fin
 	this.oPositionArrivee = new Point(35,180); 
@@ -104,11 +104,13 @@ Terrain.prototype.actionnerMecanismes = function()
 		
 		// ===== trappes ===== //
 		for(var i=0; i<this.aListeTrappes.length; i++){
+			this.aListeTrappes[i].iCompteurTemps++;
 			this.aListeTrappes[i].actionner();
 		}
 		
 		// ===== projectiles ===== //
 		for(var i=0; i<this.aListeProjectiles.length; i++){
+			this.aListeProjectiles[i].iCompteurTemps++;
 			this.aListeProjectiles[i].lancer();
 		}
 	}
