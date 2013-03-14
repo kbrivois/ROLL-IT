@@ -131,14 +131,19 @@ body {
 	margin: auto;
 	line-height: 31px;	
 }
-#button-new-level {
-	margin-top: 15px;
-}
-#button-resume {
+#button-resume, .button-new-level {
 	margin: 10px auto 15px auto;
 }
 #button-next-level {
 	margin: 15px auto;
+}
+
+#drapeaux {
+	margin: 15px 0;
+}
+.iso-langue {
+	cursor: pointer;
+	opacity: 0.6;
 }
 
 /* RESET */
