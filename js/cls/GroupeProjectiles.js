@@ -1,4 +1,4 @@
-function GroupeProjectiles(oProjectileTemp, oPositionDepartTemp, oPositionArriveeTemp, fVitesseTemp, iTempsEntreProjectilesTemp)
+function GroupeProjectiles(oProjectileTemp, oPositionDepartTemp, oPositionArriveeTemp, fVitesseTemp, iDistanceEntreProjectilesTemp)
 {  
 	// liste des projectiles
 	oProjectileTemp.oPosition.x = oPositionDepartTemp.x;
@@ -7,12 +7,6 @@ function GroupeProjectiles(oProjectileTemp, oPositionDepartTemp, oPositionArrive
 	this.oProjectile = oProjectileTemp;
 	this.aListeProjectiles = new Array();
 	this.aListeProjectiles.push(oProjectileTemp);
-	// Temps entre chaque projectile de la liste
-	this.iTempsEntreProjectiles = iTempsEntreProjectilesTemp;
-	// Compteur de temps
-	this.iCompteurTemps = 0;
-	// Ecart de temps
-	this.iEcartTemps = 0;
 	// Vitesse
 	this.fVitesse = fVitesseTemp;
 	// Position de départ
@@ -25,6 +19,11 @@ function GroupeProjectiles(oProjectileTemp, oPositionDepartTemp, oPositionArrive
 	// Déplacement du projectile
 	this.oDeplacement = new Point(0,0);
 	this.calculerDeplacement();
+	// Temps entre chaque projectile de la liste
+	if(iDistanceEntreProjectilesTemp > distance(oPositionDepartTemp, oPositionArriveeTemp))
+		this.iDistanceEntreProjectiles = distance(oPositionDepartTemp, oPositionArriveeTemp) - distance(new Point(0, 0), this.oDeplacement) - 1; // --> marge
+	else
+		this.iDistanceEntreProjectiles = iDistanceEntreProjectilesTemp;
 };
 
 // Calcul du déplacement du projectile selon sa direction et sa vitesse
@@ -42,19 +41,17 @@ GroupeProjectiles.prototype.calculerDeplacement = function()
 
 // On lance les projectiles
 GroupeProjectiles.prototype.lancer = function()
-{	
-	var iCompteur = this.iCompteurTemps*iCompteurTempsAffichage - this.iEcartTemps;
+{
+	var oDernierProjectile = this.aListeProjectiles[this.aListeProjectiles.length-1];
 	
 	// quand il est temps de lancer un nouveau projectile
-	if(iCompteur > this.iTempsEntreProjectiles){
+	if(distance(oDernierProjectile.oPosition, this.oPositionDepart) > this.iDistanceEntreProjectiles){
 		var oProjectile = new Projectile();
 		oProjectile.oPosition.x = this.oPositionDepart.x;
 		oProjectile.oPosition.y = this.oPositionDepart.y;
 		oProjectile.tracer();
 		oProjectile.rendreVisible();
 		this.aListeProjectiles.push(oProjectile);
-		this.iCompteurTemps = 0;
-		this.iEcartTemps = iCompteur - this.iTempsEntreProjectiles;
 	}
 
 	var aElemA_Supprimer = new Array();

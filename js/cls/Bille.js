@@ -51,13 +51,7 @@ Bille.prototype.tomber = function()
 		oSphereStyle.height = this.iTaille+"px";
 		oSphereStyle.width = this.iTaille+"px";
 	}else{
-		this.bTombeDansTrou = false;
-		this.iTaille = 15;
-		this.oPosition = new Point(0,0);
-		oSphereStyle.top = this.oPosition.y + "px";
-		oSphereStyle.left = this.oPosition.x + "px";
-		oSphereStyle.height = this.iTaille+"px";
-		oSphereStyle.width = this.iTaille+"px";
+		this.reset();
 	}
 };
 
@@ -268,7 +262,9 @@ Bille.prototype.verifierCollisions = function(){
 													oProjectile.oPosition.y + oProjectile.iTaille/2);
 												
 			if(distance(oPointMilieuSphere, oPointMilieuProjectile) < oProjectile.iTaille/2 + this.iTaille/2){
-				
+				this.reset();
+				oPartie.oChrono.reset();
+				oTerrain.reset();
 			}
 		}
 	}
@@ -302,4 +298,21 @@ Bille.prototype.verifierCollisions = function(){
 // Méthode de reset
 Bille.prototype.reset = function()
 {
+	var oSphereStyle = this.oSphereDiv.style;
+
+	this.bTombeDansTrou = false;
+	// taille
+	this.iTaille = 15;
+	oSphereStyle.height = this.iTaille+"px";
+	oSphereStyle.width = this.iTaille+"px";
+	// position
+	this.oPosition = new Point(0,0);
+	oSphereStyle.top = this.oPosition.y + "px";
+	oSphereStyle.left = this.oPosition.x + "px";
+	// Vitesse
+	this.fVitesseX = 0;
+	this.fVitesseY = 0; 
+	// Accélération
+	this.fAccelerationX = 0;
+	this.fAccelerationY = 0; 
 };

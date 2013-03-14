@@ -10,12 +10,10 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	this.iTempsOF = iTempsOFTemp;
 	// Pour savoir si c'est ouvert ou non
 	this.bOuvert = bOuvertTemp;
+	// Then de la trappe afin de savoir quand il faut la fermer ou l'ouvrir
+	this.iThen = Date.now();
 	// Temps entre chaque images
 	this.iTempsEntreImages = 150;
-	// Compteur de temps
-	this.iCompteurTemps = 0;
-	// Ecart de temps
-	this.iEcartTemps = 0;
 	// Then des images de la trappes afin de les faire défiler au bon moment
 	this.iThenImages = Date.now();
 	// taille de la trappe
@@ -80,10 +78,9 @@ Trappe.prototype.tracer = function()
 // Méthode qui ouvre ou ferme les trappes
 Trappe.prototype.actionner = function()
 {
-	var iCompteur = this.iCompteurTemps*iCompteurTempsAffichage - this.iEcartTemps;
+	var iDeltaTrappe = Date.now() - this.iThen;
 	
-	// quand il est temps d'ouvrir ou de fermer la trappe
-	if(iCompteur > this.iTempsOF){
+	if(iDeltaTrappe > this.iTempsOF){
 		// si la trappe est ouverte
 		if(this.bOuvert){
 			this.bOuvert = false;
@@ -102,10 +99,9 @@ Trappe.prototype.actionner = function()
 		}
 		
 		this.oDiv.src = this.aListeImages[this.iImageActuelle];
-		this.iCompteurTemps = 0;
-		this.iEcartTemps = iCompteur - this.iTempsOF;
+		this.iThen = Date.now() - (iDeltaTrappe-this.iTempsOF);
 	}
-
+	
 	// si l'ouverture ou la fermeture ne sont pas terminées
 	if(this.iImageActuelle != this.aListeImages.length-1 && this.iImageActuelle != 0){
 	  
