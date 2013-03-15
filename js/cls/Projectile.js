@@ -71,9 +71,8 @@ Projectile.prototype.rendreVisible = function()
 // Méthode qui va cacher le projectile
 Projectile.prototype.cacher = function()
 {
-	image = this.aListeImgHTML[this.iImgeActuelle];
-	if (image)
-		image.style.display = "none";
+	for(var i=0; i<this.aListeImgHTML.length; i++)
+		this.aListeImgHTML[i].style.display = "none";
 };
 
 // Méthode qui retrace le projectile

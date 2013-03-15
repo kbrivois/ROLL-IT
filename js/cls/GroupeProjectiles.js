@@ -1,12 +1,5 @@
-function GroupeProjectiles(oProjectileTemp, oPositionDepartTemp, oPositionArriveeTemp, fVitesseTemp, iDistanceEntreProjectilesTemp)
+function GroupeProjectiles(oPositionDepartTemp, oPositionArriveeTemp, fVitesseTemp, iDistanceEntreProjectilesTemp)
 {  
-	// liste des projectiles
-	oProjectileTemp.oPosition.x = oPositionDepartTemp.x;
-	oProjectileTemp.oPosition.y = oPositionDepartTemp.y;
-	oProjectileTemp.tracer();
-	this.oProjectile = oProjectileTemp;
-	this.aListeProjectiles = new Array();
-	this.aListeProjectiles.push(oProjectileTemp);
 	// Vitesse
 	this.fVitesse = fVitesseTemp;
 	// Position de départ
@@ -24,6 +17,19 @@ function GroupeProjectiles(oProjectileTemp, oPositionDepartTemp, oPositionArrive
 		this.iDistanceEntreProjectiles = distance(oPositionDepartTemp, oPositionArriveeTemp) - distance(new Point(0, 0), this.oDeplacement) - 1; // --> marge
 	else
 		this.iDistanceEntreProjectiles = iDistanceEntreProjectilesTemp;
+	// liste des projectiles
+	this.aListeProjectiles = new Array();
+	var iNbreProjectiles = Math.floor(distance(oPositionDepartTemp, oPositionArriveeTemp) / iDistanceEntreProjectilesTemp);
+	for(var i=0; i<iNbreProjectiles; i++){
+		var oProjectile = new Projectile();
+		oProjectile.oPosition.x = oPositionDepartTemp.x;
+		oProjectile.oPosition.y = oPositionDepartTemp.y;
+		oProjectile.tracer();
+		this.aListeProjectiles.push(oProjectile);
+	}
+	this.aListeProjectilesActifs = new Array();
+	this.aListeProjectilesActifs.push(this.aListeProjectiles[0]);
+	this.iProjectileActuel = 0;
 };
 
 // Calcul du déplacement du projectile selon sa direction et sa vitesse
@@ -42,23 +48,23 @@ GroupeProjectiles.prototype.calculerDeplacement = function()
 // On lance les projectiles
 GroupeProjectiles.prototype.lancer = function()
 {
-	var oDernierProjectile = this.aListeProjectiles[this.aListeProjectiles.length-1];
+	var oDernierProjectile = this.aListeProjectilesActifs[this.aListeProjectilesActifs.length-1];
 	
 	// quand il est temps de lancer un nouveau projectile
 	if(distance(oDernierProjectile.oPosition, this.oPositionDepart) > this.iDistanceEntreProjectiles){
-		var oProjectile = new Projectile();
-		oProjectile.oPosition.x = this.oPositionDepart.x;
-		oProjectile.oPosition.y = this.oPositionDepart.y;
-		oProjectile.tracer();
-		oProjectile.rendreVisible();
-		this.aListeProjectiles.push(oProjectile);
+		this.iProjectileActuel++;
+		if(this.iProjectileActuel > this.aListeProjectiles.length-1)
+			this.iProjectileActuel = 0;
+		
+		var oProjectile = this.aListeProjectiles[this.iProjectileActuel];
+		this.aListeProjectilesActifs.push(oProjectile);
 	}
 
 	var aElemA_Supprimer = new Array();
 	
 	// on déplace les projectiles présents sur le terrain
-	for(var i=0; i<this.aListeProjectiles.length; i++){
-		var oProjectile = this.aListeProjectiles[i];
+	for(var i=0; i<this.aListeProjectilesActifs.length; i++){
+		var oProjectile = this.aListeProjectilesActifs[i];
 		oProjectile.oPosition.x += this.oDeplacement.x;
 		oProjectile.oPosition.y += this.oDeplacement.y;
 		oProjectile.deplacer();
@@ -71,8 +77,10 @@ GroupeProjectiles.prototype.lancer = function()
 	
 	// on supprime les éléments de aElemA_Supprimer
 	for(var i=0; i<aElemA_Supprimer.length; i++){
-		this.aListeProjectiles.unset(aElemA_Supprimer[i]);
-		document.getElementById("terrain").removeChild(aElemA_Supprimer[i].oDiv);
+		aElemA_Supprimer[i].oPosition = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
+		aElemA_Supprimer[i].deplacer();
+		aElemA_Supprimer[i].cacher();
+		this.aListeProjectilesActifs.unset(aElemA_Supprimer[i]);
 	}
 };
 
@@ -80,12 +88,19 @@ GroupeProjectiles.prototype.lancer = function()
 GroupeProjectiles.prototype.reset = function()
 {
 	// on supprime les projectiles
-	for(var i=0; i<this.aListeProjectiles.length; i++){
-		document.getElementById("terrain").removeChild(this.aListeProjectiles[i].oDiv);
+	for(var i=0; i<this.aListeProjectilesActifs.length; i++){
+		this.aListeProjectilesActifs[i].oPosition = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
+		this.aListeProjectilesActifs[i].deplacer();
+		this.aListeProjectilesActifs[i].cacher();
 	}
-	this.iThen = Date.now();
+	this.aListeProjectilesActifs = new Array();
+	this.aListeProjectilesActifs.push(this.aListeProjectiles[0]);
+	this.aListeProjectilesActifs[0].cacher();
+	this.iProjectileActuel = 0;
+	
+	this.iThen = Date.now();/*
 	this.aListeProjectiles = new Array();
 	this.oProjectile.tracer();
 	this.oProjectile.rendreVisible();
-	this.aListeProjectiles.push(this.oProjectile);
+	this.aListeProjectiles.push(this.oProjectile);*/
 };

@@ -255,9 +255,9 @@ Bille.prototype.verifierCollisions = function(){
 	// liste des groupes de projectiles
 	for(var i=0; i<oTerrain.aListeProjectiles.length; i++){
 		// liste des projectiles appartenant au groupe i
-		for(var j=0; j<oTerrain.aListeProjectiles[i].aListeProjectiles.length; j++){
+		for(var j=0; j<oTerrain.aListeProjectiles[i].aListeProjectilesActifs.length; j++){
 			
-			var oProjectile = oTerrain.aListeProjectiles[i].aListeProjectiles[j];
+			var oProjectile = oTerrain.aListeProjectiles[i].aListeProjectilesActifs[j];
 			var oPointMilieuProjectile = new Point(	oProjectile.oPosition.x + oProjectile.iTaille/2, 
 													oProjectile.oPosition.y + oProjectile.iTaille/2);
 												

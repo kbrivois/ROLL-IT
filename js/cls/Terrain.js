@@ -40,7 +40,7 @@ function Terrain()
 	// ************************* Liste des projectiles
 	this.aListeProjectiles = new Array();
 	//this.aListeProjectiles.push(new GroupeProjectiles(new Projectile(), new Point(0,100), new Point(50,150), 2, 1000));
-	this.aListeProjectiles.push(new GroupeProjectiles(new Projectile(), new Point(0,50), new Point(150,50), 1, 200));
+	this.aListeProjectiles.push(new GroupeProjectiles(new Point(0,50), new Point(150,50), 1, 50));
 	
 	// ************************* Trou de fin
 	this.oPositionArrivee = new Point(35,180);
