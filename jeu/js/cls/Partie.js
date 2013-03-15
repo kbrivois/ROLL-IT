@@ -32,7 +32,7 @@ Partie.prototype.lancer = function()
 	}
 	
 	// on ouvre ou ferme les trappes
-	this.oTerrain.actionnerTrappes();
+	this.oTerrain.actionnerMecanismes();
 };
 
 /**

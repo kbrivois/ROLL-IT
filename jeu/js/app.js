@@ -21,23 +21,34 @@ var initPartie = function()
 {
 	oPartie = new Partie();
 	
-	if (window.DeviceOrientationEvent != undefined) {
-		window.addEventListener("deviceorientation", function( event ) {
-			oPartie.oBille.fAccelerationX = event.gamma * -2;
-			oPartie.oBille.fAccelerationY = event.beta * 2;
-		}, false);
-		
-		window.ondevicemotion = function(e){
+	// standard API (Firefox, Chrome...)
+	if (window.DeviceMotionEvent) {
+		window.addEventListener("devicemotion", function( event ) {
 			oPartie.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
 			oPartie.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
-		}
+		}, false);
+		console.log('device motion');
 	}
-	
+	else if (window.DeviceOrientationEvent) {
+		window.addEventListener("deviceorientation", function( event ) {
+			oPartie.oBille.fAccelerationX = event.gamma * 2;
+			oPartie.oBille.fAccelerationY = event.beta * -2;
+		}, false);
+		console.log('device orientation');
+	}
+	/* unsupported
+	else {
+		alert('unsupported browser');
+	} */
+
 	// Evénement pour mettre en pause la partie
 	document.getElementById("top-pause").addEventListener("click", pausePartie, false);
 	
 	// Evénement pour reprendre la partie, une fois en pause
 	document.getElementById("button-resume").addEventListener("click", reprendrePartie, false);
+	
+	// Evénement pour accéder au menu des langues
+	document.getElementById("button-languages").addEventListener("click", menuLangues, false);
 	
 	// Evénement pour lancer une nouvelle partie
 	var oButtonNewLevel = document.getElementsByClassName("button-new-level");
@@ -53,6 +64,13 @@ var initPartie = function()
 			oButtonMenu[i].addEventListener("click", quitterPartie, false); 
 	}
 	
+	// Evénement pour changer la langue du jeu
+	var oButtonLangue = document.getElementsByClassName("iso-langue");
+	for(var i in oButtonLangue) {
+		if(oButtonLangue[i] instanceof Element)
+			oButtonLangue[i].addEventListener("click", changerLangue, false); 
+	}
+	
 	mainPartie();
 }
 
@@ -62,12 +80,25 @@ var mainPartie = function()
 	now = Date.now();
 	delta = now - then;
 	
-	if(!oPartie.bPause)
-		oPartie.lancer();
+	var progression =  (new Date().getTime()) - tempsGlobal;
+	iCompteurFrames += progression;
+	
+	if(iCompteurFrames > 20){
+		if(!oPartie.bPause)
+			oPartie.lancer();
+		
+		iCompteurFrames -= 20;
+	}
+	
+	tempsGlobal = new Date().getTime();
 	requestAnimationFrame(mainPartie);
 }
 
 var then = Date.now();
 var now = then;
 var delta = 0;
+
+var tempsGlobal = new Date().getTime();
+var iCompteurFrames = 0;
+
 initPartie();
