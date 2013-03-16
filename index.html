@@ -28,6 +28,42 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
 		<section id="main-content">
+			<h3>Version 2.0 (15-03-2013)</h3>
+
+			<p>Le projet en est déjà à sa version 2.0. Cette nouvelle mouture du jeu embarque de nombreuses nouveautés depuis la première version.</p>
+			
+			<ul>
+		    	<li>En plus des murs normaux, le jeu est enrichi de murs rebondissants. Lorsque la bille en heurte un, elle est repoussée dans le sens inverse, à plus grande vitesse. Ils sont pour le moment dessinés en rouge à l'inverse des murs normaux en noir.</li>
+		    	<li>Pièges par excellence du jeu, les trous sont désormais fonctionnels. Si une bille vient à tomber dedans, la partie retourne à l'état initial.</li>
+		    	<li>Le principe des trappes est semblable à celui des trous. Si la bille tombe dedans, la partie s'arrête. A l'exception près que les trappes se ferment et s'ouvrent à intervalle régulier. L'utilisateur peut donc profiter du temps pendant lequel la trappe est fermée pour passer dessus.</li>
+		    	<li>Les shurikens, les célèbres étoiles de ninja, traverseront la zone de jeu de manière linéaire. Si par malheur un shuriken frappe la bille, le joueur doit recommencer le niveau du départ. C'est la dernière fonctionnalité sur laquelle nous avons travaillé. Elle nous a demandé beaucoup de temps pour des raisons de performance. En effet, les shurikens tournent sur eux-mêmes. Au début de notre développement, dans le cas où plusieurs shurikens étaient lancés en même temps, le jeu avait tendance à freezer sur certains smartphones. Ce problème a été résolu dans la version 2.0.</li>
+			    <li>Les diamants disparaissent lorsque la bille les traverse. Il faut désormais que le trou de fin apparaisse uniquement quand tous les diamants ont disparu.</li>
+			    <li>Pour ce qui est du trou de fin de partie, il est fonctionnel. Lorsque l'utilisateur rentre dans le trou de fin, la partie s'arrête et l'utilisateur est félicité pour son adresse. Pour le moment, le trou de fin est matérialisé par une croix rouge.</li>
+			    <li>Nous avons amélioré la gestion des API pour l'orientation et l'accéléromètre suivant les smartphones.</li>
+			    <li>Il est désormais possible de changer la langue du jeu. Dans cette version, 4 langues sont disponibles : français, anglais, espagnol et portugais. D'autres langues seront ajoutées dans la prochaine version.</li>
+			    <li>En ce qui concerne le stockage des données du jeu, nous avons opté pour l'API Local Storage. Nos premiers tests ont été concluants. Le lien entre l'interface et les données sera présent dans la version ultérieure.</li>
+			    <li>Le fonctionnement des menus est terminé. L'utilisateur peut naviguer dans le jeu mais ne peut pas encore lancer de nouvelle partie. Il manque le lien avec les données.</li>
+			</ul>
+			
+		<p>Le jeu peut être testé sur la branch gh-pages dans le dossier jeu :<br />
+		<a href="http://kbrivois.github.com/ROLL-IT/jeu">http://kbrivois.github.com/ROLL-IT/jeu</a></p>
+		
+		<p>Aperçu de la version 2.0 :<br />
+		<a href="http://www.aymeric-auberton.fr/projets/dll/blog/screen-test-13-03-15.png" target="_blank">Aperçu de la version 2.0</a></p>
+
+
+			<h3>Le projet vit toujours (11-03-2013)</h3>
+
+			<p>Il y a eu peu d'activité sur le projet ces derniers temps. En effet, les membres du projet avaient d'autres échéances. Désormais, nous avons plus de temps pour avancer sur ROLL IT!</p>
+
+			<ul>
+		    	<li>Nous nous sommes replongés dans l'API Device Motion et Device Orientation pour que le jeu soit compatible avec le plus grand nombre de smartphones. Sur un téléphone équipé de FirefoxOS, c'est l'API Device Motion qui fonctionnera.</li>
+		    	<li>Lors d'une séance projet DLL, nous avons eu l'occasion de tester notre application sur un smartphone équipé du système d'exploitation FirefoxOS. Nous nous sommes focalisés sur des tests de performance, et nos tests ont été concluants. Le jeu est fluide.</li>
+		    	<li>Nos efforts se portent désormais sur le stockage des données. Nous avons décidé d'utiliser l'API Local Storage. Bien que cette API soit synchrone, cela ne pose pas de problèmes de conception pour le jeu, car l'API sera sollicitée uniquement en début et en fin de partie.</li>
+		    	<li>L'internationalisation est terminée. Une nouvelle classe a été créée pour contenir l'ensemble des traductions (Langues.js). Pour le moment, le jeu est disponible dans les langues Française, Anglaise, Portugaise et Espagnole.</li>
+		    </ul>
+
+
 			<h3>Point sur le projet (13-02-2013)</h3>
 		
 			<p>Le projet se dirige tranquillement vers la version 0.2. Les commits sont plus rares en ce moment. En effet, d'autres échéances arrivent à grands pas, notamment le projet R&D. Il est à rendre pour le 24 février. C'est pourquoi les membres du projet mettent les bouchées doubles pour terminer ce travail dans leur groupe respectif.</p>
