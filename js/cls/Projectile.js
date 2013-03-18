@@ -11,7 +11,7 @@ function Projectile()
 	// Temps entre chaque images
 	this.iTempsEntreImages = 20;
 	// taille
-	this.iTaille = 15;
+	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
 	// image actuelle
 	this.iImageActuelle = 0;
 	// Images

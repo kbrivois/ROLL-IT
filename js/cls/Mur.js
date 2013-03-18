@@ -3,11 +3,11 @@ function Mur(oPositionTemp, iLargeurTemp, iHauteurTemp, bRepousseTemp)
 	// Element HTML du mur
 	this.oDiv = "";
 	// Position
-	this.oPosition = oPositionTemp;
+	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
 	// Largeur
-	this.iLargeur = iLargeurTemp;
+	this.iLargeur = iLargeurTemp*fRatioLargeur;
 	// Hauteur
-	this.iHauteur = iHauteurTemp;
+	this.iHauteur = iHauteurTemp*fRatioHauteur;
 	// Mur qui repousse ou non
 	this.bRepousse = bRepousseTemp;
 	// Force de répulsion des murs qui repoussent
@@ -41,7 +41,7 @@ Mur.prototype.tracer = function()
 
 Mur.prototype.verifierCollision = function()
 {
-	var oBille = oPartie.oBille;
+	var oBille = oPartie.oTerrain.oBille;
 	
 	// si la bille était au-dessus du mur
 	if(oBille.oPositionPrecedente.y + oBille.iTaille <= this.oPosition.y

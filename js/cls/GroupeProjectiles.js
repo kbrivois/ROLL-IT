@@ -1,11 +1,11 @@
 function GroupeProjectiles(oPositionDepartTemp, oPositionArriveeTemp, fVitesseTemp, iDistanceEntreProjectilesTemp)
 {  
 	// Vitesse
-	this.fVitesse = fVitesseTemp;
+	this.fVitesse = fVitesseTemp*((fRatioLargeur+fRatioHauteur)/2);
 	// Position de départ
-	this.oPositionDepart = oPositionDepartTemp;
+	this.oPositionDepart = new Point(oPositionDepartTemp.x*fRatioLargeur, oPositionDepartTemp.y*fRatioHauteur);
 	// Position d'arrivée
-	this.oPositionArrivee = oPositionArriveeTemp;
+	this.oPositionArrivee = new Point(oPositionArriveeTemp.x*fRatioLargeur, oPositionArriveeTemp.y*fRatioHauteur);
 	// Vecteur direction
 	this.oVecteurDirection = new Point(	this.oPositionArrivee.x - this.oPositionDepart.x,
 										this.oPositionArrivee.y - this.oPositionDepart.y);
@@ -13,17 +13,18 @@ function GroupeProjectiles(oPositionDepartTemp, oPositionArriveeTemp, fVitesseTe
 	this.oDeplacement = new Point(0,0);
 	this.calculerDeplacement();
 	// Temps entre chaque projectile de la liste
-	if(iDistanceEntreProjectilesTemp >= distance(oPositionDepartTemp, oPositionArriveeTemp))
-		this.iDistanceEntreProjectiles = distance(oPositionDepartTemp, oPositionArriveeTemp) - distance(new Point(0, 0), this.oDeplacement) - 1; // --> marge
+	iDistanceEntreProjectilesTemp = iDistanceEntreProjectilesTemp*((fRatioLargeur+fRatioHauteur)/2);
+	if(iDistanceEntreProjectilesTemp >= distance(this.oPositionDepart, this.oPositionArrivee))
+		this.iDistanceEntreProjectiles = distance(this.oPositionDepart, this.oPositionArrivee) - distance(new Point(0,0), this.oDeplacement) - 10; // --> marge
 	else
 		this.iDistanceEntreProjectiles = iDistanceEntreProjectilesTemp;
 	// liste des projectiles
 	this.aListeProjectiles = new Array();
-	var iNbreProjectiles = Math.floor(distance(oPositionDepartTemp, oPositionArriveeTemp) / iDistanceEntreProjectilesTemp);
+	var iNbreProjectiles = Math.ceil(distance(this.oPositionDepart, this.oPositionArrivee) / iDistanceEntreProjectilesTemp);
 	for(var i=0; i<iNbreProjectiles; i++){
 		var oProjectile = new Projectile();
-		oProjectile.oPosition.x = oPositionDepartTemp.x;
-		oProjectile.oPosition.y = oPositionDepartTemp.y;
+		oProjectile.oPosition.x = this.oPositionDepart.x;
+		oProjectile.oPosition.y = this.oPositionDepart.y;
 		oProjectile.tracer();
 		this.aListeProjectiles.push(oProjectile);
 	}
@@ -87,7 +88,7 @@ GroupeProjectiles.prototype.lancer = function()
 GroupeProjectiles.prototype.verifierCollision = function()
 {
 	var oTerrain = oPartie.oTerrain;
-	var oBille = oPartie.oBille;
+	var oBille = oPartie.oTerrain.oBille;
 	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
 
 	for(var j=0; j<this.aListeProjectilesActifs.length; j++){

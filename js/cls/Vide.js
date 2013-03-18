@@ -3,11 +3,11 @@ function Vide(oPositionTemp, iLargeurTemp, iHauteurTemp)
 	// Element HTML du Vide
 	this.oDiv = "";
 	// Position
-	this.oPosition = oPositionTemp;
+	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
 	// Largeur
-	this.iLargeur = iLargeurTemp;
+	this.iLargeur = iLargeurTemp*fRatioLargeur;
 	// Hauteur
-	this.iHauteur = iHauteurTemp;
+	this.iHauteur = iHauteurTemp*fRatioHauteur;
 };
 
 // On dessine le Vide
@@ -33,8 +33,8 @@ Vide.prototype.tracer = function()
 
 Vide.prototype.verifierCollision = function()
 {
-	var oTerrain = oPartie.oTerrain;
-	var oBille = oPartie.oBille;
+	var oTerrain = oPartie.oTerrain;
+	var oBille = oPartie.oTerrain.oBille;
 	var oPointMilieuSpherePrecedent = new Point(oBille.oPositionPrecedente.x + oBille.iTaille/2, oBille.oPositionPrecedente.y + oBille.iTaille/2);
 	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
 

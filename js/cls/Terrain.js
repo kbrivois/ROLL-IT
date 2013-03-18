@@ -1,10 +1,13 @@
 function Terrain()  
 {  
-	this.iLargeur = document.documentElement.clientWidth - 2;
-	this.iHauteur = document.documentElement.clientHeight - 22;
+	this.iLargeur = document.documentElement.clientWidth;
+	this.iHauteur = document.documentElement.clientHeight - 25;
 	this.oDiv = document.getElementById("terrain");
 	this.oDiv.style.width = this.iLargeur + "px";	
 	this.oDiv.style.height = this.iHauteur + "px";
+	
+	// ************************* Bille
+	this.oBille = new Bille();
 	
 	// ************************* Liste des murs
 	this.aListeMurs = new Array();
@@ -21,8 +24,8 @@ function Terrain()
 	
 	// ************************* Liste des trous
 	this.aListeTrous = new Array();
-	this.aListeTrous.push({"div":"", "position":new Point(80,110)}); // 1er trou
-	this.iTailleTrous = 17;
+	this.aListeTrous.push({"div":"", "position":new Point(80*fRatioLargeur,110*fRatioHauteur)}); // 1er trou
+	this.iTailleTrous = 17*((fRatioLargeur+fRatioHauteur)/2);
 	
 	// ************************* Liste des trappes
 	this.aListeTrappes = new Array();
@@ -49,13 +52,16 @@ function Terrain()
 	// this.aListeProjectiles.push(new GroupeProjectiles(new Point(0,150), new Point(250,150), 1, 80));
 	
 	// ************************* Trou de fin
-	this.oPositionArrivee = new Point(35,180);
-	this.iTailleArrivee = 20;
+	this.oPositionArrivee = new Point(35*fRatioLargeur,180*fRatioHauteur);
+	this.iTailleArrivee = 20*((fRatioLargeur+fRatioHauteur)/2);
 };
 
 // Méthode de tracé
 Terrain.prototype.tracer = function()
 {
+	// ===== bille ===== //
+	this.oBille.tracer();
+
 	// ===== murs ===== //
 	for(var i=0; i<this.aListeMurs.length; i++){
 		this.aListeMurs[i].tracer();
@@ -111,7 +117,7 @@ Terrain.prototype.tracer = function()
 Terrain.prototype.actionnerMecanismes = function()
 {
 	// si la bille ne tombe pas dans un trou
-	if(!oPartie.oBille.bTombeDansTrou){
+	if(!oPartie.oTerrain.oBille.bTombeDansTrou){
 		
 		// ===== trappes ===== //
 		for(var i=0; i<this.aListeTrappes.length; i++){

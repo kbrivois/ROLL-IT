@@ -10,11 +10,11 @@ var oPartie = null;
 var iCompteurImages = 0;
 var iNombresImages = 0;
 // Largeur et hauteur qui vont nous servir pour calculer les ratio selon les différentes tailles d'écran
-var iLargeurDeBase = 318;
-var iHauteurDeBase = 329;
+var iLargeurDeBase = 320;
+var iHauteurDeBase = 331;
 // Les ratios selon la taille de l'écran
-var fRatioLargeur = (document.documentElement.clientWidth - 2) / iLargeurDeBase;
-var fRatioHauteur = (document.documentElement.clientHeight - 27) / iHauteurDeBase;
+var fRatioLargeur = (document.documentElement.clientWidth) / iLargeurDeBase;
+var fRatioHauteur = (document.documentElement.clientHeight - 25) / iHauteurDeBase;
 
 // on initialise la partie
 var initPartie = function() 
@@ -24,15 +24,15 @@ var initPartie = function()
 	// standard API (Firefox, Chrome...)
 	if (window.DeviceMotionEvent) {
 		window.addEventListener("devicemotion", function( event ) {
-			oPartie.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
-			oPartie.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
+			oPartie.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
+			oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
 		}, false);
 		console.log('device motion');
 	}
 	else if (window.DeviceOrientationEvent) {
 		window.addEventListener("deviceorientation", function( event ) {
-			oPartie.oBille.fAccelerationX = event.gamma * 2;
-			oPartie.oBille.fAccelerationY = event.beta * -2;
+			oPartie.oTerrain.oBille.fAccelerationX = event.gamma * 2;
+			oPartie.oTerrain.oBille.fAccelerationY = event.beta * -2;
 		}, false);
 		console.log('device orientation');
 	}

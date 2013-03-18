@@ -3,7 +3,7 @@ function Bille()
 	// Element sphere
 	this.oSphereDiv = document.getElementById("sphere");
 	// Position de la bille
-	this.oPositionDepart = new Point(0,200);
+	this.oPositionDepart = new Point(0*fRatioLargeur,200*fRatioHauteur);
 	this.oPositionPrecedente = new Point(0,0);
 	this.oPosition = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
 	// Vitesse
@@ -13,12 +13,25 @@ function Bille()
 	this.fAccelerationX = 0;
 	this.fAccelerationY = 0; 
 	// Taille
-	this.iTaille = 15;
+	this.iTailleDepart = 15*((fRatioLargeur+fRatioHauteur)/2);
+	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
 	this.oSphereDiv.style.width = this.iTaille;
 	this.oSphereDiv.style.height = this.iTaille;
 	// Variable à true quand la balle tombe dans un trou
 	this.bTombeDansTrou = false;
 };
+
+// On dessine la bille
+Bille.prototype.tracer = function()
+{
+	var oBille = this.oSphereDiv;
+	
+	oBille.style.position = "absolute";
+	oBille.style.left = this.oPosition.x + "px";
+	oBille.style.top = this.oPosition.y + "px";
+	oBille.style.width = this.iTaille + "px";
+	oBille.style.height = this.iTaille + "px";
+}
 
 // On fait rouler la bille
 Bille.prototype.rouler = function()
@@ -145,7 +158,7 @@ Bille.prototype.reset = function()
 
 	this.bTombeDansTrou = false;
 	// taille
-	this.iTaille = 15;
+	this.iTaille = this.iTailleDepart;
 	oSphereStyle.height = this.iTaille+"px";
 	oSphereStyle.width = this.iTaille+"px";
 	// position

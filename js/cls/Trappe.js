@@ -5,7 +5,7 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	// Liste des elements HTML images de la trappe
 	this.aListeImgHTML = new Array();
 	// Position
-	this.oPosition = oPositionTemp;
+	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
 	// Temps d'ouverture et de fermeture
 	this.iTempsOF = iTempsOFTemp;
 	// Pour savoir si c'est ouvert ou non
@@ -17,7 +17,7 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	// Then des images de la trappes afin de les faire défiler au bon moment
 	this.iThenImages = Date.now();
 	// taille de la trappe
-	this.iTaille = 15;
+	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
 	// Images de la trappe
 	this.aListeImages = new Array(	"img/trappes/0.png",
 									"img/trappes/1.png",
@@ -127,7 +127,7 @@ Trappe.prototype.actionner = function()
 Trappe.prototype.verifierCollision = function()
 {
 	var oTerrain = oPartie.oTerrain;
-	var oBille = oPartie.oBille;
+	var oBille = oPartie.oTerrain.oBille;
 	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
 
 	// si la trappe est ouverte

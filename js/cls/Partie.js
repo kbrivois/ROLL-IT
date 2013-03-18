@@ -7,7 +7,6 @@ function Partie()
 	iCompteurImages = 0;
 	iNombresImages = 0;
 
-	this.oBille = new Bille();
 	this.oTerrain = new Terrain();
 	this.oTerrain.tracer();
 	this.oChrono = new Chrono();
@@ -23,12 +22,12 @@ function Partie()
 **/
 Partie.prototype.lancer = function()
 {
-	if(this.oBille.bTombeDansTrou) {
-		this.oBille.tomber();
+	if(this.oTerrain.oBille.bTombeDansTrou) {
+		this.oTerrain.oBille.tomber();
 	} else if(this.bGagne) {
 		this.gagner();
 	} else {
-		this.oBille.rouler();
+		this.oTerrain.oBille.rouler();
 	}
 	
 	// on ouvre ou ferme les trappes
