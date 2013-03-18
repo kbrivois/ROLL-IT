@@ -71,6 +71,9 @@ var initPartie = function()
 			oButtonLangue[i].addEventListener("click", changerLangue, false); 
 	}
 	
+	// On ajoute les niveaux dans #show-level
+	chargerNiveaux();
+	
 	mainPartie();
 }
 

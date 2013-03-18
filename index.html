@@ -4,7 +4,8 @@
 		<title>ROLL IT !</title>
 		<meta charset="utf8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Gloria+Hallelujah" type="text/css" />
 		<script src="js/cls/Partie.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Chrono.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Bille.js" type="text/javascript" defer="defer"></script> 
@@ -19,6 +20,8 @@
 		<script src="js/cls/Evenements.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Util.js" type="text/javascript" defer="defer"></script>
 		<script src="js/cls/Langues.js" type="text/javascript" defer="defer"></script>
+		<script src="js/cls/Donnees.js" type="text/javascript" defer="defer"></script>
+		<script src="js/cls/LocalStorage.js" type="text/javascript" defer="defer"></script>
 		<script src="js/app.js" type="text/javascript" defer="defer"></script> 
 	</head>
 	<body>
@@ -48,64 +51,7 @@
 		<div id="new-game" class="overlay page" style="display: none;">
 			<span class="overlay-title">Roll it !</span>
 			<div id="select-level">
-				<div id="show-level">
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>	
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>	
-				</div>
+				<div id="show-level"></div>
 			</div>
 			<div class="button-menu button-blue txt-langue" data-lang="menu">
 				Menu
