@@ -13,8 +13,8 @@ var iNombresImages = 0;
 var iLargeurDeBase = 318;
 var iHauteurDeBase = 329;
 // Les ratios selon la taille de l'écran
-var fRatioLargeur = iLargeurDeBase / document.documentElement.clientWidth - 2;
-var fRatioHauteur = iHauteurDeBase / document.documentElement.clientHeight - 27;
+var fRatioLargeur = (document.documentElement.clientWidth - 2) / iLargeurDeBase;
+var fRatioHauteur = (document.documentElement.clientHeight - 27) / iHauteurDeBase;
 
 // on initialise la partie
 var initPartie = function() 

@@ -1,11 +1,20 @@
-function Diamant(oPositionTemp)
+function Diamant(oPositionTemp, sImageTemp)
 {  
 	// Element HTML du Diamant
 	this.oDiv = "";
 	// Position
 	this.oPosition = oPositionTemp;
+	// taille de depart du diamant
+	this.iTailleDepart = 15;
 	// taille du diamant
 	this.iTaille = 15;
+	// image du diamant
+	this.sImage = sImageTemp;
+	// sert pour l'animation du diamant
+	this.bAgrandir = true;
+	this.fOpacite = 1;
+	// se met à true quand le joueur attrape le diamant
+	this.bDisparaitre = false;
 };
 
 // On dessine le Diamant
@@ -22,14 +31,77 @@ Diamant.prototype.tracer = function()
 	oDiamant.style.width = this.iTaille + "px";
 	oDiamant.style.height = this.iTaille + "px";
 	
-	oDiamant.src = "img/d-red.png";
+	oDiamant.src = this.sImage;
 
 	document.getElementById("terrain").appendChild(oDiamant);
 }
 
-// Méthode fait tourner le diamant
-Diamant.prototype.rotater = function()
+Diamant.prototype.verifierCollision = function()
 {
+	var oTerrain = oPartie.oTerrain;
+	var oBille = oPartie.oBille;
+	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
+	var oPointMilieuDiamant = new Point(this.oPosition.x + this.iTaille/2, 
+										this.oPosition.y + this.iTaille/2);
+
+	if(distance(oPointMilieuSphere, oPointMilieuDiamant) < this.iTaille/2 + oBille.iTaille/2){
+		// on cache le diamant et on augmente le nombre de diamants attrapés
+		this.bDisparaitre = true;
+		oTerrain.iNbreDiamantsAttrapes++;
+	}
+}
+
+// Méthode qui anime le diamant (levitation)
+Diamant.prototype.animer = function()
+{
+	var iPas = 0.3;
+	
+	// si le diamant n'a pas été attrapé
+	if(!this.bDisparaitre) {
+		var iTailleMax = this.iTailleDepart + 4;
+		var iTailleMin = this.iTailleDepart - 2;
+		
+		// on l'agrandi
+		if(this.iTaille < iTailleMax && this.bAgrandir){
+			this.iTaille += iPas;
+			this.oPosition.x -= iPas/2;
+			this.oPosition.y -= iPas/2;
+			if(this.iTaille > iTailleMax)
+				this.bAgrandir = false;
+		}
+		// on le rétrécit
+		else{
+			this.iTaille -= iPas;
+			this.oPosition.x += iPas/2;
+			this.oPosition.y += iPas/2;
+			if(this.iTaille < iTailleMin)
+				this.bAgrandir = true;
+		}
+		this.oDiv.style.width = this.iTaille + "px";
+		this.oDiv.style.height = this.iTaille + "px";
+		this.oDiv.style.left = this.oPosition.x + "px";
+		this.oDiv.style.top = this.oPosition.y + "px";
+	}
+	// si le diamant a été attrapé
+	else {
+		var iTailleMax = this.iTailleDepart + 7;
+		
+		this.fOpacite -= 0.06;
+		this.iTaille += iPas*5;
+		this.oPosition.x -= iPas*5/2;
+		this.oPosition.y -= iPas*5/2;
+		
+		this.oDiv.style.width = this.iTaille + "px";
+		this.oDiv.style.height = this.iTaille + "px";
+		this.oDiv.style.left = this.oPosition.x + "px";
+		this.oDiv.style.top = this.oPosition.y + "px";
+		this.oDiv.style.opacity = this.fOpacite;
+		
+		if(this.fOpacite < 0){
+			oPartie.oTerrain.aListeDiamants.unset(this);
+			document.getElementById("terrain").removeChild(this.oDiv);
+		}
+	}
 };
 
 // Méthode de reset

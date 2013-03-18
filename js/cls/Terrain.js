@@ -6,14 +6,18 @@ function Terrain()
 	this.oDiv.style.width = this.iLargeur + "px";	
 	this.oDiv.style.height = this.iHauteur + "px";
 	
-	this.aListeMurs = new Array();
-	
 	// ************************* Liste des murs
+	this.aListeMurs = new Array();
 	this.aListeMurs.push(new Mur(new Point(30,0), 10, 100, false));
 	this.aListeMurs.push(new Mur(new Point(30,100), 100, 10, false));
 	this.aListeMurs.push(new Mur(new Point(0,140), 75, 10, false));
 	this.aListeMurs.push(new Mur(new Point(75,140), 27, 10, true));
 	this.aListeMurs.push(new Mur(new Point(102,140), 28, 10, false));
+	
+	// ************************* Liste des vides
+	this.aListeVides = new Array();
+	this.aListeVides.push(new Vide(new Point(20,210), 250, 70));
+	this.aListeVides.push(new Vide(new Point(150,160), 70, 50));
 	
 	// ************************* Liste des trous
 	this.aListeTrous = new Array();
@@ -33,7 +37,7 @@ function Terrain()
 	
 	// ************************* Liste des diamants
 	this.aListeDiamants = new Array();
-	this.aListeDiamants.push(new Diamant(new Point(30,150)));
+	this.aListeDiamants.push(new Diamant(new Point(30,150), "img/d-red.png"));
 	this.iNbreDiamants = 1;
 	this.iNbreDiamantsAttrapes = 0;
 
@@ -41,13 +45,15 @@ function Terrain()
 	this.aListeProjectiles = new Array();
 	//this.aListeProjectiles.push(new GroupeProjectiles(new Projectile(), new Point(0,100), new Point(50,150), 2, 1000));
 	this.aListeProjectiles.push(new GroupeProjectiles(new Point(0,50), new Point(150,50), 1, 50));
+	// this.aListeProjectiles.push(new GroupeProjectiles(new Point(0,100), new Point(200,100), 1, 20));
+	// this.aListeProjectiles.push(new GroupeProjectiles(new Point(0,150), new Point(250,150), 1, 80));
 	
 	// ************************* Trou de fin
 	this.oPositionArrivee = new Point(35,180);
 	this.iTailleArrivee = 20;
 };
 
-// Méthode de reset
+// Méthode de tracé
 Terrain.prototype.tracer = function()
 {
 	// ===== murs ===== //
@@ -55,6 +61,11 @@ Terrain.prototype.tracer = function()
 		this.aListeMurs[i].tracer();
 	}
 
+	// ===== vides ===== //
+	for(var i=0; i<this.aListeVides.length; i++){
+		this.aListeVides[i].tracer();
+	}
+	
 	// ===== trous ===== //
 	for(var i=0; i<this.aListeTrous.length; i++){
 		var oTrou = document.createElement("img");
@@ -82,7 +93,7 @@ Terrain.prototype.tracer = function()
 		this.aListeDiamants[i].tracer();
 	}
 	
-	// trou de fin, arrivee
+	// ===== trou de fin, arrivee ===== //
 	var oArrivee = document.createElement("img");
 	oArrivee.id = "arrivee";
 	oArrivee.style.position = "absolute";
@@ -96,7 +107,7 @@ Terrain.prototype.tracer = function()
 	this.oDiv.appendChild(oArrivee);
 };
 
-// on actionne les trappes et les projectiles
+// on actionne les mécanismes du terrain (animations des trappes, projectiles, diamants...)
 Terrain.prototype.actionnerMecanismes = function()
 {
 	// si la bille ne tombe pas dans un trou
@@ -110,6 +121,11 @@ Terrain.prototype.actionnerMecanismes = function()
 		// ===== projectiles ===== //
 		for(var i=0; i<this.aListeProjectiles.length; i++){
 			this.aListeProjectiles[i].lancer();
+		}
+		
+		// ===== diamants ===== //
+		for(var i=0; i<this.aListeDiamants.length; i++){
+			this.aListeDiamants[i].animer();
 		}
 	}
 };

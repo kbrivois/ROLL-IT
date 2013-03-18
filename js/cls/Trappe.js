@@ -73,7 +73,7 @@ Trappe.prototype.tracer = function()
 		this.oDiv.appendChild(oImgTrappe);
 		this.aListeImgHTML.push(oImgTrappe);
 	}
-}
+};
 
 // Méthode qui ouvre ou ferme les trappes
 Trappe.prototype.actionner = function()
@@ -124,6 +124,27 @@ Trappe.prototype.actionner = function()
 	}
 };
 
+Trappe.prototype.verifierCollision = function()
+{
+	var oTerrain = oPartie.oTerrain;
+	var oBille = oPartie.oBille;
+	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
+
+	// si la trappe est ouverte
+	if(this.bOuvert){
+		if(oPointMilieuSphere.x > this.oPosition.x 
+		&& oPointMilieuSphere.x < this.oPosition.x + this.iTaille
+		&& oPointMilieuSphere.y > this.oPosition.y
+		&& oPointMilieuSphere.y < this.oPosition.y + this.iTaille){
+			oBille.oPosition.x = this.oPosition.x + this.iTaille/2 - oBille.iTaille/2;
+			oBille.oPosition.y = this.oPosition.y + this.iTaille/2 - oBille.iTaille/2;
+			oBille.bTombeDansTrou = true;
+			oPartie.oChrono.reset();
+			oTerrain.reset();
+		}
+	}
+};
+	
 // Méthode de reset
 Trappe.prototype.reset = function()
 {

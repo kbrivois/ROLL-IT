@@ -13,7 +13,7 @@ function GroupeProjectiles(oPositionDepartTemp, oPositionArriveeTemp, fVitesseTe
 	this.oDeplacement = new Point(0,0);
 	this.calculerDeplacement();
 	// Temps entre chaque projectile de la liste
-	if(iDistanceEntreProjectilesTemp > distance(oPositionDepartTemp, oPositionArriveeTemp))
+	if(iDistanceEntreProjectilesTemp >= distance(oPositionDepartTemp, oPositionArriveeTemp))
 		this.iDistanceEntreProjectiles = distance(oPositionDepartTemp, oPositionArriveeTemp) - distance(new Point(0, 0), this.oDeplacement) - 1; // --> marge
 	else
 		this.iDistanceEntreProjectiles = iDistanceEntreProjectilesTemp;
@@ -60,7 +60,7 @@ GroupeProjectiles.prototype.lancer = function()
 		this.aListeProjectilesActifs.push(oProjectile);
 	}
 
-	var aElemA_Supprimer = new Array();
+	var oProjectileA_Supprimer = "";
 	
 	// on déplace les projectiles présents sur le terrain
 	for(var i=0; i<this.aListeProjectilesActifs.length; i++){
@@ -71,16 +71,35 @@ GroupeProjectiles.prototype.lancer = function()
 		
 		// si le projectile arrive au point d'arrivé
 		if(distance(oProjectile.oPosition, this.oPositionArrivee) < distance(new Point(0,0), this.oDeplacement)){
-			aElemA_Supprimer.push(oProjectile);
+			oProjectileA_Supprimer = oProjectile;
 		}
 	}
 	
-	// on supprime les éléments de aElemA_Supprimer
-	for(var i=0; i<aElemA_Supprimer.length; i++){
-		aElemA_Supprimer[i].oPosition = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
-		aElemA_Supprimer[i].deplacer();
-		aElemA_Supprimer[i].cacher();
-		this.aListeProjectilesActifs.unset(aElemA_Supprimer[i]);
+	// on supprime oProjectileA_Supprimer
+	if(oProjectileA_Supprimer != ""){
+		oProjectileA_Supprimer.oPosition = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
+		oProjectileA_Supprimer.deplacer();
+		oProjectileA_Supprimer.cacher();
+		this.aListeProjectilesActifs.unset(oProjectileA_Supprimer);
+	}
+};
+
+GroupeProjectiles.prototype.verifierCollision = function()
+{
+	var oTerrain = oPartie.oTerrain;
+	var oBille = oPartie.oBille;
+	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
+
+	for(var j=0; j<this.aListeProjectilesActifs.length; j++){
+		var oProjectile = this.aListeProjectilesActifs[j];
+		var oPointMilieuProjectile = new Point(	oProjectile.oPosition.x + oProjectile.iTaille/2, 
+												oProjectile.oPosition.y + oProjectile.iTaille/2);
+											
+		if(distance(oPointMilieuSphere, oPointMilieuProjectile) < oProjectile.iTaille/2 + oBille.iTaille/2){
+			oBille.reset();
+			oPartie.oChrono.reset();
+			oTerrain.reset();
+		}
 	}
 };
 
@@ -98,9 +117,5 @@ GroupeProjectiles.prototype.reset = function()
 	this.aListeProjectilesActifs[0].cacher();
 	this.iProjectileActuel = 0;
 	
-	this.iThen = Date.now();/*
-	this.aListeProjectiles = new Array();
-	this.oProjectile.tracer();
-	this.oProjectile.rendreVisible();
-	this.aListeProjectiles.push(this.oProjectile);*/
+	this.iThen = Date.now();
 };

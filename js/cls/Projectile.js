@@ -58,14 +58,6 @@ Projectile.prototype.tracer = function()
 		this.oDiv.appendChild(oImgProjectile);
 		this.aListeImgHTML.push(oImgProjectile);
 	}
-}
-
-// Méthode qui va rendre visible le projectile
-Projectile.prototype.rendreVisible = function()
-{
-	image = this.aListeImgHTML[this.iImgeActuelle];
-	if (image)
-		image.style.display = "block";
 };
 
 // Méthode qui va cacher le projectile

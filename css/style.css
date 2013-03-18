@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
 
+/* GAME */
 body {
 	background: url(../img/background-3.png);
 	font-family: 'Gloria Hallelujah', cursive;
@@ -46,6 +47,16 @@ body {
 	z-index: 99;
 	width: 15px;
 	height: 15px;
+}
+.projectile {
+	position: absolute;
+	z-index: 101;
+	width: 15px;
+	height: 15px;
+}
+.diamant {
+	position: absolute;
+	z-index: 100;
 }
 
 /* NEW GAME */
