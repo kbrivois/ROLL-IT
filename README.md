@@ -7,7 +7,7 @@ right direction. The route ball will not be easy. It is fraught with obstacles, 
 into levels, and the difficulty of these will crescendo.</p>
 
 <p>The application can be tested at the following address :<br />
-<a href="http://kbrivois.github.com/ROLL-IT/jeu" title="Test ROLL-IT">http://kbrivois.github.com/ROLL-IT/jeu</a></p>
+<a href="http://kbrivois.github.com/ROLL-IT/jeu" title="Test ROLL-IT" target="_blank">http://kbrivois.github.com/ROLL-IT/jeu</a></p>
 
 <hr />
 
@@ -18,4 +18,4 @@ son smartphone dans le bon sens. Le parcours de la bille ne sera pas simple. Il 
 entraves. Le jeu sera divisé en niveaux, et la difficulté de ces derniers ira crescendo.</p>
 
 <p>L'application peut-être testée à l'adresse suivante :<br />
-<a href="http://kbrivois.github.com/ROLL-IT/jeu" title="Test ROLL-IT">http://kbrivois.github.com/ROLL-IT/jeu</a></p>
+<a href="http://kbrivois.github.com/ROLL-IT/jeu" title="Test ROLL-IT" target="_blank">http://kbrivois.github.com/ROLL-IT/jeu</a></p>
