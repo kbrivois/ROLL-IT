@@ -46,6 +46,9 @@ body {
 	width: 15px;
 	height: 15px;
 }
+#arrivee {
+	position: absolute;
+}
 .projectile {
 	position: absolute;
 	z-index: 101;
@@ -74,12 +77,16 @@ body {
 #show-level div.show-level-item {
 	height: 100%;
 	display: inline-block;
-	text-align: center;
 	margin: 0 10px;
 	padding: 0;
 }
-#show-level div.show-level-item img {
+#show-level div.show-level-item .show-level-text {
+	text-align: center;
+}
+#show-level div.show-level-item div.level-item {
 	height: 80%;
+	background: url(../img/background-3.png);
+	position: relative;
 }
 #show-level div.show-level-text {
 	height: 20%;

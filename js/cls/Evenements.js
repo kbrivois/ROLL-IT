@@ -20,8 +20,11 @@ function quitterPartie() {
 		if(oPage[i] instanceof Element)
 			oPage[i].style.display = 'none';
 	}
-	oPartie.oChrono.pause();
-	oPartie.bPause = true;
+	oPartie = null;
+	// on vide le terrain
+	document.getElementById('terrain').innerHTML = "";
+	// on vide le menu
+	document.getElementById("show-level").innerHTML = "";
 	document.getElementById('hp').style.display = 'block';
 }
 
@@ -31,9 +34,8 @@ function nouvellePartie() {
 		if(oPage[i] instanceof Element)
 			oPage[i].style.display = 'none';
 	}
-	oPartie.oChrono.pause();
-	oPartie.bPause = true;
 	document.getElementById('new-game').style.display = 'block';
+	initMenu();
 }
 
 // Détecte le click pour accéder au menu des langues
@@ -43,6 +45,18 @@ function menuLangues() {
 			oPage[i].style.display = 'none';
 	}
 	document.getElementById('languages').style.display = 'block';
+}
+
+function creerPartie(iNumeroTerrain){
+	for(var i in oPage) {
+		if(oPage[i] instanceof Element)
+			oPage[i].style.display = 'none';
+	}
+	// on vide le menu
+	document.getElementById("show-level").innerHTML = "";
+	document.getElementById('partie').style.display = 'block';
+	iNiveauSelectionne = iNumeroTerrain;
+	initPartie();
 }
 
 // Détecte le click pour changer la langue

@@ -15,7 +15,7 @@ function Mur(oPositionTemp, iLargeurTemp, iHauteurTemp, bRepousseTemp)
 };
 
 // On dessine le mur
-Mur.prototype.tracer = function()
+Mur.prototype.tracer = function(oDivTerrain)
 {
 	// ===== murs ===== //
 	var oMur = document.createElement("div");
@@ -36,7 +36,7 @@ Mur.prototype.tracer = function()
 	else
 		oMur.style.backgroundColor = "black";
 
-	document.getElementById("terrain").appendChild(oMur);
+	oDivTerrain.appendChild(oMur);
 }
 
 Mur.prototype.verifierCollision = function()

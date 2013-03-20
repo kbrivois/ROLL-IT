@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="css/style.css" type="text/css" />
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Gloria+Hallelujah" type="text/css" />
 		<script src="js/cls/Partie.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/MenuNiveaux.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Chrono.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Bille.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Point.js" type="text/javascript" defer="defer"></script> 
@@ -82,19 +83,20 @@
 			</div>
 		</div>
 		
-		<div id="top" class="page">
-			<span id="level"><span class="txt-langue" data-lang="level">Niveau</span> 0</span>
-			<div id="time">
-				<span id="time-min">00</span>
-				:
-				<span id="time-sec">00</span>
+		<div id="partie" class="page">
+			<div id="top">
+				<span id="level"><span class="txt-langue" data-lang="level">Niveau</span> <span id="level-number">0</span></span>
+				<div id="time">
+					<span id="time-min">00</span>
+					:
+					<span id="time-sec">00</span>
+				</div>
+				<div id="top-pause">
+					<span class="txt-langue" data-lang="pause">Pause</span>
+				</div>
 			</div>
-			<div id="top-pause">
-				<span class="txt-langue" data-lang="pause">Pause</span>
+			<div id="terrain">
 			</div>
-		</div>
-		<div id="terrain" class="page">
-			<img id="sphere" src="img/ball-15.png" />
 		</div>
 	</body>
 </html>

@@ -6,7 +6,9 @@ function Partie()
 
 	iCompteurImages = 0;
 	iNombresImages = 0;
-
+	
+	document.getElementById("level-number").innerHTML = iNiveauSelectionne;
+	
 	this.oTerrain = new Terrain();
 	this.oTerrain.tracer();
 	this.oChrono = new Chrono();

@@ -1,10 +1,10 @@
-function Bille()  
+function Bille(oPositionDepartTemp)  
 {
 	// Element sphere
-	this.oSphereDiv = document.getElementById("sphere");
+	this.oSphereDiv = "";
 	// Position de la bille
-	this.oPositionDepart = new Point(0*fRatioLargeur,200*fRatioHauteur);
-	this.oPositionPrecedente = new Point(0,0);
+	this.oPositionDepart = new Point(oPositionDepartTemp.x*fRatioLargeur,oPositionDepartTemp.y*fRatioHauteur);
+	this.oPositionPrecedente = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
 	this.oPosition = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
 	// Vitesse
 	this.fVitesseX = 0;
@@ -15,22 +15,23 @@ function Bille()
 	// Taille
 	this.iTailleDepart = 15*((fRatioLargeur+fRatioHauteur)/2);
 	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
-	this.oSphereDiv.style.width = this.iTaille;
-	this.oSphereDiv.style.height = this.iTaille;
 	// Variable à true quand la balle tombe dans un trou
 	this.bTombeDansTrou = false;
 };
 
 // On dessine la bille
-Bille.prototype.tracer = function()
+Bille.prototype.tracer = function(oDivTerrain)
 {
-	var oBille = this.oSphereDiv;
-	
+	var oBille = document.createElement("img");
+	this.oSphereDiv = oBille;
+	oBille.id = "sphere";
 	oBille.style.position = "absolute";
+	oBille.src = "img/ball-15.png";
 	oBille.style.left = this.oPosition.x + "px";
 	oBille.style.top = this.oPosition.y + "px";
 	oBille.style.width = this.iTaille + "px";
 	oBille.style.height = this.iTaille + "px";
+	oDivTerrain.appendChild(oBille);
 }
 
 // On fait rouler la bille

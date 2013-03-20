@@ -18,7 +18,7 @@ function Diamant(oPositionTemp, sImageTemp)
 };
 
 // On dessine le Diamant
-Diamant.prototype.tracer = function()
+Diamant.prototype.tracer = function(oDivTerrain)
 {	
 	var oDiamant = document.createElement("img");
 	// on ajoute le div dans la liste
@@ -33,8 +33,8 @@ Diamant.prototype.tracer = function()
 	
 	oDiamant.src = this.sImage;
 
-	document.getElementById("terrain").appendChild(oDiamant);
-}
+	oDivTerrain.appendChild(oDiamant);
+};
 
 Diamant.prototype.verifierCollision = function()
 {
@@ -49,7 +49,7 @@ Diamant.prototype.verifierCollision = function()
 		this.bDisparaitre = true;
 		oTerrain.iNbreDiamantsAttrapes++;
 	}
-}
+};
 
 // Méthode qui anime le diamant (levitation)
 Diamant.prototype.animer = function()

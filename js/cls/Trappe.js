@@ -30,7 +30,7 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 };
 
 // On dessine la trappe
-Trappe.prototype.tracer = function()
+Trappe.prototype.tracer = function(oDivTerrain)
 {
 	var oTrappe = document.createElement("div");
 
@@ -44,7 +44,7 @@ Trappe.prototype.tracer = function()
 	oTrappe.style.width = this.iTaille + "px";
 	oTrappe.style.height = this.iTaille + "px";
 
-	document.getElementById("terrain").appendChild(oTrappe);
+	oDivTerrain.appendChild(oTrappe);
 
 	for(var i=0; i<this.aListeImages.length; i++){
 		
