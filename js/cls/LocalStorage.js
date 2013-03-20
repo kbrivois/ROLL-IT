@@ -33,7 +33,9 @@ function enregistrementRecord(niveau, min, sec) {
 		var record = ((min[0] + 10) * 60) + (min[1] * 60) + (sec[0] * 10) + (sec[1] * 1);
 	}
 	
-	var exRecord = record(niveau);
+	var keyRecord = "rollit" + eval(niveau + 1);
+	var exRecord = recordJoueur(niveau);
+
 	if(exRecord) {
 		if(exRecord > record) {
 			localStorage.setItem(keyRecord, JSON.stringify(record));
@@ -44,7 +46,7 @@ function enregistrementRecord(niveau, min, sec) {
 }
 
 // Retourne le record d'un niveau
-function record(niveau) {
+function recordJoueur(niveau) {
 	var keyRecord = "rollit" + eval(niveau + 1);
 	var record = JSON.parse(localStorage.getItem(keyRecord));
 	
