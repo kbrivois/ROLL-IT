@@ -34,7 +34,7 @@ function enregistrementRecord(niveau, min, sec) {
 	}
 	
 	var keyRecord = "rollit" + eval(niveau + 1);
-	var exRecord = recordJoueur(niveau);
+	var exRecord = recordJoueur(niveau, 0);
 
 	if(exRecord) {
 		if(exRecord > record) {
@@ -46,9 +46,22 @@ function enregistrementRecord(niveau, min, sec) {
 }
 
 // Retourne le record d'un niveau
-function recordJoueur(niveau) {
+function recordJoueur(niveau, texte) {
 	var keyRecord = "rollit" + eval(niveau + 1);
 	var record = JSON.parse(localStorage.getItem(keyRecord));
 	
-	return record;
+	if(texte) {
+		var minutes = Math.floor(record / 60);
+		var seconds = record - (minutes * 60);
+		if(minutes < 10) {
+			minutes = "0" + minutes;
+		}
+		if(secondes < 10) {
+			secondes = "0" + secondes;
+		}
+		
+		return minutes + " : " + secondes;
+	} else {
+		return record;
+	}
 }
