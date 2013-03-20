@@ -140,7 +140,6 @@ Trappe.prototype.verifierCollision = function()
 			oBille.oPosition.y = this.oPosition.y + this.iTaille/2 - oBille.iTaille/2;
 			oBille.bTombeDansTrou = true;
 			oPartie.oChrono.reset();
-			oTerrain.reset();
 		}
 	}
 };

@@ -3,6 +3,8 @@ function Diamant(oPositionTemp, sImageTemp)
 	// Element HTML du Diamant
 	this.oDiv = "";
 	// Position
+	this.oPositionDepart = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
+	// Position
 	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
 	// taille de depart du diamant
 	this.iTailleDepart = 15*((fRatioLargeur+fRatioHauteur)/2);
@@ -39,15 +41,23 @@ Diamant.prototype.tracer = function(oDivTerrain)
 Diamant.prototype.verifierCollision = function()
 {
 	var oTerrain = oPartie.oTerrain;
-	var oBille = oPartie.oTerrain.oBille;
-	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
-	var oPointMilieuDiamant = new Point(this.oPosition.x + this.iTaille/2, 
-										this.oPosition.y + this.iTaille/2);
+	
+	// si le diamant n'a pas encore été attrapé
+	if(!this.bDisparaitre) {
+		var oBille = oPartie.oTerrain.oBille;
+		var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
+		var oPointMilieuDiamant = new Point(this.oPosition.x + this.iTaille/2, 
+											this.oPosition.y + this.iTaille/2);
 
-	if(distance(oPointMilieuSphere, oPointMilieuDiamant) < this.iTaille/2 + oBille.iTaille/2){
-		// on cache le diamant et on augmente le nombre de diamants attrapés
-		this.bDisparaitre = true;
-		oTerrain.iNbreDiamantsAttrapes++;
+		if(distance(oPointMilieuSphere, oPointMilieuDiamant) < this.iTaille/2 + oBille.iTaille/2){
+			// on cache le diamant et on augmente le nombre de diamants attrapés
+			this.bDisparaitre = true;
+			oTerrain.iNbreDiamantsAttrapes++;
+		}
+		
+		if(oTerrain.iNbreDiamantsAttrapes == oTerrain.iNbreDiamants) {
+			oTerrain.oDivArrivee.style.display = "block";
+		}
 	}
 };
 
@@ -98,8 +108,7 @@ Diamant.prototype.animer = function()
 		this.oDiv.style.opacity = this.fOpacite;
 		
 		if(this.fOpacite < 0){
-			oPartie.oTerrain.aListeDiamants.unset(this);
-			document.getElementById("terrain").removeChild(this.oDiv);
+			this.oDiv.style.display = "none";
 		}
 	}
 };
@@ -107,4 +116,14 @@ Diamant.prototype.animer = function()
 // Méthode de reset
 Diamant.prototype.reset = function()
 {
+	this.iTaille = this.iTailleDepart;
+	this.oPosition = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
+	this.fOpacite = 1;
+	this.bDisparaitre = false;
+	this.oDiv.style.display = "block";
+	this.oDiv.style.opacity = this.fOpacite;
+	this.oDiv.style.width = this.iTailleDepart + "px";
+	this.oDiv.style.height = this.iTailleDepart + "px";
+	this.oDiv.style.left = this.oPositionDepart.x + "px";
+	this.oDiv.style.top = this.oPositionDepart.y + "px";
 };

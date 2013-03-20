@@ -62,6 +62,7 @@ function Terrain()
 	
 	// ************************* Trou de fin
 	this.oPositionArrivee = new Point(oNiveau.arrivee.x*fRatioLargeur,oNiveau.arrivee.y*fRatioHauteur);
+	this.oDivArrivee = new Point(oNiveau.arrivee.x*fRatioLargeur,oNiveau.arrivee.y*fRatioHauteur);
 	this.iTailleArrivee = 20*((fRatioLargeur+fRatioHauteur)/2);
 };
 
@@ -110,6 +111,7 @@ Terrain.prototype.tracer = function()
 	
 	// ===== trou de fin, arrivee ===== //
 	var oArrivee = document.createElement("img");
+	this.oDivArrivee = oArrivee;
 	oArrivee.id = "arrivee";
 	oArrivee.style.position = "absolute";
 	
@@ -118,6 +120,11 @@ Terrain.prototype.tracer = function()
 	oArrivee.style.width = this.iTailleArrivee + "px";
 	oArrivee.style.height = this.iTailleArrivee + "px";
 	oArrivee.src = "img/croix.png";
+	
+	if(this.iNbreDiamantsAttrapes == this.iNbreDiamants)
+		oArrivee.style.display = "block";
+	else
+		oArrivee.style.display = "none";
 	
 	this.oDiv.appendChild(oArrivee);
 };
@@ -152,13 +159,16 @@ Terrain.prototype.reset = function()
 	for(var i=0; i<this.aListeProjectiles.length; i++){
 		this.aListeProjectiles[i].reset();
 	}
-};
-
-// Méthode de reset
-Terrain.prototype.reset = function()
-{
-	// ===== projectiles ===== //
-	for(var i=0; i<this.aListeProjectiles.length; i++){
-		this.aListeProjectiles[i].reset();
+	
+	// ===== diamants ===== //
+	for(var i=0; i<this.aListeDiamants.length; i++){
+		this.aListeDiamants[i].reset();
 	}
+	this.iNbreDiamantsAttrapes = 0;
+	
+	// ===== arrivee ===== //
+	if(this.iNbreDiamantsAttrapes == this.iNbreDiamants)
+		this.oDivArrivee.style.display = "block";
+	else
+		this.oDivArrivee.style.display = "none";
 };

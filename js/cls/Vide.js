@@ -45,7 +45,6 @@ Vide.prototype.verifierCollision = function()
 	&& oPointMilieuSphere.y < this.oPosition.y + this.iHauteur){
 		oBille.bTombeDansTrou = true;
 		oPartie.oChrono.reset();
-		oTerrain.reset();
 	}
 }
 

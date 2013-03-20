@@ -56,6 +56,7 @@ Bille.prototype.tomber = function()
 {
 	var oSphereStyle = this.oSphereDiv.style;
 
+	// tant que la bille n'a pas fini sa chute
 	if(this.iTaille > 0){
 		var fPas = 0.3;
 		this.iTaille -= fPas;
@@ -66,6 +67,7 @@ Bille.prototype.tomber = function()
 		oSphereStyle.height = this.iTaille+"px";
 		oSphereStyle.width = this.iTaille+"px";
 	}else{
+		oPartie.oTerrain.reset();
 		this.reset();
 	}
 };
@@ -107,7 +109,6 @@ Bille.prototype.verifierCollisions = function(){
 		oTerrain.aListeTrappes[i].verifierCollision();
 	}
 	
-	
 	/****** Groupes de projectiles ******/
 	for(var i=0; i<oTerrain.aListeProjectiles.length; i++){
 		oTerrain.aListeProjectiles[i].verifierCollision();
@@ -118,7 +119,7 @@ Bille.prototype.verifierCollisions = function(){
 		oTerrain.aListeDiamants[i].verifierCollision();
 	}
 	
-	/****** Diamants ******/
+	/****** Vides ******/
 	for(var i=0; i<oTerrain.aListeVides.length; i++){
 		oTerrain.aListeVides[i].verifierCollision();
 	}
@@ -136,19 +137,21 @@ Bille.prototype.verifierCollisions = function(){
 			this.oPosition.y = oTerrain.aListeTrous[i]["position"].y + oTerrain.iTailleTrous/2 - this.iTaille/2;
 			this.bTombeDansTrou = true;
 			oPartie.oChrono.reset();
-			oTerrain.reset();
 		}
 	}
 	
 	/****** Arrivée, trou de fin ******/
-	var oPointMilieuArrivee = new Point(oTerrain.oPositionArrivee.x + oTerrain.iTailleArrivee/2, 
-										oTerrain.oPositionArrivee.y + oTerrain.iTailleArrivee/2);
-										
-	if(distance(oPointMilieuSphere, oPointMilieuArrivee) < oTerrain.iTailleArrivee/2){
-		this.oPosition.x = oTerrain.oPositionArrivee.x + oTerrain.iTailleArrivee/2 - this.iTaille/2;
-		this.oPosition.y = oTerrain.oPositionArrivee.y + oTerrain.iTailleArrivee/2 - this.iTaille/2;
-		oPartie.oChrono.pause();
-		oPartie.bGagne = true;
+	// si tous les diamants ont été attrapés
+	if(oTerrain.iNbreDiamantsAttrapes == oTerrain.iNbreDiamants) {
+		var oPointMilieuArrivee = new Point(oTerrain.oPositionArrivee.x + oTerrain.iTailleArrivee/2, 
+											oTerrain.oPositionArrivee.y + oTerrain.iTailleArrivee/2);
+											
+		if(distance(oPointMilieuSphere, oPointMilieuArrivee) < oTerrain.iTailleArrivee/2){
+			this.oPosition.x = oTerrain.oPositionArrivee.x + oTerrain.iTailleArrivee/2 - this.iTaille/2;
+			this.oPosition.y = oTerrain.oPositionArrivee.y + oTerrain.iTailleArrivee/2 - this.iTaille/2;
+			oPartie.oChrono.pause();
+			oPartie.bGagne = true;
+		}
 	}
 };
 

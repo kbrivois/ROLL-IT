@@ -43,7 +43,7 @@ for(var i in oButtonNewLevel) {
 var oButtonMenu = document.getElementsByClassName("button-menu");
 for(var i in oButtonMenu) {
 	if(oButtonMenu[i] instanceof Element)
-		oButtonMenu[i].addEventListener("click", quitterPartie, false); 
+		oButtonMenu[i].addEventListener("click", menuPrincipal, false); 
 }
 
 // Evénement pour changer la langue du jeu
@@ -126,4 +126,4 @@ var delta = 0;
 var tempsGlobal = new Date().getTime();
 var iCompteurFrames = 0;
 
-initPartie();
+menuPrincipal();

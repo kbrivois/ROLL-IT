@@ -15,7 +15,7 @@ function reprendrePartie() {
 }
 
 // Détecte le click pendant que le menu Pause est afficher pour retourner au menu
-function quitterPartie() {
+function menuPrincipal() {
 	for(var i in oPage) {
 		if(oPage[i] instanceof Element)
 			oPage[i].style.display = 'none';
