@@ -7,7 +7,7 @@ function Partie()
 	iCompteurImages = 0;
 	iNombresImages = 0;
 	
-	document.getElementById("level-number").innerHTML = iNiveauSelectionne;
+	document.getElementById("level-number").innerHTML = eval(iNiveauSelectionne + 1);
 	
 	this.oTerrain = new Terrain();
 	this.oTerrain.tracer();
@@ -58,6 +58,7 @@ Partie.prototype.gagner = function()
 	var iGagneMinutes = document.getElementById('time-min').innerHTML;
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
 	document.getElementById('win-time').innerHTML = sTempsGagne;
+	enregistrementRecord(iNiveauSelectionne, iGagneMinutes, iGagneSecondes);
 };
 
 /**

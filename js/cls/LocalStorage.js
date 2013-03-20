@@ -24,3 +24,58 @@ function chargerNiveaux() {
 	// // Insertion des niveaux dans le div #show-level
 	// document.getElementById('show-level').innerHTML = htmlNiveaux;
 }
+
+// Enregistrement du nouveau record du joueur si l'ancien est battu
+function enregistrementRecord(niveau, min, sec) {
+	if(min == "00") {
+		var record = (sec[0] * 10) + (sec[1] * 1);
+	} else {
+		if(min[0] == "0") {
+			var record = (min[1] * 60) + (sec[0] * 10) + (sec[1] * 1);
+		} else {
+			var record = ((min[0] + 10) * 60) + (min[1] * 60) + (sec[0] * 10) + (sec[1] * 1);
+		}
+	}
+	
+	var keyRecord = "rollit" + eval(niveau + 1);
+	var exRecord = recordJoueur(niveau, 0);
+
+	if(exRecord) {
+		if(exRecord > record) {
+			localStorage.setItem(keyRecord, JSON.stringify(record));
+		}
+	} else {
+		localStorage.setItem(keyRecord, JSON.stringify(record));
+	}
+}
+
+// Retourne le record d'un niveau
+function recordJoueur(niveau, texte) {
+	var keyRecord = "rollit" + eval(niveau + 1);
+	var record = JSON.parse(localStorage.getItem(keyRecord));
+	
+	if(texte && record) {
+		if(record < 60) {
+			if(record < 10) {
+				record = "0" + record;
+			}
+			
+			return "00 : " + record;
+		} else {
+			var minutes = Math.floor(record / 60);
+			var secondes = record - (minutes * 60);
+			if(minutes < 10) {
+				minutes = "0" + minutes;
+			}
+			if(secondes < 10) {
+				secondes = "0" + secondes;
+			}
+			
+			return minutes + " : " + secondes;
+		}
+	} else if(texte && !record) {
+		return "00 : 00";
+	} else {
+		return record;
+	}
+}
