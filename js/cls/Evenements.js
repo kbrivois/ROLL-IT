@@ -17,16 +17,17 @@ function reprendrePartie() {
 // Détecte le click après la victoire pour recommencer la partie
 function recommencerPartie() {
 	document.getElementById('win').style.display = 'none';
-	oPartie.reset();
-	oPartie.bPause = false;
+	// on vide le terrain
+	document.getElementById('terrain').innerHTML = "";
+	initPartie();
 }
 
 // Détecte le click après la victoire pour passer au niveau suivant
 function niveauSuivant() {
-	oPartie = null;
 	document.getElementById('win').style.display = 'none';
 	// on vide le terrain
 	document.getElementById('terrain').innerHTML = "";
+	// on incremente le numéro du niveau
 	iNiveauSelectionne++;
 	initPartie();
 }

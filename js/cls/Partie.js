@@ -57,6 +57,8 @@ Partie.prototype.gagner = function()
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
 	document.getElementById('win-time').innerHTML = sTempsGagne;
 	
+	oPartie = null;
+	
 	// s'il n'existe pas de niveau suivant
 	if(aListeNiveaux.length-1 < iNiveauSelectionne+1) {
 		document.getElementById("button-next-level").style.display = "none";
