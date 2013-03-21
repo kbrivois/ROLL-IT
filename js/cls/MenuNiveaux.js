@@ -17,7 +17,7 @@ MenuNiveaux.prototype.tracer = function()
 		var oDivItemMenu = document.createElement("div");
 		oDivItemMenu.className = "level-item";
 		oDivShowItemMenu.appendChild(oDivItemMenu);
-		oDivItemMenu.style.width = oDivItemMenu.offsetHeight*0.8+"px";
+		oDivItemMenu.style.width = oDivItemMenu.offsetHeight * 0.8 + "px";
 		oDivItemMenu.style.border = "1px solid black";
 		// ratio selon la taille de la vignette
 		fRatioLargeur = oDivItemMenu.offsetWidth / iLargeurDeBase;
@@ -62,12 +62,11 @@ MenuNiveaux.prototype.tracer = function()
 			oTrou.style.left = oTrouTemp.x*fRatioLargeur + "px";
 			oTrou.style.top = oTrouTemp.y*fRatioHauteur + "px";
 			
-			oTrou.style.width = 15*((fRatioLargeur+fRatioHauteur)/2) + "px";
-			oTrou.style.height = 15*((fRatioLargeur+fRatioHauteur)/2) + "px";
+			oTrou.style.width = 15 * ((fRatioLargeur+fRatioHauteur) / 2) + "px";
+			oTrou.style.height = 15 * ((fRatioLargeur+fRatioHauteur) / 2) + "px";
 			oTrou.src = "img/trou-34.png";
 
 			oDivItemMenu.appendChild(oTrou);
-
 		}
 
 		// arrivée
@@ -77,8 +76,8 @@ MenuNiveaux.prototype.tracer = function()
 		oArrivee.style.position = "absolute";
 		oArrivee.style.left = oArriveeTemp.x*fRatioLargeur + "px";
 		oArrivee.style.top = oArriveeTemp.y*fRatioHauteur + "px";
-		oArrivee.style.width = 15*((fRatioLargeur+fRatioHauteur)/2) + "px";
-		oArrivee.style.height = 15*((fRatioLargeur+fRatioHauteur)/2) + "px";
+		oArrivee.style.width = 15 * ((fRatioLargeur+fRatioHauteur) / 2) + "px";
+		oArrivee.style.height = 15 * ((fRatioLargeur+fRatioHauteur) / 2) + "px";
 		oArrivee.src = "img/croix.png";
 		oDivItemMenu.appendChild(oArrivee);
 		
@@ -96,7 +95,7 @@ MenuNiveaux.prototype.tracer = function()
 		var oDivTextItemMenu = document.createElement("div");
 		var record = recordJoueur(i, 1);
 		oDivTextItemMenu.className = "show-level-text";
-		oDivTextItemMenu.innerHTML = "Niveau " + (i+1) + "<br /><span>" + record + "</span>";
+		oDivTextItemMenu.innerHTML = "Niveau " + (i + 1) + "<br /><span>" + record + "</span>";
 		oDivShowItemMenu.appendChild(oDivTextItemMenu);
 	}
 
