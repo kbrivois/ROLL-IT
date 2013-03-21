@@ -14,6 +14,23 @@ function reprendrePartie() {
 	oPartie.bPause = false;
 }
 
+// Détecte le click après la victoire pour recommencer la partie
+function recommencerPartie() {
+	document.getElementById('win').style.display = 'none';
+	oPartie.reset();
+	oPartie.bPause = false;
+}
+
+// Détecte le click après la victoire pour passer au niveau suivant
+function niveauSuivant() {
+	oPartie = null;
+	document.getElementById('win').style.display = 'none';
+	// on vide le terrain
+	document.getElementById('terrain').innerHTML = "";
+	iNiveauSelectionne++;
+	initPartie();
+}
+
 // Détecte le click pendant que le menu Pause est afficher pour retourner au menu
 function menuPrincipal() {
 	for(var i in oPage) {

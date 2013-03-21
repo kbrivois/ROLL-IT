@@ -68,7 +68,6 @@ Bille.prototype.tomber = function()
 		oSphereStyle.width = this.iTaille+"px";
 	}else{
 		oPartie.oTerrain.reset();
-		this.reset();
 	}
 };
 
@@ -151,6 +150,7 @@ Bille.prototype.verifierCollisions = function(){
 			this.oPosition.y = oTerrain.oPositionArrivee.y + oTerrain.iTailleArrivee/2 - this.iTaille/2;
 			oPartie.oChrono.pause();
 			oPartie.bGagne = true;
+			oPartie.gagner();
 		}
 	}
 };

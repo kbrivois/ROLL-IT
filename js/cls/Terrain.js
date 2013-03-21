@@ -155,6 +155,9 @@ Terrain.prototype.actionnerMecanismes = function()
 // Méthode de reset
 Terrain.prototype.reset = function()
 {
+	// ===== bille ===== //
+	this.oBille.reset();
+
 	// ===== projectiles ===== //
 	for(var i=0; i<this.aListeProjectiles.length; i++){
 		this.aListeProjectiles[i].reset();

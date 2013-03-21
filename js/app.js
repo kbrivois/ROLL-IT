@@ -23,11 +23,21 @@ var iNiveauSelectionne = 0;
 
 // ************************* Evénements
 
+// ====== Partie ====== //
+
 // Evénement pour mettre en pause la partie
 document.getElementById("top-pause").addEventListener("click", pausePartie, false);
 
 // Evénement pour reprendre la partie, une fois en pause
 document.getElementById("button-resume").addEventListener("click", reprendrePartie, false);
+
+// Evénement pour recommencer la partie, une fois la partie gagnée
+document.getElementById("button-try-again").addEventListener("click", recommencerPartie, false);
+
+// Evénement pour passer au niveau suivant, une fois la partie gagnée
+document.getElementById("button-next-level").addEventListener("click", niveauSuivant, false);
+
+// ====== Menus ====== //
 
 // Evénement pour accéder au menu des langues
 document.getElementById("button-languages").addEventListener("click", menuLangues, false);
@@ -88,11 +98,7 @@ var initPartie = function()
 		}, false);
 		console.log('device orientation');
 	}
-	/* unsupported
-	else {
-		alert('unsupported browser');
-	} */
-	
+
 	mainPartie();
 }
 
@@ -108,7 +114,7 @@ var mainPartie = function()
 		iCompteurFrames += progression;
 		
 		if(iCompteurFrames > 20){
-			if(!oPartie.bPause)
+			if(!oPartie.bPause && !oPartie.bGagne)
 				oPartie.lancer();
 			
 			iCompteurFrames -= 20;

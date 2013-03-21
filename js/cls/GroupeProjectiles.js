@@ -97,7 +97,6 @@ GroupeProjectiles.prototype.verifierCollision = function()
 												oProjectile.oPosition.y + oProjectile.iTaille/2);
 											
 		if(distance(oPointMilieuSphere, oPointMilieuProjectile) < oProjectile.iTaille/2 + oBille.iTaille/2){
-			oBille.reset();
 			oPartie.oChrono.reset();
 			oTerrain.reset();
 		}

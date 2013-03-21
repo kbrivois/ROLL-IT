@@ -7,7 +7,7 @@ function Partie()
 	iCompteurImages = 0;
 	iNombresImages = 0;
 	
-	document.getElementById("level-number").innerHTML = eval(iNiveauSelectionne + 1);
+	document.getElementById("level-number").innerHTML = iNiveauSelectionne;
 	
 	this.oTerrain = new Terrain();
 	this.oTerrain.tracer();
@@ -26,8 +26,6 @@ Partie.prototype.lancer = function()
 {
 	if(this.oTerrain.oBille.bTombeDansTrou) {
 		this.oTerrain.oBille.tomber();
-	} else if(this.bGagne) {
-		this.gagner();
 	} else {
 		this.oTerrain.oBille.rouler();
 	}
@@ -58,7 +56,16 @@ Partie.prototype.gagner = function()
 	var iGagneMinutes = document.getElementById('time-min').innerHTML;
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
 	document.getElementById('win-time').innerHTML = sTempsGagne;
-	enregistrementRecord(iNiveauSelectionne, iGagneMinutes, iGagneSecondes);
+	
+	// s'il n'existe pas de niveau suivant
+	if(aListeNiveaux.length-1 < iNiveauSelectionne+1) {
+		document.getElementById("button-next-level").style.display = "none";
+		document.getElementById("button-try-again").style.margin = "auto auto 15px auto";
+	}
+	else {
+		document.getElementById("button-next-level").style.display = "block";
+		document.getElementById("button-try-again").style.margin = "auto";
+	}
 };
 
 /**
@@ -68,4 +75,9 @@ Partie.prototype.gagner = function()
 **/
 Partie.prototype.reset = function()
 {
+	this.oTerrain.reset();
+	this.oChrono.reset();
+	this.oChrono.start();
+	this.bPause = false;
+	this.bGagne = false;
 };
