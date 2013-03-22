@@ -20,6 +20,8 @@ var fRatioHauteur = (document.documentElement.clientHeight - 25) / iHauteurDeBas
 // Les différents niveaux
 var aListeNiveaux = chargerNiveaux();
 var iNiveauSelectionne = 0;
+// ISO de la langue de l'utilisateur
+var joueurISO = langueJoueur();
 
 // ************************* Evénements
 

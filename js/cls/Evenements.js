@@ -79,20 +79,7 @@ function creerPartie(iNumeroTerrain){
 
 // Détecte le click pour changer la langue
 function changerLangue() {
-	var isolangue = this.id;
-	var oDivLangue = document.getElementsByClassName("txt-langue");
-	var oDivDrapeaux = document.getElementsByClassName("iso-langue");
-	
-	for(var j in oDivDrapeaux) {
-		if(oDivDrapeaux[j] instanceof Element)
-			oDivDrapeaux[j].style.opacity = 0.6;
-	}
-	this.style.opacity = 1;
-	
-	for(var i in oDivLangue) {
-		if(oDivLangue[i] instanceof Element) {
-			var selecteurHTML = oDivLangue[i].getAttribute("data-lang");
-			oDivLangue[i].innerHTML = dataLangue[selecteurHTML][isolangue];
-		}
-	}
+	joueurISO = this.id;
+	enregistrerJoueurISO(this.id);
+	textesLangue(this.id);
 }

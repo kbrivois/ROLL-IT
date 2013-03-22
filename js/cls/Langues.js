@@ -100,3 +100,23 @@ var dataLangue = {
 		"hr": "Nyelven"
 	}
 };
+
+// Modifier tous les textes du jeu
+function textesLangue(iso) {
+	var oDivLangue = document.getElementsByClassName("txt-langue");
+	var oDivDrapeaux = document.getElementsByClassName("iso-langue");
+	
+	for(var j in oDivDrapeaux) {
+		if(oDivDrapeaux[j] instanceof Element)
+			oDivDrapeaux[j].style.opacity = 0.6;
+	}
+	
+	document.getElementById(iso).style.opacity = 1;
+	
+	for(var i in oDivLangue) {
+		if(oDivLangue[i] instanceof Element) {
+			var selecteurHTML = oDivLangue[i].getAttribute("data-lang");
+			oDivLangue[i].innerHTML = dataLangue[selecteurHTML][iso];
+		}
+	}
+}

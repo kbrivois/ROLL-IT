@@ -49,7 +49,7 @@ function enregistrementRecord(niveau, min, sec) {
 	}
 }
 
-// Retourne le record d'un niveau
+// Retourner le record d'un niveau
 function recordJoueur(niveau, texte) {
 	var keyRecord = "rollit" + eval(niveau + 1);
 	var record = JSON.parse(localStorage.getItem(keyRecord));
@@ -77,5 +77,22 @@ function recordJoueur(niveau, texte) {
 		return "00 : 00";
 	} else {
 		return record;
+	}
+}
+
+// Sauvegarder la langue de l'utilisateur
+function enregistrerJoueurISO(iso) {
+	localStorage.setItem('rollit-iso', iso);
+}
+
+// Retourner la langue de l'utilisateur
+function langueJoueur() {
+	var iso = localStorage.getItem('rollit-iso');
+	if(iso) {
+		textesLangue(iso);
+		return iso;
+	} else {
+		textesLangue("fr");
+		return "fr";
 	}
 }

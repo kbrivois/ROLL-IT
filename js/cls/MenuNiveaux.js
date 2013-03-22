@@ -95,7 +95,7 @@ MenuNiveaux.prototype.tracer = function()
 		var oDivTextItemMenu = document.createElement("div");
 		var record = recordJoueur(i, 1);
 		oDivTextItemMenu.className = "show-level-text";
-		oDivTextItemMenu.innerHTML = "Niveau " + (i + 1) + "<br /><span>" + record + "</span>";
+		oDivTextItemMenu.innerHTML = dataLangue['level'][joueurISO] + " " + (i + 1) + "<br /><span>" + record + "</span>";
 		oDivShowItemMenu.appendChild(oDivTextItemMenu);
 	}
 
