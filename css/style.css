@@ -12,13 +12,6 @@ body {
 	background: rgba(182, 200, 220, 0.8);
 	line-height: 25px;
 }
-
-#fps {
-	position: absolute;
-	font-size: 18px;
-	bottom:30px;
-}
-
 #top span#level {
 	width: 25%;
 	float: left;
@@ -43,8 +36,6 @@ body {
 #sphere {
 	position: absolute;
 	z-index: 99;
-	width: 15px;
-	height: 15px;
 }
 #arrivee {
 	position: absolute;
@@ -98,6 +89,27 @@ body {
 }
 #show-level div.show-level-text span.nlevel {
 	font-weight: bold;
+}
+
+/* EDITOR */
+#items-menu-edit {
+	position: absolute;
+	display: block;
+	top: 25px;
+	right: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 20%;
+	height: 100%;
+	background-image: url(../img/editeur/fond-menu.png);
+	background-repeat:repeat;
+}
+#items-menu-edit .item{
+	position: relative;
+	margin: 15px auto 15px auto;
+	width:80%;
+	background-color: white;
+	border-radius: 5px;
 }
 
 /* OVERLAY */

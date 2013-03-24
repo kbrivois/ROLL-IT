@@ -8,6 +8,8 @@ function Vide(oPositionTemp, iLargeurTemp, iHauteurTemp)
 	this.iLargeur = iLargeurTemp*fRatioLargeur;
 	// Hauteur
 	this.iHauteur = iHauteurTemp*fRatioHauteur;
+	// Taille des bords
+	this.iTailleBords = 1;
 };
 
 // On dessine le Vide
@@ -26,15 +28,16 @@ Vide.prototype.tracer = function(oDivTerrain)
 	oVide.style.width = this.iLargeur+"px";
 	oVide.style.height = this.iHauteur+"px";
 	
-	oVide.style.backgroundColor = "rgb(178,178,178)";
+	oVide.style.backgroundImage = "url(img/murs/gris.png)";
+	oVide.style.border = this.iTailleBords+"px solid rgb(138,138,138)";
 
 	oDivTerrain.appendChild(oVide);
 }
 
 Vide.prototype.verifierCollision = function()
 {
-	var oTerrain = oPartie.oTerrain;
-	var oBille = oPartie.oTerrain.oBille;
+	var oTerrain = oModeEnCours.oTerrain;
+	var oBille = oModeEnCours.oTerrain.oBille;
 	var oPointMilieuSpherePrecedent = new Point(oBille.oPositionPrecedente.x + oBille.iTaille/2, oBille.oPositionPrecedente.y + oBille.iTaille/2);
 	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
 
@@ -42,9 +45,9 @@ Vide.prototype.verifierCollision = function()
 	if(oPointMilieuSphere.x > this.oPosition.x 
 	&& oPointMilieuSphere.x < this.oPosition.x + this.iLargeur
 	&& oPointMilieuSphere.y > this.oPosition.y
-	&& oPointMilieuSphere.y < this.oPosition.y + this.iHauteur){
+	&& oPointMilieuSphere.y < this.oPosition.y + this.iHauteur) {
 		oBille.bTombeDansTrou = true;
-		oPartie.oChrono.reset();
+		oModeEnCours.oChrono.reset();
 	}
 }
 

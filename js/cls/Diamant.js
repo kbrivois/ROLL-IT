@@ -40,16 +40,16 @@ Diamant.prototype.tracer = function(oDivTerrain)
 
 Diamant.prototype.verifierCollision = function()
 {
-	var oTerrain = oPartie.oTerrain;
+	var oTerrain = oModeEnCours.oTerrain;
 	
 	// si le diamant n'a pas encore été attrapé
 	if(!this.bDisparaitre) {
-		var oBille = oPartie.oTerrain.oBille;
+		var oBille = oModeEnCours.oTerrain.oBille;
 		var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
 		var oPointMilieuDiamant = new Point(this.oPosition.x + this.iTaille/2, 
 											this.oPosition.y + this.iTaille/2);
 
-		if(distance(oPointMilieuSphere, oPointMilieuDiamant) < this.iTaille/2 + oBille.iTaille/2){
+		if(distance(oPointMilieuSphere, oPointMilieuDiamant) < this.iTaille/2 + oBille.iTaille/2) {
 			// on cache le diamant et on augmente le nombre de diamants attrapés
 			this.bDisparaitre = true;
 			oTerrain.iNbreDiamantsAttrapes++;
@@ -72,7 +72,7 @@ Diamant.prototype.animer = function()
 		var iTailleMin = this.iTailleDepart - 2*((fRatioLargeur+fRatioHauteur)/2);;
 		
 		// on l'agrandi
-		if(this.iTaille < iTailleMax && this.bAgrandir){
+		if(this.iTaille < iTailleMax && this.bAgrandir) {
 			this.iTaille += iPas;
 			this.oPosition.x -= iPas/2;
 			this.oPosition.y -= iPas/2;
@@ -107,7 +107,7 @@ Diamant.prototype.animer = function()
 		this.oDiv.style.top = this.oPosition.y + "px";
 		this.oDiv.style.opacity = this.fOpacite;
 		
-		if(this.fOpacite < 0){
+		if(this.fOpacite < 0) {
 			this.oDiv.style.display = "none";
 		}
 	}

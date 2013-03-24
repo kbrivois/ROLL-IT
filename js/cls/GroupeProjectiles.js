@@ -20,12 +20,11 @@ function GroupeProjectiles(oPositionDepartTemp, oPositionArriveeTemp, fVitesseTe
 		this.iDistanceEntreProjectiles = iDistanceEntreProjectilesTemp;
 	// liste des projectiles
 	this.aListeProjectiles = new Array();
-	var iNbreProjectiles = Math.ceil(distance(this.oPositionDepart, this.oPositionArrivee) / iDistanceEntreProjectilesTemp);
-	for(var i=0; i<iNbreProjectiles; i++){
+	this.iNbreProjectiles = Math.ceil(distance(this.oPositionDepart, this.oPositionArrivee) / this.iDistanceEntreProjectiles);
+	for(var i=0; i<this.iNbreProjectiles; i++) {
 		var oProjectile = new Projectile();
 		oProjectile.oPosition.x = this.oPositionDepart.x;
 		oProjectile.oPosition.y = this.oPositionDepart.y;
-		oProjectile.tracer();
 		this.aListeProjectiles.push(oProjectile);
 	}
 	this.aListeProjectilesActifs = new Array();
@@ -44,7 +43,15 @@ GroupeProjectiles.prototype.calculerDeplacement = function()
 	
 	this.oDeplacement.x = this.oVecteurDirection.x / (fDistance/this.fVitesse);
 	this.oDeplacement.y = this.oVecteurDirection.y / (fDistance/this.fVitesse);
-}
+};
+
+// Calcul du déplacement du projectile selon sa direction et sa vitesse
+GroupeProjectiles.prototype.tracer = function(oDivTerrain)
+{
+	for(var i=0; i<this.iNbreProjectiles; i++) {
+		this.aListeProjectiles[i].tracer(oDivTerrain);
+	}
+};
 
 // On lance les projectiles
 GroupeProjectiles.prototype.lancer = function()
@@ -52,7 +59,7 @@ GroupeProjectiles.prototype.lancer = function()
 	var oDernierProjectile = this.aListeProjectilesActifs[this.aListeProjectilesActifs.length-1];
 	
 	// quand il est temps de lancer un nouveau projectile
-	if(distance(oDernierProjectile.oPosition, this.oPositionDepart) > this.iDistanceEntreProjectiles){
+	if(distance(oDernierProjectile.oPosition, this.oPositionDepart) > this.iDistanceEntreProjectiles) {
 		this.iProjectileActuel++;
 		if(this.iProjectileActuel > this.aListeProjectiles.length-1)
 			this.iProjectileActuel = 0;
@@ -64,20 +71,20 @@ GroupeProjectiles.prototype.lancer = function()
 	var oProjectileA_Supprimer = "";
 	
 	// on déplace les projectiles présents sur le terrain
-	for(var i=0; i<this.aListeProjectilesActifs.length; i++){
+	for(var i=0; i<this.aListeProjectilesActifs.length; i++) {
 		var oProjectile = this.aListeProjectilesActifs[i];
 		oProjectile.oPosition.x += this.oDeplacement.x;
 		oProjectile.oPosition.y += this.oDeplacement.y;
 		oProjectile.deplacer();
 		
 		// si le projectile arrive au point d'arrivé
-		if(distance(oProjectile.oPosition, this.oPositionArrivee) < distance(new Point(0,0), this.oDeplacement)){
+		if(distance(oProjectile.oPosition, this.oPositionArrivee) < distance(new Point(0,0), this.oDeplacement)) {
 			oProjectileA_Supprimer = oProjectile;
 		}
 	}
 	
 	// on supprime oProjectileA_Supprimer
-	if(oProjectileA_Supprimer != ""){
+	if(oProjectileA_Supprimer != "") {
 		oProjectileA_Supprimer.oPosition = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
 		oProjectileA_Supprimer.deplacer();
 		oProjectileA_Supprimer.cacher();
@@ -87,17 +94,17 @@ GroupeProjectiles.prototype.lancer = function()
 
 GroupeProjectiles.prototype.verifierCollision = function()
 {
-	var oTerrain = oPartie.oTerrain;
-	var oBille = oPartie.oTerrain.oBille;
+	var oTerrain = oModeEnCours.oTerrain;
+	var oBille = oModeEnCours.oTerrain.oBille;
 	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
 
-	for(var j=0; j<this.aListeProjectilesActifs.length; j++){
+	for(var j=0; j<this.aListeProjectilesActifs.length; j++) {
 		var oProjectile = this.aListeProjectilesActifs[j];
 		var oPointMilieuProjectile = new Point(	oProjectile.oPosition.x + oProjectile.iTaille/2, 
 												oProjectile.oPosition.y + oProjectile.iTaille/2);
 											
-		if(distance(oPointMilieuSphere, oPointMilieuProjectile) < oProjectile.iTaille/2 + oBille.iTaille/2){
-			oPartie.oChrono.reset();
+		if(distance(oPointMilieuSphere, oPointMilieuProjectile) < oProjectile.iTaille/2 + oBille.iTaille/2) {
+			oModeEnCours.oChrono.reset();
 			oTerrain.reset();
 		}
 	}
@@ -107,7 +114,7 @@ GroupeProjectiles.prototype.verifierCollision = function()
 GroupeProjectiles.prototype.reset = function()
 {
 	// on supprime les projectiles
-	for(var i=0; i<this.aListeProjectilesActifs.length; i++){
+	for(var i=0; i<this.aListeProjectilesActifs.length; i++) {
 		this.aListeProjectilesActifs[i].oPosition = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
 		this.aListeProjectilesActifs[i].deplacer();
 		this.aListeProjectilesActifs[i].cacher();

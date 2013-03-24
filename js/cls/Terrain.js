@@ -1,111 +1,137 @@
-function Terrain()  
+function Terrain(sMode)  
 {  
 	this.iLargeur = document.documentElement.clientWidth;
 	this.iHauteur = document.documentElement.clientHeight - 25;
 	this.oDiv = document.getElementById("terrain");
 	this.oDiv.style.width = this.iLargeur + "px";	
 	this.oDiv.style.height = this.iHauteur + "px";
-	
-	// Niveau sélectionné dans le menu
-	var oNiveau = aListeNiveaux[iNiveauSelectionne];
-	
-	// ************************* Bille
-	this.oBille = new Bille(new Point(oNiveau.bille.x, oNiveau.bille.y));
-	
-	// ************************* Liste des murs
-	this.aListeMurs = new Array();
-	for(var j=0; j<oNiveau.murs.length; j++){
-		var oMurTemp = oNiveau.murs[j];
-		this.aListeMurs.push(new Mur(new Point(oMurTemp.x, oMurTemp.y), oMurTemp.largeur, oMurTemp.hauteur, oMurTemp.repousse));
+
+	// si c'est une partie qui a été lancée et non l'éditeur
+	if(sMode == "Partie") {
+		// Niveau sélectionné dans le menu
+		var oNiveau = aListeNiveaux[iNiveauSelectionne];
+		
+		// ************************* Bille
+		this.oBille = new Bille(new Point(oNiveau.bille.x, oNiveau.bille.y));
+		
+		// ************************* Liste des murs
+		this.aListeMurs = new Array();
+		for(var j=0; j<oNiveau.murs.length; j++) {
+			var oMurTemp = oNiveau.murs[j];
+			this.aListeMurs.push(new Mur(new Point(oMurTemp.x, oMurTemp.y), oMurTemp.largeur, oMurTemp.hauteur, oMurTemp.repousse));
+		}
+		
+		// ************************* Liste des vides
+		this.aListeVides = new Array();
+		for(var j=0; j<oNiveau.vides.length; j++) {
+			var oVideTemp = oNiveau.vides[j];
+			this.aListeVides.push(new Vide(new Point(oVideTemp.x, oVideTemp.y), oVideTemp.largeur, oVideTemp.hauteur));
+		}
+		
+		// ************************* Liste des trous
+		this.aListeTrous = new Array();
+		for(var j=0; j<oNiveau.trous.length; j++) {
+			var oTrouTemp = oNiveau.trous[j];
+			this.aListeTrous.push(new Trou(new Point(oTrouTemp.x, oTrouTemp.y)));
+		}
+		
+		// ************************* Liste des trappes
+		this.aListeTrappes = new Array();
+		for(var j=0; j<oNiveau.trappes.length; j++) {
+			var oTrappeTemp = oNiveau.trappes[j];
+			this.aListeTrappes.push(new Trappe(new Point(oTrappeTemp.x, oTrappeTemp.y), oTrappeTemp.tempsOuverture, true));
+		}	
+		
+		// ************************* Liste des diamants
+		this.aListeDiamants = new Array();
+		for(var j=0; j<oNiveau.diamants.length; j++) {
+			var oDiamantTemp = oNiveau.diamants[j];
+			this.aListeDiamants.push(new Diamant(new Point(oDiamantTemp.x, oDiamantTemp.y), oDiamantTemp.image));
+		}
+		this.iNbreDiamants = oNiveau.diamants.length;
+		this.iNbreDiamantsAttrapes = 0;
+		
+		// ************************* Liste des projectiles
+		this.aListeProjectiles = new Array();
+		for(var j=0; j<oNiveau.groupesProjectiles.length; j++) {
+			var oGroupeProjectiles = oNiveau.groupesProjectiles[j];
+			this.aListeProjectiles.push(new GroupeProjectiles(new Point(oGroupeProjectiles.xDepart, oGroupeProjectiles.yDepart), 
+															  new Point(oGroupeProjectiles.xArrivee, oGroupeProjectiles.yArrivee),
+															  oGroupeProjectiles.vitesse,
+															  oGroupeProjectiles.distance));
+		}
+		
+		// ************************* Trou de fin
+		this.oPositionArrivee = new Point(oNiveau.arrivee.x*fRatioLargeur,oNiveau.arrivee.y*fRatioHauteur);
+		this.oDivArrivee = new Point(oNiveau.arrivee.x*fRatioLargeur,oNiveau.arrivee.y*fRatioHauteur);
+		this.iTailleArrivee = 20*((fRatioLargeur+fRatioHauteur)/2);
 	}
-	
-	// ************************* Liste des vides
-	this.aListeVides = new Array();
-	for(var j=0; j<oNiveau.vides.length; j++){
-		var oVideTemp = oNiveau.vides[j];
-		this.aListeVides.push(new Vide(new Point(oVideTemp.x, oVideTemp.y), oVideTemp.largeur, oVideTemp.hauteur));
+	else {
+		// ************************* Bille
+		this.oBille = new Bille(new Point(-100, 0));
+		
+		// ************************* Liste des murs
+		this.aListeMurs = new Array();
+		
+		// ************************* Liste des vides
+		this.aListeVides = new Array();
+		
+		// ************************* Liste des trous
+		this.aListeTrous = new Array();
+		this.iTailleTrous = 17*((fRatioLargeur+fRatioHauteur)/2);
+		
+		// ************************* Liste des trappes
+		this.aListeTrappes = new Array();
+		
+		// ************************* Liste des diamants
+		this.aListeDiamants = new Array();
+		this.iNbreDiamants = 0;
+		this.iNbreDiamantsAttrapes = 0;
+		
+		// ************************* Liste des projectiles
+		this.aListeProjectiles = new Array();
+		
+		// ************************* Trou de fin
+		this.oPositionArrivee = new Point(-100,0);
+		this.oDivArrivee = null;
+		this.iTailleArrivee = 20*((fRatioLargeur+fRatioHauteur)/2);
 	}
-	
-	// ************************* Liste des trous
-	this.aListeTrous = new Array();
-	for(var j=0; j<oNiveau.trous.length; j++){
-		var oTrouTemp = oNiveau.trous[j];
-		this.aListeTrous.push({"div":"", "position":new Point(oTrouTemp.x*fRatioLargeur,oTrouTemp.y*fRatioHauteur)});
-	}
-	this.iTailleTrous = 17*((fRatioLargeur+fRatioHauteur)/2);
-	
-	// ************************* Liste des trappes
-	this.aListeTrappes = new Array();
-	for(var j=0; j<oNiveau.trappes.length; j++){
-		var oTrappeTemp = oNiveau.trappes[j];
-		this.aListeTrappes.push(new Trappe(new Point(oTrappeTemp.x, oTrappeTemp.y), oTrappeTemp.tempsOuverture, true));
-	}	
-	
-	// ************************* Liste des diamants
-	this.aListeDiamants = new Array();
-	for(var j=0; j<oNiveau.diamants.length; j++){
-		var oDiamantTemp = oNiveau.diamants[j];
-		this.aListeDiamants.push(new Diamant(new Point(oDiamantTemp.x, oDiamantTemp.y), oDiamantTemp.image));
-	}
-	this.iNbreDiamants = oNiveau.diamants.length;
-	this.iNbreDiamantsAttrapes = 0;
-	
-	// ************************* Liste des projectiles
-	this.aListeProjectiles = new Array();
-	for(var j=0; j<oNiveau.groupesProjectiles.length; j++){
-		var oGroupeProjectiles = oNiveau.groupesProjectiles[j];
-		this.aListeProjectiles.push(new GroupeProjectiles(new Point(oGroupeProjectiles.xDepart, oGroupeProjectiles.yDepart), 
-														  new Point(oGroupeProjectiles.xArrivee, oGroupeProjectiles.yArrivee),
-														  oGroupeProjectiles.vitesse,
-														  oGroupeProjectiles.distance));
-	}
-	
-	// ************************* Trou de fin
-	this.oPositionArrivee = new Point(oNiveau.arrivee.x*fRatioLargeur,oNiveau.arrivee.y*fRatioHauteur);
-	this.oDivArrivee = new Point(oNiveau.arrivee.x*fRatioLargeur,oNiveau.arrivee.y*fRatioHauteur);
-	this.iTailleArrivee = 20*((fRatioLargeur+fRatioHauteur)/2);
 };
 
 // Méthode de tracé
 Terrain.prototype.tracer = function()
 {
 	// ===== bille ===== //
-	this.oBille.tracer(this.oDiv);
+	if(this.oBille != null)
+		this.oBille.tracer(this.oDiv);
 
 	// ===== murs ===== //
-	for(var i=0; i<this.aListeMurs.length; i++){
+	for(var i=0; i<this.aListeMurs.length; i++) {
 		this.aListeMurs[i].tracer(this.oDiv);
 	}
 
 	// ===== vides ===== //
-	for(var i=0; i<this.aListeVides.length; i++){
+	for(var i=0; i<this.aListeVides.length; i++) {
 		this.aListeVides[i].tracer(this.oDiv);
 	}
 	
 	// ===== trous ===== //
-	for(var i=0; i<this.aListeTrous.length; i++){
-		var oTrou = document.createElement("img");
-		// on ajoute le div dans la liste
-		this.aListeTrous[i]["div"] = oTrou;
-		oTrou.className = "trou";
-		oTrou.style.position = "absolute";
-		oTrou.style.left = this.aListeTrous[i]["position"].x + "px";
-		oTrou.style.top = this.aListeTrous[i]["position"].y + "px";
-		
-		oTrou.style.width = this.iTailleTrous + "px";
-		oTrou.style.height = this.iTailleTrous + "px";
-		oTrou.src = "img/trou-34.png";
-		
-		this.oDiv.appendChild(oTrou);
+	for(var i=0; i<this.aListeTrous.length; i++) {
+		this.aListeTrous[i].tracer(this.oDiv);
 	}
 	
 	// ===== trappes ===== //
-	for(var i=0; i<this.aListeTrappes.length; i++){
+	for(var i=0; i<this.aListeTrappes.length; i++) {
 		this.aListeTrappes[i].tracer(this.oDiv);
+	}
+	
+	// ===== projectiles ===== //
+	for(var i=0; i<this.aListeProjectiles.length; i++) {
+		this.aListeProjectiles[i].tracer(this.oDiv);
 	}
 
 	// ===== diamants ===== //
-	for(var i=0; i<this.aListeDiamants.length; i++){
+	for(var i=0; i<this.aListeDiamants.length; i++) {
 		this.aListeDiamants[i].tracer(this.oDiv);
 	}
 	
@@ -133,20 +159,20 @@ Terrain.prototype.tracer = function()
 Terrain.prototype.actionnerMecanismes = function()
 {
 	// si la bille ne tombe pas dans un trou
-	if(!oPartie.oTerrain.oBille.bTombeDansTrou){
+	if(!oModeEnCours.oTerrain.oBille.bTombeDansTrou) {
 		
 		// ===== trappes ===== //
-		for(var i=0; i<this.aListeTrappes.length; i++){
+		for(var i=0; i<this.aListeTrappes.length; i++) {
 			this.aListeTrappes[i].actionner();
 		}
 		
 		// ===== projectiles ===== //
-		for(var i=0; i<this.aListeProjectiles.length; i++){
+		for(var i=0; i<this.aListeProjectiles.length; i++) {
 			this.aListeProjectiles[i].lancer();
 		}
 		
 		// ===== diamants ===== //
-		for(var i=0; i<this.aListeDiamants.length; i++){
+		for(var i=0; i<this.aListeDiamants.length; i++) {
 			this.aListeDiamants[i].animer();
 		}
 	}
@@ -159,12 +185,12 @@ Terrain.prototype.reset = function()
 	this.oBille.reset();
 
 	// ===== projectiles ===== //
-	for(var i=0; i<this.aListeProjectiles.length; i++){
+	for(var i=0; i<this.aListeProjectiles.length; i++) {
 		this.aListeProjectiles[i].reset();
 	}
 	
 	// ===== diamants ===== //
-	for(var i=0; i<this.aListeDiamants.length; i++){
+	for(var i=0; i<this.aListeDiamants.length; i++) {
 		this.aListeDiamants[i].reset();
 	}
 	this.iNbreDiamantsAttrapes = 0;

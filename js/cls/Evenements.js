@@ -3,15 +3,15 @@ var oPage = document.getElementsByClassName('page');
 // Détecte le click pendant une partie, sur le bouton pause
 function pausePartie() {
 	document.getElementById('pause').style.display = 'block';
-	oPartie.oChrono.pause();
-	oPartie.bPause = true;
+	oModeEnCours.oChrono.pause();
+	oModeEnCours.bPause = true;
 }
 
 // Détecte le click pendant que le menu Pause est afficher pour reprendre la partie
 function reprendrePartie() {
 	document.getElementById('pause').style.display = 'none';
-	oPartie.oChrono.start();
-	oPartie.bPause = false;
+	oModeEnCours.oChrono.start();
+	oModeEnCours.bPause = false;
 }
 
 // Détecte le click après la victoire pour recommencer la partie
@@ -38,7 +38,7 @@ function menuPrincipal() {
 		if(oPage[i] instanceof Element)
 			oPage[i].style.display = 'none';
 	}
-	oPartie = null;
+	oModeEnCours = null;
 	// on vide le terrain
 	document.getElementById('terrain').innerHTML = "";
 	// on vide le menu
@@ -65,7 +65,7 @@ function menuLangues() {
 	document.getElementById('languages').style.display = 'block';
 }
 
-function creerPartie(iNumeroTerrain){
+function creerPartie(iNumeroTerrain) {
 	for(var i in oPage) {
 		if(oPage[i] instanceof Element)
 			oPage[i].style.display = 'none';

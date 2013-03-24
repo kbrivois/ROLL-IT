@@ -46,7 +46,7 @@ Trappe.prototype.tracer = function(oDivTerrain)
 
 	oDivTerrain.appendChild(oTrappe);
 
-	for(var i=0; i<this.aListeImages.length; i++){
+	for(var i=0; i<this.aListeImages.length; i++) {
 		
 		var oImgTrappe = document.createElement("img");
 		oImgTrappe.style.position = "absolute";
@@ -57,11 +57,11 @@ Trappe.prototype.tracer = function(oDivTerrain)
 		// on ajoute le div dans la liste
 		oImgTrappe.className = "img-trappe";
 		
-		if(this.bOuvert && i == this.aListeImages.length-1){
+		if(this.bOuvert && i == this.aListeImages.length-1) {
 			oImgTrappe.src = this.aListeImages[this.aListeImages.length-1];
 			this.iImageActuelle = this.aListeImages.length-1;
 		}
-		else if(!this.bOuvert && i == 0){
+		else if(!this.bOuvert && i == 0) {
 			oImgTrappe.src = this.aListeImages[0];
 			this.iImageActuelle = 0;
 		}
@@ -80,9 +80,9 @@ Trappe.prototype.actionner = function()
 {
 	var iDeltaTrappe = Date.now() - this.iThen;
 	
-	if(iDeltaTrappe > this.iTempsOF){
+	if(iDeltaTrappe > this.iTempsOF) {
 		// si la trappe est ouverte
-		if(this.bOuvert){
+		if(this.bOuvert) {
 			this.bOuvert = false;
 			// on fait disparaitre l'image "ouverte" de la trappe
 			this.aListeImgHTML[this.iImageActuelle].style.display = "none";
@@ -103,13 +103,13 @@ Trappe.prototype.actionner = function()
 	}
 	
 	// si l'ouverture ou la fermeture ne sont pas terminées
-	if(this.iImageActuelle != this.aListeImages.length-1 && this.iImageActuelle != 0){
+	if(this.iImageActuelle != this.aListeImages.length-1 && this.iImageActuelle != 0) {
 	  
 		var iDeltaImage = Date.now() - this.iThenImages;
 		
-		if(iDeltaImage > this.iTempsEntreImages){
+		if(iDeltaImage > this.iTempsEntreImages) {
 			// si la trappe doit se refermer
-			if(!this.bOuvert){
+			if(!this.bOuvert) {
 				this.aListeImgHTML[this.iImageActuelle].style.display = "none";
 				this.iImageActuelle--;
 			}
@@ -126,20 +126,20 @@ Trappe.prototype.actionner = function()
 
 Trappe.prototype.verifierCollision = function()
 {
-	var oTerrain = oPartie.oTerrain;
-	var oBille = oPartie.oTerrain.oBille;
+	var oTerrain = oModeEnCours.oTerrain;
+	var oBille = oModeEnCours.oTerrain.oBille;
 	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
 
 	// si la trappe est ouverte
-	if(this.bOuvert){
+	if(this.bOuvert) {
 		if(oPointMilieuSphere.x > this.oPosition.x 
 		&& oPointMilieuSphere.x < this.oPosition.x + this.iTaille
 		&& oPointMilieuSphere.y > this.oPosition.y
-		&& oPointMilieuSphere.y < this.oPosition.y + this.iTaille){
+		&& oPointMilieuSphere.y < this.oPosition.y + this.iTaille) {
 			oBille.oPosition.x = this.oPosition.x + this.iTaille/2 - oBille.iTaille/2;
 			oBille.oPosition.y = this.oPosition.y + this.iTaille/2 - oBille.iTaille/2;
 			oBille.bTombeDansTrou = true;
-			oPartie.oChrono.reset();
+			oModeEnCours.oChrono.reset();
 		}
 	}
 };

@@ -11,7 +11,7 @@ function Chrono()
 Chrono.prototype.start = function()
 {
 	var t = this;
-	this.iChronoInterval = setInterval(function(){
+	this.iChronoInterval = setInterval(function() {
 							 t.calculChronometre();
 						   },100);
 };

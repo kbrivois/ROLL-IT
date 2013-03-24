@@ -3,13 +3,10 @@ function Partie()
 	/*** ================================================================================================================================================
 	déclaration des variables
 	====================================================================================================================================================*/
-
-	iCompteurImages = 0;
-	iNombresImages = 0;
 	
 	document.getElementById("level-number").innerHTML = iNiveauSelectionne;
 	
-	this.oTerrain = new Terrain();
+	this.oTerrain = new Terrain("Partie");
 	this.oTerrain.tracer();
 	this.oChrono = new Chrono();
 	this.oChrono.start();
@@ -36,7 +33,7 @@ Partie.prototype.lancer = function()
 
 /**
 *** ==========================================================================================================================================
-**** on stope la partie
+**** on stoppe la partie
 *** ========================================================================================================================================== 
 **/
 Partie.prototype.pause = function()

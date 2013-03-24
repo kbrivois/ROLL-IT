@@ -24,7 +24,7 @@ function Projectile()
 };
 
 // On dessine le projectile
-Projectile.prototype.tracer = function()
+Projectile.prototype.tracer = function(oDivTerrain)
 {
 	var oProjectile = document.createElement("div");
 
@@ -38,9 +38,9 @@ Projectile.prototype.tracer = function()
 	oProjectile.style.width = this.iTaille + "px";
 	oProjectile.style.height = this.iTaille + "px";
 
-	document.getElementById("terrain").appendChild(oProjectile);
+	oDivTerrain.appendChild(oProjectile);
 
-	for(var i=0; i<this.aListeImages.length; i++){
+	for(var i=0; i<this.aListeImages.length; i++) {
 		
 		var oImgProjectile = document.createElement("img");
 		oImgProjectile.style.position = "absolute";
@@ -75,7 +75,7 @@ Projectile.prototype.deplacer = function()
 	
 	// on anime le projectile
 	var deltaImage = Date.now() - this.iThenImages;
-	if(deltaImage > this.iTempsEntreImages){
+	if(deltaImage > this.iTempsEntreImages) {
 		
 		this.aListeImgHTML[this.iImageActuelle].style.display = "none";
 		

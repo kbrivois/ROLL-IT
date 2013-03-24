@@ -7,7 +7,7 @@ function MenuNiveaux()
 MenuNiveaux.prototype.tracer = function()
 {
 	// on affiche tous les niveaux
-	for(var i=0; i<this.aListeNiveaux.length; i++){
+	for(var i=0; i<this.aListeNiveaux.length; i++) {
 		// show-level-item
 		var oDivShowItemMenu = document.createElement("div");
 		oDivShowItemMenu.className = "show-level-item";
@@ -24,49 +24,38 @@ MenuNiveaux.prototype.tracer = function()
 		fRatioHauteur = oDivItemMenu.offsetHeight / iHauteurDeBase;
 	
 		// murs
-		for(var j=0; j<this.aListeNiveaux[i].murs.length; j++){
+		for(var j=0; j<this.aListeNiveaux[i].murs.length; j++) {
 			var oMurTemp = this.aListeNiveaux[i].murs[j];
 			var oMur = new Mur(new Point(oMurTemp.x, oMurTemp.y), oMurTemp.largeur, oMurTemp.hauteur, oMurTemp.repousse);
 			oMur.tracer(oDivItemMenu);
 		}
 
 		// vides
-		for(var j=0; j<this.aListeNiveaux[i].vides.length; j++){
+		for(var j=0; j<this.aListeNiveaux[i].vides.length; j++) {
 			var oVideTemp = this.aListeNiveaux[i].vides[j];
 			var oVide = new Vide(new Point(oVideTemp.x, oVideTemp.y), oVideTemp.largeur, oVideTemp.hauteur);
 			oVide.tracer(oDivItemMenu);
 		}
 
 		// trappes
-		for(var j=0; j<this.aListeNiveaux[i].trappes.length; j++){
+		for(var j=0; j<this.aListeNiveaux[i].trappes.length; j++) {
 			var oTrappeTemp = this.aListeNiveaux[i].trappes[j];
 			var oTrappe = new Trappe(new Point(oTrappeTemp.x, oTrappeTemp.y), oTrappeTemp.tempsOuverture, true);
 			oTrappe.tracer(oDivItemMenu);
 		}
 
 		// diamants
-		for(var j=0; j<this.aListeNiveaux[i].diamants.length; j++){
+		for(var j=0; j<this.aListeNiveaux[i].diamants.length; j++) {
 			var oDiamantTemp = this.aListeNiveaux[i].diamants[j];
 			var oDiamant = new Diamant(new Point(oDiamantTemp.x, oDiamantTemp.y), oDiamantTemp.image);
 			oDiamant.tracer(oDivItemMenu);
 		}
 
 		// trous
-		for(var j=0; j<this.aListeNiveaux[i].trous.length; j++){
+		for(var j=0; j<this.aListeNiveaux[i].trous.length; j++) {
 			var oTrouTemp = this.aListeNiveaux[i].trous[j];
-			var oTrou = document.createElement("img");
-			
-			// on ajoute le div dans la liste
-			oTrou.className = "trou";
-			oTrou.style.position = "absolute";
-			oTrou.style.left = oTrouTemp.x*fRatioLargeur + "px";
-			oTrou.style.top = oTrouTemp.y*fRatioHauteur + "px";
-			
-			oTrou.style.width = 15 * ((fRatioLargeur+fRatioHauteur) / 2) + "px";
-			oTrou.style.height = 15 * ((fRatioLargeur+fRatioHauteur) / 2) + "px";
-			oTrou.src = "img/trou-34.png";
-
-			oDivItemMenu.appendChild(oTrou);
+			var oTrou = new Trou(new Point(oTrouTemp.x, oTrouTemp.y));
+			oTrou.tracer(oDivItemMenu);
 		}
 
 		// arrivée
@@ -87,8 +76,8 @@ MenuNiveaux.prototype.tracer = function()
 		oBille.tracer(oDivItemMenu);
 
 		// ajout de l'événement sur le clic de la vignette
-		(function(i){
-			oDivItemMenu.addEventListener("click", function(){creerPartie(i)}, false);
+		(function(i) {
+			oDivItemMenu.addEventListener("click", function() {creerPartie(i)}, false);
 		})(i);
 
 		// texte

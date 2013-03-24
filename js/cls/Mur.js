@@ -8,6 +8,8 @@ function Mur(oPositionTemp, iLargeurTemp, iHauteurTemp, bRepousseTemp)
 	this.iLargeur = iLargeurTemp*fRatioLargeur;
 	// Hauteur
 	this.iHauteur = iHauteurTemp*fRatioHauteur;
+	// Taille des bords
+	this.iTailleBords = 1;
 	// Mur qui repousse ou non
 	this.bRepousse = bRepousseTemp;
 	// Force de répulsion des murs qui repoussent
@@ -31,24 +33,30 @@ Mur.prototype.tracer = function(oDivTerrain)
 	oMur.style.height = this.iHauteur+"px";
 	
 	// mur qui repousse
-	if(this.bRepousse)
-		oMur.style.backgroundColor = "red";
-	else
-		oMur.style.backgroundColor = "black";
+	if(this.bRepousse) {
+		oMur.style.backgroundImage = "url(img/murs/rouge.png)";
+		oMur.style.backgroundPosition = -(this.oPosition.x)+"px "+(-this.oPosition.y)+"px";
+		oMur.style.border = this.iTailleBords+"px solid red";
+	}
+	else {
+		oMur.style.backgroundImage = "url(img/murs/noir.png)";
+		oMur.style.backgroundPosition = -(this.oPosition.x)+"px "+(-this.oPosition.y)+"px";
+		oMur.style.border = this.iTailleBords+"px solid black";
+	}
 
 	oDivTerrain.appendChild(oMur);
 }
 
 Mur.prototype.verifierCollision = function()
 {
-	var oBille = oPartie.oTerrain.oBille;
+	var oBille = oModeEnCours.oTerrain.oBille;
 	
 	// si la bille était au-dessus du mur
 	if(oBille.oPositionPrecedente.y + oBille.iTaille <= this.oPosition.y
 	&& oBille.oPositionPrecedente.x + oBille.iTaille > this.oPosition.x
-	&& oBille.oPositionPrecedente.x < this.oPosition.x + this.iLargeur){
+	&& oBille.oPositionPrecedente.x < this.oPosition.x + this.iLargeur) {
 		// si on s'aperçoit qu'elle a traversé le mur
-		if(oBille.oPosition.y + oBille.iTaille > this.oPosition.y){
+		if(oBille.oPosition.y + oBille.iTaille > this.oPosition.y) {
 			oBille.oPosition.y = this.oPosition.y - oBille.iTaille;				
 			// si mur qui repousse
 			if(this.bRepousse)
@@ -60,9 +68,9 @@ Mur.prototype.verifierCollision = function()
 	// si la bille est en dessous du mur
 	if(oBille.oPositionPrecedente.y >= this.oPosition.y + this.iHauteur
 	&& oBille.oPositionPrecedente.x + oBille.iTaille > this.oPosition.x
-	&& oBille.oPositionPrecedente.x < this.oPosition.x + this.iLargeur){
+	&& oBille.oPositionPrecedente.x < this.oPosition.x + this.iLargeur) {
 		// si on s'aperçoit qu'elle a traversé le mur
-		if(oBille.oPosition.y < this.oPosition.y + this.iHauteur){
+		if(oBille.oPosition.y < this.oPosition.y + this.iHauteur) {
 			oBille.oPosition.y = this.oPosition.y + this.iHauteur;			
 			// si mur qui repousse
 			if(this.bRepousse)
@@ -74,9 +82,9 @@ Mur.prototype.verifierCollision = function()
 	// si la bille est à gauche du mur
 	if(oBille.oPositionPrecedente.x + oBille.iTaille <= this.oPosition.x
 	&& oBille.oPositionPrecedente.y + oBille.iTaille > this.oPosition.y
-	&& oBille.oPositionPrecedente.y < this.oPosition.y + this.iHauteur){
+	&& oBille.oPositionPrecedente.y < this.oPosition.y + this.iHauteur) {
 		// si on s'aperçoit qu'elle a traversé le mur
-		if(oBille.oPosition.x  + oBille.iTaille > this.oPosition.x){
+		if(oBille.oPosition.x  + oBille.iTaille > this.oPosition.x) {
 			oBille.oPosition.x = this.oPosition.x - oBille.iTaille;
 			// si mur qui repousse
 			if(this.bRepousse)
@@ -88,9 +96,9 @@ Mur.prototype.verifierCollision = function()
 	// si la bille est à droite du mur
 	if(oBille.oPositionPrecedente.x >= this.oPosition.x + this.iLargeur
 	&& oBille.oPositionPrecedente.y + oBille.iTaille > this.oPosition.y
-	&& oBille.oPositionPrecedente.y < this.oPosition.y + this.iHauteur){
+	&& oBille.oPositionPrecedente.y < this.oPosition.y + this.iHauteur) {
 		// si on s'aperçoit qu'elle a traversé le mur
-		if(oBille.oPosition.x < this.oPosition.x + this.iLargeur){
+		if(oBille.oPosition.x < this.oPosition.x + this.iLargeur) {
 			oBille.oPosition.x = this.oPosition.x + this.iLargeur;
 			// si mur qui repousse
 			if(this.bRepousse)
@@ -104,7 +112,7 @@ Mur.prototype.verifierCollision = function()
 	if(oBille.oPosition.x + oBille.iTaille > this.oPosition.x
 	&& oBille.oPosition.x < this.oPosition.x + this.iLargeur
 	&& oBille.oPosition.y + oBille.iTaille > this.oPosition.y
-	&& oBille.oPosition.y < this.oPosition.y + this.iHauteur){
+	&& oBille.oPosition.y < this.oPosition.y + this.iHauteur) {
 	
 		// Dans l'angle en haut à gauche du mur
 		if(oBille.oPositionPrecedente.y + oBille.iTaille <= this.oPosition.y
@@ -112,7 +120,7 @@ Mur.prototype.verifierCollision = function()
 			oBille.oPosition.x = this.oPosition.x - oBille.iTaille;
 			oBille.oPosition.y = this.oPosition.y - oBille.iTaille;	
 			// si mur qui repousse
-			if(this.bRepousse){
+			if(this.bRepousse) {
 				oBille.fVitesseX =- this.iForceRepulsion;
 				oBille.fVitesseY =- this.iForceRepulsion;
 			}
@@ -127,7 +135,7 @@ Mur.prototype.verifierCollision = function()
 			oBille.oPosition.x = this.oPosition.x + this.iLargeur;
 			oBille.oPosition.y = this.oPosition.y - oBille.iTaille;
 			// si mur qui repousse
-			if(this.bRepousse){
+			if(this.bRepousse) {
 				oBille.fVitesseX = this.iForceRepulsion;
 				oBille.fVitesseY =- this.iForceRepulsion;
 			}
@@ -142,7 +150,7 @@ Mur.prototype.verifierCollision = function()
 			oBille.oPosition.x = this.oPosition.x - oBille.iTaille;
 			oBille.oPosition.y = this.oPosition.y + this.iHauteur;
 			// si mur qui repousse
-			if(this.bRepousse){
+			if(this.bRepousse) {
 				oBille.fVitesseX =- this.iForceRepulsion;
 				oBille.fVitesseY = this.iForceRepulsion;
 			}
@@ -157,7 +165,7 @@ Mur.prototype.verifierCollision = function()
 			oBille.oPosition.x = this.oPosition.x + this.iLargeur;
 			oBille.oPosition.y = this.oPosition.y + this.iHauteur;
 			// si mur qui repousse
-			if(this.bRepousse){
+			if(this.bRepousse) {
 				oBille.fVitesseX = this.iForceRepulsion;
 				oBille.fVitesseY = this.iForceRepulsion;
 			}
