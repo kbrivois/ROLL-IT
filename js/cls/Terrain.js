@@ -1,7 +1,7 @@
 function Terrain(sMode)  
 {  
-	this.iLargeur = document.documentElement.clientWidth;
-	this.iHauteur = document.documentElement.clientHeight - 25;
+	this.iLargeur = fLargeurA_Retenir;
+	this.iHauteur = fHauteurA_Retenir;
 	this.oDiv = document.getElementById("terrain");
 	this.oDiv.style.width = this.iLargeur + "px";	
 	this.oDiv.style.height = this.iHauteur + "px";

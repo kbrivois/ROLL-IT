@@ -7,58 +7,6 @@ déclaration des variables
 var oDivTemp = "";
 var oPositionTouchDepart = new Point(0,0);
 var oPositionTouchArrivee = new Point(0,0);
-
-document.getElementById("terrain").ontouchstart = function(event){
-	oDivTemp = document.createElement("div");
-	// on ajoute le div dans la liste
-	oDivTemp.style.position = "absolute";
-	
-	oPositionTouchDepart.x = event.targetTouches[0].pageX-30;
-	oPositionTouchDepart.y = event.targetTouches[0].pageY-60;
-	oDivTemp.style.left = oPositionTouchDepart.x+"px";
-	oDivTemp.style.top = oPositionTouchDepart.y+"px";
-
-	oDivTemp.style.backgroundImage = "url(img/murs/noir.png)";
-	oDivTemp.style.backgroundPosition = -(oPositionTouchDepart.x)+"px "+(-oPositionTouchDepart.y)+"px";
-
-	document.getElementById("terrain").appendChild(oDivTemp);
-}
-
-document.getElementById("terrain").ontouchmove = function(event){
-    event.preventDefault();
-	
-	oPositionTouchArrivee.x = event.targetTouches[0].pageX-30;
-	oPositionTouchArrivee.y = event.targetTouches[0].pageY-60;
-	
-	// largeur
-	if(oPositionTouchArrivee.x > oPositionTouchDepart.x) {
-		var iLargeur = oPositionTouchArrivee.x - oPositionTouchDepart.x;
-		oDivTemp.style.width = iLargeur+"px";
-	}
-	else {
-		var iLargeur = oPositionTouchDepart.x - oPositionTouchArrivee.x;
-		oDivTemp.style.width = iLargeur+"px";
-		oDivTemp.style.left	= oPositionTouchArrivee.x+"px";
-	}
-	// hauteur
-	if(oPositionTouchArrivee.y > oPositionTouchDepart.y) {
-		var iHauteur = oPositionTouchArrivee.y - oPositionTouchDepart.y;
-		oDivTemp.style.height = iHauteur+"px";
-	}
-	else {
-		var iHauteur = oPositionTouchDepart.y - oPositionTouchArrivee.y;
-		oDivTemp.style.height = iHauteur+"px";
-		oDivTemp.style.top = oPositionTouchArrivee.y+"px";
-	}
-	// background
-	oDivTemp.style.backgroundPosition = -(oDivTemp.offsetLeft)+"px "+(-oDivTemp.offsetTop)+"px";
-	oDivTemp.style.opacity = "0.3";
-}
-
-document.getElementById("terrain").ontouchend = function(event){
-	oDivTemp.style.opacity = "1";
-}
-
 // Partie
 var oPartie = null;
 // Editeur
@@ -69,15 +17,27 @@ var oMenuNiveaux = null;
 var oModeEnCours = null;
 // Largeur et hauteur qui vont nous servir pour calculer les ratio selon les différentes tailles d'écran
 var iLargeurDeBase = 320;
-var iHauteurDeBase = 331;
-// Les ratios selon la taille de l'écran
-var fRatioLargeur = (document.documentElement.clientWidth) / iLargeurDeBase;
-var fRatioHauteur = (document.documentElement.clientHeight - 25) / iHauteurDeBase;
+var iHauteurDeBase = 400;
+var fRatioLargeurHauteur = iLargeurDeBase/iHauteurDeBase;
+var fLargeurA_Retenir = (document.documentElement.clientHeight-25) * fRatioLargeurHauteur;
+var fHauteurA_Retenir = document.documentElement.clientHeight-25;
+if(document.documentElement.clientWidth/fHauteurA_Retenir < fRatioLargeurHauteur) {
+	var fLargeurA_Retenir = document.documentElement.clientWidth;
+	var fHauteurA_Retenir = document.documentElement.clientWidth / fRatioLargeurHauteur;
+}
+var fRatioLargeur = fLargeurA_Retenir / iLargeurDeBase;
+var fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
+// on change le style du "content"
+var oElemContent = document.getElementById("content");
+oElemContent.style.width = fLargeurA_Retenir+"px";
+oElemContent.style.height = (fHauteurA_Retenir+25)+"px";
+oElemContent.style.marginTop = (document.documentElement.clientHeight/2 - oElemContent.offsetHeight/2) +"px";
 // Les différents niveaux
 var aListeNiveaux = chargerNiveaux();
 var iNiveauSelectionne = 0;
 // ISO de la langue de l'utilisateur
 var joueurISO = langueJoueur();
+
 
 // ************************* Evénements
 
@@ -136,8 +96,8 @@ var initMenu = function()
 var initPartie = function() 
 {
 	// Les ratios selon la taille de l'écran
-	fRatioLargeur = (document.documentElement.clientWidth) / iLargeurDeBase;
-	fRatioHauteur = (document.documentElement.clientHeight - 25) / iHauteurDeBase;
+	fRatioLargeur = fLargeurA_Retenir / iLargeurDeBase;
+	fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
 	
 	oPartie = new Partie();
 	oModeEnCours = oPartie;
@@ -145,17 +105,21 @@ var initPartie = function()
 	// standard API (Firefox, Chrome...)
 	if (window.DeviceMotionEvent) {
 		window.addEventListener("devicemotion", function( event ) {
-			oPartie.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
-			oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
+			if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+				oPartie.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
+				oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
+			}
+			else {
+				oPartie.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * -10;
+				oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * -10;
+			}
 		}, false);
-		console.log('device motion');
 	}
 	else if (window.DeviceOrientationEvent) {
 		window.addEventListener("deviceorientation", function( event ) {
 			oPartie.oTerrain.oBille.fAccelerationX = event.gamma * 2;
 			oPartie.oTerrain.oBille.fAccelerationY = event.beta * -2;
 		}, false);
-		console.log('device orientation');
 	}
 
 	mainPartie();
@@ -166,9 +130,60 @@ var initPartie = function()
 // on initialise la partie
 var initEditeur = function() 
 {
+	document.getElementById("terrain").ontouchstart = function(event){
+		oDivTemp = document.createElement("div");
+		// on ajoute le div dans la liste
+		oDivTemp.style.position = "absolute";
+		
+		oPositionTouchDepart.x = event.targetTouches[0].pageX-30;
+		oPositionTouchDepart.y = event.targetTouches[0].pageY-60;
+		oDivTemp.style.left = oPositionTouchDepart.x+"px";
+		oDivTemp.style.top = oPositionTouchDepart.y+"px";
+
+		oDivTemp.style.backgroundImage = "url(img/murs/noir.png)";
+		oDivTemp.style.backgroundPosition = -(oPositionTouchDepart.x)+"px "+(-oPositionTouchDepart.y)+"px";
+
+		document.getElementById("terrain").appendChild(oDivTemp);
+	}
+
+	document.getElementById("terrain").ontouchmove = function(event){
+		event.preventDefault();
+		
+		oPositionTouchArrivee.x = event.targetTouches[0].pageX-30;
+		oPositionTouchArrivee.y = event.targetTouches[0].pageY-60;
+		
+		// largeur
+		if(oPositionTouchArrivee.x > oPositionTouchDepart.x) {
+			var iLargeur = oPositionTouchArrivee.x - oPositionTouchDepart.x;
+			oDivTemp.style.width = iLargeur+"px";
+		}
+		else {
+			var iLargeur = oPositionTouchDepart.x - oPositionTouchArrivee.x;
+			oDivTemp.style.width = iLargeur+"px";
+			oDivTemp.style.left	= oPositionTouchArrivee.x+"px";
+		}
+		// hauteur
+		if(oPositionTouchArrivee.y > oPositionTouchDepart.y) {
+			var iHauteur = oPositionTouchArrivee.y - oPositionTouchDepart.y;
+			oDivTemp.style.height = iHauteur+"px";
+		}
+		else {
+			var iHauteur = oPositionTouchDepart.y - oPositionTouchArrivee.y;
+			oDivTemp.style.height = iHauteur+"px";
+			oDivTemp.style.top = oPositionTouchArrivee.y+"px";
+		}
+		// background
+		oDivTemp.style.backgroundPosition = -(oDivTemp.offsetLeft)+"px "+(-oDivTemp.offsetTop)+"px";
+		oDivTemp.style.opacity = "0.3";
+	}
+
+	document.getElementById("terrain").ontouchend = function(event){
+		oDivTemp.style.opacity = "1";
+	}
+
 	// Les ratios selon la taille de l'écran
-	fRatioLargeur = (document.documentElement.clientWidth) / iLargeurDeBase;
-	fRatioHauteur = (document.documentElement.clientHeight - 25) / iHauteurDeBase;
+	fRatioLargeur = fLargeurA_Retenir / iLargeurDeBase;
+	fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
 	
 	oEditeur = new Editeur();
 	oModeEnCours = oEditeur;
@@ -176,10 +191,15 @@ var initEditeur = function()
 	// standard API (Firefox, Chrome...)
 	if (window.DeviceMotionEvent) {
 		window.addEventListener("devicemotion", function( event ) {
-			oEditeur.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
-			oEditeur.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
+			if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+				oPartie.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
+				oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
+			}
+			else {
+				oPartie.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * -10;
+				oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * -10;
+			}
 		}, false);
-		console.log('device motion');
 	}
 	else if (window.DeviceOrientationEvent) {
 		window.addEventListener("deviceorientation", function( event ) {
@@ -247,4 +267,6 @@ var delta = 0;
 var tempsGlobal = new Date().getTime();
 var iCompteurFrames = 0;
 
-initEditeur();
+// initEditeur();
+// initPartie();
+menuPrincipal();

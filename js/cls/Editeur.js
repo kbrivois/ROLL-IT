@@ -86,7 +86,7 @@ Editeur.prototype.tracerVignette = function(oDivVignette, oItem, iItemLargeur, i
 	oDivVignette.style.height = this.oDivMenuEdition.offsetWidth*0.8 + "px";
 	oDivVignette.style.width = this.oDivMenuEdition.offsetWidth*0.8 + "px";
 	oDivVignette.style.marginTop = this.oDivMenuEdition.offsetWidth*0.1 + "px";
-	oDivVignette.style.marginBottom = oDivVignette.offsetWidth*0.1 + "px";
+	oDivVignette.style.marginBottom = this.oDivMenuEdition.offsetWidth*0.1 + "px";
 	
 	this.oDivMenuEdition.appendChild(oDivVignette);
 	

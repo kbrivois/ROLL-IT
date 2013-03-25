@@ -28,87 +28,89 @@
 		<script src="js/app.js" type="text/javascript" defer="defer"></script> 
 	</head>
 	<body>
-	
-		<div id="hp" class="overlay page" style="display: none;">
-			<span class="overlay-title">Roll it !</span>
-			<div class="button-new-level button-green txt-langue" data-lang="newlevel">
-				Nouveau jeu
-			</div>
-			<div id="button-languages" class="button-blue txt-langue" data-lang="languages">
-				Langues
-			</div>
-		</div>
-		
-		<div id="languages" class="overlay page" style="display: none;">
-			<span class="overlay-title">Roll it !</span>
-			<div id="drapeaux">
-				<img id="fr" src="img/drapeaux/fr.png" title="FR" alt="FR" class="iso-langue" style="opacity: 1;" />
-				<img id="uk" src="img/drapeaux/uk.png" title="UK" alt="UK" class="iso-langue" />
-				<img id="es" src="img/drapeaux/es.png" title="ES" alt="ES" class="iso-langue" />
-				<img id="pt" src="img/drapeaux/pt.png" title="PT" alt="PT" class="iso-langue" />
-				<br />
-				<img id="de" src="img/drapeaux/de.png" title="DE" alt="DE" class="iso-langue" />
-				<img id="it" src="img/drapeaux/it.png" title="IT" alt="IT" class="iso-langue" />
-				<img id="pl" src="img/drapeaux/pl.png" title="PL" alt="PL" class="iso-langue" />
-				<img id="hr" src="img/drapeaux/hr.png" title="HR" alt="PT" class="iso-langue" />
-			</div>
-			<div class="button-menu button-blue txt-langue" data-lang="menu">
-				Menu
-			</div>
-		</div>
-		
-		<div id="new-game" class="overlay page" style="display: none;">
-			<span class="overlay-title">Roll it !</span>
-			<div id="select-level">
-				<div id="show-level"></div>
-			</div>
-			<div class="button-menu button-blue txt-langue" data-lang="menu">
-				Menu
-			</div>
-		</div>
-		
-		<div id="win" class="overlay page" style="display: none;">
-			<span class="overlay-title txt-langue" data-lang="success">Bravo</span>
-			<span id="win-time"><span class="txt-langue" data-lang="time">Temps</span> : 01 : 45</span>
-			<div id="button-try-again" class="button-green txt-langue" data-lang="restart">
-				Recommencer
-			</div>
-			<div id="button-next-level" class="button-red txt-langue" data-lang="nextlevel">
-				Niveau suivant
-			</div>
-			<div class="button-menu button-blue txt-langue" data-lang="menu">
-				Menu
-			</div>
-		</div>
-		
-		<div id="pause" class="overlay page" style="display: none;">
-			<span class="overlay-title txt-langue" data-lang="pause">Pause</span>
-			<div id="button-resume" class="button-green txt-langue" data-lang="resume">
-				Reprendre
-			</div>
-			<div class="button-menu button-blue txt-langue" data-lang="menu">
-				Menu
-			</div>
-		</div>
-		
-		<div id="partie" class="page">
-			<div id="top">
-				<span id="level"><span class="txt-langue" data-lang="level">Niveau</span> <span id="level-number">0</span></span>
-				<div id="time">
-					<span id="time-min">00</span>
-					:
-					<span id="time-sec">00</span>
+		<div id="content">
+			<div id="hp" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div class="button-new-level button-green txt-langue" data-lang="newlevel">
+					Nouveau jeu
 				</div>
-				<div id="top-pause">
-					<span class="txt-langue" data-lang="pause">Pause</span>
+				<div id="button-languages" class="button-blue txt-langue" data-lang="languages">
+					Langues
 				</div>
 			</div>
-			<div id="terrain">
-				<!-- dans le cas on l'on se trouvera dans l'éditeur -->
+			
+			<div id="languages" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="drapeaux">
+					<img id="fr" src="img/drapeaux/fr.png" title="FR" alt="FR" class="iso-langue" style="opacity: 1;" />
+					<img id="uk" src="img/drapeaux/uk.png" title="UK" alt="UK" class="iso-langue" />
+					<img id="es" src="img/drapeaux/es.png" title="ES" alt="ES" class="iso-langue" />
+					<img id="pt" src="img/drapeaux/pt.png" title="PT" alt="PT" class="iso-langue" />
+					<br />
+					<img id="de" src="img/drapeaux/de.png" title="DE" alt="DE" class="iso-langue" />
+					<img id="it" src="img/drapeaux/it.png" title="IT" alt="IT" class="iso-langue" />
+					<img id="pl" src="img/drapeaux/pl.png" title="PL" alt="PL" class="iso-langue" />
+					<img id="hr" src="img/drapeaux/hr.png" title="HR" alt="PT" class="iso-langue" />
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
 			</div>
-			<div id="items-menu-edit">
+			
+			<div id="new-game" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="select-level">
+					<div id="show-level"></div>
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
+			</div>
+			
+			<div id="win" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="success">Bravo</span>
+				<span id="win-time"><span class="txt-langue" data-lang="time">Temps</span> : 01 : 45</span>
+				<div id="button-try-again" class="button-green txt-langue" data-lang="restart">
+					Recommencer
+				</div>
+				<div id="button-next-level" class="button-red txt-langue" data-lang="nextlevel">
+					Niveau suivant
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
+			</div>
+			
+			<div id="pause" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="pause">Pause</span>
+				<div id="button-resume" class="button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
+			</div>
+			
+			<div id="partie" class="page">
+				<div id="top">
+					<span id="level"><span class="txt-langue" data-lang="level">Niveau</span> <span id="level-number">0</span></span>
+					<div id="time">
+						<span id="time-min">00</span>
+						:
+						<span id="time-sec">00</span>
+					</div>
+					<div id="top-pause">
+						<span class="txt-langue" data-lang="pause">Pause</span>
+					</div>
+				</div>
+				<div id="level-content">
+					<div id="terrain">
+						<!-- dans le cas on l'on se trouvera dans l'éditeur -->
+					</div>
+					<div id="items-menu-edit">
+					</div>
+				</div>
 			</div>
 		</div>
-		
 	</body>
 </html>
