@@ -4,8 +4,8 @@ function Partie()
 	déclaration des variables
 	====================================================================================================================================================*/
 	
-	document.getElementById("level-number").innerHTML = iNiveauSelectionne;
-	
+	document.getElementById("level").innerHTML = "Niveau "+iNiveauSelectionne;
+	document.getElementById("items-menu-edit").style.display = "none";
 	this.oTerrain = new Terrain("Partie");
 	this.oTerrain.tracer();
 	this.oChrono = new Chrono();
