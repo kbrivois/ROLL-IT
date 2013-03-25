@@ -1,6 +1,8 @@
 body {
 	background: url(../img/fond.bmp);
 	font-family: 'Gloria Hallelujah', cursive;
+	src: local('Gloria Hallelujah'), url('GloriaHallelujah.woff') format('woff');
+}
 	padding: 0;
 	margin: 0;
 }

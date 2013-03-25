@@ -114,12 +114,13 @@ var initPartie = function()
 				oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * -10;
 			}
 		}, false);
-	}
-	else if (window.DeviceOrientationEvent) {
+	} else if (window.DeviceOrientationEvent) {
 		window.addEventListener("deviceorientation", function( event ) {
 			oPartie.oTerrain.oBille.fAccelerationX = event.gamma * 2;
 			oPartie.oTerrain.oBille.fAccelerationY = event.beta * -2;
 		}, false);
+	} else {
+		alert("Votre téléphone ne supporte pas les API Device Motion ou Device Orientation. Vous ne pouvez pas jouer au jeu ROLL IT!");
 	}
 
 	mainPartie();

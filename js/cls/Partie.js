@@ -53,6 +53,7 @@ Partie.prototype.gagner = function()
 	var iGagneMinutes = document.getElementById('time-min').innerHTML;
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
 	document.getElementById('win-time').innerHTML = sTempsGagne;
+	enregistrementRecord(iNiveauSelectionne, iGagneMinutes, iGagneSecondes); 
 	
 	oPartie = null;
 	
