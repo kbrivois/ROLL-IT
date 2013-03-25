@@ -1,8 +1,13 @@
-body {
-	background: url(../img/fond.bmp);
-	font-family: 'Gloria Hallelujah', cursive;
+/* FONT */
+@font-face
+{
+	font-family: font-game;
 	src: local('Gloria Hallelujah'), url('GloriaHallelujah.woff') format('woff');
 }
+
+body {
+	background: url(../img/fond.bmp);
+	font-family: font-game, cursive;
 	padding: 0;
 	margin: 0;
 }
