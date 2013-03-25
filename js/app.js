@@ -247,4 +247,4 @@ var delta = 0;
 var tempsGlobal = new Date().getTime();
 var iCompteurFrames = 0;
 
-initEditeur();
+menuPrincipal();
