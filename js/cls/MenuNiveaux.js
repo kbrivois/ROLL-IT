@@ -17,7 +17,7 @@ MenuNiveaux.prototype.tracer = function()
 		var oDivItemMenu = document.createElement("div");
 		oDivItemMenu.className = "level-item";
 		oDivShowItemMenu.appendChild(oDivItemMenu);
-		oDivItemMenu.style.width = oDivItemMenu.offsetHeight * fRatioLargeurHauteur + "px";
+		oDivItemMenu.style.width = oDivItemMenu.offsetHeight * 0.8 + "px";
 		oDivItemMenu.style.border = "1px solid black";
 		// ratio selon la taille de la vignette
 		fRatioLargeur = oDivItemMenu.offsetWidth / iLargeurDeBase;
