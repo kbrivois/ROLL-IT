@@ -4,7 +4,7 @@ function Partie()
 	déclaration des variables
 	====================================================================================================================================================*/
 	
-	document.getElementById("level").innerHTML = "Niveau "+iNiveauSelectionne;
+	document.getElementById("level").innerHTML = "Niveau "+(iNiveauSelectionne+1);
 	document.getElementById("items-menu-edit").style.display = "none";
 	this.oTerrain = new Terrain("Partie");
 	this.oTerrain.tracer();
@@ -53,7 +53,7 @@ Partie.prototype.gagner = function()
 	var iGagneMinutes = document.getElementById('time-min').innerHTML;
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
 	document.getElementById('win-time').innerHTML = sTempsGagne;
-	enregistrementRecord(iNiveauSelectionne, iGagneMinutes, iGagneSecondes); 
+	enregistrementRecord(iNiveauSelectionne, iGagneMinutes, iGagneSecondes);
 	
 	oPartie = null;
 	

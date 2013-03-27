@@ -1,10 +1,8 @@
 /* FONT */
-@font-face
-{
+@font-face {
 	font-family: font-game;
 	src: local('Gloria Hallelujah'), url('GloriaHallelujah.woff') format('woff');
 }
-
 body {
 	background: url(../img/fond.bmp);
 	font-family: font-game, cursive;
@@ -67,6 +65,7 @@ body {
 	position: relative;
 	margin: 0 auto 0 auto;
 	width:80%;
+	opacity: 0.3;
 	background-color: white;
 	border-radius: 5px;
 }
@@ -178,10 +177,9 @@ body {
 #button-resume, .button-new-level {
 	margin: 10px auto 15px auto;
 }
-#button-next-level {
+#button-next-level, #button-editor {
 	margin: 15px auto;
 }
-
 #drapeaux {
 	margin: 15px 0;
 }

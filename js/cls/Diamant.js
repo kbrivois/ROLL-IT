@@ -61,39 +61,39 @@ Diamant.prototype.verifierCollision = function()
 	}
 };
 
-// Méthode qui anime le diamant (levitation)
+// Méthode qui anime le diamant
 Diamant.prototype.animer = function()
 {
-	var iPas = 0.3*((fRatioLargeur+fRatioHauteur)/2);;
+	var iPas = 0.5*((fRatioLargeur+fRatioHauteur)/2);;
 	
 	// si le diamant n'a pas été attrapé
-	if(!this.bDisparaitre) {
-		var iTailleMax = this.iTailleDepart + 4*((fRatioLargeur+fRatioHauteur)/2);;
-		var iTailleMin = this.iTailleDepart - 2*((fRatioLargeur+fRatioHauteur)/2);;
+	// if(!this.bDisparaitre) {
+		// var iTailleMax = this.iTailleDepart + 4*((fRatioLargeur+fRatioHauteur)/2);;
+		// var iTailleMin = this.iTailleDepart - 2*((fRatioLargeur+fRatioHauteur)/2);;
 		
-		// on l'agrandi
-		if(this.iTaille < iTailleMax && this.bAgrandir) {
-			this.iTaille += iPas;
-			this.oPosition.x -= iPas/2;
-			this.oPosition.y -= iPas/2;
-			if(this.iTaille > iTailleMax)
-				this.bAgrandir = false;
-		}
-		// on le rétrécit
-		else{
-			this.iTaille -= iPas;
-			this.oPosition.x += iPas/2;
-			this.oPosition.y += iPas/2;
-			if(this.iTaille < iTailleMin)
-				this.bAgrandir = true;
-		}
-		this.oDiv.style.width = this.iTaille + "px";
-		this.oDiv.style.height = this.iTaille + "px";
-		this.oDiv.style.left = this.oPosition.x + "px";
-		this.oDiv.style.top = this.oPosition.y + "px";
-	}
+		// // on l'agrandi
+		// if(this.iTaille < iTailleMax && this.bAgrandir) {
+			// this.iTaille += iPas;
+			// this.oPosition.x -= iPas/2;
+			// this.oPosition.y -= iPas/2;
+			// if(this.iTaille > iTailleMax)
+				// this.bAgrandir = false;
+		// }
+		// // on le rétrécit
+		// else{
+			// this.iTaille -= iPas;
+			// this.oPosition.x += iPas/2;
+			// this.oPosition.y += iPas/2;
+			// if(this.iTaille < iTailleMin)
+				// this.bAgrandir = true;
+		// }
+		// this.oDiv.style.width = this.iTaille + "px";
+		// this.oDiv.style.height = this.iTaille + "px";
+		// this.oDiv.style.left = this.oPosition.x + "px";
+		// this.oDiv.style.top = this.oPosition.y + "px";
+	// }
 	// si le diamant a été attrapé
-	else {
+	if(this.bDisparaitre && this.fOpacite > 0) {
 		var iTailleMax = this.iTailleDepart + 7;
 		
 		this.fOpacite -= 0.06;

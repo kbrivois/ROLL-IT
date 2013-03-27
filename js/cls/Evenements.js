@@ -41,6 +41,7 @@ function menuPrincipal() {
 	oModeEnCours = null;
 	// on vide le terrain
 	document.getElementById('terrain').innerHTML = "";
+	document.getElementById('items-menu-edit').innerHTML = "";
 	// on vide le menu
 	document.getElementById("show-level").innerHTML = "";
 	document.getElementById('hp').style.display = 'block';
@@ -65,6 +66,18 @@ function menuLangues() {
 	document.getElementById('languages').style.display = 'block';
 }
 
+// on lance un partie après avoir choisi le niveau dans le menu
+function lancerEditeur() {
+	for(var i in oPage) {
+		if(oPage[i] instanceof Element)
+			oPage[i].style.display = 'none';
+	}
+	// on vide le menu
+	document.getElementById('partie').style.display = 'block';
+	initEditeur();
+}
+
+// on lance un partie après avoir choisi le niveau dans le menu
 function creerPartie(iNumeroTerrain) {
 	for(var i in oPage) {
 		if(oPage[i] instanceof Element)

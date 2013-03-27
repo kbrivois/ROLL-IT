@@ -66,6 +66,8 @@ GroupeProjectiles.prototype.lancer = function()
 		
 		var oProjectile = this.aListeProjectiles[this.iProjectileActuel];
 		this.aListeProjectilesActifs.push(oProjectile);
+		
+		oProjectile.aListeImgHTML[oProjectile.iImageActuelle].style.display = "block";
 	}
 
 	var oProjectileA_Supprimer = "";

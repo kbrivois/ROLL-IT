@@ -1,7 +1,7 @@
 function Bille(oPositionDepartTemp)  
 {
 	// Element sphere
-	this.oSphereDiv = "";
+	this.oDiv = "";
 	// Position de la bille
 	this.oPositionDepart = new Point(oPositionDepartTemp.x*fRatioLargeur,oPositionDepartTemp.y*fRatioHauteur);
 	this.oPositionPrecedente = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
@@ -23,7 +23,7 @@ function Bille(oPositionDepartTemp)
 Bille.prototype.tracer = function(oDivTerrain)
 {
 	var oBille = document.createElement("img");
-	this.oSphereDiv = oBille;
+	this.oDiv = oBille;
 	oBille.id = "sphere";
 	oBille.style.position = "absolute";
 	oBille.src = "img/ball-15.png";
@@ -32,6 +32,14 @@ Bille.prototype.tracer = function(oDivTerrain)
 	oBille.style.width = this.iTaille + "px";
 	oBille.style.height = this.iTaille + "px";
 	oDivTerrain.appendChild(oBille);
+}
+
+// On dessine la bille dans l'éditeur
+Bille.prototype.tracerDansEditeur = function()
+{
+	this.oDiv.style.left = oPositionTouchArrivee.x+"px";
+	this.oDiv.style.top = oPositionTouchArrivee.y+"px";
+	this.oDiv.style.opacity = "0.3";
 }
 
 // On fait rouler la bille
@@ -47,14 +55,14 @@ Bille.prototype.rouler = function()
 	this.oPosition.y = this.oPosition.y + this.fVitesseY / 50;
 	this.oPosition.x = this.oPosition.x + this.fVitesseX / 50;
 	this.verifierCollisions();
-	this.oSphereDiv.style.top = this.oPosition.y + "px";
-	this.oSphereDiv.style.left = this.oPosition.x + "px";
+	this.oDiv.style.top = this.oPosition.y + "px";
+	this.oDiv.style.left = this.oPosition.x + "px";
 };
 
 // La bille tombe dans un trou, on la fait disparaitre
 Bille.prototype.tomber = function()
 {
-	var oSphereStyle = this.oSphereDiv.style;
+	var oSphereStyle = this.oDiv.style;
 
 	// tant que la bille n'a pas fini sa chute
 	if(this.iTaille > 0) {
@@ -149,7 +157,7 @@ Bille.prototype.verifierCollisions = function() {
 // Méthode de reset
 Bille.prototype.reset = function()
 {
-	var oSphereStyle = this.oSphereDiv.style;
+	var oSphereStyle = this.oDiv.style;
 
 	this.bTombeDansTrou = false;
 	// taille

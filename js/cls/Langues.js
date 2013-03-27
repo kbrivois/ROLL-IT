@@ -9,6 +9,16 @@ var dataLangue = {
 		"pl": "Nowa gra",
 		"hr": "Új játék"
 	},
+	"editorlevel": {
+		"fr": "Editer niveau",
+		"uk": "Edit level",
+		"es": "Editar nivel",
+		"pt": "Edite nível",
+		"de": "Editieren level",
+		"it": "Edit livello",
+		"pl": "Edytuj poziom",
+		"hr": "Szint feltalál"
+	},
 	"level": {
 		"fr": "Niveau",
 		"uk": "Level",

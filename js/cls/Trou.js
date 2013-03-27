@@ -26,6 +26,14 @@ Trou.prototype.tracer = function(oDivTerrain)
 		oDivTerrain.appendChild(oTrou);
 };
 
+// On dessine le trou dans l'éditeur
+Trou.prototype.tracerDansEditeur = function()
+{
+	this.oDiv.style.left = oPositionTouchArrivee.x+"px";
+	this.oDiv.style.top = oPositionTouchArrivee.y+"px";
+	this.oDiv.style.opacity = "0.3";
+}
+
 Trou.prototype.verifierCollision = function()
 {
 	var oTerrain = oModeEnCours.oTerrain;

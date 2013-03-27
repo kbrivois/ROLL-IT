@@ -75,6 +75,14 @@ Trappe.prototype.tracer = function(oDivTerrain)
 	}
 };
 
+// On dessine la trappe dans l'éditeur
+Trappe.prototype.tracerDansEditeur = function()
+{
+	this.oDiv.style.left = oPositionTouchArrivee.x+"px";
+	this.oDiv.style.top = oPositionTouchArrivee.y+"px";
+	this.oDiv.style.opacity = "0.3";
+}
+
 // Méthode qui ouvre ou ferme les trappes
 Trappe.prototype.actionner = function()
 {

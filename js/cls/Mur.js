@@ -47,6 +47,34 @@ Mur.prototype.tracer = function(oDivTerrain)
 	oDivTerrain.appendChild(oMur);
 }
 
+// On dessine le mur dans l'éditeur
+Mur.prototype.tracerDansEditeur = function()
+{
+	// largeur
+	if(oPositionTouchArrivee.x > oPositionTouchDepart.x) {
+		var iLargeur = oPositionTouchArrivee.x - oPositionTouchDepart.x;
+		this.oDiv.style.width = iLargeur+"px";
+	}
+	else {
+		var iLargeur = oPositionTouchDepart.x - oPositionTouchArrivee.x;
+		this.oDiv.style.width = iLargeur+"px";
+		this.oDiv.style.left	= oPositionTouchArrivee.x+"px";
+	}
+	// hauteur
+	if(oPositionTouchArrivee.y > oPositionTouchDepart.y) {
+		var iHauteur = oPositionTouchArrivee.y - oPositionTouchDepart.y;
+		this.oDiv.style.height = iHauteur+"px";
+	}
+	else {
+		var iHauteur = oPositionTouchDepart.y - oPositionTouchArrivee.y;
+		this.oDiv.style.height = iHauteur+"px";
+		this.oDiv.style.top = oPositionTouchArrivee.y+"px";
+	}
+	// background
+	this.oDiv.style.backgroundPosition = -(this.oDiv.offsetLeft)+"px "+(-this.oDiv.offsetTop)+"px";
+	this.oDiv.style.opacity = "0.3";
+}
+
 Mur.prototype.verifierCollision = function()
 {
 	var oBille = oModeEnCours.oTerrain.oBille;

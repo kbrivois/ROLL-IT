@@ -38,6 +38,36 @@ var iNiveauSelectionne = 0;
 // ISO de la langue de l'utilisateur
 var joueurISO = langueJoueur();
 
+var supportsOrientationChange = "onorientationchange" in window,
+    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+var w = window;
+window.addEventListener(orientationEvent, function() {
+    // alert(w.orientation);
+}, false);
+
+// detectOrientation();
+// window.onorientationchange = detectOrientation;
+// function detectOrientation(){
+    // if(typeof window.onorientationchange != 'undefined'){
+        // if ( orientation == 0 ) {
+            // //Do Something In Portrait Mode
+			// document.body.style.display = "none";
+        // }
+        // else if ( orientation == 90 ) {
+            // //Do Something In Landscape Mode
+			// alert(2);
+        // }
+        // else if ( orientation == -90 ) {
+            // //Do Something In Landscape Mode
+			// alert(3);
+        // }
+        // else if ( orientation == 180 ) {
+            // //Do Something In Landscape Mode
+			// alert(4);
+        // }
+    // }
+// }
+
 
 // ************************* Evénements
 
@@ -66,6 +96,10 @@ for(var i in oButtonNewLevel) {
 	if(oButtonNewLevel[i] instanceof Element)
 		oButtonNewLevel[i].addEventListener("click", nouvellePartie, false); 
 }
+
+// Evénement pour lancer l'éditeur
+var oButtonEditor = document.getElementById("button-editor");
+oButtonEditor.addEventListener("click", lancerEditeur, false); 
 
 // Evénement pour quitter la partie et retourner au menu
 var oButtonMenu = document.getElementsByClassName("button-menu");
@@ -114,13 +148,12 @@ var initPartie = function()
 				oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * -10;
 			}
 		}, false);
-	} else if (window.DeviceOrientationEvent) {
+	}
+	else if (window.DeviceOrientationEvent) {
 		window.addEventListener("deviceorientation", function( event ) {
 			oPartie.oTerrain.oBille.fAccelerationX = event.gamma * 2;
 			oPartie.oTerrain.oBille.fAccelerationY = event.beta * -2;
 		}, false);
-	} else {
-		alert("Votre téléphone ne supporte pas les API Device Motion ou Device Orientation. Vous ne pouvez pas jouer au jeu ROLL IT!");
 	}
 
 	mainPartie();
@@ -131,57 +164,6 @@ var initPartie = function()
 // on initialise la partie
 var initEditeur = function() 
 {
-	document.getElementById("terrain").ontouchstart = function(event){
-		oDivTemp = document.createElement("div");
-		// on ajoute le div dans la liste
-		oDivTemp.style.position = "absolute";
-		
-		oPositionTouchDepart.x = event.targetTouches[0].pageX-30;
-		oPositionTouchDepart.y = event.targetTouches[0].pageY-60;
-		oDivTemp.style.left = oPositionTouchDepart.x+"px";
-		oDivTemp.style.top = oPositionTouchDepart.y+"px";
-
-		oDivTemp.style.backgroundImage = "url(img/murs/noir.png)";
-		oDivTemp.style.backgroundPosition = -(oPositionTouchDepart.x)+"px "+(-oPositionTouchDepart.y)+"px";
-
-		document.getElementById("terrain").appendChild(oDivTemp);
-	}
-
-	document.getElementById("terrain").ontouchmove = function(event){
-		event.preventDefault();
-		
-		oPositionTouchArrivee.x = event.targetTouches[0].pageX-30;
-		oPositionTouchArrivee.y = event.targetTouches[0].pageY-60;
-		
-		// largeur
-		if(oPositionTouchArrivee.x > oPositionTouchDepart.x) {
-			var iLargeur = oPositionTouchArrivee.x - oPositionTouchDepart.x;
-			oDivTemp.style.width = iLargeur+"px";
-		}
-		else {
-			var iLargeur = oPositionTouchDepart.x - oPositionTouchArrivee.x;
-			oDivTemp.style.width = iLargeur+"px";
-			oDivTemp.style.left	= oPositionTouchArrivee.x+"px";
-		}
-		// hauteur
-		if(oPositionTouchArrivee.y > oPositionTouchDepart.y) {
-			var iHauteur = oPositionTouchArrivee.y - oPositionTouchDepart.y;
-			oDivTemp.style.height = iHauteur+"px";
-		}
-		else {
-			var iHauteur = oPositionTouchDepart.y - oPositionTouchArrivee.y;
-			oDivTemp.style.height = iHauteur+"px";
-			oDivTemp.style.top = oPositionTouchArrivee.y+"px";
-		}
-		// background
-		oDivTemp.style.backgroundPosition = -(oDivTemp.offsetLeft)+"px "+(-oDivTemp.offsetTop)+"px";
-		oDivTemp.style.opacity = "0.3";
-	}
-
-	document.getElementById("terrain").ontouchend = function(event){
-		oDivTemp.style.opacity = "1";
-	}
-
 	// Les ratios selon la taille de l'écran
 	fRatioLargeur = fLargeurA_Retenir / iLargeurDeBase;
 	fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
@@ -209,7 +191,7 @@ var initEditeur = function()
 		}, false);
 		console.log('device orientation');
 	}
-
+	
 	// mainEditeur();
 }
 
@@ -268,6 +250,6 @@ var delta = 0;
 var tempsGlobal = new Date().getTime();
 var iCompteurFrames = 0;
 
-// initEditeur();
+ initEditeur();
 // initPartie();
-menuPrincipal();
+// menuPrincipal();

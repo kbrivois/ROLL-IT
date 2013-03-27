@@ -1,5 +1,33 @@
 /** Fonctions utiles **/
 
+// Double tap
+var doubletapDeltaTime_ = 300;
+var doubletapFunction_ = null;
+var doubletapTimer = null;
+var timer = false;
+
+function doubleTap(doubleTapFunc) {
+	if (!timer) {
+		// First tap, we wait X ms to the second tap
+		timer = true;
+		doubletapTimer = setTimeout(doubletapTimeout, doubletapDeltaTime_);
+		doubletapFunction_ = doubleTapFunc;
+	} else {
+		// Second tap
+		clearTimeout(doubletapTimer);
+		doubletapTimer = null;
+		doubletapFunction_();
+		timer = false;
+	}
+}
+function doubletapTimeout() {
+	// Wait for second tap timeout
+	clearTimeout(doubletapTimer);
+	doubleTapTimer = null;
+	timer = false;
+}
+
+
 // Fonction qui permet de trouver la distance entre 2 points
 // arg : 2 points -> oPoint1,oPoint2
 // return : distance
