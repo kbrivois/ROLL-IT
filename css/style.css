@@ -106,6 +106,7 @@ body {
 	display: inline-block;
 	margin: 0 10px;
 	padding: 0;
+	overflow: hidden;
 }
 #show-level div.show-level-item .show-level-text {
 	text-align: center;
