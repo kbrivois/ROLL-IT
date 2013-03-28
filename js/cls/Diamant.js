@@ -17,6 +17,8 @@ function Diamant(oPositionTemp, sImageTemp)
 	this.fOpacite = 1;
 	// se met à true quand le joueur attrape le diamant
 	this.bDisparaitre = false;
+	// Variable à true quand la bille peut être tracer dans l'éditeur (pas sur un mur ou un vide)
+	this.bTraceDansEditeur = true;
 };
 
 // On dessine le Diamant
@@ -38,6 +40,71 @@ Diamant.prototype.tracer = function(oDivTerrain)
 	oDivTerrain.appendChild(oDiamant);
 };
 
+// On dessine le diamant dans l'éditeur
+Diamant.prototype.tracerDansEditeur = function()
+{
+	var x = oPositionTouchArrivee.x;
+	var y = oPositionTouchArrivee.y;
+	var oTerrain = oModeEnCours.oTerrain;
+	
+	// bord gauche
+	if(x < 0) {
+		x = 0;
+	}
+	// bord haut
+	if(y < 0) {
+		y = 0;
+	}
+	// bord droit
+	if(x + this.iTaille > oTerrain.iLargeur) {
+		x = oTerrain.iLargeur-this.iTaille;
+	}
+	// bord bas
+	if(y + this.iTaille > oTerrain.iHauteur) {
+		y = oTerrain.iHauteur-this.iTaille;
+	}
+
+	// ==== On vérifie si la bille n'est pas sur un mur, trappe, trou ou vide ==== //
+	var bCollision = false;
+	// les vides
+	var aListeVides = oTerrain.aListeVides;
+	for(var i=0; i<aListeVides.length; i++) {
+		if(aListeVides[i].verifierCollisionDansEditeur(new Point(x,y), this.iTaille)) {
+			bCollision = true;
+			break;
+		}
+	}
+	// les murs
+	var aListeMurs = oTerrain.aListeMurs;
+	for(var i=0; i<aListeMurs.length; i++) {
+		if(!bCollision && aListeMurs[i].verifierCollisionDansEditeur(new Point(x,y), this.iTaille)) {
+			bCollision = true;
+			break;
+		}
+	}
+	// les trous
+	var aListeTrous = oTerrain.aListeTrous;
+	for(var i=0; i<aListeTrous.length; i++) {
+		if(!bCollision && aListeTrous[i].verifierCollisionDansEditeur(new Point(x,y), this.iTaille)) {
+			bCollision = true;
+			break;
+		}
+	}
+	
+	if(!bCollision) {
+		this.oPosition.x = x;
+		this.oPosition.y = y;
+		this.bTraceDansEditeur = true;
+		this.oDiv.style.opacity = "1";
+	}
+	else {
+		this.bTraceDansEditeur = false;
+		this.oDiv.style.opacity = "0.3";
+	}
+	this.oDiv.style.left = x+"px";
+	this.oDiv.style.top = y+"px";
+}
+
 Diamant.prototype.verifierCollision = function()
 {
 	var oTerrain = oModeEnCours.oTerrain;
@@ -56,7 +123,7 @@ Diamant.prototype.verifierCollision = function()
 		}
 		
 		if(oTerrain.iNbreDiamantsAttrapes == oTerrain.iNbreDiamants) {
-			oTerrain.oDivArrivee.style.display = "block";
+			oTerrain.oArrivee.oDiv.style.display = "block";
 		}
 	}
 };

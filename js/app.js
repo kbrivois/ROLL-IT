@@ -134,7 +134,6 @@ var initPartie = function()
 	fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
 	
 	oPartie = new Partie();
-	oModeEnCours = oPartie;
 	
 	// standard API (Firefox, Chrome...)
 	if (window.DeviceMotionEvent) {
@@ -169,28 +168,6 @@ var initEditeur = function()
 	fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
 	
 	oEditeur = new Editeur();
-	oModeEnCours = oEditeur;
-	
-	// standard API (Firefox, Chrome...)
-	if (window.DeviceMotionEvent) {
-		window.addEventListener("devicemotion", function( event ) {
-			if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-				oPartie.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
-				oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
-			}
-			else {
-				oPartie.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * -10;
-				oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * -10;
-			}
-		}, false);
-	}
-	else if (window.DeviceOrientationEvent) {
-		window.addEventListener("deviceorientation", function( event ) {
-			oEditeur.oTerrain.oBille.fAccelerationX = event.gamma * 2;
-			oEditeur.oTerrain.oBille.fAccelerationY = event.beta * -2;
-		}, false);
-		console.log('device orientation');
-	}
 	
 	// mainEditeur();
 }
@@ -250,6 +227,6 @@ var delta = 0;
 var tempsGlobal = new Date().getTime();
 var iCompteurFrames = 0;
 
- initEditeur();
+// initEditeur();
 // initPartie();
-// menuPrincipal();
+ menuPrincipal();

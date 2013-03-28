@@ -1,6 +1,12 @@
 function MenuNiveaux()
 {
 	this.aListeNiveaux = aListeNiveaux;
+	
+	// ************************* Liste des vignettes
+	this.aListeVignettes = new Array();
+	
+	// ************************* Liste des vides
+	this.aListeVides = new Array();
 };
 
 // On dessine le menu
@@ -13,12 +19,15 @@ MenuNiveaux.prototype.tracer = function()
 		oDivShowItemMenu.className = "show-level-item";
 		document.getElementById("show-level").appendChild(oDivShowItemMenu);
 
+		this.aListeVignettes.push(oDivShowItemMenu);
+
 		// vignette du terrain
 		var oDivItemMenu = document.createElement("div");
 		oDivItemMenu.className = "level-item";
 		oDivShowItemMenu.appendChild(oDivItemMenu);
-		oDivItemMenu.style.width = oDivItemMenu.offsetHeight * 0.8 + "px";
+		oDivItemMenu.style.width = oDivItemMenu.offsetHeight * fRatioLargeurHauteur + "px";
 		oDivItemMenu.style.border = "1px solid black";
+		
 		// ratio selon la taille de la vignette
 		fRatioLargeur = oDivItemMenu.offsetWidth / iLargeurDeBase;
 		fRatioHauteur = oDivItemMenu.offsetHeight / iHauteurDeBase;
@@ -30,11 +39,16 @@ MenuNiveaux.prototype.tracer = function()
 			oMur.tracer(oDivItemMenu);
 		}
 
-		// vides
-		for(var j=0; j<this.aListeNiveaux[i].vides.length; j++) {
-			var oVideTemp = this.aListeNiveaux[i].vides[j];
-			var oVide = new Vide(new Point(oVideTemp.x, oVideTemp.y), oVideTemp.largeur, oVideTemp.hauteur);
-			oVide.tracer(oDivItemMenu);
+		// vides		
+		this.aListeVides.push(new Array());
+		for(var j=0; j<aListeNiveaux[i].vides.length; j++) {
+			this.aListeVides[i].push(new Vide(new Point(aListeNiveaux[i].vides[j].x, aListeNiveaux[i].vides[j].y), aListeNiveaux[i].vides[j].largeur, aListeNiveaux[i].vides[j].hauteur));
+		}
+		for(var j=0; j<this.aListeVides[i].length; j++) {
+			this.aListeVides[i][j].tracer(oDivItemMenu);
+		}
+		for(var j=0; j<this.aListeVides[i].length; j++) {
+			this.aListeVides[i][j].recalculZindex(this.aListeVides[i]);
 		}
 
 		// trappes
@@ -88,6 +102,12 @@ MenuNiveaux.prototype.tracer = function()
 		oDivShowItemMenu.appendChild(oDivTextItemMenu);
 	}
 
+	// on calcul la taille que doit avoir le conteneur des vignettes
+	document.getElementById("select-level").style.width = fLargeurA_Retenir+"px";
+	var iLargeur = 0;
+	iLargeur = this.aListeVignettes[0].offsetWidth*this.aListeVignettes.length
+	         + 10*2*this.aListeVignettes.length;
+	document.getElementById("show-level").style.width = iLargeur+"px";
 };
 
 // Méthode de reset

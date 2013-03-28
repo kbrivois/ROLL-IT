@@ -3,19 +3,20 @@ function Editeur()
 	/*** ================================================================================================================================================
 	déclaration des variables
 	====================================================================================================================================================*/
-
+	
+	oModeEnCours = this;
 	// on remplace le libellé en haut à gauche
 	document.getElementById("level").innerHTML = "Editeur";
 	// div du menu qui contient les vignettes
 	this.oDivMenuEdition = "";
 	// terrain, chrono, pause, gagne
-	this.oTerrain = new Terrain();
+	this.oTerrain = new Terrain("Editeur");
 	this.oTerrain.tracer();
 	this.oChrono = new Chrono();
 	this.bPause = false;
 	this.bGagne = false;
 	// vignette choisie et élément en cours de traçage
-	this.iVignetteChoisie = 0;
+	this.iVignetteSelectionnee = 0;
 	this.oElementEnCours = null;
 	// sert à savoir s'il y a eu un touch move sur le menu
 	this.bTouchMoveMenu = false;
@@ -91,6 +92,13 @@ Editeur.prototype.initialiser = function()
 	this.tracerVignette(oDivVignette8, oDiamant, oDiamant.iTaille, oDiamant.iTaille);
 	oDivVignette8.ontouchend = function(event){t.choisirVignette(8, oDivVignette8)};
 	
+	// ===== Arrivee ===== //
+	var oDivVignette9 = document.createElement("div");
+	oDivVignette9.className = "item";
+	var oArrivee = new Arrivee(new Point(0,0));
+	this.tracerVignette(oDivVignette9, oArrivee, oArrivee.iTaille, oArrivee.iTaille);
+	oDivVignette9.ontouchend = function(event){t.choisirVignette(9, oDivVignette9)};
+	
 	// ===== Evenements ===== //
 	// sur le menu d'édition
 	this.oDivMenuEdition.ontouchmove = function(event){t.bTouchMoveMenu = true;};
@@ -99,9 +107,8 @@ Editeur.prototype.initialiser = function()
 	this.oTerrain.oDiv.ontouchstart = function(event) {
 		// Coordonnées actuelles du touch
 		var oDivContent = document.getElementById("content");
-		oPositionTouchDepart.x = event.touches[0].pageX-30-oDivContent.offsetLeft;
+		oPositionTouchDepart.x = event.touches[0].pageX-oDivContent.offsetLeft;
 		oPositionTouchDepart.y = event.touches[0].pageY-60-oDivContent.offsetTop;
-		
 		// on cache le menu au double tap
 		if(t.oDivMenuEdition.style.display == "none")
 			doubleTap(function(){t.oDivMenuEdition.style.display = "block";});
@@ -110,17 +117,26 @@ Editeur.prototype.initialiser = function()
 	};
 	
 	this.oTerrain.oDiv.ontouchmove = function(event) {	
-		// Coordonnées actuelles du touch
-		var oDivContent = document.getElementById("content");	
-		oPositionTouchArrivee.x = event.touches[0].pageX-30-oDivContent.offsetLeft;
-		oPositionTouchArrivee.y = event.touches[0].pageY-60-oDivContent.offsetTop;
-	
 		// pour empêcher l'effet élastique du scroll sur le téléphone
 		event.preventDefault();
-		t.tracerElement();
+		// Coordonnées actuelles du touch
+		var oDivContent = document.getElementById("content");	
+		oPositionTouchArrivee.x = event.touches[0].pageX-oDivContent.offsetLeft;
+		oPositionTouchArrivee.y = event.touches[0].pageY-60-oDivContent.offsetTop;
+		// Si un élément à été sélectionné dans une vignette, on le trace
+		if(t.iVignetteSelectionnee != 0) {
+			// on cache le menu d'édition pour pouvoir tracer sur tout le terrain
+			if(t.oDivMenuEdition.style.display == "block")
+				t.oDivMenuEdition.style.display = "none";
+			// on trace l'élément
+			t.tracerElement();
+		}
 	};
 	
 	this.oTerrain.oDiv.ontouchend = function(event) {
+		// on rend visible le menu d'édition après avoir fini de tracer l'élément
+		if(t.oDivMenuEdition.style.display == "none" && t.bTouchMoveTerrain)
+			t.oDivMenuEdition.style.display = "block";
 		t.finirTracer();
 	};
 };
@@ -128,44 +144,124 @@ Editeur.prototype.initialiser = function()
 // on trace un élément sélectionné dans les vignettes (mur, trou...)
 Editeur.prototype.tracerElement = function()
 {
-	// si on vient juste de bouger le doigt après le touchstart
-	if(!this.bTouchMoveTerrain) {
-		// on crée l'élément selon la vignette sélectionnée
-		if(this.iVignetteChoisie == 1) { // Bille
-			this.oElementEnCours = new Bille(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y));
-			this.oElementEnCours.tracer(this.oTerrain.oDiv);
-			this.bTouchMoveTerrain = true;
+	if(this.iVignetteSelectionnee != 0) {
+		// si on vient juste de bouger le doigt après le touchstart
+		if(!this.bTouchMoveTerrain) {
+			// on crée l'élément selon la vignette sélectionnée
+			if(this.iVignetteSelectionnee == 1) { // Bille
+				// si c'est la première fois qu'on trace une bille
+				if(this.oTerrain.oBille == null) {
+					this.oElementEnCours = new Bille(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y));
+					this.oElementEnCours.tracer(this.oTerrain.oDiv);
+					this.oTerrain.oBille = this.oElementEnCours;
+				}
+				else {
+					this.oTerrain.oBille.oPosition = new Point(oPositionTouchDepart.x,oPositionTouchDepart.y);
+					this.oTerrain.oBille.supprimerDansEditeur(this.oTerrain.oDiv);
+					this.oTerrain.oBille.tracer(this.oTerrain.oDiv);
+					this.oElementEnCours = this.oTerrain.oBille;
+				}
+				this.bTouchMoveTerrain = true;
+			}
+			else if(this.iVignetteSelectionnee == 2) { // Murs
+				this.oElementEnCours = new Mur(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 0, 0, false);
+				this.oTerrain.aListeMurs.push(this.oElementEnCours);
+				this.oElementEnCours.tracer(this.oTerrain.oDiv);
+				this.bTouchMoveTerrain = true;
+			}
+			else if(this.iVignetteSelectionnee == 3) { // Murs qui repoussent
+				this.oElementEnCours = new Mur(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 0, 0, true);
+				this.oTerrain.aListeMurs.push(this.oElementEnCours);
+				this.oElementEnCours.tracer(this.oTerrain.oDiv);
+				this.bTouchMoveTerrain = true;
+			}
+			else if(this.iVignetteSelectionnee == 4) { // Trappes
+				this.oElementEnCours = new Trappe(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 1000, true);
+				this.oTerrain.aListeTrappes.push(this.oElementEnCours);
+				this.oElementEnCours.tracer(this.oTerrain.oDiv);
+				this.bTouchMoveTerrain = true;
+			}
+			else if(this.iVignetteSelectionnee == 5) { // Trous
+				this.oElementEnCours = new Trou(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y));
+				this.oTerrain.aListeTrous.push(this.oElementEnCours);
+				this.oElementEnCours.tracer(this.oTerrain.oDiv);
+				this.bTouchMoveTerrain = true;
+			}
+			else if(this.iVignetteSelectionnee == 7) { // Vides
+				this.oElementEnCours = new Vide(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 0, 0);
+				this.oTerrain.aListeVides.push(this.oElementEnCours);
+				this.oElementEnCours.tracer(this.oTerrain.oDiv);
+				this.bTouchMoveTerrain = true;
+			}
+			else if(this.iVignetteSelectionnee == 8) { // Diamants
+				this.oElementEnCours = new Diamant(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), "img/d-red.png");
+				this.oElementEnCours.tracer(this.oTerrain.oDiv);
+				this.bTouchMoveTerrain = true;
+			}
+			else if(this.iVignetteSelectionnee == 9) { // Arrivee
+				// si c'est la première fois qu'on trace une arrivée
+				if(this.oTerrain.oArrivee == null) {
+					this.oElementEnCours = new Arrivee(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y));
+					this.oElementEnCours.tracer(this.oTerrain.oDiv);
+					this.oTerrain.oArrivee = this.oElementEnCours;
+				}
+				else {
+					this.oTerrain.oArrivee.supprimerDansEditeur(this.oTerrain.oDiv);
+					this.oTerrain.oArrivee.tracer(this.oTerrain.oDiv);
+					this.oElementEnCours = this.oTerrain.oArrivee;
+				}
+				this.bTouchMoveTerrain = true;
+			}
 		}
-		if(this.iVignetteChoisie == 2) { // Murs
-			this.oElementEnCours = new Mur(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 0, 0, false);
-			this.oElementEnCours.tracer(this.oTerrain.oDiv);
-			this.bTouchMoveTerrain = true;
+		else {
+			this.oElementEnCours.tracerDansEditeur();
 		}
-		else if(this.iVignetteChoisie == 3) { // Murs qui repoussent
-			this.oElementEnCours = new Mur(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 0, 0, true);
-			this.oElementEnCours.tracer(this.oTerrain.oDiv);
-			this.bTouchMoveTerrain = true;
-		}
-		else if(this.iVignetteChoisie == 4) { // Trappes
-			this.oElementEnCours = new Trappe(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 1000, true);
-			this.oElementEnCours.tracer(this.oTerrain.oDiv);
-			this.bTouchMoveTerrain = true;
-		}
-		else if(this.iVignetteChoisie == 5) { // Trous
-			this.oElementEnCours = new Trou(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y));
-			this.oElementEnCours.tracer(this.oTerrain.oDiv);
-			this.bTouchMoveTerrain = true;
-		}
-	}
-	else {
-		this.oElementEnCours.tracerDansEditeur();
 	}
 };
 
 // on trace la vignette dans le menu
 Editeur.prototype.finirTracer = function()
 {
-	this.oElementEnCours.oDiv.style.opacity = "1";
+	var bPeutEtreTrace = true;
+	
+	if(this.oElementEnCours != null) {
+		// si c'est un vide, on recalcul le zindex afin de lui donner un border top propre qui ne chevauche pas les autres vides
+		if(this.iVignetteSelectionnee == 7) {
+			this.oElementEnCours.recalculZindex(this.oTerrain.aListeVides);
+		}
+		// si c'est la bille, on vérifie qu'elle n'est pas sur un mur ou autre
+		if(this.iVignetteSelectionnee == 1) {
+			if(!this.oElementEnCours.bTraceDansEditeur) {
+				bPeutEtreTrace = false;
+				this.oTerrain.oDiv.removeChild(this.oElementEnCours.oDiv);
+				this.oTerrain.oBille = null;
+			}
+		}
+		// si c'est l'arrivée, on vérifie qu'elle n'est pas sur un mur ou autre
+		if(this.iVignetteSelectionnee == 9) {
+			if(!this.oElementEnCours.bTraceDansEditeur) {
+				bPeutEtreTrace = false;
+				this.oTerrain.oDiv.removeChild(this.oElementEnCours.oDiv);
+				this.oTerrain.oArrivee = null;
+			}
+		}
+		// si c'est l'arrivée, on vérifie qu'elle n'est pas sur un mur ou autre
+		if(this.iVignetteSelectionnee == 8) {
+			if(!this.oElementEnCours.bTraceDansEditeur) {
+				bPeutEtreTrace = false;
+				this.oTerrain.oDiv.removeChild(this.oElementEnCours.oDiv);
+			}
+			else {
+				this.oTerrain.aListeDiamants.push(this.oElementEnCours);
+			}
+		}
+		
+		if(bPeutEtreTrace) {
+			this.oElementEnCours.oDiv.style.opacity = "1";
+			this.oElementEnCours.oDiv.style.left = this.oElementEnCours.oPosition.x+"px";
+			this.oElementEnCours.oDiv.style.top = this.oElementEnCours.oPosition.y+"px";
+		}
+	}
 	this.bTouchMoveTerrain = false;
 };
 
@@ -198,7 +294,7 @@ Editeur.prototype.choisirVignette = function(iNumeroVignette, oDivElement)
 		oDivElement.style.opacity = 1;
 	}
 	this.bTouchMoveMenu = false;
-	this.iVignetteChoisie = iNumeroVignette;
+	this.iVignetteSelectionnee = iNumeroVignette;
 };
 
 // on lance l'éditeur

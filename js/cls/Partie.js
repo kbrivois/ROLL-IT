@@ -4,7 +4,8 @@ function Partie()
 	déclaration des variables
 	====================================================================================================================================================*/
 	
-	document.getElementById("level").innerHTML = "Niveau "+(iNiveauSelectionne+1);
+	oModeEnCours = this;
+	document.getElementById("level").innerHTML = dataLangue['level'][joueurISO]+" "+(iNiveauSelectionne+1);
 	document.getElementById("items-menu-edit").style.display = "none";
 	this.oTerrain = new Terrain("Partie");
 	this.oTerrain.tracer();
@@ -54,8 +55,6 @@ Partie.prototype.gagner = function()
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
 	document.getElementById('win-time').innerHTML = sTempsGagne;
 	enregistrementRecord(iNiveauSelectionne, iGagneMinutes, iGagneSecondes);
-	
-	oPartie = null;
 	
 	// s'il n'existe pas de niveau suivant
 	if(aListeNiveaux.length-1 < iNiveauSelectionne+1) {

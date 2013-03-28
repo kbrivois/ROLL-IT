@@ -28,27 +28,121 @@ Vide.prototype.tracer = function(oDivTerrain)
 	oVide.style.width = this.iLargeur+"px";
 	oVide.style.height = this.iHauteur+"px";
 	
-	oVide.style.backgroundImage = "url(img/murs/gris.png)";
-	oVide.style.border = this.iTailleBords+"px solid rgb(138,138,138)";
-
+	oVide.style.backgroundImage = "url(img/vide.bmp)";
+	oVide.style.borderTop = "solid 5px rgb(100,100,100)";
+	oVide.style.zIndex = 0;
+	
 	oDivTerrain.appendChild(oVide);
 }
 
-Vide.prototype.verifierCollision = function()
+// on calcul le zindex par rapport à la position des vides
+Vide.prototype.recalculZindex = function(aListeTemp)
+{
+	// on modifie le z-index des vides afin de pouvoir tracer une texture sur les bords supérieurs
+	var iZindex = 100;
+	for(var i=0; i<aListeTemp.length; i++) {
+		if(this != aListeTemp[i] && aListeTemp[i].oDiv.style.zIndex != 0) {
+			// doit être en dessous
+			if(this.oPosition.y > aListeTemp[i].oPosition.y) {
+				aListeTemp[i].oDiv.style.zIndex++;
+				if(aListeTemp[i].oDiv.style.zIndex <= iZindex) {
+					iZindex = eval(aListeTemp[i].oDiv.style.zIndex)-1;
+					for(var j=0; j<aListeTemp.length; j++) {
+						if(this.oPosition.y < aListeTemp[i].oPosition.y) {
+							aListeTemp[i].oDiv.style.zIndex--;
+						}
+					}
+				}
+			}
+			// doit être au dessus
+			else if(this.oPosition.y < aListeTemp[i].oPosition.y) {
+				if(aListeTemp[i].oDiv.style.zIndex >= iZindex) {
+					iZindex = eval(aListeTemp[i].oDiv.style.zIndex)+1;
+					for(var j=0; j<aListeTemp.length; j++) {
+						if(this.oPosition.y > aListeTemp[i].oPosition.y) {
+							aListeTemp[i].oDiv.style.zIndex++;
+						}
+					}
+				}
+			}
+		}
+	}
+	this.oDiv.style.zIndex = iZindex;
+}
+
+// On dessine le vide dans l'éditeur
+Vide.prototype.tracerDansEditeur = function()
+{
+	// largeur
+	if(oPositionTouchArrivee.x > oPositionTouchDepart.x) {
+		this.iLargeur = oPositionTouchArrivee.x - oPositionTouchDepart.x;
+		this.oDiv.style.width = this.iLargeur+"px";
+	}
+	else {
+		this.iLargeur = oPositionTouchDepart.x - oPositionTouchArrivee.x;
+		this.oDiv.style.width = this.iLargeur+"px";
+		this.oPosition.x = oPositionTouchArrivee.x;
+		this.oDiv.style.left = oPositionTouchArrivee.x+"px";
+	}
+	// hauteur
+	if(oPositionTouchArrivee.y > oPositionTouchDepart.y) {
+		this.iHauteur = oPositionTouchArrivee.y - oPositionTouchDepart.y;
+		this.oDiv.style.height = this.iHauteur+"px";
+	}
+	else {
+		this.iHauteur = oPositionTouchDepart.y - oPositionTouchArrivee.y;
+		this.oDiv.style.height = this.iHauteur+"px";
+		this.oPosition.y = oPositionTouchArrivee.y;
+		this.oDiv.style.top = oPositionTouchArrivee.y+"px";
+	}
+	// background
+	this.oDiv.style.backgroundPosition = -(this.oDiv.offsetLeft)+"px "+(-this.oDiv.offsetTop)+"px";
+	this.oDiv.style.opacity = "0.3";
+}
+
+// Vérifie s'il y a collision avec la bille. Si oui return true, false sinon
+Vide.prototype.verifierCollision = function(oPositionTemp, iTailleTemp)
 {
 	var oTerrain = oModeEnCours.oTerrain;
-	var oBille = oModeEnCours.oTerrain.oBille;
-	var oPointMilieuSpherePrecedent = new Point(oBille.oPositionPrecedente.x + oBille.iTaille/2, oBille.oPositionPrecedente.y + oBille.iTaille/2);
-	var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
+	var oPosition = oTerrain.oBille.oPosition;
+	var iTaille = oTerrain.oBille.iTaille;
+	var bDansEditeur = false;
 
+	if(oPositionTemp != null && iTailleTemp != null) {
+		oPosition = oPositionTemp;
+		iTaille = iTailleTemp;
+		bDansEditeur = true;
+	}
+	
+	var oPointMilieu = new Point(oPosition.x + iTaille/2, oPosition.y + iTaille/2);
 	// si la bille se trouve dans le vide
-	if(oPointMilieuSphere.x > this.oPosition.x 
-	&& oPointMilieuSphere.x < this.oPosition.x + this.iLargeur
-	&& oPointMilieuSphere.y > this.oPosition.y
-	&& oPointMilieuSphere.y < this.oPosition.y + this.iHauteur) {
-		oBille.bTombeDansTrou = true;
+	if(oPointMilieu.x > this.oPosition.x 
+	&& oPointMilieu.x < this.oPosition.x + this.iLargeur
+	&& oPointMilieu.y > this.oPosition.y
+	&& oPointMilieu.y < this.oPosition.y + this.iHauteur) {
+		oTerrain.oBille.bTombeDansTrou = true;
 		oModeEnCours.oChrono.reset();
 	}
+}
+
+// Vérifie s'il y a collision avec la position donnée en argument
+Vide.prototype.verifierCollisionDansEditeur = function(oPositionTemp, iTailleTemp)
+{	
+	if(oPositionTemp != null && iTailleTemp != null) {
+		var oPosition = oPositionTemp;
+		var iTaille = iTailleTemp;
+	
+		var oPointMilieu = new Point(oPosition.x + iTaille/2, oPosition.y + iTaille/2);
+		// si la position se trouve dans le vide
+		if(oPointMilieu.x > this.oPosition.x 
+		&& oPointMilieu.x < this.oPosition.x + this.iLargeur
+		&& oPointMilieu.y > this.oPosition.y
+		&& oPointMilieu.y < this.oPosition.y + this.iHauteur) {
+			return true;
+		}
+		return false;
+	}
+	return false;
 }
 
 // Methode de reset

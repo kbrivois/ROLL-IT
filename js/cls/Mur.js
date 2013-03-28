@@ -34,14 +34,12 @@ Mur.prototype.tracer = function(oDivTerrain)
 	
 	// mur qui repousse
 	if(this.bRepousse) {
-		oMur.style.backgroundImage = "url(img/murs/rouge.png)";
+		oMur.style.backgroundImage = "url(img/murs/rouge.bmp)";
 		oMur.style.backgroundPosition = -(this.oPosition.x)+"px "+(-this.oPosition.y)+"px";
-		oMur.style.border = this.iTailleBords+"px solid red";
 	}
 	else {
-		oMur.style.backgroundImage = "url(img/murs/noir.png)";
+		oMur.style.backgroundImage = "url(img/murs/normal.bmp)";
 		oMur.style.backgroundPosition = -(this.oPosition.x)+"px "+(-this.oPosition.y)+"px";
-		oMur.style.border = this.iTailleBords+"px solid black";
 	}
 
 	oDivTerrain.appendChild(oMur);
@@ -52,22 +50,24 @@ Mur.prototype.tracerDansEditeur = function()
 {
 	// largeur
 	if(oPositionTouchArrivee.x > oPositionTouchDepart.x) {
-		var iLargeur = oPositionTouchArrivee.x - oPositionTouchDepart.x;
-		this.oDiv.style.width = iLargeur+"px";
+		this.iLargeur = oPositionTouchArrivee.x - oPositionTouchDepart.x;
+		this.oDiv.style.width = this.iLargeur+"px";
 	}
 	else {
-		var iLargeur = oPositionTouchDepart.x - oPositionTouchArrivee.x;
-		this.oDiv.style.width = iLargeur+"px";
-		this.oDiv.style.left	= oPositionTouchArrivee.x+"px";
+		this.iLargeur = oPositionTouchDepart.x - oPositionTouchArrivee.x;
+		this.oDiv.style.width = this.iLargeur+"px";
+		this.oPosition.x = oPositionTouchArrivee.x;
+		this.oDiv.style.left = oPositionTouchArrivee.x+"px";
 	}
 	// hauteur
 	if(oPositionTouchArrivee.y > oPositionTouchDepart.y) {
-		var iHauteur = oPositionTouchArrivee.y - oPositionTouchDepart.y;
-		this.oDiv.style.height = iHauteur+"px";
+		this.iHauteur = oPositionTouchArrivee.y - oPositionTouchDepart.y;
+		this.oDiv.style.height = this.iHauteur+"px";
 	}
 	else {
-		var iHauteur = oPositionTouchDepart.y - oPositionTouchArrivee.y;
-		this.oDiv.style.height = iHauteur+"px";
+		this.iHauteur = oPositionTouchDepart.y - oPositionTouchArrivee.y;
+		this.oDiv.style.height = this.iHauteur+"px";
+		this.oPosition.y = oPositionTouchArrivee.y;
 		this.oDiv.style.top = oPositionTouchArrivee.y+"px";
 	}
 	// background
@@ -75,7 +75,7 @@ Mur.prototype.tracerDansEditeur = function()
 	this.oDiv.style.opacity = "0.3";
 }
 
-Mur.prototype.verifierCollision = function()
+Mur.prototype.verifierCollision = function(oPositionTemp, iTailleTemp)
 {
 	var oBille = oModeEnCours.oTerrain.oBille;
 	
@@ -204,6 +204,22 @@ Mur.prototype.verifierCollision = function()
 		}
 	}
 }
+
+// Vérifie s'il y a collision avec la position donnée en argument
+Mur.prototype.verifierCollisionDansEditeur = function(oPositionTemp, iTailleTemp)
+{	
+	if(oPositionTemp != null && iTailleTemp != null) {	
+		var oPosition = oPositionTemp;
+		var iTaille = iTailleTemp;
+		// collision
+		if(oPosition.x + iTaille >= this.oPosition.x && oPosition.x <= this.oPosition.x + this.iLargeur
+		&& oPosition.y + iTaille >= this.oPosition.y && oPosition.y <= this.oPosition.y + this.iHauteur)
+			return true;
+		else
+			return false;
+	}
+	return false;
+};
 
 // Méthode de reset
 Mur.prototype.reset = function()

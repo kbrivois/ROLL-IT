@@ -50,6 +50,7 @@ body {
 }
 #items-menu-edit {
 	position: absolute;
+	z-index: 1000;
 	display: none;
 	right: 0;
 	top: 0;
@@ -71,42 +72,47 @@ body {
 }
 #sphere {
 	position: absolute;
-	z-index: 99;
+	z-index: 196;
 }
 #arrivee {
 	position: absolute;
 }
+.vide {
+	position: absolute;
+	z-index: 100;
+}
 .projectile {
 	position: absolute;
-	z-index: 101;
-	width: 15px;
-	height: 15px;
+	z-index: 198;
 }
 .diamant {
 	position: absolute;
-	z-index: 100;
+	z-index: 197;
+}
+.mur {
+	position: absolute;
+	z-index: 196;
 }
 
 /* NEW GAME */
 #select-level {
 	width: 100%;
 	height: 58%;
-	z-index: 105;
-	overflow-x: scroll;
+	z-index: 199;
+	overflow-x: auto;
 	overflow-y: hidden;
-	text-align: left;
-	margin: 0 0 10px 0;
+	margin: 0 auto 10px auto;
 }
 #show-level {
-	width: 3000px;
 	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
 }
 #show-level div.show-level-item {
 	height: 100%;
 	display: inline-block;
 	margin: 0 10px;
 	padding: 0;
-	overflow: hidden;
 }
 #show-level div.show-level-item .show-level-text {
 	text-align: center;
@@ -133,7 +139,7 @@ body {
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	z-index: 200;
+	z-index: 1001;
 	top: 0;
 	left: 0;
 	background: rgba(217, 217, 217, 0.8);

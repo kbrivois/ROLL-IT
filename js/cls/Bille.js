@@ -17,6 +17,8 @@ function Bille(oPositionDepartTemp)
 	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
 	// Variable à true quand la balle tombe dans un trou
 	this.bTombeDansTrou = false;
+	// Variable à true quand la bille peut être tracer dans l'éditeur (pas sur un mur ou un vide)
+	this.bTraceDansEditeur = true;
 };
 
 // On dessine la bille
@@ -32,15 +34,79 @@ Bille.prototype.tracer = function(oDivTerrain)
 	oBille.style.width = this.iTaille + "px";
 	oBille.style.height = this.iTaille + "px";
 	oDivTerrain.appendChild(oBille);
-}
+};
 
 // On dessine la bille dans l'éditeur
 Bille.prototype.tracerDansEditeur = function()
 {
-	this.oDiv.style.left = oPositionTouchArrivee.x+"px";
-	this.oDiv.style.top = oPositionTouchArrivee.y+"px";
-	this.oDiv.style.opacity = "0.3";
-}
+	var x = oPositionTouchArrivee.x;
+	var y = oPositionTouchArrivee.y;
+	var oTerrain = oModeEnCours.oTerrain;
+	
+	// ==== On vérifie si la bille n'est pas l'exterieur du terrain ==== //
+	// bord gauche
+	if(x < 0) {
+		x = 0;
+	}
+	// bord haut
+	if(y < 0) {
+		y = 0;
+	}
+	// bord droit
+	if(x + this.iTaille > oTerrain.iLargeur) {
+		x = oTerrain.iLargeur-this.iTaille;
+	}
+	// bord bas
+	if(y + this.iTaille > oTerrain.iHauteur) {
+		y = oTerrain.iHauteur-this.iTaille;
+	}
+	
+	// ==== On vérifie si la bille n'est pas sur un mur, trappe, trou ou vide ==== //
+	var bCollision = false;
+	// les vides
+	var aListeVides = oTerrain.aListeVides;
+	for(var i=0; i<aListeVides.length; i++) {
+		if(aListeVides[i].verifierCollisionDansEditeur(new Point(x,y), this.iTaille)) {
+			bCollision = true;
+			break;
+		}
+	}
+	// les murs
+	var aListeMurs = oTerrain.aListeMurs;
+	for(var i=0; i<aListeMurs.length; i++) {
+		if(!bCollision && aListeMurs[i].verifierCollisionDansEditeur(new Point(x,y), this.iTaille)) {
+			bCollision = true;
+			break;
+		}
+	}
+	// les trous
+	var aListeTrous = oTerrain.aListeTrous;
+	for(var i=0; i<aListeTrous.length; i++) {
+		if(!bCollision && aListeTrous[i].verifierCollisionDansEditeur(new Point(x,y), this.iTaille)) {
+			bCollision = true;
+			break;
+		}
+	}
+	
+	if(!bCollision) {
+		this.oPosition.x = x;
+		this.oPosition.y = y;
+		this.bTraceDansEditeur = true;
+		this.oDiv.style.opacity = "1";
+	}
+	else {
+		this.bTraceDansEditeur = false;
+		this.oDiv.style.opacity = "0.3";
+	}
+	this.oDiv.style.left = x+"px";
+	this.oDiv.style.top = y+"px";
+};
+
+// On supprime la bille de l'éditeur
+Bille.prototype.supprimerDansEditeur = function(oDivTerrain)
+{
+	oDivTerrain.removeChild(this.oDiv);
+};
 
 // On fait rouler la bille
 Bille.prototype.rouler = function()
@@ -66,7 +132,7 @@ Bille.prototype.tomber = function()
 
 	// tant que la bille n'a pas fini sa chute
 	if(this.iTaille > 0) {
-		var fPas = 0.3;
+		var fPas = 0.3*fRatioLargeur;
 		this.iTaille -= fPas;
 		this.oPosition.y += fPas/2;
 		this.oPosition.x += fPas/2;
@@ -137,21 +203,7 @@ Bille.prototype.verifierCollisions = function() {
 	}
 	
 	/****** Arrivée, trou de fin ******/
-	var oPointMilieuSphere = new Point(this.oPosition.x + this.iTaille/2, this.oPosition.y + this.iTaille/2);
-	
-	// si tous les diamants ont été attrapés
-	if(oTerrain.iNbreDiamantsAttrapes == oTerrain.iNbreDiamants) {
-		var oPointMilieuArrivee = new Point(oTerrain.oPositionArrivee.x + oTerrain.iTailleArrivee/2, 
-											oTerrain.oPositionArrivee.y + oTerrain.iTailleArrivee/2);
-											
-		if(distance(oPointMilieuSphere, oPointMilieuArrivee) < oTerrain.iTailleArrivee/2) {
-			this.oPosition.x = oTerrain.oPositionArrivee.x + oTerrain.iTailleArrivee/2 - this.iTaille/2;
-			this.oPosition.y = oTerrain.oPositionArrivee.y + oTerrain.iTailleArrivee/2 - this.iTaille/2;
-			oModeEnCours.oChrono.pause();
-			oModeEnCours.bGagne = true;
-			oModeEnCours.gagner();
-		}
-	}
+	oTerrain.oArrivee.verifierCollision();
 };
 
 // Méthode de reset

@@ -61,14 +61,13 @@ function Terrain(sMode)
 															  oGroupeProjectiles.distance));
 		}
 		
-		// ************************* Trou de fin
-		this.oPositionArrivee = new Point(oNiveau.arrivee.x*fRatioLargeur,oNiveau.arrivee.y*fRatioHauteur);
-		this.oDivArrivee = new Point(oNiveau.arrivee.x*fRatioLargeur,oNiveau.arrivee.y*fRatioHauteur);
-		this.iTailleArrivee = 20*((fRatioLargeur+fRatioHauteur)/2);
+		// ************************* Arrivee
+		this.oArrivee = new Arrivee(new Point(oNiveau.arrivee.x*fRatioLargeur,oNiveau.arrivee.y*fRatioHauteur));
 	}
+	// si c'est l'éditeur qui a été lancé
 	else {
 		// ************************* Bille
-		this.oBille = new Bille(new Point(-100, 0));
+		this.oBille = null;
 		
 		// ************************* Liste des murs
 		this.aListeMurs = new Array();
@@ -91,10 +90,8 @@ function Terrain(sMode)
 		// ************************* Liste des projectiles
 		this.aListeProjectiles = new Array();
 		
-		// ************************* Trou de fin
-		this.oPositionArrivee = new Point(-100,0);
-		this.oDivArrivee = null;
-		this.iTailleArrivee = 20*((fRatioLargeur+fRatioHauteur)/2);
+		// ************************* Arrivee
+		this.oArrivee = null;
 	}
 };
 
@@ -113,8 +110,11 @@ Terrain.prototype.tracer = function()
 	// ===== vides ===== //
 	for(var i=0; i<this.aListeVides.length; i++) {
 		this.aListeVides[i].tracer(this.oDiv);
+	}	
+	for(var i=0; i<this.aListeVides.length; i++) {
+		this.aListeVides[i].recalculZindex(this.aListeVides);
 	}
-	
+		
 	// ===== trous ===== //
 	for(var i=0; i<this.aListeTrous.length; i++) {
 		this.aListeTrous[i].tracer(this.oDiv);
@@ -135,24 +135,9 @@ Terrain.prototype.tracer = function()
 		this.aListeDiamants[i].tracer(this.oDiv);
 	}
 	
-	// ===== trou de fin, arrivee ===== //
-	var oArrivee = document.createElement("img");
-	this.oDivArrivee = oArrivee;
-	oArrivee.id = "arrivee";
-	oArrivee.style.position = "absolute";
-	
-	oArrivee.style.left = this.oPositionArrivee.x + "px";
-	oArrivee.style.top = this.oPositionArrivee.y + "px";
-	oArrivee.style.width = this.iTailleArrivee + "px";
-	oArrivee.style.height = this.iTailleArrivee + "px";
-	oArrivee.src = "img/croix.png";
-	
-	if(this.iNbreDiamantsAttrapes == this.iNbreDiamants)
-		oArrivee.style.display = "block";
-	else
-		oArrivee.style.display = "none";
-	
-	this.oDiv.appendChild(oArrivee);
+	// ===== arrivee ===== //
+	if(this.oArrivee != null)
+		this.oArrivee.tracer(this.oDiv);
 };
 
 // on actionne les mécanismes du terrain (animations des trappes, projectiles, diamants...)
@@ -197,7 +182,7 @@ Terrain.prototype.reset = function()
 	
 	// ===== arrivee ===== //
 	if(this.iNbreDiamantsAttrapes == this.iNbreDiamants)
-		this.oDivArrivee.style.display = "block";
+		this.oArrivee.oDiv.style.display = "block";
 	else
-		this.oDivArrivee.style.display = "none";
+		this.oArrivee.oDiv.style.display = "none";
 };

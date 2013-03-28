@@ -78,8 +78,29 @@ Trappe.prototype.tracer = function(oDivTerrain)
 // On dessine la trappe dans l'éditeur
 Trappe.prototype.tracerDansEditeur = function()
 {
-	this.oDiv.style.left = oPositionTouchArrivee.x+"px";
-	this.oDiv.style.top = oPositionTouchArrivee.y+"px";
+	var x = oPositionTouchArrivee.x;
+	var y = oPositionTouchArrivee.y;
+	var oTerrain = oModeEnCours.oTerrain;
+	
+	// bord gauche
+	if(x < 0) {
+		x = 0;
+	}
+	// bord haut
+	if(y < 0) {
+		y = 0;
+	}
+	// bord droit
+	if(x + this.iTaille > oTerrain.iLargeur) {
+		x = oTerrain.iLargeur-this.iTaille;
+	}
+	// bord bas
+	if(y + this.iTaille > oTerrain.iHauteur) {
+		y = oTerrain.iHauteur-this.iTaille;
+	}
+
+	this.oDiv.style.left = x+"px";
+	this.oDiv.style.top = y+"px";
 	this.oDiv.style.opacity = "0.3";
 }
 
