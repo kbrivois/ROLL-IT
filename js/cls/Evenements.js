@@ -47,14 +47,43 @@ function menuPrincipal() {
 	document.getElementById('hp').style.display = 'block';
 }
 
-// Détecte le click pour lancer une nouvelle partie
-function nouvellePartie() {
+// Détecte le click pour lancer le menu qui propose les différents type de menu avec 3 boutons (niveaux de base, perso et en ligne)
+function lancerMenuChoixMode() {
+	// tu fais apparaitre ici le menu avec les 3 boutons (niveaux de base, perso et en ligne) pas forcément ces appelations
+	// à lancer quand tu clique sur new partie à la place de lancerMenuNiveaux()
+	// si clique sur niveaux de base -> appelle lancerMenuNiveaux() ci-dessous
+	// si clique sur niveaux perso -> appelle lancerMenuNiveauxPerso() ci-dessous
+	// si clique sur niveaux en ligne -> appelle lancerMenuNiveauxEnLigne() ci-dessous
+}
+
+// Détecte le click pour lancer le menu des niveaux
+function lancerMenuNiveaux() {
 	for(var i in oPage) {
 		if(oPage[i] instanceof Element)
 			oPage[i].style.display = 'none';
 	}
 	document.getElementById('new-game').style.display = 'block';
-	initMenu();
+	initMenu(aListeNiveaux);
+}
+
+// Détecte le click pour lancer le menu des niveaux
+function lancerMenuNiveauxPerso() {
+	for(var i in oPage) {
+		if(oPage[i] instanceof Element)
+			oPage[i].style.display = 'none';
+	}
+	document.getElementById('new-game').style.display = 'block';
+	initMenu(aListeNiveauxPerso);
+}
+
+// Détecte le click pour lancer le menu des niveaux
+function lancerMenuNiveauxEnLigne() {
+	for(var i in oPage) {
+		if(oPage[i] instanceof Element)
+			oPage[i].style.display = 'none';
+	}
+	document.getElementById('new-game').style.display = 'block';
+	initMenu(aListeNiveauxEnLigne);
 }
 
 // Détecte le click pour accéder au menu des langues

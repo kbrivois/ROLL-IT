@@ -39,8 +39,10 @@ oElemContent.style.width = fLargeurA_Retenir+"px";
 oElemContent.style.height = (fHauteurA_Retenir+25)+"px";
 oElemContent.style.marginTop = (document.documentElement.clientHeight/2 - oElemContent.offsetHeight/2) +"px";
 
-// Les différents niveaux
+// Les différents niveaux (de base, perso, en ligne)
 var aListeNiveaux = chargerNiveaux();
+var aListeNiveauxPerso /*= chargerNiveauxPerso()*/;
+var aListeNiveauxEnLigne /*= chargerNiveauxEnLigne()*/;
 var aListeNiveauxEnCours = null;
 var iNiveauSelectionne = 0;
 
@@ -103,7 +105,7 @@ document.getElementById("button-languages").addEventListener("click", menuLangue
 var oButtonNewLevel = document.getElementsByClassName("button-new-level");
 for(var i in oButtonNewLevel) {
 	if(oButtonNewLevel[i] instanceof Element)
-		oButtonNewLevel[i].addEventListener("click", nouvellePartie, false); 
+		oButtonNewLevel[i].addEventListener("click", lancerMenuNiveaux, false); 
 }
 
 // Evénement pour lancer l'éditeur
@@ -124,12 +126,12 @@ for(var i in oButtonLangue) {
 		oButtonLangue[i].addEventListener("click", changerLangue, false); 
 }
 
-// ************************* Menu des niveaux
+// ************************* Menus des niveaux
 
 // on initialise le menu
-var initMenu = function() 
+var initMenu = function(aListeNiveauxTemp) 
 {
-	oMenuNiveaux = new MenuNiveaux();
+	oMenuNiveaux = new MenuNiveaux(aListeNiveauxTemp);
 	oMenuNiveaux.tracer();
 }
 
