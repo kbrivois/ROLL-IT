@@ -25,13 +25,13 @@ MenuNiveaux.prototype.tracer = function()
 		var oDivItemMenu = document.createElement("div");
 		oDivItemMenu.className = "level-item";
 		oDivShowItemMenu.appendChild(oDivItemMenu);
-		oDivItemMenu.style.width = oDivItemMenu.offsetHeight * fRatioLargeurHauteur + "px";
-		oDivItemMenu.style.border = "1px solid black";
+		oDivItemMenu.style.height = oDivItemMenu.offsetHeight + "px";
+		oDivItemMenu.style.width = eval(oDivItemMenu.style.height.replace("px","")) * fRatioLargeurHauteur + "px";
 		
 		// ratio selon la taille de la vignette
-		fRatioLargeur = oDivItemMenu.offsetWidth / iLargeurDeBase;
-		fRatioHauteur = oDivItemMenu.offsetHeight / iHauteurDeBase;
-	
+		fRatioHauteur = eval(oDivItemMenu.style.height.replace("px","")) / iHauteurDeBase;
+		fRatioLargeur = fRatioHauteur;
+		
 		// murs
 		for(var j=0; j<this.aListeNiveaux[i].murs.length; j++) {
 			var oMurTemp = this.aListeNiveaux[i].murs[j];
@@ -105,8 +105,13 @@ MenuNiveaux.prototype.tracer = function()
 	// on calcul la taille que doit avoir le conteneur des vignettes
 	document.getElementById("select-level").style.width = fLargeurA_Retenir+"px";
 	var iLargeur = 0;
-	iLargeur = this.aListeVignettes[0].offsetWidth*this.aListeVignettes.length
-	         + 10*2*this.aListeVignettes.length;
+	
+	document.getElementById("show-level").style.width = this.aListeVignettes[0].offsetWidth*this.aListeVignettes.length*2+"px";
+	
+	iLargeur = this.aListeVignettes[this.aListeVignettes.length-1].offsetLeft
+			 - this.aListeVignettes[0].offsetLeft
+			 + this.aListeVignettes[this.aListeVignettes.length-1].offsetWidth*2;
+			 
 	document.getElementById("show-level").style.width = iLargeur+"px";
 };
 

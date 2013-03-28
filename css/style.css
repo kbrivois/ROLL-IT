@@ -121,6 +121,7 @@ body {
 	height: 80%;
 	background: url(../img/background-3.png);
 	position: relative;
+	text-align: initial;
 }
 #show-level div.show-level-text {
 	height: 20%;

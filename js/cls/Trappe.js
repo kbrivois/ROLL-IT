@@ -17,7 +17,7 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	// Then des images de la trappes afin de les faire défiler au bon moment
 	this.iThenImages = Date.now();
 	// taille de la trappe
-	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
+	this.iTaille = 15*fRatioHauteur;
 	// Images de la trappe
 	this.aListeImages = new Array(	"img/trappes/0.png",
 									"img/trappes/1.png",
