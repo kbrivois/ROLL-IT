@@ -9,7 +9,7 @@ function Terrain(sMode)
 	// si c'est une partie qui a été lancée et non l'éditeur
 	if(sMode == "Partie") {
 		// Niveau sélectionné dans le menu
-		var oNiveau = aListeNiveaux[iNiveauSelectionne];
+		var oNiveau = aListeNiveauxEnCours[iNiveauSelectionne];
 		
 		// ************************* Bille
 		this.oBille = new Bille(new Point(oNiveau.bille.x, oNiveau.bille.y));

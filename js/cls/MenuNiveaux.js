@@ -1,6 +1,8 @@
-function MenuNiveaux()
+function MenuNiveaux(aListeNiveauxTemp)
 {
-	this.aListeNiveaux = aListeNiveaux;
+	// liste des niveaux
+	this.aListeNiveaux = aListeNiveauxTemp;
+	aListeNiveauxEnCours = this.aListeNiveaux;
 	
 	// ************************* Liste des vignettes
 	this.aListeVignettes = new Array();

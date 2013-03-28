@@ -7,14 +7,19 @@ déclaration des variables
 var oDivTemp = "";
 var oPositionTouchDepart = new Point(0,0);
 var oPositionTouchArrivee = new Point(0,0);
+
 // Partie
 var oPartie = null;
+
 // Editeur
 var oEditeur = null;
+
 // Menu des niveaux
 var oMenuNiveaux = null;
+
 // Mode de jeu en cours
 var oModeEnCours = null;
+
 // Largeur et hauteur qui vont nous servir pour calculer les ratio selon les différentes tailles d'écran
 var iLargeurDeBase = 320;
 var iHauteurDeBase = 400;
@@ -27,14 +32,18 @@ if(document.documentElement.clientWidth/fHauteurA_Retenir < fRatioLargeurHauteur
 }
 var fRatioLargeur = fLargeurA_Retenir / iLargeurDeBase;
 var fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
+
 // on change le style du "content"
 var oElemContent = document.getElementById("content");
 oElemContent.style.width = fLargeurA_Retenir+"px";
 oElemContent.style.height = (fHauteurA_Retenir+25)+"px";
 oElemContent.style.marginTop = (document.documentElement.clientHeight/2 - oElemContent.offsetHeight/2) +"px";
+
 // Les différents niveaux
 var aListeNiveaux = chargerNiveaux();
+var aListeNiveauxEnCours = null;
 var iNiveauSelectionne = 0;
+
 // ISO de la langue de l'utilisateur
 var joueurISO = langueJoueur();
 
