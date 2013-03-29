@@ -1,4 +1,11 @@
-var oPage = document.getElementsByClassName('page');
+// Cache l'ensemble des pages du jeu (.page)
+function cacherPages() {
+	var oPage = document.getElementsByClassName('page');
+	for(var i in oPage) {
+		if(oPage[i] instanceof Element)
+			oPage[i].style.display = 'none';
+	}
+}
 
 // Détecte le click pendant une partie, sur le bouton pause
 function pausePartie() {
@@ -44,10 +51,7 @@ function niveauSuivant() {
 
 // Détecte le click pendant que le menu Pause est afficher pour retourner au menu
 function menuPrincipal() {
-	for(var i in oPage) {
-		if(oPage[i] instanceof Element)
-			oPage[i].style.display = 'none';
-	}
+	cacherPages();
 	oModeEnCours = null;
 	// on vide le terrain
 	document.getElementById('terrain').innerHTML = "";
@@ -59,58 +63,26 @@ function menuPrincipal() {
 
 // Détecte le click pour lancer le menu qui propose les différents type de menu avec 3 boutons (niveaux de base, perso et en ligne)
 function lancerMenuChoixMode() {
-	// tu fais apparaitre ici le menu avec les 3 boutons (niveaux de base, perso et en ligne) pas forcément ces appelations
-	// à lancer quand tu clique sur new partie à la place de lancerMenuNiveaux()
-	// si clique sur niveaux de base -> appelle lancerMenuNiveaux() ci-dessous
-	// si clique sur niveaux perso -> appelle lancerMenuNiveauxPerso() ci-dessous
-	// si clique sur niveaux en ligne -> appelle lancerMenuNiveauxEnLigne() ci-dessous
+	cacherPages();
+	document.getElementById('mode-game').style.display = 'block';
 }
 
 // Détecte le click pour lancer le menu des niveaux
-function lancerMenuNiveaux() {
-	for(var i in oPage) {
-		if(oPage[i] instanceof Element)
-			oPage[i].style.display = 'none';
-	}
+function lancerMenuNiveaux(arrayListeNiveau) {
+	cacherPages();
 	document.getElementById('new-game').style.display = 'block';
-	initMenu(aListeNiveaux);
-}
-
-// Détecte le click pour lancer le menu des niveaux
-function lancerMenuNiveauxPerso() {
-	for(var i in oPage) {
-		if(oPage[i] instanceof Element)
-			oPage[i].style.display = 'none';
-	}
-	document.getElementById('new-game').style.display = 'block';
-	initMenu(aListeNiveauxPerso);
-}
-
-// Détecte le click pour lancer le menu des niveaux
-function lancerMenuNiveauxEnLigne() {
-	for(var i in oPage) {
-		if(oPage[i] instanceof Element)
-			oPage[i].style.display = 'none';
-	}
-	document.getElementById('new-game').style.display = 'block';
-	initMenu(aListeNiveauxEnLigne);
+	initMenu(arrayListeNiveau);
 }
 
 // Détecte le click pour accéder au menu des langues
 function menuLangues() {
-	for(var i in oPage) {
-		if(oPage[i] instanceof Element)
-			oPage[i].style.display = 'none';
-	}
+	cacherPages();
 	document.getElementById('languages').style.display = 'block';
 }
 
 // on lance un partie après avoir choisi le niveau dans le menu
 function lancerEditeur() {
-	for(var i in oPage) {
-		if(oPage[i] instanceof Element)
-			oPage[i].style.display = 'none';
-	}
+	cacherPages();
 	// on vide le menu
 	document.getElementById('partie').style.display = 'block';
 	initEditeur();
@@ -163,10 +135,7 @@ function lancerPartieEditeur() {
 
 // on lance un partie après avoir choisi le niveau dans le menu
 function creerPartie(iNumeroTerrain) {
-	for(var i in oPage) {
-		if(oPage[i] instanceof Element)
-			oPage[i].style.display = 'none';
-	}
+	cacherPages();
 	// on vide le menu
 	document.getElementById("show-level").innerHTML = "";
 	document.getElementById('partie').style.display = 'block';
@@ -179,4 +148,16 @@ function changerLangue() {
 	joueurISO = this.id;
 	enregistrerJoueurISO(this.id);
 	textesLangue(this.id);
+}
+
+// On teste le téléchargement d'un niveau avec l'id de l'utilisateur
+function telechargerNiveau() {
+	var key = document.getElementById("id-level-online").value;
+	
+	if(key) {
+		valeurURL(key);
+		alert(valeurURL);
+	} else {
+		alert("Veuillez saisir un identifiant");
+	}
 }
