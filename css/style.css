@@ -164,28 +164,31 @@ body {
 .button-green {
 	width: 135px;
 	height: 31px;
-	background-image: url(../img/bt-green.png);
+	background: url(../img/bt-green.png) transparent no-repeat;
 	margin: auto;
-	line-height: 31px;	
+	line-height: 31px;
+	border: none;	
 }
 .button-red {
 	width: 135px;
 	height: 31px;
-	background-image: url(../img/bt-red.png);
+	background: url(../img/bt-red.png) transparent no-repeat;
 	margin: auto;
 	line-height: 31px;
+	border: none;
 }
 .button-blue {
 	width: 103px;
 	height: 31px;
-	background-image: url(../img/bt-blue.png);
+	background: url(../img/bt-blue.png) transparent no-repeat;
 	margin: auto;
-	line-height: 31px;	
+	line-height: 31px;
+	border: none;
 }
-#button-resume, .button-new-level {
+#button-resume, .button-new-level, #button-new-level-normal {
 	margin: 10px auto 15px auto;
 }
-#button-next-level, #button-editor {
+#button-next-level, #button-editor, #button-new-level-online {
 	margin: 15px auto;
 }
 #drapeaux {
@@ -194,6 +197,21 @@ body {
 .iso-langue {
 	cursor: pointer;
 	opacity: 0.6;
+}
+
+/* FORM LEVEL ONLINE */
+#form-level-online {
+	width: 250px;
+	overflow: hidden;
+	margin: 25px auto 0 auto;
+	line-height: 22px;
+}
+#form-level-online span {
+	display: block;
+	margin-bottom: 15px;
+}
+#form-level-online input {
+	margin-bottom: 10px;
 }
 
 /* RESET */

@@ -101,12 +101,24 @@ document.getElementById("button-next-level").addEventListener("click", niveauSui
 // Evénement pour accéder au menu des langues
 document.getElementById("button-languages").addEventListener("click", menuLangues, false);
 
-// Evénement pour lancer le menu des niveaux
+// Evénement pour lancer le choix du mode de jeu
 var oButtonNewLevel = document.getElementsByClassName("button-new-level");
 for(var i in oButtonNewLevel) {
 	if(oButtonNewLevel[i] instanceof Element)
-		oButtonNewLevel[i].addEventListener("click", lancerMenuNiveaux, false); 
+		oButtonNewLevel[i].addEventListener("click", lancerMenuChoixMode, false); 
 }
+
+// Evénement pour lancer un niveau normal
+var oButtonNewLevelNormal = document.getElementById("button-new-level-normal");
+oButtonNewLevelNormal.addEventListener("click", function(){lancerMenuNiveaux(aListeNiveaux)}, false);
+
+// Evénement pour lancer un niveau online
+var oButtonNewLevelOnline = document.getElementById("button-new-level-online");
+oButtonNewLevelOnline.addEventListener("click", function(){lancerMenuNiveaux(aListeNiveauxEnLigne)}, false); 
+
+// Evénement pour lancer un niveau perso
+var oButtonNewLevelCustom = document.getElementById("button-new-level-custom");
+oButtonNewLevelCustom.addEventListener("click", function(){lancerMenuNiveaux(aListeNiveauxPerso)}, false); 
 
 // Evénement pour lancer l'éditeur
 var oButtonEditor = document.getElementById("button-editor");
@@ -125,6 +137,10 @@ for(var i in oButtonLangue) {
 	if(oButtonLangue[i] instanceof Element)
 		oButtonLangue[i].addEventListener("click", changerLangue, false); 
 }
+
+// Evénement pour lancer le téléchargement d'un niveau en ligne
+var oButtonSubmitLevelOnline = document.getElementById("submit-level-online");
+oButtonSubmitLevelOnline.addEventListener("click", telechargerNiveau, false); 
 
 // ************************* Menus des niveaux
 
