@@ -1,4 +1,4 @@
-function Terrain(sMode)  
+function Terrain(sMode)
 {  
 	this.iLargeur = fLargeurA_Retenir;
 	this.iHauteur = fHauteurA_Retenir;
@@ -161,6 +161,54 @@ Terrain.prototype.actionnerMecanismes = function()
 			this.aListeDiamants[i].animer();
 		}
 	}
+};
+
+// Méthode de clonage
+Terrain.prototype.clone = function()
+{
+	var oTerrainClone = new Terrain();
+
+	// ===== bille ===== //
+	oTerrainClone.oBille = this.oBille.clone();
+
+	// ===== murs ===== //
+	for(var i=0; i<this.aListeMurs.length; i++) {
+		oTerrainClone.aListeMurs.push(this.aListeMurs[i].clone());
+	}
+	
+	// ===== projectiles ===== //
+	for(var i=0; i<this.aListeProjectiles.length; i++) {
+		oTerrainClone.aListeProjectiles.push(this.aListeProjectiles[i].clone());
+	}
+	
+	// ===== diamants ===== //
+	for(var i=0; i<this.aListeDiamants.length; i++) {
+		oTerrainClone.aListeProjectiles.push(this.aListeDiamants[i].clone());
+	}
+
+	// ===== vides ===== //
+	for(var i=0; i<this.aListeVides.length; i++) {
+		oTerrainClone.aListeVides.push(this.aListeVides[i].clone());
+	}
+		
+	// ===== trous ===== //
+	for(var i=0; i<this.aListeTrous.length; i++) {
+		oTerrainClone.aListeTrous.push(this.aListeTrous[i].clone());
+	}
+	
+	// ===== trappes ===== //
+	for(var i=0; i<this.aListeTrappes.length; i++) {
+		oTerrainClone.aListeTrappes.push(this.aListeTrappes[i].clone());
+	}
+	
+	// ===== arrivee ===== //
+	oTerrainClone.oArrivee = this.oArrivee.clone();
+
+	oTerrainClone.iLargeur = this.iLargeur;
+	oTerrainClone.iHauteur = this.iHauteur;
+	oTerrainClone.oDiv = this.oDiv;
+	
+	return oTerrainClone;
 };
 
 // Méthode de reset

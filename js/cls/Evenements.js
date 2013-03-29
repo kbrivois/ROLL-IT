@@ -19,7 +19,17 @@ function recommencerPartie() {
 	document.getElementById('win').style.display = 'none';
 	// on vide le terrain
 	document.getElementById('terrain').innerHTML = "";
-	initPartie();
+	// si nous sommes dans une partie
+	if(oPartie != null) {
+		initPartie();
+	}
+	// si nous sommes dans l'éditeur
+	else if(oEditeur != null) {
+		oEditeur.oTerrain = oEditeur.oTerrainClone.clone();
+		oEditeur.oTerrain.oDiv.innerHTML = "";
+		oEditeur.oTerrain.tracer();
+		oEditeur.bGagne = false;
+	}
 }
 
 // Détecte le click après la victoire pour passer au niveau suivant
@@ -104,6 +114,51 @@ function lancerEditeur() {
 	// on vide le menu
 	document.getElementById('partie').style.display = 'block';
 	initEditeur();
+}
+
+// on lance un partie après avoir choisi le niveau dans le menu
+function lancerPartieEditeur() {
+	// si nous nous trouvons dans l'éditeur
+	if(oEditeur != null) {
+		// si nous nous trouvions en mode édition
+		if(!oEditeur.bEnModeJeu) {
+			// si au moins une bille et une arrivée ont été tracées
+			if(oEditeur.oTerrain.oBille != null && oEditeur.oTerrain.oArrivee != null) {
+				document.getElementById("items-menu-edit").style.display = "none";
+				document.getElementById("items-menu-edit").innerHTML = "";
+				document.getElementById("level").innerHTML = "> "+dataLangue['edit'][joueurISO]+" <";
+				oEditeur.bEnModeJeu = true;
+				// On initialise les événements de touch
+				oEditeur.oTerrain.oDiv.ontouchstart = function(event) {};
+				oEditeur.oTerrain.oDiv.ontouchmove = function(event) {};
+				oEditeur.oTerrain.oDiv.ontouchend = function(event) {};
+				
+				oEditeur.oTerrain.oDiv.onmousedown = function(event) {};
+				oEditeur.oTerrain.oDiv.onmousemove = function(event) {};
+				oEditeur.oTerrain.oDiv.onmouseup = function(event) {};
+				
+				// on clone le terrain
+				oEditeur.oTerrainClone = oEditeur.oTerrain.clone();
+				// on initialise les then des trappes et des projectiles
+				oEditeur.oTerrain = oEditeur.oTerrainClone.clone();
+				// on fait appel à l'accelerometre
+				appelerAccelerometre();
+				mainEditeur();
+			}
+			else {alert("Il faut au moins placer la bille et la croix !");}
+		}
+		else {
+			// on récupère le clone
+			oEditeur.oTerrain = oEditeur.oTerrainClone.clone();
+			oEditeur.oTerrain.oDiv.innerHTML = "";
+			oEditeur.oTerrain.tracer();
+			oEditeur.oTerrainClone = null;
+			document.getElementById("items-menu-edit").style.display = "block";
+			document.getElementById("level").innerHTML = "> "+dataLangue['play'][joueurISO]+" <";
+			oEditeur.initialiser();
+			oEditeur.bEnModeJeu = false;
+		}
+	}
 }
 
 // on lance un partie après avoir choisi le niveau dans le menu

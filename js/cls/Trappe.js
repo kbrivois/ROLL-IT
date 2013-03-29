@@ -79,7 +79,7 @@ Trappe.prototype.tracer = function(oDivTerrain)
 Trappe.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
-	var y = oPositionTouchArrivee.y;
+	var y = oPositionTouchArrivee.y-this.iTaille;
 	var oTerrain = oModeEnCours.oTerrain;
 	
 	// bord gauche
@@ -99,9 +99,11 @@ Trappe.prototype.tracerDansEditeur = function()
 		y = oTerrain.iHauteur-this.iTaille;
 	}
 
+	this.oPosition.x = x;
+	this.oPosition.y = y;
 	this.oDiv.style.left = x+"px";
 	this.oDiv.style.top = y+"px";
-	this.oDiv.style.opacity = "0.3";
+	this.oDiv.style.opacity = "1";
 }
 
 // Méthode qui ouvre ou ferme les trappes
@@ -172,7 +174,36 @@ Trappe.prototype.verifierCollision = function()
 		}
 	}
 };
+
+// Méthode de clonage
+Trappe.prototype.clone = function()
+{
+	var oTrappeClone = new Trappe(new Point(0,0), 1000, true);
+
+	// Element HTML
+	oTrappeClone.oDiv = this.oDiv;
+	// Position
+	oTrappeClone.oPosition = clone(this.oPosition);
+	// images html
+	oTrappeClone.aListeImgHTML = this.aListeImgHTML;
+	// Temps d'ouverture et de fermeture
+	oTrappeClone.iTempsOF = this.iTempsOF;
+	// Pour savoir si c'est ouvert ou non
+	oTrappeClone.bOuvertTemp = this.bOuvertTemp;
+	// Then de la trappe afin de savoir quand il faut la fermer ou l'ouvrir
+	oTrappeClone.iThen = Date.now();
+	// Temps entre chaque images
+	oTrappeClone.iTempsEntreImages = this.iTempsEntreImages;
+	// Then des images de la trappes afin de les faire défiler au bon moment
+	oTrappeClone.iThenImages = Date.now();
+	// taille de la trappe
+	oTrappeClone.iTaille = this.iTaille;
+	// image actuelle
+	oTrappeClone.iImageActuelle = this.iImageActuelle;
 	
+	return oTrappeClone;
+};
+
 // Méthode de reset
 Trappe.prototype.reset = function()
 {

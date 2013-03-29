@@ -1,35 +1,56 @@
 function GroupeProjectiles(oPositionDepartTemp, oPositionArriveeTemp, fVitesseTemp, iDistanceEntreProjectilesTemp)
 {  
-	// Vitesse
-	this.fVitesse = fVitesseTemp*((fRatioLargeur+fRatioHauteur)/2);
-	// Position de départ
-	this.oPositionDepart = new Point(oPositionDepartTemp.x*fRatioLargeur, oPositionDepartTemp.y*fRatioHauteur);
-	// Position d'arrivée
-	this.oPositionArrivee = new Point(oPositionArriveeTemp.x*fRatioLargeur, oPositionArriveeTemp.y*fRatioHauteur);
-	// Vecteur direction
-	this.oVecteurDirection = new Point(	this.oPositionArrivee.x - this.oPositionDepart.x,
-										this.oPositionArrivee.y - this.oPositionDepart.y);
-	// Déplacement du projectile
-	this.oDeplacement = new Point(0,0);
-	this.calculerDeplacement();
-	// Temps entre chaque projectile de la liste
-	iDistanceEntreProjectilesTemp = iDistanceEntreProjectilesTemp*((fRatioLargeur+fRatioHauteur)/2);
-	if(iDistanceEntreProjectilesTemp >= distance(this.oPositionDepart, this.oPositionArrivee))
-		this.iDistanceEntreProjectiles = distance(this.oPositionDepart, this.oPositionArrivee) - distance(new Point(0,0), this.oDeplacement) - 10; // --> marge
-	else
-		this.iDistanceEntreProjectiles = iDistanceEntreProjectilesTemp;
-	// liste des projectiles
-	this.aListeProjectiles = new Array();
-	this.iNbreProjectiles = Math.ceil(distance(this.oPositionDepart, this.oPositionArrivee) / this.iDistanceEntreProjectiles);
-	for(var i=0; i<this.iNbreProjectiles; i++) {
-		var oProjectile = new Projectile();
-		oProjectile.oPosition.x = this.oPositionDepart.x;
-		oProjectile.oPosition.y = this.oPositionDepart.y;
-		this.aListeProjectiles.push(oProjectile);
+	if(oPositionDepartTemp != null && oPositionArriveeTemp != null && fVitesseTemp  != null && iDistanceEntreProjectilesTemp  != null) {
+		// Vitesse
+		this.fVitesse = fVitesseTemp*((fRatioLargeur+fRatioHauteur)/2);
+		// Position de départ
+		this.oPositionDepart = new Point(oPositionDepartTemp.x*fRatioLargeur, oPositionDepartTemp.y*fRatioHauteur);
+		// Position d'arrivée
+		this.oPositionArrivee = new Point(oPositionArriveeTemp.x*fRatioLargeur, oPositionArriveeTemp.y*fRatioHauteur);
+		// Vecteur direction
+		this.oVecteurDirection = new Point(	this.oPositionArrivee.x - this.oPositionDepart.x,
+											this.oPositionArrivee.y - this.oPositionDepart.y);
+		// Déplacement du projectile
+		this.oDeplacement = new Point(0,0);
+		this.calculerDeplacement();
+		// Temps entre chaque projectile de la liste
+		iDistanceEntreProjectilesTemp = iDistanceEntreProjectilesTemp*((fRatioLargeur+fRatioHauteur)/2);
+		if(iDistanceEntreProjectilesTemp >= distance(this.oPositionDepart, this.oPositionArrivee))
+			this.iDistanceEntreProjectiles = distance(this.oPositionDepart, this.oPositionArrivee) - distance(new Point(0,0), this.oDeplacement) - 10; // --> marge
+		else
+			this.iDistanceEntreProjectiles = iDistanceEntreProjectilesTemp;
+		// liste des projectiles
+		this.aListeProjectiles = new Array();
+		this.iNbreProjectiles = Math.ceil(distance(this.oPositionDepart, this.oPositionArrivee) / this.iDistanceEntreProjectiles);
+		for(var i=0; i<this.iNbreProjectiles; i++) {
+			var oProjectile = new Projectile();
+			oProjectile.oPosition.x = this.oPositionDepart.x;
+			oProjectile.oPosition.y = this.oPositionDepart.y;
+			this.aListeProjectiles.push(oProjectile);
+		}
+		this.aListeProjectilesActifs = new Array();
+		this.aListeProjectilesActifs.push(this.aListeProjectiles[0]);
+		this.iProjectileActuel = 0;
 	}
-	this.aListeProjectilesActifs = new Array();
-	this.aListeProjectilesActifs.push(this.aListeProjectiles[0]);
-	this.iProjectileActuel = 0;
+	else {
+		// Vitesse
+		this.fVitesse = "";
+		// Position de départ
+		this.oPositionDepart = "";
+		// Position d'arrivée
+		this.oPositionArrivee = "";
+		// Vecteur direction
+		this.oVecteurDirection = "";
+		// Déplacement du projectile
+		this.oDeplacement = "";
+		// Temps entre chaque projectile de la liste"
+		this.iDistanceEntreProjectiles = "";
+		// liste des projectiles
+		this.aListeProjectiles = new Array();
+		this.iNbreProjectiles = "";
+		this.aListeProjectilesActifs = new Array();
+		this.iProjectileActuel = "";
+	}
 };
 
 // Calcul du déplacement du projectile selon sa direction et sa vitesse
@@ -110,6 +131,33 @@ GroupeProjectiles.prototype.verifierCollision = function()
 			oTerrain.reset();
 		}
 	}
+};
+
+// Méthode de clonage, retourne un clone
+GroupeProjectiles.prototype.clone = function()
+{
+	var oGroupeProjectilesClone = new GroupeProjectiles();
+	// Vitesse
+	oGroupeProjectilesClone.fVitesse = this.fVitesse;
+	// Position de départ
+	oGroupeProjectilesClone.oPositionDepart = clone(this.oPositionDepart);
+	// Position d'arrivée
+	oGroupeProjectilesClone.oPositionArrivee = clone(this.oPositionArrivee);
+	// Vecteur direction
+	oGroupeProjectilesClone.oVecteurDirection = clone(this.oVecteurDirection);
+	// Déplacement du projectile
+	oGroupeProjectilesClone.oDeplacement = clone(this.oDeplacement);
+	// Temps entre chaque projectile de la liste
+	oGroupeProjectilesClone.iDistanceEntreProjectiles = this.iDistanceEntreProjectiles;
+	// liste des projectiles
+	oGroupeProjectilesClone.iNbreProjectiles = this.iNbreProjectiles;
+	for(var i=0; i<this.aListeProjectiles.length; i++) {
+		oGroupeProjectilesClone.aListeProjectiles.push(this.aListeProjectiles[i].clone());
+	}
+	oGroupeProjectilesClone.aListeProjectilesActifs = oGroupeProjectilesClone.aListeProjectiles[0];
+	oGroupeProjectilesClone.iProjectileActuel = 0;
+	
+	return oGroupeProjectilesClone;
 };
 
 // Méthode de reset

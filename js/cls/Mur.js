@@ -72,7 +72,7 @@ Mur.prototype.tracerDansEditeur = function()
 	}
 	// background
 	this.oDiv.style.backgroundPosition = -(this.oDiv.offsetLeft)+"px "+(-this.oDiv.offsetTop)+"px";
-	this.oDiv.style.opacity = "0.3";
+	this.oDiv.style.opacity = "0.7";
 }
 
 Mur.prototype.verifierCollision = function(oPositionTemp, iTailleTemp)
@@ -220,6 +220,26 @@ Mur.prototype.verifierCollisionDansEditeur = function(oPositionTemp, iTailleTemp
 	}
 	return false;
 };
+
+// Méthode de clonage
+Mur.prototype.clone = function()
+{
+	var oMurClone = new Mur(new Point(0,0), 0, 0, false);
+	// Element HTML du mur
+	oMurClone.oDiv = this.oDiv;
+	// Position
+	oMurClone.oPosition = clone(this.oPosition);
+	// Largeur
+	oMurClone.iLargeur = this.iLargeur;
+	// Hauteur
+	oMurClone.iHauteur = this.iHauteur;
+	// Mur qui repousse ou non
+	oMurClone.bRepousse = this.bRepousse;
+	// Force de répulsion des murs qui repoussent
+	oMurClone.iForceRepulsion = this.iForceRepulsion;
+	
+	return oMurClone;
+}
 
 // Méthode de reset
 Mur.prototype.reset = function()

@@ -88,6 +88,28 @@ Projectile.prototype.deplacer = function()
 	}
 };
 
+// Méthode de clonage
+Projectile.prototype.clone = function()
+{
+	var oProjectileClone = new Projectile();
+	// Element HTML du mur
+	oProjectileClone.oDiv = this.oDiv;
+	// Position
+	oProjectileClone.oPosition = clone(this.oPosition);
+	// Taille
+	oProjectileClone.iTaille = this.iTaille;
+	// Hauteur
+	oProjectileClone.iHauteur = this.iLargeur;
+	// Then des images
+	oProjectileClone.iThenImages = Date.now();
+	// Temps entre chaque images
+	oProjectileClone.iTempsEntreImages = this.iTempsEntreImages;
+	// image actuelle
+	oProjectileClone.iImageActuelle = this.iImageActuelle;
+	
+	return oProjectileClone;
+};
+
 // Méthode de reset
 Projectile.prototype.reset = function()
 {

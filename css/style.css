@@ -28,17 +28,17 @@ body {
 	line-height: 25px;
 }
 #top span#level {
-	width: 25%;
+	width: 30%;
 	float: left;
 }
 #time {
-	width: 50%;
+	width: 40%;
 	margin: auto;
 	float: left;
 	text-align: center;
 }
 #top-pause {
-	width: 25%;
+	width: 30%;
 	float: right;
 	text-align: right;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -185,7 +185,7 @@ body {
 #button-resume, .button-new-level {
 	margin: 10px auto 15px auto;
 }
-#button-next-level, #button-editor {
+#button-next-level, #button-editor, #button-save-level {
 	margin: 15px auto;
 }
 #drapeaux {

@@ -9,6 +9,14 @@ function Partie()
 	document.getElementById("items-menu-edit").style.display = "none";
 	this.oTerrain = new Terrain("Partie");
 	this.oTerrain.tracer();
+	
+	// var a = this.oTerrain.aListeTrous[0];
+	// var a2 = a.clone();
+	// alert(a2.oDiv.style.left);
+	// a2.oDiv.style.left = 3+"px";
+	// alert(a2.oDiv.style.left);
+	// alert(a.oDiv.style.left);
+	
 	this.oChrono = new Chrono();
 	this.oChrono.start();
 	this.bPause = false;

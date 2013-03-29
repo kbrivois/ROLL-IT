@@ -38,7 +38,7 @@ Arrivee.prototype.tracer = function(oDivTerrain)
 Arrivee.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
-	var y = oPositionTouchArrivee.y;
+	var y = oPositionTouchArrivee.y-this.iTaille;
 	var oTerrain = oModeEnCours.oTerrain;
 	
 	// bord gauche
@@ -120,11 +120,30 @@ Arrivee.prototype.verifierCollision = function()
 		if(distance(oPointMilieuSphere, oPointMilieuArrivee) < this.iTaille/2) {
 			oBille.oPosition.x = this.oPosition.x + this.iTaille/2 - oBille.iTaille/2;
 			oBille.oPosition.y = this.oPosition.y + this.iTaille/2 - oBille.iTaille/2;
+			oBille.oDiv.style.x = oBille.oPosition.x+"px";
+			oBille.oDiv.style.y = oBille.oPosition.y+"px";
 			oModeEnCours.oChrono.pause();
 			oModeEnCours.bGagne = true;
 			oModeEnCours.gagner();
 		}
 	}
+};
+
+// Méthode de clonage
+Arrivee.prototype.clone = function()
+{
+	var oArriveeClone = new Arrivee(new Point(0,0));
+
+	// Element HTML du trou
+	oArriveeClone.oDiv = this.oDiv;
+	// Position
+	oArriveeClone.oPosition = clone(this.oPosition);
+	// taille du trou
+	oArriveeClone.iTaille = this.iTaille;
+	// Variable à true quand la bille peut être tracer dans l'éditeur (pas sur un mur ou un vide)
+	oArriveeClone.bTraceDansEditeur = this.bTraceDansEditeur;
+	
+	return oArriveeClone;
 };
 
 // Méthode de reset

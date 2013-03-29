@@ -17,7 +17,7 @@ function Diamant(oPositionTemp, sImageTemp)
 	this.fOpacite = 1;
 	// se met à true quand le joueur attrape le diamant
 	this.bDisparaitre = false;
-	// Variable à true quand la bille peut être tracer dans l'éditeur (pas sur un mur ou un vide)
+	// Variable à true quand le diamant peut être tracer dans l'éditeur (pas sur un mur ou un vide)
 	this.bTraceDansEditeur = true;
 };
 
@@ -44,7 +44,7 @@ Diamant.prototype.tracer = function(oDivTerrain)
 Diamant.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
-	var y = oPositionTouchArrivee.y;
+	var y = oPositionTouchArrivee.y-this.iTaille;
 	var oTerrain = oModeEnCours.oTerrain;
 	
 	// bord gauche
@@ -178,6 +178,34 @@ Diamant.prototype.animer = function()
 			this.oDiv.style.display = "none";
 		}
 	}
+};
+
+// Méthode de clonage
+Diamant.prototype.clone = function()
+{
+	var oDiamantClone = new Diamant(new Point(0,0), "");
+
+	// Element HTML du Diamant
+	oDiamantClone.oDiv = this.oDiv;
+	// Position
+	oDiamantClone.oPositionDepart = clone(this.oPositionDepart);
+	// Position
+	oDiamantClone.oPosition = clone(this.oPosition);
+	// taille de depart du diamant
+	oDiamantClone.iTailleDepart = this.iTailleDepart;
+	// taille du diamant
+	oDiamantClone.iTaille = this.iTaille;
+	// image du diamant
+	oDiamantClone.sImage = this.sImage;
+	// sert pour l'animation du diamant
+	oDiamantClone.bAgrandir = this.bAgrandir;
+	oDiamantClone.fOpacite = this.fOpacite;
+	// se met à true quand le joueur attrape le diamant
+	oDiamantClone.bDisparaitre = this.bDisparaitre;
+	// Variable à true quand le diamant peut être tracer dans l'éditeur (pas sur un mur ou un vide)
+	oDiamantClone.bTraceDansEditeur = this.bTraceDansEditeur;
+	
+	return oDiamantClone;
 };
 
 // Méthode de reset

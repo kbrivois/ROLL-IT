@@ -1,6 +1,6 @@
 function Trou(oPositionTemp)
 {  	
-	// Element HTML de la trappe
+	// Element HTML du trou
 	this.oDiv = "";
 	// Position
 	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
@@ -30,7 +30,7 @@ Trou.prototype.tracer = function(oDivTerrain)
 Trou.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
-	var y = oPositionTouchArrivee.y;
+	var y = oPositionTouchArrivee.y-this.iTaille;
 	var oTerrain = oModeEnCours.oTerrain;
 	
 	// bord gauche
@@ -54,7 +54,7 @@ Trou.prototype.tracerDansEditeur = function()
 	this.oPosition.y = y;
 	this.oDiv.style.left = x+"px";
 	this.oDiv.style.top = y+"px";
-	this.oDiv.style.opacity = "0.3";
+	this.oDiv.style.opacity = "1";
 }
 
 Trou.prototype.verifierCollision = function()
@@ -81,8 +81,6 @@ Trou.prototype.verifierCollisionDansEditeur = function(oPositionTemp, iTailleTem
 		var oPointMilieu = new Point(oPositionTemp.x + iTailleTemp/2, oPositionTemp.y + iTailleTemp/2);
 		var oPointMilieuTrou = new Point(this.oPosition.x + this.iTaille/2, 
 										 this.oPosition.y + this.iTaille/2);
-										 
-		alert(oPointMilieu.x+"----"+oPointMilieu.y+"\n"+oPointMilieuTrou.x+"----"+oPointMilieuTrou.y);
 		
 		// si la position se trouve dans le trou
 		if(distance(oPointMilieu, oPointMilieuTrou) < this.iTaille/2) {			
@@ -92,7 +90,22 @@ Trou.prototype.verifierCollisionDansEditeur = function(oPositionTemp, iTailleTem
 	}
 	return false;
 }
+
+// Méthode de clonage
+Trou.prototype.clone = function()
+{
+	var oTrouClone = new Trou(new Point(0,0));
+
+	// Element HTML du trou
+	oTrouClone.oDiv = this.oDiv;
+	// Position
+	oTrouClone.oPosition = clone(this.oPosition);
+	// taille du trou
+	oTrouClone.iTaille = this.iTaille;
 	
+	return oTrouClone;
+};
+
 // Méthode de reset
 Trou.prototype.reset = function()
 {

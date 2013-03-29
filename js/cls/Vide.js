@@ -97,7 +97,7 @@ Vide.prototype.tracerDansEditeur = function()
 	}
 	// background
 	this.oDiv.style.backgroundPosition = -(this.oDiv.offsetLeft)+"px "+(-this.oDiv.offsetTop)+"px";
-	this.oDiv.style.opacity = "0.3";
+	this.oDiv.style.opacity = "0.7";
 }
 
 // Vérifie s'il y a collision avec la bille. Si oui return true, false sinon
@@ -144,6 +144,25 @@ Vide.prototype.verifierCollisionDansEditeur = function(oPositionTemp, iTailleTem
 	}
 	return false;
 }
+
+// Méthode de clonage
+Vide.prototype.clone = function()
+{
+	var oVideClone = new Vide(new Point(0,0), 0, 0);
+
+	// Element HTML du Vide
+	oVideClone.oDiv = this.oDiv;
+	// Position
+	oVideClone.oPosition = clone(this.oPosition);
+	// Largeur
+	oVideClone.iLargeur = this.iLargeur;
+	// Hauteur
+	oVideClone.iHauteur = this.iHauteur;
+	// Taille des bords
+	oVideClone.iTailleBords = this.iTailleBords;
+	
+	return oVideClone;
+};
 
 // Methode de reset
 Vide.prototype.reset = function()

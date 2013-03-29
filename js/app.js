@@ -96,6 +96,9 @@ document.getElementById("button-try-again").addEventListener("click", recommence
 // Evénement pour passer au niveau suivant, une fois la partie gagnée
 document.getElementById("button-next-level").addEventListener("click", niveauSuivant, false);
 
+// Evénement pour lancer une partie dans l'éditeur ou pour reprendre l'édition
+document.getElementById("level").addEventListener("click", lancerPartieEditeur, false);
+
 // ====== Menus ====== //
 
 // Evénement pour accéder au menu des langues
@@ -145,27 +148,7 @@ var initPartie = function()
 	fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
 	
 	oPartie = new Partie();
-	
-	// standard API (Firefox, Chrome...)
-	if (window.DeviceMotionEvent) {
-		window.addEventListener("devicemotion", function( event ) {
-			if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-				oPartie.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
-				oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
-			}
-			else {
-				oPartie.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * -10;
-				oPartie.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * -10;
-			}
-		}, false);
-	}
-	else if (window.DeviceOrientationEvent) {
-		window.addEventListener("deviceorientation", function( event ) {
-			oPartie.oTerrain.oBille.fAccelerationX = event.gamma * 2;
-			oPartie.oTerrain.oBille.fAccelerationY = event.beta * -2;
-		}, false);
-	}
-
+	appelerAccelerometre();
 	mainPartie();
 }
 
@@ -212,7 +195,7 @@ var mainPartie = function()
 var mainEditeur = function() 
 {	
 	// si la partie n'a pas été quittée
-	if(oEditeur != null) {
+	if(oEditeur != null && oEditeur.bEnModeJeu) {
 		now = Date.now();
 		delta = now - then;
 		
@@ -222,7 +205,7 @@ var mainEditeur = function()
 		if(iCompteurFrames > 20) {
 			if(!oEditeur.bPause && !oEditeur.bGagne)
 				oEditeur.lancer();
-			
+
 			iCompteurFrames -= 20;
 		}
 		

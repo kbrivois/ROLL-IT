@@ -1,6 +1,6 @@
 /** Fonctions utiles **/
 
-// Double tap
+// Fonction qui va exécuter la fonction passée en paramètre après un double tap
 var doubletapDeltaTime_ = 300;
 var doubletapFunction_ = null;
 var doubletapTimer = null;
@@ -19,13 +19,13 @@ function doubleTap(doubleTapFunc) {
 		doubletapFunction_();
 		timer = false;
 	}
-}
+};
 function doubletapTimeout() {
 	// Wait for second tap timeout
 	clearTimeout(doubletapTimer);
 	doubleTapTimer = null;
 	timer = false;
-}
+};
 
 
 // Fonction qui permet de trouver la distance entre 2 points
@@ -55,7 +55,7 @@ function diamantsAleatoires() {
 	var iAlea = Math.floor((Math.random() * aDiamantsDisponibles.length));
 	
 	return aDiamantsDisponibles[iAlea];
-}
+};
 
 // On "prototype" l'objet array pour lui rajouter une fonction de suppression d'élément
 Array.prototype.unset = function(val) {
@@ -63,7 +63,7 @@ Array.prototype.unset = function(val) {
 	if(index > -1) {
 		this.splice(index,1)
 	}
-}
+};
 
 // La fonction retourne la valeur que retourne la page appelée
 var valeurURL = function(url) {
@@ -80,4 +80,65 @@ var valeurURL = function(url) {
     }
     xmlhttp.open("GET", url, false);
     xmlhttp.send();    
+};
+
+/*
+ * Fonction de clonage
+ * @author Keith Devens
+ * @see http://keithdevens.com/weblog/archive/2007/Jun/07/javascript.clone
+ */
+function clone(srcInstance)
+{
+	/*Si l'instance source n'est pas un objet ou qu'elle ne vaut rien c'est une feuille donc on la retourne*/
+	if(typeof(srcInstance) != 'object' || srcInstance == null)
+	{
+		return srcInstance;
+	}
+	/*On appel le constructeur de l'instance source pour crée une nouvelle instance de la même classe*/
+	var newInstance = new srcInstance.constructor();
+	/*On parcourt les propriétés de l'objet et on les recopies dans la nouvelle instance*/
+	for(var i in srcInstance)
+	{
+		newInstance[i] = clone(srcInstance[i]);
+	}
+	/*On retourne la nouvelle instance*/
+	return newInstance;
+}
+
+// API accelerometre
+var appelerAccelerometre = function() {
+	// standard API (Firefox, Chrome...)
+	if (window.DeviceMotionEvent) {
+		window.addEventListener("devicemotion", function( event ) {
+			if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+				oModeEnCours.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
+				oModeEnCours.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
+			}
+			else {
+				oModeEnCours.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * -10;
+				oModeEnCours.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * -10;
+			}
+		}, false);
+	}
+	else if (window.DeviceOrientationEvent) {
+		window.addEventListener("deviceorientation", function( event ) {
+			oModeEnCours.oTerrain.oBille.fAccelerationX = event.gamma * 2;
+			oModeEnCours.oTerrain.oBille.fAccelerationY = event.beta * -2;
+		}, false);
+	}
+};
+
+// permet de récupérer la position de la souris
+var getOffset = function(e) 
+{
+    var cx = 0;
+    var cy = 0;
+ 
+    while(e && !isNaN(e.offsetLeft) && !isNaN(e.offsetTop)) 
+	{
+        cx += e.offsetLeft - e.scrollLeft;
+        cy += e.offsetTop - e.scrollTop;
+        e = e.offsetParent;
+    }
+    return { top: cy, left: cx };
 }

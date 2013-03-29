@@ -29,6 +29,26 @@ var dataLangue = {
 		"pl": "Poziom",
 		"hr": "Szint"
 	},
+	"edit": {
+		"fr": "Editer",
+		"uk": "Edit",
+		"es": "Editar",
+		"pt": "Edite",
+		"de": "Editieren",
+		"it": "Edit",
+		"pl": "Edytuj",
+		"hr": "Feltalál"
+	},
+	"play": {
+		"fr": "Jouer",
+		"uk": "Play",
+		"es": "Jugar",
+		"pt": "Jogar",
+		"de": "Spielen",
+		"it": "Giocare",
+		"pl": "Grać",
+		"hr": "Játék"
+	},
 	"menu": {
 		"fr": "Menu",
 		"uk": "Menu",
@@ -58,6 +78,16 @@ var dataLangue = {
 		"it": "Livello successivo",
 		"pl": "Następny poziom",
 		"hr": "Következő szint"
+	},
+	"savelevel": {
+		"fr": "Sauver niveau",
+		"uk": "Save nivel",
+		"es": "Salvar nivel",
+		"pt": "Salvar nível",
+		"de": "Sparen level",
+		"it": "Salvare Livello",
+		"pl": "Zapisz poziom",
+		"hr": "Mentés szint"
 	},
 	"success": {
 		"fr": "Bravo",

@@ -19,6 +19,7 @@ function Bille(oPositionDepartTemp)
 	this.bTombeDansTrou = false;
 	// Variable à true quand la bille peut être tracer dans l'éditeur (pas sur un mur ou un vide)
 	this.bTraceDansEditeur = true;
+	this.fCoefficientVitesse = 0.92;
 };
 
 // On dessine la bille
@@ -40,7 +41,7 @@ Bille.prototype.tracer = function(oDivTerrain)
 Bille.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
-	var y = oPositionTouchArrivee.y;
+	var y = oPositionTouchArrivee.y-this.iTaille;
 	var oTerrain = oModeEnCours.oTerrain;
 	
 	// ==== On vérifie si la bille n'est pas l'exterieur du terrain ==== //
@@ -111,7 +112,6 @@ Bille.prototype.supprimerDansEditeur = function(oDivTerrain)
 // On fait rouler la bille
 Bille.prototype.rouler = function()
 {
-	this.fCoefficientVitesse = 0.96;
 	this.fVitesseY = this.fVitesseY - this.fAccelerationY;
 	this.fVitesseX = this.fVitesseX + this.fAccelerationX;
 	this.fVitesseY = this.fVitesseY * this.fCoefficientVitesse;
@@ -146,8 +146,8 @@ Bille.prototype.tomber = function()
 };
 
 // Vérification des collisions
-Bille.prototype.verifierCollisions = function() {
-
+Bille.prototype.verifierCollisions = function() 
+{
 	var oTerrain = oModeEnCours.oTerrain;
 
 	/****** Les bords du terrain ******/
@@ -201,9 +201,36 @@ Bille.prototype.verifierCollisions = function() {
 	for(var i=0; i<oTerrain.aListeTrous.length; i++) {
 		oTerrain.aListeTrous[i].verifierCollision();
 	}
-	
+
 	/****** Arrivée, trou de fin ******/
 	oTerrain.oArrivee.verifierCollision();
+};
+
+// Méthode de clonage
+Bille.prototype.clone = function()
+{
+	var oBilleClone = new Bille(new Point(0,0));
+
+	// div
+	oBilleClone.oDiv = this.oDiv;
+	// Position
+	oBilleClone.oPositionDepart = clone(this.oPositionDepart);
+	oBilleClone.oPositionPrecedente = clone(this.oPositionPrecedente);
+	oBilleClone.oPosition = clone(this.oPosition);
+	// Autres varibles
+	oBilleClone.fVitesseX = this.fVitesseX;
+	oBilleClone.fVitesseY = this.fVitesseY;
+	oBilleClone.fAccelerationX = this.fAccelerationX;
+	oBilleClone.fAccelerationY = this.fAccelerationY;
+	// Taille
+	oBilleClone.iTailleDepart = this.iTailleDepart;
+	oBilleClone.iTaille = this.iTaille;
+	// Variable à true quand la balle tombe dans un trou
+	oBilleClone.bTombeDansTrou = this.bTombeDansTrou;
+	// Variable à true quand la bille peut être tracer dans l'éditeur (pas sur un mur ou un vide)
+	oBilleClone.bTraceDansEditeur = this.bTraceDansEditeur;
+	
+	return oBilleClone;
 };
 
 // Méthode de reset
