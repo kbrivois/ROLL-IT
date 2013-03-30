@@ -96,3 +96,19 @@ function langueJoueur() {
 		return "fr";
 	}
 }
+
+// Retourne les niveaux téléchargés
+function chargerNiveauxOnline() {
+	return JSON.parse(localStorage.getItem('rollit-online'));
+}
+
+// Enregistrer le niveau télécharger du serveur
+function enregistrerNiveauOnline(niveauOnline) {
+	var niveauxOnline = chargerNiveauxOnline();
+	if(niveauxOnline) {
+		// Récupérer les niveaux déjà enregistrés et ajouter en plus le nouveau
+		localStorage.setItem('rollit-online', niveauxOnline);
+	} else {
+		localStorage.setItem('rollit-online', niveauOnline);	
+	}
+}

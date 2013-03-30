@@ -1,6 +1,6 @@
 /** Fonctions utiles **/
 
-// Fonction qui va exÈcuter la fonction passÈe en paramËtre aprËs un double tap
+// Fonction qui va ex√©cuter la fonction pass√©e en param√®tre apr√®s un double tap
 var doubletapDeltaTime_ = 300;
 var doubletapFunction_ = null;
 var doubletapTimer = null;
@@ -44,7 +44,7 @@ function distance(oPoint1,oPoint2) {
 	return Math.sqrt( xs + ys );
 };
 
-// Diamants alÈatoires
+// Diamants al√©atoires
 function diamantsAleatoires() {
 	var aDiamantsDisponibles = new Array("img/d-red.png",
 										 "img/d-pink.png",
@@ -57,7 +57,7 @@ function diamantsAleatoires() {
 	return aDiamantsDisponibles[iAlea];
 };
 
-// On "prototype" l'objet array pour lui rajouter une fonction de suppression d'ÈlÈment
+// On "prototype" l'objet array pour lui rajouter une fonction de suppression d'√©l√©ment
 Array.prototype.unset = function(val) {
 	var index = this.indexOf(val)
 	if(index > -1) {
@@ -65,7 +65,7 @@ Array.prototype.unset = function(val) {
 	}
 };
 
-// La fonction retourne la valeur que retourne la page appelÈe
+// La fonction retourne la valeur que retourne la page appel√©e
 var valeurURL = function(key) {
     var url = "http://www.aymeric-auberton.fr/projets/dll/test.php?k=" + key;
 	
@@ -96,9 +96,9 @@ function clone(srcInstance)
 	{
 		return srcInstance;
 	}
-	/*On appel le constructeur de l'instance source pour crÈe une nouvelle instance de la mÍme classe*/
+	/*On appel le constructeur de l'instance source pour cr√©e une nouvelle instance de la m√™me classe*/
 	var newInstance = new srcInstance.constructor();
-	/*On parcourt les propriÈtÈs de l'objet et on les recopies dans la nouvelle instance*/
+	/*On parcourt les propri√©t√©s de l'objet et on les recopies dans la nouvelle instance*/
 	for(var i in srcInstance)
 	{
 		newInstance[i] = clone(srcInstance[i]);
@@ -121,16 +121,17 @@ var appelerAccelerometre = function() {
 				oModeEnCours.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * -10;
 			}
 		}, false);
-	}
-	else if (window.DeviceOrientationEvent) {
+	} else if (window.DeviceOrientationEvent) {
 		window.addEventListener("deviceorientation", function( event ) {
 			oModeEnCours.oTerrain.oBille.fAccelerationX = event.gamma * 2;
 			oModeEnCours.oTerrain.oBille.fAccelerationY = event.beta * -2;
 		}, false);
+	} else {
+		alert("Votre t√©l√©phone ne supporte pas les API Device Motion ou Device Orientation. Vous ne pouvez pas jouer au jeu ROLL IT!"); 
 	}
 };
 
-// permet de rÈcupÈrer la position de la souris
+// permet de r√©cup√©rer la position de la souris
 var getOffset = function(e) 
 {
     var cx = 0;
@@ -143,4 +144,21 @@ var getOffset = function(e)
         e = e.offsetParent;
     }
     return { top: cy, left: cx };
+}
+
+// La fonction retourne la valeur que retourne la page appel√©e
+var valeurURL = function(url) {
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			valeurURL = xmlhttp.responseText;
+            return valeurURL;
+        }
+    }
+    xmlhttp.open("GET", url, false);
+    xmlhttp.send();    
 }

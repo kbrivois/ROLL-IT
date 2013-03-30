@@ -155,8 +155,17 @@ function telechargerNiveau() {
 	var key = document.getElementById("id-level-online").value;
 	
 	if(key) {
-		valeurURL(key);
-		alert(valeurURL);
+		var urlServeur = "http://aymeric-auberton.fr/projets/dll/test.php?k=" + key;
+		valeurURL(urlServeur);
+		console.log(valeurURL);
+		
+		if(valeurURL != 0) {
+			// Enregistrer le niveau dans la bonne variable de LocalStorage
+			enregistrerNiveauOnline(valeurURL);
+		} else {
+			alert("Aucun niveau n'est associé à cette identifiant");
+		}
+		
 	} else {
 		alert("Veuillez saisir un identifiant");
 	}
