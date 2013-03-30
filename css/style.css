@@ -164,7 +164,7 @@ body {
 .button-green {
 	width: 135px;
 	height: 31px;
-	background: url(../img/bt-green.png) transparent no-repeat;
+	background: url(../img/sprite.png) transparent 0 -33px no-repeat;
 	margin: auto;
 	line-height: 31px;
 	border: none;	
@@ -172,7 +172,7 @@ body {
 .button-red {
 	width: 135px;
 	height: 31px;
-	background: url(../img/bt-red.png) transparent no-repeat;
+	background: url(../img/sprite.png) transparent 0 0 no-repeat;
 	margin: auto;
 	line-height: 31px;
 	border: none;
@@ -180,7 +180,15 @@ body {
 .button-blue {
 	width: 103px;
 	height: 31px;
-	background: url(../img/bt-blue.png) transparent no-repeat;
+	background: url(../img/sprite.png) transparent 0 -66px no-repeat;
+	margin: auto;
+	line-height: 31px;
+	border: none;
+}
+.button-yellow {
+	width: 135px;
+	height: 31px;
+	background: url(../img/sprite.png) transparent 0 -99px no-repeat;
 	margin: auto;
 	line-height: 31px;
 	border: none;
@@ -188,22 +196,55 @@ body {
 #button-resume, .button-new-level, #button-new-level-normal {
 	margin: 10px auto 15px auto;
 }
-#button-next-level, #button-editor, #button-new-level-online, #button-save-level {
+#button-next-level, #button-editor, #button-save-level, #button-new-level-custom {
 	margin: 15px auto;
 }
+#button-new-level-online {
+	margin: 30px auto 15px auto;
+}
+
+/* DRAPEAUX */
 #drapeaux {
 	margin: 15px 0;
 }
 .iso-langue {
+	width: 45px;
+	height: 29px;
 	cursor: pointer;
 	opacity: 0.6;
+	margin: auto;
+	display: inline-block;
+}
+#fr {
+	background: url(../img/sprite.png) transparent -45px -132px no-repeat;
+}
+#uk {
+	background: url(../img/sprite.png) transparent 0 -132px no-repeat;
+}
+#es {
+	background: url(../img/sprite.png) transparent -90px -132px no-repeat;
+}
+#pt {
+	background: url(../img/sprite.png) transparent 0 -161px no-repeat;
+}
+#pl {
+	background: url(../img/sprite.png) transparent -45px -161px no-repeat;
+}
+#it {
+	background: url(../img/sprite.png) transparent -90px -161px no-repeat;
+}
+#de {
+	background: url(../img/sprite.png) transparent 0px -190px no-repeat;
+}
+#hr {
+	background: url(../img/sprite.png) transparent -45px -190px no-repeat;
 }
 
 /* FORM LEVEL ONLINE */
 #form-level-online {
 	width: 250px;
 	overflow: hidden;
-	margin: 25px auto 0 auto;
+	margin: 0 auto;
 	line-height: 22px;
 }
 #form-level-online span {

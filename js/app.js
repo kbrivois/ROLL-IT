@@ -116,6 +116,10 @@ var oButtonNewLevelNormal = document.getElementById("button-new-level-normal");
 oButtonNewLevelNormal.addEventListener("click", function(){lancerMenuNiveaux(aListeNiveaux)}, false);
 
 // Evénement pour lancer un niveau online
+var oButtonMenuLevelOnline = document.getElementById("button-menu-level-online");
+oButtonMenuLevelOnline.addEventListener("click", lancerMenuLevelOnline, false); 
+
+// Evénement pour lancer un niveau online
 var oButtonNewLevelOnline = document.getElementById("button-new-level-online");
 oButtonNewLevelOnline.addEventListener("click", function(){lancerMenuNiveaux(aListeNiveauxEnLigne)}, false); 
 

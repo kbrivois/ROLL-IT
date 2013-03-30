@@ -74,6 +74,12 @@ function lancerMenuNiveaux(arrayListeNiveau) {
 	initMenu(arrayListeNiveau);
 }
 
+// Détecte le click pour lancer le menu des niveaux online
+function lancerMenuLevelOnline() {
+	cacherPages();
+	document.getElementById('mode-game-online').style.display = 'block';
+}
+
 // Détecte le click pour accéder au menu des langues
 function menuLangues() {
 	cacherPages();
