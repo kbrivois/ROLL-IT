@@ -9,6 +9,7 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	// Temps d'ouverture et de fermeture
 	this.iTempsOF = iTempsOFTemp;
 	// Pour savoir si c'est ouvert ou non
+	this.bOuvertDepart = bOuvertTemp;
 	this.bOuvert = bOuvertTemp;
 	// Images de la trappe
 	this.aListeImages = new Array(	"img/trappes/0.png",
@@ -115,7 +116,7 @@ Trappe.prototype.actionner = function()
 {
 	var iDeltaTrappe = Date.now() - this.iThen;
 	
-	if(iDeltaTrappe > this.iTempsOF) {
+	if(iDeltaTrappe > this.iTempsOF && !this.bAnimer) {
 		// si la trappe est ouverte
 		if(this.bOuvert) {
 			this.bOuvert = false;
@@ -149,8 +150,13 @@ Trappe.prototype.actionner = function()
 			this.iThenImages = Date.now();
 		}
 		
-		if(this.iImageActuelle == this.aListeImages.length-1 || this.iImageActuelle == 0) {
+		if(this.iImageActuelle >= this.aListeImages.length-1) {
 			this.bAnimer = false;
+			this.iImageActuelle = this.aListeImages.length-1;
+		}
+		else if(this.iImageActuelle <= 0) {
+			this.bAnimer = false;
+			this.iImageActuelle = 0;
 		}
 	}
 };
@@ -187,7 +193,8 @@ Trappe.prototype.clone = function()
 	// Temps d'ouverture et de fermeture
 	oTrappeClone.iTempsOF = this.iTempsOF;
 	// Pour savoir si c'est ouvert ou non
-	oTrappeClone.bOuvert = this.bOuvert;
+	oTrappeClone.bOuvertDepart = this.bOuvertDepart;
+	oTrappeClone.bOuvert = this.bOuvertDepart;
 	// Then de la trappe afin de savoir quand il faut la fermer ou l'ouvrir
 	oTrappeClone.iThen = Date.now();
 	// Temps entre chaque images
@@ -205,4 +212,13 @@ Trappe.prototype.clone = function()
 // Méthode de reset
 Trappe.prototype.reset = function()
 {
+	this.bAnimer = false;
+	this.bOuvert = this.bOuvertDepart;
+	this.iThen = Date.now();
+	if(this.bOuvertDepart)
+		this.iImageActuelle = this.aListeImages.length-1;
+	else
+		this.iImageActuelle = 0;
+	// Liste des elements HTML images de la trappe
+	this.aListeImgHTML = new Array();
 };

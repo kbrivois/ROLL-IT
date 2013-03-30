@@ -23,9 +23,7 @@ function GroupeProjectiles(oPositionDepartTemp, oPositionArriveeTemp, fVitesseTe
 		this.aListeProjectiles = new Array();
 		this.iNbreProjectiles = Math.ceil(distance(this.oPositionDepart, this.oPositionArrivee) / this.iDistanceEntreProjectiles);
 		for(var i=0; i<this.iNbreProjectiles; i++) {
-			var oProjectile = new Projectile();
-			oProjectile.oPosition.x = this.oPositionDepart.x;
-			oProjectile.oPosition.y = this.oPositionDepart.y;
+			var oProjectile = new Projectile(new Point(0,0));
 			this.aListeProjectiles.push(oProjectile);
 		}
 		this.aListeProjectilesActifs = new Array();
@@ -70,6 +68,7 @@ GroupeProjectiles.prototype.calculerDeplacement = function()
 GroupeProjectiles.prototype.tracer = function(oDivTerrain)
 {
 	for(var i=0; i<this.iNbreProjectiles; i++) {
+		this.aListeProjectiles[i].oPosition = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
 		this.aListeProjectiles[i].tracer(oDivTerrain);
 	}
 };
@@ -163,15 +162,15 @@ GroupeProjectiles.prototype.clone = function()
 // Méthode de reset
 GroupeProjectiles.prototype.reset = function()
 {
-	// on supprime les projectiles
+	// on reset les projectiles
+	for(var i=0; i<this.aListeProjectiles.length; i++) {
+		this.aListeProjectiles[i].reset();
+	}
 	for(var i=0; i<this.aListeProjectilesActifs.length; i++) {
-		this.aListeProjectilesActifs[i].oPosition = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
-		this.aListeProjectilesActifs[i].deplacer();
-		this.aListeProjectilesActifs[i].cacher();
+		this.aListeProjectilesActifs[i].reset();
 	}
 	this.aListeProjectilesActifs = new Array();
 	this.aListeProjectilesActifs.push(this.aListeProjectiles[0]);
-	this.aListeProjectilesActifs[0].cacher();
 	this.iProjectileActuel = 0;
 	
 	this.iThen = Date.now();

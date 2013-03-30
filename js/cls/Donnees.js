@@ -144,7 +144,10 @@ var oNiveauxDonnees = [
 				{"x": 5, "y": 320, "image": "img/d-red.png"},
 				{"x": 85, "y": 300, "image": "img/d-pink.png"}
 			],
-		"groupesProjectiles": []
+		"groupesProjectiles": 
+			[
+				// {"xDepart": 0, "yDepart": 50, "xArrivee": 150, "yArrivee": 50, "vitesse": 1, "distance": 50}
+			]
 	},
 	{
 		"numero": 5,

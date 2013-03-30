@@ -222,6 +222,11 @@ Terrain.prototype.reset = function()
 		this.aListeProjectiles[i].reset();
 	}
 	
+	// ===== trappes ===== //
+	for(var i=0; i<this.aListeTrappes.length; i++) {
+		this.aListeTrappes[i].reset();
+	}
+	
 	// ===== diamants ===== //
 	for(var i=0; i<this.aListeDiamants.length; i++) {
 		this.aListeDiamants[i].reset();
@@ -233,4 +238,7 @@ Terrain.prototype.reset = function()
 		this.oArrivee.oDiv.style.display = "block";
 	else
 		this.oArrivee.oDiv.style.display = "none";
+		
+	this.oDiv.innerHTML = "";
+	this.tracer();
 };

@@ -1,9 +1,9 @@
-function Projectile()
+function Projectile(oPositionTemp)
 {  
 	// Element HTML
 	this.oDiv = "";
 	// Position
-	this.oPosition = new Point(0,0);
+	this.oPosition = new Point(oPositionTemp.x,oPositionTemp.y);
 	// Liste des elements HTML images
 	this.aListeImgHTML = new Array();
 	// Then des images afin de les faire défiler au bon moment
@@ -91,7 +91,7 @@ Projectile.prototype.deplacer = function()
 // Méthode de clonage
 Projectile.prototype.clone = function()
 {
-	var oProjectileClone = new Projectile();
+	var oProjectileClone = new Projectile(new Point(0,0));
 	// Element HTML du mur
 	oProjectileClone.oDiv = this.oDiv;
 	// Position
@@ -113,4 +113,8 @@ Projectile.prototype.clone = function()
 // Méthode de reset
 Projectile.prototype.reset = function()
 {
+	// Liste des elements HTML images
+	this.aListeImgHTML = new Array();
+	// Element HTML
+	this.oDiv = "";
 };

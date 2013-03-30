@@ -28,7 +28,7 @@ function recommencerPartie() {
 	document.getElementById('terrain').innerHTML = "";
 	// si nous sommes dans une partie
 	if(oPartie != null) {
-		initPartie();
+		oPartie = new Partie();
 	}
 	// si nous sommes dans l'éditeur
 	else if(oEditeur != null) {
@@ -45,7 +45,7 @@ function niveauSuivant() {
 	document.getElementById('terrain').innerHTML = "";
 	// on incremente le numéro du niveau
 	iNiveauSelectionne++;
-	initPartie();
+	oPartie = new Partie();
 }
 
 // Détecte le click pendant que le menu Pause est afficher pour retourner au menu

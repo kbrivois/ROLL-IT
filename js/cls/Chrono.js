@@ -49,7 +49,9 @@ Chrono.prototype.calculChronometre = function()
 // Méthode de reset
 Chrono.prototype.reset = function()
 {
+	clearInterval(this.iChronoInterval);
 	this.iChronoCs = 0;
 	this.iChronoS = 0;
 	this.iChronoM = 0;
+	this.iChronoInterval = null;
 };
