@@ -47,15 +47,15 @@
 			<div id="languages" class="overlay page" style="display: none;">
 				<span class="overlay-title">Roll it !</span>
 				<div id="drapeaux">
-					<img id="fr" src="img/drapeaux/fr.png" title="FR" alt="FR" class="iso-langue" style="opacity: 1;" />
-					<img id="uk" src="img/drapeaux/uk.png" title="UK" alt="UK" class="iso-langue" />
-					<img id="es" src="img/drapeaux/es.png" title="ES" alt="ES" class="iso-langue" />
-					<img id="pt" src="img/drapeaux/pt.png" title="PT" alt="PT" class="iso-langue" />
+					<div id="fr" class="iso-langue" style="opacity: 1;"></div>
+					<div id="uk" class="iso-langue"></div>
+					<div id="es" class="iso-langue"></div>
+					<div id="pt" class="iso-langue"></div>
 					<br />
-					<img id="de" src="img/drapeaux/de.png" title="DE" alt="DE" class="iso-langue" />
-					<img id="it" src="img/drapeaux/it.png" title="IT" alt="IT" class="iso-langue" />
-					<img id="pl" src="img/drapeaux/pl.png" title="PL" alt="PL" class="iso-langue" />
-					<img id="hr" src="img/drapeaux/hr.png" title="HR" alt="PT" class="iso-langue" />
+					<div id="de" class="iso-langue"></div>
+					<div id="it" class="iso-langue"></div>
+					<div id="pl" class="iso-langue"></div>
+					<div id="hr" class="iso-langue"></div>
 				</div>
 				<div class="button-menu button-blue txt-langue" data-lang="menu">
 					Menu
@@ -67,19 +67,32 @@
 				<div id="button-new-level-normal" class="button-green">
 					Niveau de base
 				</div>
-				<div id="button-new-level-online" class="button-red">
+				<div id="button-menu-level-online" class="button-red">
 					Niveau en ligne
 				</div>
-				<div id="button-new-level-custom" class="button-blue">
+				<div id="button-new-level-custom" class="button-yellow">
 					Niveau perso
 				</div>
 				
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
+			</div>
+			
+			<div id="mode-game-online" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
 				<div id="form-level-online">
 					<span>Veuillez saisir l'identifiant du niveau que vous souhaitez ajouter à votre jeu.</span>
 					<input id="id-level-online" type="text" value="" /><br />
-					<div id="submit-level-online" class="button-blue">
+					<div id="submit-level-online" class="button-green">
 						Télécharger
 					</div>
+				</div>
+				<div id="button-new-level-online" class="button-red">
+					Niveau en ligne
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
 				</div>
 			</div>
 			
