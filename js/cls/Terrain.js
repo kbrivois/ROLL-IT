@@ -183,7 +183,7 @@ Terrain.prototype.clone = function()
 	
 	// ===== diamants ===== //
 	for(var i=0; i<this.aListeDiamants.length; i++) {
-		oTerrainClone.aListeProjectiles.push(this.aListeDiamants[i].clone());
+		oTerrainClone.aListeDiamants.push(this.aListeDiamants[i].clone());
 	}
 
 	// ===== vides ===== //

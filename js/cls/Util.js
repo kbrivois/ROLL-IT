@@ -110,24 +110,26 @@ function clone(srcInstance)
 // API accelerometre
 var appelerAccelerometre = function() {
 	// standard API (Firefox, Chrome...)
-	if (window.DeviceMotionEvent) {
-		window.addEventListener("devicemotion", function( event ) {
-			if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-				oModeEnCours.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
-				oModeEnCours.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
-			}
-			else {
-				oModeEnCours.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * -10;
-				oModeEnCours.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * -10;
-			}
-		}, false);
-	} else if (window.DeviceOrientationEvent) {
-		window.addEventListener("deviceorientation", function( event ) {
-			oModeEnCours.oTerrain.oBille.fAccelerationX = event.gamma * 2;
-			oModeEnCours.oTerrain.oBille.fAccelerationY = event.beta * -2;
-		}, false);
-	} else {
-		alert("Votre téléphone ne supporte pas les API Device Motion ou Device Orientation. Vous ne pouvez pas jouer au jeu ROLL IT!"); 
+	if(oModeEnCours != null) {
+		if (window.DeviceMotionEvent) {
+			window.addEventListener("devicemotion", function( event ) {
+				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+					oModeEnCours.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * 10;
+					oModeEnCours.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * 10;
+				}
+				else {
+					oModeEnCours.oTerrain.oBille.fAccelerationX = event.accelerationIncludingGravity.x * -10;
+					oModeEnCours.oTerrain.oBille.fAccelerationY = event.accelerationIncludingGravity.y * -10;
+				}
+			}, false);
+		} else if (window.DeviceOrientationEvent) {
+			window.addEventListener("deviceorientation", function( event ) {
+				oModeEnCours.oTerrain.oBille.fAccelerationX = event.gamma * 2;
+				oModeEnCours.oTerrain.oBille.fAccelerationY = event.beta * -2;
+			}, false);
+		} else {
+			alert("Votre téléphone ne supporte pas les API Device Motion ou Device Orientation. Vous ne pouvez pas jouer au jeu ROLL IT!"); 
+		}
 	}
 };
 

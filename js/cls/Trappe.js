@@ -10,6 +10,18 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	this.iTempsOF = iTempsOFTemp;
 	// Pour savoir si c'est ouvert ou non
 	this.bOuvert = bOuvertTemp;
+	// Images de la trappe
+	this.aListeImages = new Array(	"img/trappes/0.png",
+									"img/trappes/1.png",
+									"img/trappes/2.png",
+									"img/trappes/3.png",
+									"img/trappes/4.png",
+									"img/trappes/5.png");		
+	// image actuelle
+	if(this.bOuvert)
+		this.iImageActuelle = this.aListeImages.length-1;
+	else
+		this.iImageActuelle = 0;
 	// Then de la trappe afin de savoir quand il faut la fermer ou l'ouvrir
 	this.iThen = Date.now();
 	// Temps entre chaque images
@@ -18,15 +30,8 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	this.iThenImages = Date.now();
 	// taille de la trappe
 	this.iTaille = 15*fRatioHauteur;
-	// Images de la trappe
-	this.aListeImages = new Array(	"img/trappes/0.png",
-									"img/trappes/1.png",
-									"img/trappes/2.png",
-									"img/trappes/3.png",
-									"img/trappes/4.png",
-									"img/trappes/5.png");
-	// image actuelle
-	this.iImageActuelle = 0;
+	// Animer ou non la trappe (ouverture et fermeture)
+	this.bAnimer = false;
 };
 
 // On dessine la trappe
@@ -47,7 +52,6 @@ Trappe.prototype.tracer = function(oDivTerrain)
 	oDivTerrain.appendChild(oTrappe);
 
 	for(var i=0; i<this.aListeImages.length; i++) {
-		
 		var oImgTrappe = document.createElement("img");
 		oImgTrappe.style.position = "absolute";
 		
@@ -69,7 +73,7 @@ Trappe.prototype.tracer = function(oDivTerrain)
 			oImgTrappe.src = this.aListeImages[i];
 			oImgTrappe.style.display = "none";
 		}
-
+		
 		this.oDiv.appendChild(oImgTrappe);
 		this.aListeImgHTML.push(oImgTrappe);
 	}
@@ -115,27 +119,20 @@ Trappe.prototype.actionner = function()
 		// si la trappe est ouverte
 		if(this.bOuvert) {
 			this.bOuvert = false;
-			// on fait disparaitre l'image "ouverte" de la trappe
-			this.aListeImgHTML[this.iImageActuelle].style.display = "none";
-			// on change l'image de la trappe
-			this.iImageActuelle--;
+			this.bAnimer = true;
 		}
 		// si elle est fermée
 		else{
 			this.bOuvert = true;
-			// on fait disparaitre l'image "fermée" de la trappe
-			this.aListeImgHTML[this.iImageActuelle].style.display = "none";
-			// on change l'image de la trappe
-			this.iImageActuelle++;
+			this.bAnimer = true;
 		}
 		
 		this.oDiv.src = this.aListeImages[this.iImageActuelle];
 		this.iThen = Date.now() - (iDeltaTrappe-this.iTempsOF);
 	}
 	
-	// si l'ouverture ou la fermeture ne sont pas terminées
-	if(this.iImageActuelle != this.aListeImages.length-1 && this.iImageActuelle != 0) {
-	  
+	// s'il faut animer la fermeture ou l'ouverture des trappes
+	if(this.bAnimer) {
 		var iDeltaImage = Date.now() - this.iThenImages;
 		
 		if(iDeltaImage > this.iTempsEntreImages) {
@@ -148,9 +145,12 @@ Trappe.prototype.actionner = function()
 				this.aListeImgHTML[this.iImageActuelle].style.display = "none";
 				this.iImageActuelle++;
 			}
-			
 			this.aListeImgHTML[this.iImageActuelle].style.display = "block";
 			this.iThenImages = Date.now();
+		}
+		
+		if(this.iImageActuelle == this.aListeImages.length-1 || this.iImageActuelle == 0) {
+			this.bAnimer = false;
 		}
 	}
 };
@@ -184,12 +184,10 @@ Trappe.prototype.clone = function()
 	oTrappeClone.oDiv = this.oDiv;
 	// Position
 	oTrappeClone.oPosition = clone(this.oPosition);
-	// images html
-	oTrappeClone.aListeImgHTML = this.aListeImgHTML;
 	// Temps d'ouverture et de fermeture
 	oTrappeClone.iTempsOF = this.iTempsOF;
 	// Pour savoir si c'est ouvert ou non
-	oTrappeClone.bOuvertTemp = this.bOuvertTemp;
+	oTrappeClone.bOuvert = this.bOuvert;
 	// Then de la trappe afin de savoir quand il faut la fermer ou l'ouvrir
 	oTrappeClone.iThen = Date.now();
 	// Temps entre chaque images

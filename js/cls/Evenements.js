@@ -33,7 +33,6 @@ function recommencerPartie() {
 	// si nous sommes dans l'éditeur
 	else if(oEditeur != null) {
 		oEditeur.oTerrain = oEditeur.oTerrainClone.clone();
-		oEditeur.oTerrain.oDiv.innerHTML = "";
 		oEditeur.oTerrain.tracer();
 		oEditeur.bGagne = false;
 	}
@@ -111,8 +110,10 @@ function lancerPartieEditeur() {
 				
 				// on clone le terrain
 				oEditeur.oTerrainClone = oEditeur.oTerrain.clone();
-				// on initialise les then des trappes et des projectiles
+				// on initialise le terrain
+				oEditeur.oTerrain.oDiv.innerHTML = "";
 				oEditeur.oTerrain = oEditeur.oTerrainClone.clone();
+				oEditeur.oTerrain.tracer();
 				// on fait appel à l'accelerometre
 				appelerAccelerometre();
 				mainEditeur();
