@@ -3,13 +3,11 @@ function Mur(oPositionTemp, iLargeurTemp, iHauteurTemp, bRepousseTemp)
 	// Element HTML du mur
 	this.oDiv = "";
 	// Position
-	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioLargeur);
+	this.oPosition = new Point(parseFloat((oPositionTemp.x*fRatioLargeur).toFixed(3)),  parseFloat((oPositionTemp.y*fRatioLargeur).toFixed(3)));
 	// Largeur
-	this.iLargeur = iLargeurTemp*fRatioLargeur;
+	this.iLargeur = parseFloat((iLargeurTemp*fRatioLargeur).toFixed(3));
 	// Hauteur
-	this.iHauteur = iHauteurTemp*fRatioLargeur;
-	// Taille des bords
-	this.iTailleBords = 1;
+	this.iHauteur =  parseFloat((iHauteurTemp*fRatioLargeur));
 	// Mur qui repousse ou non
 	this.bRepousse = bRepousseTemp;
 	// Force de répulsion des murs qui repoussent
@@ -255,6 +253,7 @@ Mur.prototype.deplacer = function()
 	this.oPosition.y = oPositionTouchArrivee.y;
 	this.oDiv.style.left = this.oPosition.x+"px";
 	this.oDiv.style.top = this.oPosition.y+"px";
+	this.oDiv.style.backgroundPosition = -(this.oPosition.x)+"px "+(-this.oPosition.y)+"px";
 };
 
 // Méthode de suppression dans le terrain de l'éditeur

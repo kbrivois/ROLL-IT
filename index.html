@@ -145,7 +145,7 @@
 			
 			<div id="form-hatche" class="overlay page" style="display: none;">
 				<span class="overlay-title">Trappes</span>
-				<div>Temps d'ouverture et de fermeture (ms)</div>
+				<div>Temps d'ouverture et de fermeture (1000ms min)</div>
 				<input id="time-hatche" type="text" value="" /><br />
 				<div>Etat de la trappe au début de la partie</div>
 				<select id="state-hatche">
@@ -157,12 +157,29 @@
 				</div>
 			</div>
 			
-			<div id="form-projectiles" class="overlay page" style="display: none;">
+			<div id="form-projectile" class="overlay page" style="display: none;">
 				<span class="overlay-title">Projectiles</span>
 				<div>Vitesse (1=lent, 5=rapide)</div>
 				<input id="speed-projectiles" type="text" value="" /><br />
 				<div>Distance entre les projectiles</div>
 				<input id="state-projectiles" type="text" value="" /><br />
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
+			
+			<div id="form-diamond" class="overlay page" style="display: none;">
+				<span class="overlay-title">Diamants</span>
+				<div>Couleur</div>
+				<select id="color-diamond">
+					<option value="red">Rouge</option>
+					<option value="green">Vert</option>
+					<option value="blue">Bleu</option>
+					<option value="cyan">Cyan</option>
+					<option value="yellow">Jaune</option>
+					<option value="pink">Rose</option>
+					<option value="random">Aléatoire</option>
+				</select>
 				<div class="button-resume button-green txt-langue" data-lang="resume">
 					Reprendre
 				</div>

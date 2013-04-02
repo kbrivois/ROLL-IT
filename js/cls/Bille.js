@@ -3,7 +3,7 @@ function Bille(oPositionDepartTemp)
 	// Element sphere
 	this.oDiv = "";
 	// Position de la bille
-	this.oPositionDepart = new Point(oPositionDepartTemp.x*fRatioLargeur,oPositionDepartTemp.y*fRatioHauteur);
+	this.oPositionDepart = new Point(oPositionDepartTemp.x*fRatioLargeur,oPositionDepartTemp.y*fRatioLargeur);
 	this.oPositionPrecedente = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
 	this.oPosition = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
 	// Vitesse
@@ -13,13 +13,13 @@ function Bille(oPositionDepartTemp)
 	this.fAccelerationX = 0;
 	this.fAccelerationY = 0; 
 	// Taille
-	this.iTailleDepart = 15*((fRatioLargeur+fRatioHauteur)/2);
-	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
+	this.iTailleDepart = 15 * fRatioLargeur;
+	this.iTaille = 15 * fRatioLargeur;
 	// Variable à true quand la balle tombe dans un trou
 	this.bTombeDansTrou = false;
 	// Variable à true quand la bille peut être tracer dans l'éditeur (pas sur un mur ou un vide)
 	this.bTraceDansEditeur = true;
-	this.fCoefficientVitesse = 0.92;
+	this.fCoefficientVitesse = 0.88;
 };
 
 // On dessine la bille
@@ -118,8 +118,8 @@ Bille.prototype.rouler = function()
 	this.fVitesseX = this.fVitesseX * this.fCoefficientVitesse;
 	this.oPositionPrecedente.y = this.oPosition.y;
 	this.oPositionPrecedente.x = this.oPosition.x;
-	this.oPosition.y = this.oPosition.y + this.fVitesseY / 50;
-	this.oPosition.x = this.oPosition.x + this.fVitesseX / 50;
+	this.oPosition.y = this.oPosition.y + (this.fVitesseY / 50)  * fRatioLargeur;
+	this.oPosition.x = this.oPosition.x + (this.fVitesseX / 50)  * fRatioLargeur;
 	this.verifierCollisions();
 	this.oDiv.style.top = this.oPosition.y + "px";
 	this.oDiv.style.left = this.oPosition.x + "px";

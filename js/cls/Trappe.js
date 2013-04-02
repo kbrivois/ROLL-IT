@@ -7,7 +7,10 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	// Position
 	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
 	// Temps d'ouverture et de fermeture
-	this.iTempsOF = iTempsOFTemp;
+	if(iTempsOFTemp<1000)
+		this.iTempsOF = 1000;
+	else
+		this.iTempsOF = iTempsOFTemp;
 	// Pour savoir si c'est ouvert ou non
 	this.bOuvertDepart = bOuvertTemp;
 	this.bOuvert = bOuvertTemp;
@@ -139,12 +142,16 @@ Trappe.prototype.actionner = function()
 		if(iDeltaImage > this.iTempsEntreImages) {
 			// si la trappe doit se refermer
 			if(!this.bOuvert) {
-				this.aListeImgHTML[this.iImageActuelle].style.display = "none";
-				this.iImageActuelle--;
+				if(this.aListeImgHTML[this.iImageActuelle].style) {
+					this.aListeImgHTML[this.iImageActuelle].style.display = "none";
+					this.iImageActuelle--;
+				}
 			}
 			else{
-				this.aListeImgHTML[this.iImageActuelle].style.display = "none";
-				this.iImageActuelle++;
+				if(this.aListeImgHTML[this.iImageActuelle].style) {
+					this.aListeImgHTML[this.iImageActuelle].style.display = "none";
+					this.iImageActuelle++;
+				}
 			}
 			this.aListeImgHTML[this.iImageActuelle].style.display = "block";
 			this.iThenImages = Date.now();
@@ -221,15 +228,24 @@ Trappe.prototype.modifier = function()
 	var t = this;
 	document.getElementById("form-hatche").style.display = "block";
 	document.getElementById("time-hatche").value = this.iTempsOF;
-	if(t.bOuvert)
+	if(t.bOuvert) {
 		document.getElementById("state-hatche").options[0].defaultSelected = true;
-	else
+		document.getElementById("state-hatche").options[1].defaultSelected = false;
+	}
+	else {
+		document.getElementById("state-hatche").options[0].defaultSelected = false;
 		document.getElementById("state-hatche").options[1].defaultSelected = true;
+	}
 		
 	
 	document.getElementById("time-hatche").onchange = function(){
 		if(!isNaN(this.value)) {
-			t.iTempsOF = this.value;
+			if(this.value<1000)
+				t.iTempsOF = 1000;
+			else
+				t.iTempsOF = this.value;
+				
+			this.value = t.iTempsOF;
 		}
 		else {
 			this.value = "";

@@ -110,6 +110,7 @@ body {
 .vide {
 	position: absolute;
 	z-index: 100;
+	background: url(../img/vide.png) repeat;
 }
 .projectile {
 	position: absolute;
@@ -185,7 +186,7 @@ body {
 	margin: 0;
 	padding: 0;
 }
-#error .overlay-title, #form-hatche .overlay-title, #form-projectiles .overlay-title {
+#error .overlay-title, #form-hatche .overlay-title, #form-projectile .overlay-title,  #form-diamond .overlay-title {
 	height: 100px;
 	display: block;
 	font-size: 45px;

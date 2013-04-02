@@ -55,7 +55,8 @@ function niveauSuivant() {
 // Détecte le click pendant que le menu Pause est afficher pour retourner au menu
 function menuPrincipal() {
 	cacherPages();
-	oModeEnCours = null;
+	oPartie = null;
+	oEditeur = null;
 	// on vide le terrain
 	document.getElementById('terrain').innerHTML = "";
 	document.getElementById('items-menu-edit').innerHTML = "";
@@ -206,8 +207,8 @@ function eventMoveSurTerrain() {
 			event.preventDefault();
 			// Coordonnées actuelles du touch
 			var oDivContent = document.getElementById("content");	
-			oPositionTouchArrivee.x = eventObj.pageX-oDivContent.offsetLeft;
-			oPositionTouchArrivee.y = eventObj.pageY-60-oDivContent.offsetTop;
+			oPositionTouchArrivee.x =  parseFloat((eventObj.pageX-oDivContent.offsetLeft).toFixed(3));
+			oPositionTouchArrivee.y = parseFloat((eventObj.pageY-60-oDivContent.offsetTop).toFixed(3));
 			// si l'utilisateur veut déplacer un élément
 			if(oEditeur.bElementEnDeplacement) {
 				oEditeur.oElementSelectionne.deplacer();
@@ -232,7 +233,6 @@ function eventUpSurTerrain() {
 	if(!oEditeur.bEnModeJeu) {
 		var eventObj = isTouchSupported ? event.touches[0] : event;
 		oEditeur.bEventDown = false;
-		oEditeur.bElementEnDeplacement = false;
 		document.getElementById("move").style.backgroundColor = "rgb(230,230,230)";
 		// on rend visible le menu d'édition après avoir fini de tracer l'élément
 		if(oEditeur.bTouchMoveTerrain) {
@@ -246,8 +246,9 @@ function eventUpSurTerrain() {
 			else
 				oEditeur.bClickSurElement = false;
 		}
-		else {
+		else if(oEditeur.bElementEnDeplacement){
 			oEditeur.oDivMenuEdition.style.display = "block";
+			oEditeur.bElementEnDeplacement = false;
 		}
 	}
 }

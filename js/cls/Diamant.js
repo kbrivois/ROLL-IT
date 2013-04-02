@@ -212,7 +212,45 @@ Diamant.prototype.clone = function()
 Diamant.prototype.selectionner = function()
 {
 	this.oDiv.style.opacity = 0.5;
-	document.getElementById("edit").style.display = "none";
+	document.getElementById("edit").style.display = "initial";
+};
+
+// Méthode de modification dans le terrain de l'éditeur
+Diamant.prototype.modifier = function()
+{
+	var t = this;
+	document.getElementById("form-diamond").style.display = "block";
+	
+	document.getElementById("color-diamond").onchange = function(){
+		var sValeur = this.options[this.selectedIndex].value;
+		if(sValeur == "red") {
+			t.sImage = "img/d-red";
+			t.oDiv.src = t.sImage;
+		}
+		else if(sValeur == "green") {
+			t.sImage = "img/d-green";
+			t.oDiv.src = t.sImage;
+		}
+		else if(sValeur == "blue") {
+			t.sImage = "img/d-blue";
+			t.oDiv.src = t.sImage;
+		}
+		else if(sValeur == "cyan") {
+			t.sImage = "img/d-cyan";
+			t.oDiv.src = t.sImage;
+		}
+		else if(sValeur == "yellow") {
+			t.sImage = "img/d-yellow";
+			t.oDiv.src = t.sImage;
+		}
+		else if(sValeur == "pink") {
+			t.sImage = "img/d-pink";
+			t.oDiv.src = t.sImage;
+		}
+		else if(sValeur == "random") {
+			t.oDiv.src = diamantsAleatoires();
+		}
+	};
 };
 
 // Méthode de déplacement dans le terrain de l'éditeur

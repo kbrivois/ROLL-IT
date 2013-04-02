@@ -28,8 +28,7 @@ Vide.prototype.tracer = function(oDivTerrain)
 	oVide.style.width = this.iLargeur+"px";
 	oVide.style.height = this.iHauteur+"px";
 	
-	oVide.style.backgroundImage = "url(img/vide.bmp)";
-	oVide.style.borderTop = "solid 5px rgb(100,100,100)";
+	oVide.style.borderTop = 7*fRatioLargeur+"px solid rgb(80,80,80)";
 	oVide.style.zIndex = 0;
 	
 	oDivTerrain.appendChild(oVide);
@@ -178,6 +177,7 @@ Vide.prototype.deplacer = function()
 	this.oPosition.y = oPositionTouchArrivee.y;
 	this.oDiv.style.left = this.oPosition.x+"px";
 	this.oDiv.style.top = this.oPosition.y+"px";
+	this.recalculZindex(oEditeur.oTerrainEditeur.aListeVides);
 };
 
 // Méthode de suppression dans le terrain de l'éditeur

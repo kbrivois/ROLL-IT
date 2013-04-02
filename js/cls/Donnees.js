@@ -57,7 +57,6 @@ var oNiveauxDonnees = [
 		"murs": 
 			[
 				{"x": 0, "y": 50, "largeur": 260, "hauteur": 10, "repousse": false},
-				{"x": 250, "y": 60, "largeur": 10, "hauteur": 90, "repousse": false},
 				{"x": 50, "y": 180, "largeur": 280, "hauteur": 10, "repousse": false},
 				{"x": 50, "y": 190, "largeur": 10, "hauteur": 90, "repousse": false},
 				{"x": 0, "y": 310, "largeur": 280, "hauteur": 10, "repousse": false}
