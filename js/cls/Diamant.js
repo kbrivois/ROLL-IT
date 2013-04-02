@@ -3,13 +3,13 @@ function Diamant(oPositionTemp, sImageTemp)
 	// Element HTML du Diamant
 	this.oDiv = "";
 	// Position
-	this.oPositionDepart = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
+	this.oPositionDepart = new Point(oPositionTemp.x * fRatioLargeur, oPositionTemp.y * fRatioHauteur);
 	// Position
-	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
+	this.oPosition = new Point(oPositionTemp.x * fRatioLargeur, oPositionTemp.y * fRatioHauteur);
 	// taille de depart du diamant
-	this.iTailleDepart = 15*((fRatioLargeur+fRatioHauteur)/2);
+	this.iTailleDepart = 15 * ((fRatioLargeur + fRatioHauteur) / 2);
 	// taille du diamant
-	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
+	this.iTaille = 15 * ((fRatioLargeur + fRatioHauteur) / 2);
 	// image du diamant
 	this.sImage = sImageTemp;
 	// sert pour l'animation du diamant
@@ -44,7 +44,7 @@ Diamant.prototype.tracer = function(oDivTerrain)
 Diamant.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
-	var y = oPositionTouchArrivee.y-this.iTaille;
+	var y = oPositionTouchArrivee.y - this.iTaille;
 	var oTerrain = oModeEnCours.oTerrainEditeur;
 	
 	// bord gauche
@@ -57,11 +57,11 @@ Diamant.prototype.tracerDansEditeur = function()
 	}
 	// bord droit
 	if(x + this.iTaille > oTerrain.iLargeur) {
-		x = oTerrain.iLargeur-this.iTaille;
+		x = oTerrain.iLargeur - this.iTaille;
 	}
 	// bord bas
 	if(y + this.iTaille > oTerrain.iHauteur) {
-		y = oTerrain.iHauteur-this.iTaille;
+		y = oTerrain.iHauteur - this.iTaille;
 	}
 
 	// ==== On vérifie si la bille n'est pas sur un mur, trappe, trou ou vide ==== //
@@ -101,8 +101,8 @@ Diamant.prototype.tracerDansEditeur = function()
 		this.bTraceDansEditeur = false;
 		this.oDiv.style.opacity = "0.3";
 	}
-	this.oDiv.style.left = x+"px";
-	this.oDiv.style.top = y+"px";
+	this.oDiv.style.left = x + "px";
+	this.oDiv.style.top = y + "px";
 }
 
 Diamant.prototype.verifierCollision = function()
@@ -112,11 +112,11 @@ Diamant.prototype.verifierCollision = function()
 	// si le diamant n'a pas encore été attrapé
 	if(!this.bDisparaitre) {
 		var oBille = oModeEnCours.oTerrain.oBille;
-		var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille/2, oBille.oPosition.y + oBille.iTaille/2);
-		var oPointMilieuDiamant = new Point(this.oPosition.x + this.iTaille/2, 
-											this.oPosition.y + this.iTaille/2);
+		var oPointMilieuSphere = new Point(oBille.oPosition.x + oBille.iTaille / 2, oBille.oPosition.y + oBille.iTaille / 2);
+		var oPointMilieuDiamant = new Point(this.oPosition.x + this.iTaille / 2, 
+											this.oPosition.y + this.iTaille / 2);
 
-		if(distance(oPointMilieuSphere, oPointMilieuDiamant) < this.iTaille/2 + oBille.iTaille/2) {
+		if(distance(oPointMilieuSphere, oPointMilieuDiamant) < this.iTaille / 2 + oBille.iTaille / 2) {
 			// on cache le diamant et on augmente le nombre de diamants attrapés
 			this.bDisparaitre = true;
 			oTerrain.iNbreDiamantsAttrapes++;
@@ -131,7 +131,7 @@ Diamant.prototype.verifierCollision = function()
 // Méthode qui anime le diamant
 Diamant.prototype.animer = function()
 {
-	var iPas = 0.5*((fRatioLargeur+fRatioHauteur)/2);;
+	var iPas = 0.5 * ((fRatioLargeur + fRatioHauteur) / 2);;
 	
 	// si le diamant n'a pas été attrapé
 	// if(!this.bDisparaitre) {
@@ -164,9 +164,9 @@ Diamant.prototype.animer = function()
 		var iTailleMax = this.iTailleDepart + 7;
 		
 		this.fOpacite -= 0.06;
-		this.iTaille += iPas*5;
-		this.oPosition.x -= iPas*5/2;
-		this.oPosition.y -= iPas*5/2;
+		this.iTaille += iPas * 5;
+		this.oPosition.x -= iPas * 5/2;
+		this.oPosition.y -= iPas * 5/2;
 		
 		this.oDiv.style.width = this.iTaille + "px";
 		this.oDiv.style.height = this.iTaille + "px";
@@ -222,8 +222,8 @@ Diamant.prototype.deplacer = function()
 	this.oPositionDepart.y = oPositionTouchArrivee.y;
 	this.oPosition.x = this.oPositionDepart.x;
 	this.oPosition.y = this.oPositionDepart.y;
-	this.oDiv.style.left = this.oPosition.x+"px";
-	this.oDiv.style.top = this.oPosition.y+"px";
+	this.oDiv.style.left = this.oPosition.x + "px";
+	this.oDiv.style.top = this.oPosition.y + "px";
 };
 
 // Méthode de suppression dans le terrain de l'éditeur
