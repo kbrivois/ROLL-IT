@@ -1,9 +1,9 @@
-function Projectile()
+function Projectile(oPositionTemp)
 {  
 	// Element HTML
 	this.oDiv = "";
 	// Position
-	this.oPosition = new Point(0,0);
+	this.oPosition = new Point(oPositionTemp.x,oPositionTemp.y);
 	// Liste des elements HTML images
 	this.aListeImgHTML = new Array();
 	// Then des images afin de les faire défiler au bon moment
@@ -11,7 +11,7 @@ function Projectile()
 	// Temps entre chaque images
 	this.iTempsEntreImages = 20;
 	// taille
-	this.iTaille = 15;
+	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
 	// image actuelle
 	this.iImageActuelle = 0;
 	// Images
@@ -24,7 +24,7 @@ function Projectile()
 };
 
 // On dessine le projectile
-Projectile.prototype.tracer = function()
+Projectile.prototype.tracer = function(oDivTerrain)
 {
 	var oProjectile = document.createElement("div");
 
@@ -38,9 +38,9 @@ Projectile.prototype.tracer = function()
 	oProjectile.style.width = this.iTaille + "px";
 	oProjectile.style.height = this.iTaille + "px";
 
-	document.getElementById("terrain").appendChild(oProjectile);
+	oDivTerrain.appendChild(oProjectile);
 
-	for(var i=0; i<this.aListeImages.length; i++){
+	for(var i=0; i<this.aListeImages.length; i++) {
 		
 		var oImgProjectile = document.createElement("img");
 		oImgProjectile.style.position = "absolute";
@@ -58,14 +58,6 @@ Projectile.prototype.tracer = function()
 		this.oDiv.appendChild(oImgProjectile);
 		this.aListeImgHTML.push(oImgProjectile);
 	}
-}
-
-// Méthode qui va rendre visible le projectile
-Projectile.prototype.rendreVisible = function()
-{
-	image = this.aListeImgHTML[this.iImgeActuelle];
-	if (image)
-		image.style.display = "block";
 };
 
 // Méthode qui va cacher le projectile
@@ -83,7 +75,7 @@ Projectile.prototype.deplacer = function()
 	
 	// on anime le projectile
 	var deltaImage = Date.now() - this.iThenImages;
-	if(deltaImage > this.iTempsEntreImages){
+	if(deltaImage > this.iTempsEntreImages) {
 		
 		this.aListeImgHTML[this.iImageActuelle].style.display = "none";
 		
@@ -96,7 +88,33 @@ Projectile.prototype.deplacer = function()
 	}
 };
 
+// Méthode de clonage
+Projectile.prototype.clone = function()
+{
+	var oProjectileClone = new Projectile(new Point(0,0));
+	// Element HTML du mur
+	oProjectileClone.oDiv = this.oDiv;
+	// Position
+	oProjectileClone.oPosition = clone(this.oPosition);
+	// Taille
+	oProjectileClone.iTaille = this.iTaille;
+	// Hauteur
+	oProjectileClone.iHauteur = this.iLargeur;
+	// Then des images
+	oProjectileClone.iThenImages = Date.now();
+	// Temps entre chaque images
+	oProjectileClone.iTempsEntreImages = this.iTempsEntreImages;
+	// image actuelle
+	oProjectileClone.iImageActuelle = this.iImageActuelle;
+	
+	return oProjectileClone;
+};
+
 // Méthode de reset
 Projectile.prototype.reset = function()
 {
+	// Liste des elements HTML images
+	this.aListeImgHTML = new Array();
+	// Element HTML
+	this.oDiv = "";
 };

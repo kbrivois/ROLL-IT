@@ -4,150 +4,211 @@
 		<title>ROLL IT !</title>
 		<meta charset="utf8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<!-- <script src="js/lib/mouse_event_shim.js" type="text/javascript" defer="defer"></script>  -->
 		<script src="js/cls/Partie.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Editeur.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/MenuNiveaux.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Chrono.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Bille.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Arrivee.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Point.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Terrain.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Mur.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Vide.js" type="text/javascript" defer="defer"></script>
 		<script src="js/cls/Trappe.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Trou.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/GroupeProjectiles.js" type="text/javascript" defer="defer"></script>
 		<script src="js/cls/Projectile.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Diamant.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Evenements.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/cls/Util.js" type="text/javascript" defer="defer"></script>
 		<script src="js/cls/Langues.js" type="text/javascript" defer="defer"></script>
+		<script src="js/cls/Donnees.js" type="text/javascript" defer="defer"></script>
+		<script src="js/cls/LocalStorage.js" type="text/javascript" defer="defer"></script>
 		<script src="js/app.js" type="text/javascript" defer="defer"></script> 
 	</head>
 	<body>
-		<div id="hp" class="overlay page" style="display: none;">
-			<span class="overlay-title">Roll it !</span>
-			<div class="button-new-level button-green txt-langue" data-lang="newlevel">
-				Nouveau jeu
-			</div>
-			<div id="button-languages" class="button-blue txt-langue" data-lang="languages">
-				Langues
-			</div>
-		</div>
-		
-		<div id="languages" class="overlay page" style="display: none;">
-			<span class="overlay-title">Roll it !</span>
-			<div id="drapeaux">
-				<img id="fr" src="img/drapeaux/fr.png" title="Drapeau FR" alt="Drapeau FR" class="iso-langue" style="opacity: 1;" />
-				<img id="uk" src="img/drapeaux/uk.png" title="Drapeau UK" alt="Drapeau UK" class="iso-langue" />
-				<img id="es" src="img/drapeaux/es.png" title="Drapeau ES" alt="Drapeau ES" class="iso-langue" />
-				<img id="pt" src="img/drapeaux/pt.png" title="Drapeau PT" alt="Drapeau PT" class="iso-langue" />
-			</div>
-			<div class="button-menu button-blue txt-langue" data-lang="menu">
-				Menu
-			</div>
-		</div>
-		
-		<div id="new-game" class="overlay page" style="display: none;">
-			<span class="overlay-title">Roll it !</span>
-			<div id="select-level">
-				<div id="show-level">
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>	
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>
-					<div class="show-level-item">
-						<img src="img/ex-1.png" title="Niveau 1" alt="Niveau 1" />
-						<div class="show-level-text">
-							<span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> 1</span><br />
-							<span class="record">02:35</span>
-						</div>
-					</div>	
+		<div id="content">
+			<div id="hp" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div class="button-new-level button-green txt-langue" data-lang="newlevel">
+					Nouveau jeu
+				</div>
+				<div id="button-editor" class="button-red txt-langue" data-lang="editorlevel">
+					Editer niveau
+				</div>
+				<div id="button-languages" class="button-blue txt-langue" data-lang="languages">
+					Langues
 				</div>
 			</div>
-			<div class="button-menu button-blue txt-langue" data-lang="menu">
-				Menu
+			
+			<div id="languages" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="drapeaux">
+					<div id="fr" class="iso-langue" style="opacity: 1;"></div>
+					<div id="uk" class="iso-langue"></div>
+					<div id="es" class="iso-langue"></div>
+					<div id="pt" class="iso-langue"></div>
+					<br />
+					<div id="de" class="iso-langue"></div>
+					<div id="it" class="iso-langue"></div>
+					<div id="pl" class="iso-langue"></div>
+					<div id="hr" class="iso-langue"></div>
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
 			</div>
-		</div>
-		
-		<div id="win" class="overlay page" style="display: none;">
-			<span class="overlay-title txt-langue" data-lang="success">Bravo</span>
-			<span id="win-time"><span class="txt-langue" data-lang="time">Temps</span> : 01 : 45</span>
-			<div id="button-try-again txt-langue" class="button-green" data-lang="restart">
-				Recommencer
+			
+			<div id="mode-game" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="button-new-level-normal" class="button-green">
+					Niveau de base
+				</div>
+				<div id="button-menu-level-online" class="button-red">
+					Niveau en ligne
+				</div>
+				<div id="button-new-level-custom" class="button-yellow">
+					Niveau perso
+				</div>
+				
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
 			</div>
-			<div id="button-next-level txt-langue" class="button-new-level button-red" data-lang="nextlevel">
-				Niveau suivant
+			
+			<div id="mode-game-online" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="form-level-online">
+					<span>Veuillez saisir l'identifiant du niveau que vous souhaitez ajouter à votre jeu.</span>
+					<input id="id-level-online" type="text" value="" /><br />
+					<div id="submit-level-online" class="button-green">
+						Télécharger
+					</div>
+				</div>
+				<div id="button-new-level-online" class="button-red">
+					Niveau en ligne
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
 			</div>
-			<div class="button-menu button-blue txt-langue" data-lang="menu">
-				Menu
+			
+			<div id="new-game" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="select-level">
+					<div id="show-level"></div>
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
 			</div>
-		</div>
-		
-		<div id="pause" class="overlay page" style="display: none;">
-			<span class="overlay-title txt-langue" data-lang="pause">Pause</span>
-			<div id="button-resume" class="button-green txt-langue" data-lang="resume">
-				Reprendre
+			
+			<div id="win" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="success">Bravo</span>
+				<span id="win-time"><span class="txt-langue" data-lang="time">Temps</span> : 01 : 45</span>
+				<div id="button-try-again" class="button-green txt-langue" data-lang="restart">
+					Recommencer
+				</div>
+				<div id="button-next-level" class="button-red txt-langue" data-lang="nextlevel">
+					Niveau suivant
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
 			</div>
-			<div class="button-menu button-blue txt-langue" data-lang="menu">
-				Menu
+			
+			<div id="pause" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="pause">Pause</span>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+				<div id="button-save-level" class="button-red txt-langue" data-lang="savelevel" style="display: none;">
+					Sauvegarder niveau
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
 			</div>
-		</div>
-		
-		<div id="top" class="page">
-			<span id="level"><span class="txt-langue" data-lang="level">Niveau</span> 0</span>
-			<div id="time">
-				<span id="time-min">00</span>
-				:
-				<span id="time-sec">00</span>
+			
+			<div id="error" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="impossible">Impossible !</span>
+				<div id="error-txt" class="txt-langue" data-lang="error">
+					Il faut au moins placer la bille et la croix d'arrivée.
+				</div>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
 			</div>
-			<div id="top-pause">
-				<span class="txt-langue" data-lang="pause">Pause</span>
+			
+			<div id="form-hatche" class="overlay page" style="display: none;">
+				<span class="overlay-title">Trappes</span>
+				<div>Temps d'ouverture et de fermeture (1000ms min)</div>
+				<input id="time-hatche" type="text" value="" /><br />
+				<div>Etat de la trappe au début de la partie</div>
+				<select id="state-hatche">
+					<option value="true">Ouverte</option>
+					<option value="false">Fermée</option>
+				</select>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
 			</div>
-		</div>
-		<div id="terrain" class="page">
-			<img id="sphere" src="img/ball-15.png" />
+			
+			<div id="form-projectile" class="overlay page" style="display: none;">
+				<span class="overlay-title">Projectiles</span>
+				<div>Vitesse (1=lent, 5=rapide)</div>
+				<input id="speed-projectiles" type="text" value="" /><br />
+				<div>Distance entre les projectiles</div>
+				<input id="state-projectiles" type="text" value="" /><br />
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
+			
+			<div id="form-diamond" class="overlay page" style="display: none;">
+				<span class="overlay-title">Diamants</span>
+				<div>Couleur</div>
+				<select id="color-diamond">
+					<option value="red">Rouge</option>
+					<option value="green">Vert</option>
+					<option value="blue">Bleu</option>
+					<option value="cyan">Cyan</option>
+					<option value="yellow">Jaune</option>
+					<option value="pink">Rose</option>
+					<option value="random">Aléatoire</option>
+				</select>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
+			
+			<div id="partie" class="page">
+				<div id="top">
+					<span id="level"><span class="txt-langue" data-lang="level">Niveau</span> <span id="level-number">0</span></span>
+					<div id="time">
+						<span id="time-min">00</span>
+						:
+						<span id="time-sec">00</span>
+					</div>
+					<!-- dans le cas on l'on se trouvera dans l'éditeur -->
+					<div id="choices">
+						<img id="move" src="img/editeur/deplacer.png"/>
+						<img id="edit" src="img/editeur/modifier.png"/>
+						<img id="delete" src="img/editeur/supprimer.png"/>
+					</div>
+					<div id="top-pause">
+						<span class="txt-langue" data-lang="pause">Pause</span>
+					</div>
+				</div>
+				<div id="level-content">
+					<div id="terrain"></div>
+					<!-- dans le cas on l'on se trouvera dans l'éditeur -->
+					<div id="items-menu-edit">
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

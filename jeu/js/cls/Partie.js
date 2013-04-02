@@ -3,13 +3,13 @@ function Partie()
 	/*** ================================================================================================================================================
 	déclaration des variables
 	====================================================================================================================================================*/
-
-	iCompteurImages = 0;
-	iNombresImages = 0;
-
-	this.oBille = new Bille();
-	this.oTerrain = new Terrain();
+	
+	oModeEnCours = this;
+	document.getElementById("level").innerHTML = dataLangue['level'][joueurISO]+" "+(iNiveauSelectionne+1);
+	document.getElementById("items-menu-edit").style.display = "none";
+	this.oTerrain = new Terrain("Partie");
 	this.oTerrain.tracer();
+	
 	this.oChrono = new Chrono();
 	this.oChrono.start();
 	this.bPause = false;
@@ -23,12 +23,10 @@ function Partie()
 **/
 Partie.prototype.lancer = function()
 {
-	if(this.oBille.bTombeDansTrou) {
-		this.oBille.tomber();
-	} else if(this.bGagne) {
-		this.gagner();
+	if(this.oTerrain.oBille.bTombeDansTrou) {
+		this.oTerrain.oBille.tomber();
 	} else {
-		this.oBille.rouler();
+		this.oTerrain.oBille.rouler();
 	}
 	
 	// on ouvre ou ferme les trappes
@@ -37,7 +35,7 @@ Partie.prototype.lancer = function()
 
 /**
 *** ==========================================================================================================================================
-**** on stope la partie
+**** on stoppe la partie
 *** ========================================================================================================================================== 
 **/
 Partie.prototype.pause = function()
@@ -57,6 +55,17 @@ Partie.prototype.gagner = function()
 	var iGagneMinutes = document.getElementById('time-min').innerHTML;
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
 	document.getElementById('win-time').innerHTML = sTempsGagne;
+	enregistrementRecord(iNiveauSelectionne, iGagneMinutes, iGagneSecondes);
+	
+	// s'il n'existe pas de niveau suivant
+	if(aListeNiveaux.length-1 < iNiveauSelectionne+1) {
+		document.getElementById("button-next-level").style.display = "none";
+		document.getElementById("button-try-again").style.margin = "auto auto 15px auto";
+	}
+	else {
+		document.getElementById("button-next-level").style.display = "block";
+		document.getElementById("button-try-again").style.margin = "auto";
+	}
 };
 
 /**
@@ -66,4 +75,9 @@ Partie.prototype.gagner = function()
 **/
 Partie.prototype.reset = function()
 {
+	this.oTerrain.reset();
+	this.oChrono.reset();
+	this.oChrono.start();
+	this.bPause = false;
+	this.bGagne = false;
 };

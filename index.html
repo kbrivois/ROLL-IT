@@ -28,6 +28,79 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
 		<section id="main-content">
+			<h3>Point sur nos tests (30-03-2013)</h3>
+
+			<p>Au cours de nos développement, nous avons testés sur de nombreux matériels ; smartphones, tablettes, pc. Le jeu fonctionne sur les matériels suivants :</p>
+
+			<ul>
+				<li>iPhone 3GS iOS 6.1.3 (Safari et Chrome)</li>
+				<li>iPhone 4</li>
+				<li>Galaxy S3 (Firefox et Chrome)</li>
+				<li>Galaxy S2</li>
+				<li>iPad 3 Retina iOS 6.0.1 (Safari)</li>
+				<li>Nexus 7 Android 4.2.2 (Chrome)</li>
+				<li>MacBook Pro Lion (Chrome mais pas Firefox)</li>
+				<li>Galaxy TAB 2 (Navigateur)</li>
+				<li>Asus Transformer Pad Infinity TF700** (Chrome)</li>
+			</ul>
+				
+			<p>Le jeu ne fonctionne pas sur les matériels suivants :</p>
+			
+			<ul>
+				<li>iPad 1 iOS 5.1.1 (Safari et Chrome)</li>
+			</ul>
+
+
+			<h3>Le projet s'accélère (27-03-2013)</h3>
+			
+			<p>La date de rendu du projet avance à grands pas. Nous avons terminé le plus gros du projet. Il reste encore beaucoup de travail pour l'éditeur de terrain et les fonctionnalités supplémentaires prévues pour la version 4. Nous aimerions les inclure dans la version 3, mais il est probable que nous manquions de temps. Néanmoins, voici la liste des fonctionnalités ajoutées dernièrement :</p>
+			
+			<ul>
+			
+				<li>Lorsque le joueur choisit une langue dans le menu prévu à cet effet, celle-ci est enregistrée. Si le joueur vient à quitter le jeu, lorsqu'il le rouvrira le jeu sera traduit dans la dernière langue sélectionnée. La langue par défaut est le français.</li>
+				
+				<li>Nous avons accompli un important travail sur le redimensionnement du jeu. Il conserve un ratio largeur/hauteur fixe et s'adapte en fonction des propriétés des smartphones pour un rendu optimal.</li>
+				
+				<li>En ce qui concerne les smartphones dépourvus des API Device Motion et Device Orientation, nous avons ajouté un message d'alerte qui les préviendra que leur matériel ne permet pas de faire fonctionner le jeu dans des conditions optimales.</li>
+				
+				<li>Nous avons ajouté plusieurs niveaux. Pour le moment, les 5 premiers niveaux sont terminés. D'autres sont en cours de réalisation.</li>
+				
+				<li>La police personnalisée Gloria Hallelujah était auparavant téléchargée depuis le serveur de Google Web Fonts. Nous l'avons ajoutée au jeu en local afin qu'il se charge plus vite et que le jeu fonctionne sans connexion Internet.</li>
+				
+				<li>La création de l'éditeur de jeu est compliquée. Nous découvrons entre autres la difficile gestion des événements Touch. L'interface de l'éditeur apparaîtra et disparaîtra lors de touches rapides sur l'écran (double tap).</li>
+				
+				<li>Nous publierons prochainement sur le compte GitHub une documentation qui détaillera l'organisation générale du jeu. Les classes y seront détaillées.</li>
+				
+				<li>Dans les prochains jours, nous enrichirons le README.md d'informations diverses.</li>
+			</ul>
+
+			<h3>Point projet (20-03-2013)</h3>
+			
+			<p>Il ne reste désormais plus que 20 jours avant le rendu du projet. Le temps est venu de faire un nouveau point sur le projet :</p>
+			
+			<ul>
+			
+				<li>Le fichier de stockage des niveaux est maintenant terminé (Donnees.js). La structure du fichier nous a demandé beaucoup de temps, mais le plus dur est dorénavant fait. Dans les prochains jours, nous allons ajouter plusieurs niveaux. Nous enrichirons le jeu de niveaux au fur à mesure du développement de celui-ci.</li>
+				
+				<li>Nous avons réalisé le lien entre le fichier de stockage et les menus du jeu. Le joueur peut maintenant lancer le niveau de son choix depuis le menu.</li>
+				
+				<li>Le menu qui permet de choisir son niveau s'est vu enrichir d'une fonctionnalité intéressante. Au lieu d'afficher un aperçu du niveau sous forme d'image pour le joueur, nous avons décidé d'afficher le niveau dynamiquement. Par conséquent, si un niveau vient à être modifié dans le fichier de données, son aperçu sera modifié automatiquement dans le menu. Ce mécanisme évite le chargement des images et les problématiques liées à celles-ci. En effet, avec des images, il aurait été obligatoire de recréer une image d'aperçu des niveaux à chaque modification de ceux-ci. </li>
+				
+				<li>L'enregistrement du record est désormais fonctionnel. Il est stocké pour chaque niveau grâce à Local Storage. Dans le menu de sélection des niveaux, le record du joueur s'affiche en dessous de chaque niveau. Si le joueur ne possède pas encore de record pour un niveau, le record par défaut est 00 : 00. </li>
+				
+				<li>Lorsqu'un joueur termine un niveau, un menu apparaît, d'une part pour le féliciter mais également pour lui proposer des actions. Le joueur peut ainsi retourner au menu principal, recommencer le niveau, ou jouer le niveau suivant. Dans le lot de commits du 20 mars, les boutons Recommencer et Niveau suivant ont été rendus fonctionnels. </li>
+				
+				<li>Comme annoncé précédemment, il est nécessaire de ramasser tous les diamants pour que le trou de fin apparaisse. Le code associé à cette fonctionnalité est terminé et le mécanisme marche correctement.</li>
+				
+				<li>Petite surprise pour la prochaine version, un nouveau piège fera son apparition. Le piège est en réalité le vide. Dans le jeu, il sera matérialisé par une zone grise. Si la bille tombe dedans, la partie redémarre.</li>
+				
+				<li>Dernièrement, nous nous sommes fixés comme perspective d'évolution la création d'un éditeur de terrain. Nous ne nous engageons pas à l'avoir finalisée pour la version 3.0 mais nous mettrons tout en œuvre pour la réaliser dans les temps. C'est pourquoi l'issue n'est pas dans le milestone de la 3.0 mais de la 4.0. L'éditeur de terrain permettra aux joueurs de continuer l'expérience du jeu, puisqu'ils pourront concevoir leurs propres niveaux. Le joueur pourra bien évidemment les tester. </li>
+				
+				<li>Nous sommes très enchantés de concevoir et de développer ce projet, et cet enthousiasme nous pousse à continuer le projet au-delà du cadre du projet DLL. C'est pourquoi Roll It! aura une version 4.0. Pour le moment, nous l'avons fixée au 1er juillet 2013 et seulement trois fonctionnalités sont attendues : un éditeur de niveau, pouvoir partager ses niveaux sur un serveur, et la possibilité de partager ses scores sur différents réseaux sociaux.</li>
+		
+			</ul>
+		
+		
 			<h3>Version 2.0 (15-03-2013)</h3>
 
 			<p>Le projet en est déjà à sa version 2.0. Cette nouvelle mouture du jeu embarque de nombreuses nouveautés depuis la première version.</p>

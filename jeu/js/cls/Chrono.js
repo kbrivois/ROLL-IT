@@ -11,7 +11,7 @@ function Chrono()
 Chrono.prototype.start = function()
 {
 	var t = this;
-	this.iChronoInterval = setInterval(function(){
+	this.iChronoInterval = setInterval(function() {
 							 t.calculChronometre();
 						   },100);
 };
@@ -21,14 +21,6 @@ Chrono.prototype.pause = function()
 {
 	clearInterval(this.iChronoInterval);
 	iChronoInterval = null;
-};
-
-// Méthode de reset
-Chrono.prototype.reset = function()
-{
-	this.iChronoCs = 0;
-	this.iChronoS = 0;
-	this.iChronoM = 0;
 };
 
 Chrono.prototype.calculChronometre = function()
@@ -44,12 +36,23 @@ Chrono.prototype.calculChronometre = function()
 	}
 	
 	if(this.iChronoS < 10)
-		document.getElementById('time-sec').innerHTML = "0" + this.iChronoS;
+		this.oChronoSDiv.innerHTML = "0" + this.iChronoS;
 	else
-		document.getElementById('time-sec').innerHTML = this.iChronoS;
+		this.oChronoSDiv.innerHTML = this.iChronoS;
 		
 	if(this.iChronoM < 10)
-		document.getElementById('time-min').innerHTML = "0" + this.iChronoM;
+		this.oChronoMDiv.innerHTML = "0" + this.iChronoM;
 	else
-		document.getElementById('time-min').innerHTML = this.iChronoM;
+		this.oChronoMDiv.innerHTML = this.iChronoM;
+};
+
+// Méthode de reset
+Chrono.prototype.reset = function()
+{
+	clearInterval(this.iChronoInterval);
+	this.iChronoCs = 0;
+	this.iChronoS = 0;
+	this.iChronoM = 0;
+	this.calculChronometre();
+	this.iChronoInterval = null;
 };
