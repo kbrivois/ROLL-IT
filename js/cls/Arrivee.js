@@ -16,7 +16,6 @@ Arrivee.prototype.tracer = function(oDivTerrain)
 	var oArrivee = document.createElement("img");
 	this.oDiv = oArrivee;
 	oArrivee.id = "arrivee";
-	oArrivee.style.position = "absolute";
 	
 	oArrivee.style.left = this.oPosition.x + "px";
 	oArrivee.style.top = this.oPosition.y + "px";

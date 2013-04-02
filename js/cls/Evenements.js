@@ -163,15 +163,13 @@ function changerLangue() {
 // On teste le téléchargement d'un niveau avec l'id de l'utilisateur
 function telechargerNiveau() {
 	var key = document.getElementById("id-level-online").value;
-	
+
 	if(key) {
-		var urlServeur = "http://aymeric-auberton.fr/projets/dll/test.php?k=" + key;
-		valeurURL(urlServeur);
-		console.log(valeurURL);
+		var reponseHTTP = valeurURL("http://www.aymeric-auberton.fr/projets/dll/test.php?k=" + key);
 		
 		if(valeurURL != 0) {
 			// Enregistrer le niveau dans la bonne variable de LocalStorage
-			enregistrerNiveauOnline(valeurURL);
+			enregistrerNiveauOnline(reponseHTTP);
 		} else {
 			alert("Aucun niveau n'est associé à cette identifiant");
 		}

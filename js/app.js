@@ -52,7 +52,9 @@ oElemContent.style.marginTop = (document.documentElement.clientHeight/2 - oElemC
 // Les différents niveaux (de base, perso, en ligne)
 var aListeNiveaux = chargerNiveaux();
 var aListeNiveauxPerso /*= chargerNiveauxPerso()*/;
-var aListeNiveauxEnLigne /*= chargerNiveauxEnLigne()*/;
+var aListeNiveauxEnLigne = chargerNiveauxOnline(1);
+if(aListeNiveauxEnLigne == null)
+	aListeNiveauxEnLigne = new Array();
 var aListeNiveauxEnCours = null;
 var iNiveauSelectionne = 0;
 

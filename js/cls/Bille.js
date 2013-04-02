@@ -3,7 +3,7 @@ function Bille(oPositionDepartTemp)
 	// Element sphere
 	this.oDiv = "";
 	// Position de la bille
-	this.oPositionDepart = new Point(oPositionDepartTemp.x*fRatioLargeur,oPositionDepartTemp.y*fRatioLargeur);
+	this.oPositionDepart = new Point(oPositionDepartTemp.x * fRatioLargeur,oPositionDepartTemp.y * fRatioLargeur);
 	this.oPositionPrecedente = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
 	this.oPosition = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
 	// Vitesse
@@ -28,7 +28,6 @@ Bille.prototype.tracer = function(oDivTerrain)
 	var oBille = document.createElement("img");
 	this.oDiv = oBille;
 	oBille.id = "sphere";
-	oBille.style.position = "absolute";
 	oBille.src = "img/ball-15.png";
 	oBille.style.left = this.oPosition.x + "px";
 	oBille.style.top = this.oPosition.y + "px";
@@ -41,7 +40,7 @@ Bille.prototype.tracer = function(oDivTerrain)
 Bille.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
-	var y = oPositionTouchArrivee.y-this.iTaille;
+	var y = oPositionTouchArrivee.y - this.iTaille;
 	var oTerrain = oModeEnCours.oTerrainEditeur;
 	
 	// ==== On vérifie si la bille n'est pas l'exterieur du terrain ==== //
@@ -55,11 +54,11 @@ Bille.prototype.tracerDansEditeur = function()
 	}
 	// bord droit
 	if(x + this.iTaille > oTerrain.iLargeur) {
-		x = oTerrain.iLargeur-this.iTaille;
+		x = oTerrain.iLargeur - this.iTaille;
 	}
 	// bord bas
 	if(y + this.iTaille > oTerrain.iHauteur) {
-		y = oTerrain.iHauteur-this.iTaille;
+		y = oTerrain.iHauteur - this.iTaille;
 	}
 	
 	// ==== On vérifie si la bille n'est pas sur un mur, trappe, trou ou vide ==== //
@@ -99,8 +98,8 @@ Bille.prototype.tracerDansEditeur = function()
 		this.bTraceDansEditeur = false;
 		this.oDiv.style.opacity = "0.3";
 	}
-	this.oDiv.style.left = x+"px";
-	this.oDiv.style.top = y+"px";
+	this.oDiv.style.left = x + "px";
+	this.oDiv.style.top = y + "px";
 };
 
 // On supprime la bille de l'éditeur
@@ -132,14 +131,14 @@ Bille.prototype.tomber = function()
 
 	// tant que la bille n'a pas fini sa chute
 	if(this.iTaille > 0) {
-		var fPas = 0.3*fRatioLargeur;
+		var fPas = 0.3 * fRatioLargeur;
 		this.iTaille -= fPas;
-		this.oPosition.y += fPas/2;
-		this.oPosition.x += fPas/2;
+		this.oPosition.y += fPas / 2;
+		this.oPosition.x += fPas / 2;
 		oSphereStyle.top = this.oPosition.y + "px";
 		oSphereStyle.left = this.oPosition.x + "px";
-		oSphereStyle.height = this.iTaille+"px";
-		oSphereStyle.width = this.iTaille+"px";
+		oSphereStyle.height = this.iTaille + "px";
+		oSphereStyle.width = this.iTaille + "px";
 	}else{
 		oModeEnCours.reset();
 	}
@@ -249,8 +248,8 @@ Bille.prototype.deplacer = function()
 	this.oPositionPrecedente.y = this.oPositionDepart.y;
 	this.oPosition.x = this.oPositionDepart.x;
 	this.oPosition.y = this.oPositionDepart.y;
-	this.oDiv.style.left = this.oPosition.x+"px";
-	this.oDiv.style.top = this.oPosition.y+"px";
+	this.oDiv.style.left = this.oPosition.x + "px";
+	this.oDiv.style.top = this.oPosition.y + "px";
 };
 
 // Méthode de suppression dans le terrain de l'éditeur
@@ -267,8 +266,8 @@ Bille.prototype.reset = function()
 	this.bTombeDansTrou = false;
 	// taille
 	this.iTaille = this.iTailleDepart;
-	oSphereStyle.height = this.iTaille+"px";
-	oSphereStyle.width = this.iTaille+"px";
+	oSphereStyle.height = this.iTaille + "px";
+	oSphereStyle.width = this.iTaille + "px";
 	// position
 	this.oPosition = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
 	oSphereStyle.top = this.oPosition.y + "px";
