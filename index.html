@@ -122,7 +122,7 @@
 			
 			<div id="pause" class="overlay page" style="display: none;">
 				<span class="overlay-title txt-langue" data-lang="pause">Pause</span>
-				<div id="button-resume" class="button-green txt-langue" data-lang="resume">
+				<div class="button-resume button-green txt-langue" data-lang="resume">
 					Reprendre
 				</div>
 				<div id="button-save-level" class="button-red txt-langue" data-lang="savelevel" style="display: none;">
@@ -130,6 +130,41 @@
 				</div>
 				<div class="button-menu button-blue txt-langue" data-lang="menu">
 					Menu
+				</div>
+			</div>
+			
+			<div id="error" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="impossible">Impossible !</span>
+				<div id="error-txt" class="txt-langue" data-lang="error">
+					Il faut au moins placer la bille et la croix d'arrivée.
+				</div>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
+			
+			<div id="form-hatche" class="overlay page" style="display: none;">
+				<span class="overlay-title">Trappes</span>
+				<div>Temps d'ouverture et de fermeture (ms)</div>
+				<input id="time-hatche" type="text" value="" /><br />
+				<div>Etat de la trappe au début de la partie</div>
+				<select id="state-hatche">
+					<option value="true">Ouverte</option>
+					<option value="false">Fermée</option>
+				</select>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
+			
+			<div id="form-projectiles" class="overlay page" style="display: none;">
+				<span class="overlay-title">Projectiles</span>
+				<div>Vitesse (1=lent, 5=rapide)</div>
+				<input id="speed-projectiles" type="text" value="" /><br />
+				<div>Distance entre les projectiles</div>
+				<input id="state-projectiles" type="text" value="" /><br />
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
 				</div>
 			</div>
 			
@@ -141,13 +176,18 @@
 						:
 						<span id="time-sec">00</span>
 					</div>
+					<!-- dans le cas on l'on se trouvera dans l'éditeur -->
+					<div id="choices">
+						<img id="move" src="img/editeur/deplacer.png"/>
+						<img id="edit" src="img/editeur/modifier.png"/>
+						<img id="delete" src="img/editeur/supprimer.png"/>
+					</div>
 					<div id="top-pause">
 						<span class="txt-langue" data-lang="pause">Pause</span>
 					</div>
 				</div>
 				<div id="level-content">
-					<div id="terrain">
-					</div>
+					<div id="terrain"></div>
 					<!-- dans le cas on l'on se trouvera dans l'éditeur -->
 					<div id="items-menu-edit">
 					</div>

@@ -126,8 +126,7 @@ GroupeProjectiles.prototype.verifierCollision = function()
 												oProjectile.oPosition.y + oProjectile.iTaille/2);
 											
 		if(distance(oPointMilieuSphere, oPointMilieuProjectile) < oProjectile.iTaille/2 + oBille.iTaille/2) {
-			oModeEnCours.oChrono.reset();
-			oTerrain.reset();
+			oModeEnCours.reset();
 		}
 	}
 };
@@ -157,6 +156,28 @@ GroupeProjectiles.prototype.clone = function()
 	oGroupeProjectilesClone.iProjectileActuel = 0;
 	
 	return oGroupeProjectilesClone;
+};
+
+// Méthode de selection dans le terrain de l'éditeur
+GroupeProjectiles.prototype.selectionner = function()
+{
+	this.oDiv.style.opacity = 0.5;
+	document.getElementById("edit").style.display = "initial";
+};
+
+// Méthode de déplacement dans le terrain de l'éditeur
+GroupeProjectiles.prototype.deplacer = function()
+{
+	this.oPositionDepart.x = oPositionTouchArrivee.x;
+	this.oPositionDepart.y = oPositionTouchArrivee.y;
+	this.oDiv.style.left = this.oPosition.x+"px";
+	this.oDiv.style.top = this.oPosition.y+"px";
+};
+
+// Méthode de suppression dans le terrain de l'éditeur
+GroupeProjectiles.prototype.supprimer = function()
+{
+	oEditeur.oTerrainEditeur.aListeProjectiles.unset(this);
 };
 
 // Méthode de reset

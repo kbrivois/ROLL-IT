@@ -45,7 +45,7 @@ Diamant.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
 	var y = oPositionTouchArrivee.y-this.iTaille;
-	var oTerrain = oModeEnCours.oTerrain;
+	var oTerrain = oModeEnCours.oTerrainEditeur;
 	
 	// bord gauche
 	if(x < 0) {
@@ -206,6 +206,30 @@ Diamant.prototype.clone = function()
 	oDiamantClone.bTraceDansEditeur = this.bTraceDansEditeur;
 	
 	return oDiamantClone;
+};
+
+// Méthode de selection dans le terrain de l'éditeur
+Diamant.prototype.selectionner = function()
+{
+	this.oDiv.style.opacity = 0.5;
+	document.getElementById("edit").style.display = "none";
+};
+
+// Méthode de déplacement dans le terrain de l'éditeur
+Diamant.prototype.deplacer = function()
+{
+	this.oPositionDepart.x = oPositionTouchArrivee.x;
+	this.oPositionDepart.y = oPositionTouchArrivee.y;
+	this.oPosition.x = this.oPositionDepart.x;
+	this.oPosition.y = this.oPositionDepart.y;
+	this.oDiv.style.left = this.oPosition.x+"px";
+	this.oDiv.style.top = this.oPosition.y+"px";
+};
+
+// Méthode de suppression dans le terrain de l'éditeur
+Diamant.prototype.supprimer = function()
+{
+	oEditeur.oTerrainEditeur.aListeDiamants.unset(this);
 };
 
 // Méthode de reset

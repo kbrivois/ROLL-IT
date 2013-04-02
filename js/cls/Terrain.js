@@ -6,6 +6,9 @@ function Terrain(sMode)
 	this.oDiv.style.width = this.iLargeur + "px";	
 	this.oDiv.style.height = this.iHauteur + "px";
 
+	// Liste qui regroupera tous les éléments
+	this.aListeElements = new Array();
+	
 	// si c'est une partie qui a été lancée et non l'éditeur
 	if(sMode == "Partie") {
 		// Niveau sélectionné dans le menu
@@ -96,20 +99,26 @@ function Terrain(sMode)
 };
 
 // Méthode de tracé
-Terrain.prototype.tracer = function()
+Terrain.prototype.tracer = function(bTracerDansEditeur)
 {
+	this.aListeElements = new Array();
+
 	// ===== bille ===== //
-	if(this.oBille != null)
+	if(this.oBille != null) {
 		this.oBille.tracer(this.oDiv);
+		this.aListeElements.push(this.oBille);
+	}
 
 	// ===== murs ===== //
 	for(var i=0; i<this.aListeMurs.length; i++) {
 		this.aListeMurs[i].tracer(this.oDiv);
+		this.aListeElements.push(this.aListeMurs[i]);
 	}
 
 	// ===== vides ===== //
 	for(var i=0; i<this.aListeVides.length; i++) {
 		this.aListeVides[i].tracer(this.oDiv);
+		this.aListeElements.push(this.aListeVides[i]);
 	}	
 	for(var i=0; i<this.aListeVides.length; i++) {
 		this.aListeVides[i].recalculZindex(this.aListeVides);
@@ -118,26 +127,57 @@ Terrain.prototype.tracer = function()
 	// ===== trous ===== //
 	for(var i=0; i<this.aListeTrous.length; i++) {
 		this.aListeTrous[i].tracer(this.oDiv);
+		this.aListeElements.push(this.aListeTrous[i]);
 	}
 	
 	// ===== trappes ===== //
 	for(var i=0; i<this.aListeTrappes.length; i++) {
 		this.aListeTrappes[i].tracer(this.oDiv);
+		this.aListeElements.push(this.aListeTrappes[i]);
+		if(bTracerDansEditeur != null && bTracerDansEditeur == true) {
+			var oTrappe = this.aListeTrappes[i];
+			for(var j=0; j<oTrappe.aListeImgHTML.length; j++) {
+				oTrappe.aListeImgHTML[j].style.display = "none";
+			}
+			oTrappe.iImageActuelle = oTrappe.aListeImgHTML.length-1;
+			oTrappe.aListeImgHTML[oTrappe.aListeImgHTML.length-1].style.display = "block";
+		}
 	}
 	
 	// ===== projectiles ===== //
 	for(var i=0; i<this.aListeProjectiles.length; i++) {
 		this.aListeProjectiles[i].tracer(this.oDiv);
+		this.aListeElements.push(this.aListeProjectiles[i].aListeProjectiles[0]);
 	}
 
 	// ===== diamants ===== //
 	for(var i=0; i<this.aListeDiamants.length; i++) {
 		this.aListeDiamants[i].tracer(this.oDiv);
+		this.aListeElements.push(this.aListeDiamants[i]);
 	}
 	
 	// ===== arrivee ===== //
-	if(this.oArrivee != null)
+	if(this.oArrivee != null) {
 		this.oArrivee.tracer(this.oDiv);
+		this.aListeElements.push(this.oArrivee);
+	}	
+	
+	var t = this;
+	
+	if(bTracerDansEditeur != null && bTracerDansEditeur == true) {
+		// on ajoute aux éléments du terrain les événements qui permettront de les modifier dans le cas de l'éditeur
+		for(var i=0; i<this.aListeElements.length; i++) {
+			(function(i) {
+				var oElement = t.aListeElements[i];
+				t.aListeElements[i].oDiv.addEventListener(endEvent,
+					function(event){						
+						if(!t.bTouchMoveTerrain) {
+							t.selectionnerElement(oElement);
+						}
+					},false);
+			})(i);
+		}
+	}
 };
 
 // on actionne les mécanismes du terrain (animations des trappes, projectiles, diamants...)
@@ -163,6 +203,39 @@ Terrain.prototype.actionnerMecanismes = function()
 	}
 };
 
+// permet de sélectionner ou de désélectionner un élément qui a été cliqué
+Terrain.prototype.selectionnerElement = function(oElement)
+{
+	// si on sélectionne l'élément
+	if(oElement != oEditeur.oElementSelectionne) {
+		document.getElementById("time").style.display = "none";
+		document.getElementById("choices").style.display = "block";
+		for(var i=0; i<this.aListeElements.length; i++) {
+			this.aListeElements[i].oDiv.style.opacity = 1;
+		}
+		oElement.selectionner();
+		oEditeur.oElementSelectionne = oElement;
+		oEditeur.bClickSurElement = true;
+	}
+	// si on le désélectionne
+	else {
+		document.getElementById("time").style.display = "block";
+		document.getElementById("choices").style.display = "none";
+		oElement.oDiv.style.opacity = 1;
+		oEditeur.oElementSelectionne = null;
+	}
+};
+
+// permet de désélectionner le dernier élément sélectionné si un clique a été fait n'importe où sur le terrain
+Terrain.prototype.deselectionnerElement = function()
+{	
+	var oElementSelectionne = oEditeur.oElementSelectionne;
+	document.getElementById("time").style.display = "block";
+	document.getElementById("choices").style.display = "none";
+	oElementSelectionne.oDiv.style.opacity = 1;
+	oElementSelectionne = null;
+};
+
 // Méthode de clonage
 Terrain.prototype.clone = function()
 {
@@ -185,7 +258,9 @@ Terrain.prototype.clone = function()
 	for(var i=0; i<this.aListeDiamants.length; i++) {
 		oTerrainClone.aListeDiamants.push(this.aListeDiamants[i].clone());
 	}
-
+	oTerrainClone.iNbreDiamants = this.iNbreDiamants;
+	oTerrainClone.iNbreDiamantsAttrapes = this.iNbreDiamantsAttrapes;
+		
 	// ===== vides ===== //
 	for(var i=0; i<this.aListeVides.length; i++) {
 		oTerrainClone.aListeVides.push(this.aListeVides[i].clone());

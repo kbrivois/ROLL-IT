@@ -25,10 +25,12 @@ Arrivee.prototype.tracer = function(oDivTerrain)
 	oArrivee.src = "img/croix.png";
 	
 	if(oModeEnCours != null) {
-		if(oModeEnCours.oTerrain.iNbreDiamantsAttrapes == oModeEnCours.oTerrain.iNbreDiamants)
-			oArrivee.style.display = "block";
-		else
-			oArrivee.style.display = "none";
+		if(oModeEnCours.oTerrain != null) {
+			if(oModeEnCours.oTerrain.iNbreDiamantsAttrapes == oModeEnCours.oTerrain.iNbreDiamants)
+				oArrivee.style.display = "block";
+			else
+				oArrivee.style.display = "none";
+		}
 	}
 	
 	oDivTerrain.appendChild(oArrivee);
@@ -39,7 +41,7 @@ Arrivee.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
 	var y = oPositionTouchArrivee.y-this.iTaille;
-	var oTerrain = oModeEnCours.oTerrain;
+	var oTerrain = oModeEnCours.oTerrainEditeur;
 	
 	// bord gauche
 	if(x < 0) {
@@ -117,7 +119,7 @@ Arrivee.prototype.verifierCollision = function()
 		var oPointMilieuArrivee = new Point(this.oPosition.x + this.iTaille/2, 
 											this.oPosition.y + this.iTaille/2);
 											
-		if(distance(oPointMilieuSphere, oPointMilieuArrivee) < this.iTaille/2) {
+		if(distance(oPointMilieuSphere, oPointMilieuArrivee) < this.iTaille) {
 			oBille.oPosition.x = this.oPosition.x + this.iTaille/2 - oBille.iTaille/2;
 			oBille.oPosition.y = this.oPosition.y + this.iTaille/2 - oBille.iTaille/2;
 			oBille.oDiv.style.x = oBille.oPosition.x+"px";
@@ -144,6 +146,28 @@ Arrivee.prototype.clone = function()
 	oArriveeClone.bTraceDansEditeur = this.bTraceDansEditeur;
 	
 	return oArriveeClone;
+};
+
+// Méthode de selection dans le terrain de l'éditeur
+Arrivee.prototype.selectionner = function()
+{
+	this.oDiv.style.opacity = 0.5;
+	document.getElementById("edit").style.display = "none";
+};
+
+// Méthode de déplacement dans le terrain de l'éditeur
+Arrivee.prototype.deplacer = function()
+{
+	this.oPosition.x = oPositionTouchArrivee.x;
+	this.oPosition.y = oPositionTouchArrivee.y;
+	this.oDiv.style.left = this.oPosition.x+"px";
+	this.oDiv.style.top = this.oPosition.y+"px";
+};
+
+// Méthode de suppression dans le terrain de l'éditeur
+Arrivee.prototype.supprimer = function()
+{
+	oEditeur.oTerrainEditeur.oArrivee = null;
 };
 
 // Méthode de reset

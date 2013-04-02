@@ -31,7 +31,7 @@ Trou.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
 	var y = oPositionTouchArrivee.y-this.iTaille;
-	var oTerrain = oModeEnCours.oTerrain;
+	var oTerrain = oModeEnCours.oTerrainEditeur;
 	
 	// bord gauche
 	if(x < 0) {
@@ -104,6 +104,28 @@ Trou.prototype.clone = function()
 	oTrouClone.iTaille = this.iTaille;
 	
 	return oTrouClone;
+};
+
+// Méthode de selection dans le terrain de l'éditeur
+Trou.prototype.selectionner = function()
+{
+	this.oDiv.style.opacity = 0.5;
+	document.getElementById("edit").style.display = "none";
+};
+
+// Méthode de déplacement dans le terrain de l'éditeur
+Trou.prototype.deplacer = function()
+{
+	this.oPosition.x = oPositionTouchArrivee.x;
+	this.oPosition.y = oPositionTouchArrivee.y;
+	this.oDiv.style.left = this.oPosition.x+"px";
+	this.oDiv.style.top = this.oPosition.y+"px";
+};
+
+// Méthode de suppression dans le terrain de l'éditeur
+Trou.prototype.supprimer = function()
+{
+	oEditeur.oTerrainEditeur.aListeTrous.unset(this);
 };
 
 // Méthode de reset

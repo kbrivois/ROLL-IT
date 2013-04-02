@@ -39,6 +39,26 @@ var dataLangue = {
 		"pl": "Edytuj",
 		"hr": "Feltalál"
 	},
+	"impossible": {
+		"fr": "Impossible !",
+		"uk": "Impossible !",
+		"es": "Imposible !",
+		"pt": "Impossível !",
+		"de": "Unmöglich !",
+		"it": "Impossibile !",
+		"pl": "Niemożliwy !",
+		"hr": "Lehetetlen !"
+	},
+	"error": {
+		"fr": "Il faut au moins placer la bille et la croix d'arrivée.",
+		"uk": "You must place the ball and finish.",
+		"es": "Usted debe colocar la bola y el acabado.",
+		"pt": "Você deve colocar a bola e acabamento.",
+		"de": "Sie müssen den Ball und Finish.",
+		"it": "È necessario inserire la palla e la finitura.",
+		"pl": "Musisz umieścić piłkę i wykończenie.",
+		"hr": "Meg kell helyezni a labdát, és befejezni."
+	},
 	"play": {
 		"fr": "Jouer",
 		"uk": "Play",

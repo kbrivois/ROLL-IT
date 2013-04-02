@@ -16,8 +16,10 @@ function pausePartie() {
 
 // Détecte le click pendant que le menu Pause est afficher pour reprendre la partie
 function reprendrePartie() {
-	document.getElementById('pause').style.display = 'none';
-	oModeEnCours.oChrono.start();
+	cacherPages();
+	document.getElementById('partie').style.display = 'block';
+	if(oEditeur == null)
+		oModeEnCours.oChrono.start();
 	oModeEnCours.bPause = false;
 }
 
@@ -32,8 +34,10 @@ function recommencerPartie() {
 	}
 	// si nous sommes dans l'éditeur
 	else if(oEditeur != null) {
-		oEditeur.oTerrain = oEditeur.oTerrainClone.clone();
+		oEditeur.oTerrain = oEditeur.oTerrainEditeur.clone();
 		oEditeur.oTerrain.tracer();
+		oEditeur.oChrono.reset();
+		oEditeur.oChrono.start();
 		oEditeur.bGagne = false;
 	}
 }
@@ -100,38 +104,36 @@ function lancerPartieEditeur() {
 		// si nous nous trouvions en mode édition
 		if(!oEditeur.bEnModeJeu) {
 			// si au moins une bille et une arrivée ont été tracées
-			if(oEditeur.oTerrain.oBille != null && oEditeur.oTerrain.oArrivee != null) {
+			if(oEditeur.oTerrainEditeur.oBille != null && oEditeur.oTerrainEditeur.oArrivee != null) {
 				document.getElementById("items-menu-edit").style.display = "none";
 				document.getElementById("items-menu-edit").innerHTML = "";
 				document.getElementById("level").innerHTML = "> "+dataLangue['edit'][joueurISO]+" <";
+				document.getElementById("choices").style.display = "none";
+				document.getElementById("time").style.display = "block";
 				oEditeur.bEnModeJeu = true;
-				// On initialise les événements de touch
-				oEditeur.oTerrain.oDiv.ontouchstart = function(event) {};
-				oEditeur.oTerrain.oDiv.ontouchmove = function(event) {};
-				oEditeur.oTerrain.oDiv.ontouchend = function(event) {};
 				
-				oEditeur.oTerrain.oDiv.onmousedown = function(event) {};
-				oEditeur.oTerrain.oDiv.onmousemove = function(event) {};
-				oEditeur.oTerrain.oDiv.onmouseup = function(event) {};
-				
-				// on clone le terrain
-				oEditeur.oTerrainClone = oEditeur.oTerrain.clone();
+				// on récupère le terrain de l'éditeur en le clonant
+				oEditeur.oTerrain = oEditeur.oTerrainEditeur.clone();
 				// on initialise le terrain
 				oEditeur.oTerrain.oDiv.innerHTML = "";
-				oEditeur.oTerrain = oEditeur.oTerrainClone.clone();
 				oEditeur.oTerrain.tracer();
+				oEditeur.oChrono.start();
 				// on fait appel à l'accelerometre
 				appelerAccelerometre();
 				mainEditeur();
 			}
-			else {alert("Il faut au moins placer la bille et la croix !");}
+			else {
+				document.getElementById("error").style.display = "block";
+			}
 		}
+		// on veut retourner en mode édition
 		else {
 			// on récupère le clone
-			oEditeur.oTerrain = oEditeur.oTerrainClone.clone();
+			oEditeur.oChrono.reset();
 			oEditeur.oTerrain.oDiv.innerHTML = "";
-			oEditeur.oTerrain.tracer();
-			oEditeur.oTerrainClone = null;
+			oEditeur.oTerrain = null;
+			oEditeur.oTerrainEditeur.tracer(true);
+			oEditeur.oTerrainEditeur.oArrivee.oDiv.style.display = "block";
 			document.getElementById("items-menu-edit").style.display = "block";
 			document.getElementById("level").innerHTML = "> "+dataLangue['play'][joueurISO]+" <";
 			oEditeur.initialiser();
@@ -175,5 +177,114 @@ function telechargerNiveau() {
 		
 	} else {
 		alert("Veuillez saisir un identifiant");
+	}
+}
+
+// s'il y a un mouse ou un touch down sur le terrain de l'éditeur
+function eventDownSurTerrain() {
+	if(!oEditeur.bEnModeJeu) {
+		var eventObj = isTouchSupported ? event.touches[0] : event;
+		oEditeur.bEventDown = true;
+		// Coordonnées actuelles du touch
+		var oDivContent = document.getElementById("content");
+		oPositionTouchDepart.x = eventObj.pageX-oDivContent.offsetLeft;
+		oPositionTouchDepart.y = eventObj.pageY-60-oDivContent.offsetTop;
+		// on cache le menu au double tap
+		if(oEditeur.oDivMenuEdition.style.display == "none")
+			doubleTap(function(){oEditeur.oDivMenuEdition.style.display = "block";});
+		else
+			doubleTap(function(){oEditeur.oDivMenuEdition.style.display = "none";});
+	}
+}
+
+// s'il y a un mouse ou un touch move sur le terrain de l'éditeur
+function eventMoveSurTerrain() {
+	if(!oEditeur.bEnModeJeu) {
+		var eventObj = isTouchSupported ? event.touches[0] : event;
+		if(oEditeur.bEventDown) {
+			// pour empêcher l'effet élastique du scroll sur le téléphone
+			event.preventDefault();
+			// Coordonnées actuelles du touch
+			var oDivContent = document.getElementById("content");	
+			oPositionTouchArrivee.x = eventObj.pageX-oDivContent.offsetLeft;
+			oPositionTouchArrivee.y = eventObj.pageY-60-oDivContent.offsetTop;
+			// si l'utilisateur veut déplacer un élément
+			if(oEditeur.bElementEnDeplacement) {
+				oEditeur.oElementSelectionne.deplacer();
+				// on cache le menu d'édition pour pouvoir tracer sur tout le terrain
+				if(oEditeur.oDivMenuEdition.style.display == "block")
+					oEditeur.oDivMenuEdition.style.display = "none";
+			}
+			// sinon, si un élément à été sélectionné dans une vignette, on le trace
+			else if(oEditeur.iVignetteSelectionnee != 0) {
+				// on cache le menu d'édition pour pouvoir tracer sur tout le terrain
+				if(oEditeur.oDivMenuEdition.style.display == "block")
+					oEditeur.oDivMenuEdition.style.display = "none";
+				// on trace l'élément
+				oEditeur.tracerElement();
+			}
+		}
+	}
+}
+
+// s'il y a un mouse ou un touch up sur le terrain de l'éditeur
+function eventUpSurTerrain() {
+	if(!oEditeur.bEnModeJeu) {
+		var eventObj = isTouchSupported ? event.touches[0] : event;
+		oEditeur.bEventDown = false;
+		oEditeur.bElementEnDeplacement = false;
+		document.getElementById("move").style.backgroundColor = "rgb(230,230,230)";
+		// on rend visible le menu d'édition après avoir fini de tracer l'élément
+		if(oEditeur.bTouchMoveTerrain) {
+			oEditeur.oDivMenuEdition.style.display = "block";
+			oEditeur.finirTracer();
+		}
+		// si on clique sur le terrain sans cliquer sur un élément, alors on désélectionne le dernier élément sélectionné
+		else if(!oEditeur.bTouchMoveTerrain && oEditeur.oElementSelectionne != null) {
+			if(!oEditeur.bClickSurElement)
+				oEditeur.oTerrainEditeur.deselectionnerElement();
+			else
+				oEditeur.bClickSurElement = false;
+		}
+		else {
+			oEditeur.oDivMenuEdition.style.display = "block";
+		}
+	}
+}
+
+// s'il y a un mouse ou un touch down sur le bouton delete de l'éditeur
+function eventDownSurBoutonDelete() {
+	var oElementSelectionne = oEditeur.oElementSelectionne;
+
+	document.getElementById("move").style.backgroundColor = "rgb(230,230,230)";
+	oEditeur.oTerrainEditeur.oDiv.removeChild(oElementSelectionne.oDiv);
+	oEditeur.oTerrainEditeur.aListeElements.unset(oElementSelectionne);
+	oElementSelectionne.supprimer();
+	oElementSelectionne = null;
+	document.getElementById("time").style.display = "block";
+	document.getElementById("choices").style.display = "none";
+}
+
+// s'il y a un mouse ou un touch down sur le bouton move de l'éditeur
+function eventDownSurBoutonMove() {
+	if(!oEditeur.bElementEnDeplacement) {
+		document.getElementById("move").style.backgroundColor = "rgb(180,180,180)";
+		oEditeur.bElementEnDeplacement = true;
+	}
+	else {
+		document.getElementById("move").style.backgroundColor = "rgb(230,230,230)";
+		oEditeur.bElementEnDeplacement = false;
+	}
+}
+
+// s'il y a un mouse ou un touch down sur le bouton edit de l'éditeur
+function eventDownSurBoutonEdit() {
+	if(!oEditeur.bElementEnModification) {
+		document.getElementById("move").style.backgroundColor = "rgb(230,230,230)";
+		oEditeur.oElementSelectionne.modifier();
+		oEditeur.bElementEnModification = true;
+	}
+	else {
+		oEditeur.bElementEnModification = false;
 	}
 }

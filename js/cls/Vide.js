@@ -164,6 +164,28 @@ Vide.prototype.clone = function()
 	return oVideClone;
 };
 
+// Méthode de selection dans le terrain de l'éditeur
+Vide.prototype.selectionner = function()
+{
+	this.oDiv.style.opacity = 0.5;
+	document.getElementById("edit").style.display = "none";
+};
+
+// Méthode de déplacement dans le terrain de l'éditeur
+Vide.prototype.deplacer = function()
+{
+	this.oPosition.x = oPositionTouchArrivee.x;
+	this.oPosition.y = oPositionTouchArrivee.y;
+	this.oDiv.style.left = this.oPosition.x+"px";
+	this.oDiv.style.top = this.oPosition.y+"px";
+};
+
+// Méthode de suppression dans le terrain de l'éditeur
+Vide.prototype.supprimer = function()
+{
+	oEditeur.oTerrainEditeur.aListeVides.unset(this);
+};
+
 // Methode de reset
 Vide.prototype.reset = function()
 {

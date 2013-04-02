@@ -42,7 +42,7 @@ Bille.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
 	var y = oPositionTouchArrivee.y-this.iTaille;
-	var oTerrain = oModeEnCours.oTerrain;
+	var oTerrain = oModeEnCours.oTerrainEditeur;
 	
 	// ==== On vérifie si la bille n'est pas l'exterieur du terrain ==== //
 	// bord gauche
@@ -141,7 +141,7 @@ Bille.prototype.tomber = function()
 		oSphereStyle.height = this.iTaille+"px";
 		oSphereStyle.width = this.iTaille+"px";
 	}else{
-		oModeEnCours.oTerrain.reset();
+		oModeEnCours.reset();
 	}
 };
 
@@ -231,6 +231,32 @@ Bille.prototype.clone = function()
 	oBilleClone.bTraceDansEditeur = this.bTraceDansEditeur;
 	
 	return oBilleClone;
+};
+
+// Méthode de selection dans le terrain de l'éditeur
+Bille.prototype.selectionner = function()
+{
+	this.oDiv.style.opacity = 0.5;
+	document.getElementById("edit").style.display = "none";
+};
+
+// Méthode de déplacement dans le terrain de l'éditeur
+Bille.prototype.deplacer = function()
+{
+	this.oPositionDepart.x = oPositionTouchArrivee.x;
+	this.oPositionDepart.y = oPositionTouchArrivee.y;
+	this.oPositionPrecedente.x = this.oPositionDepart.x;
+	this.oPositionPrecedente.y = this.oPositionDepart.y;
+	this.oPosition.x = this.oPositionDepart.x;
+	this.oPosition.y = this.oPositionDepart.y;
+	this.oDiv.style.left = this.oPosition.x+"px";
+	this.oDiv.style.top = this.oPosition.y+"px";
+};
+
+// Méthode de suppression dans le terrain de l'éditeur
+Bille.prototype.supprimer = function()
+{
+	oEditeur.oTerrainEditeur.oBille = null;
 };
 
 // Méthode de reset

@@ -4,9 +4,19 @@ requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimati
 déclaration des variables
 ====================================================================================================================================================*/
 
-var oDivTemp = "";
+// pour savoir s'il faut utiliser le touch ou le mouse event
+var isTouchSupported = 'ontouchstart' in window;
+var startEvent = isTouchSupported ? 'touchstart' : 'mousedown';
+var moveEvent = isTouchSupported ? 'touchmove' : 'mousemove';
+var endEvent = isTouchSupported ? 'touchend' : 'mouseup';
+
+// Position de départ et d'arrivée du touch ou de la souris
 var oPositionTouchDepart = new Point(0,0);
 var oPositionTouchArrivee = new Point(0,0);
+
+// variables qui permettent de savoir s'il y a eu un touch ou click move ou down
+var touchDown = false;
+var touchMove = false;
 
 // Partie
 var oPartie = null;
@@ -82,72 +92,86 @@ window.addEventListener(orientationEvent, function() {
 
 // ************************* Evénements
 
+// ====== Body ====== //
+
+// Evénement qui va permettre de savoir s'il y a eu un touch down move ou up
+if(isTouchSupported) {
+	document.body.addEventListener(startEvent, function(){touchDown = true;}, false);
+	document.body.addEventListener(moveEvent, function(){touchMove = true;}, false);
+	document.body.addEventListener(endEvent, function(){touchDown = false; touchMove = false;}, false);
+}
+
 // ====== Partie ====== //
 
 // Evénement pour mettre en pause la partie
-document.getElementById("top-pause").addEventListener("click", pausePartie, false);
+document.getElementById("top-pause").addEventListener(endEvent, pausePartie, false);
 
 // Evénement pour reprendre la partie, une fois en pause
-document.getElementById("button-resume").addEventListener("click", reprendrePartie, false);
+var oButtonReprendre = document.getElementsByClassName("button-resume");
+for(var i in oButtonReprendre) {
+	if(oButtonReprendre[i] instanceof Element) {
+		oButtonReprendre[i].addEventListener(endEvent, reprendrePartie, false); 
+	}
+}
 
 // Evénement pour recommencer la partie, une fois la partie gagnée
-document.getElementById("button-try-again").addEventListener("click", recommencerPartie, false);
+document.getElementById("button-try-again").addEventListener(endEvent, recommencerPartie, false);
 
 // Evénement pour passer au niveau suivant, une fois la partie gagnée
-document.getElementById("button-next-level").addEventListener("click", niveauSuivant, false);
+document.getElementById("button-next-level").addEventListener(endEvent, niveauSuivant, false);
 
 // Evénement pour lancer une partie dans l'éditeur ou pour reprendre l'édition
-document.getElementById("level").addEventListener("click", lancerPartieEditeur, false);
+document.getElementById("level").addEventListener(endEvent, lancerPartieEditeur, false);
 
 // ====== Menus ====== //
 
 // Evénement pour accéder au menu des langues
-document.getElementById("button-languages").addEventListener("click", menuLangues, false);
+document.getElementById("button-languages").addEventListener(endEvent, menuLangues, false);
 
 // Evénement pour lancer le choix du mode de jeu
 var oButtonNewLevel = document.getElementsByClassName("button-new-level");
 for(var i in oButtonNewLevel) {
 	if(oButtonNewLevel[i] instanceof Element)
-		oButtonNewLevel[i].addEventListener("click", lancerMenuChoixMode, false); 
+		oButtonNewLevel[i].addEventListener(endEvent, lancerMenuChoixMode, false); 
 }
 
 // Evénement pour lancer un niveau normal
 var oButtonNewLevelNormal = document.getElementById("button-new-level-normal");
-oButtonNewLevelNormal.addEventListener("click", function(){lancerMenuNiveaux(aListeNiveaux)}, false);
+oButtonNewLevelNormal.addEventListener(endEvent, function(){lancerMenuNiveaux(aListeNiveaux)}, false);
 
 // Evénement pour lancer un niveau online
 var oButtonMenuLevelOnline = document.getElementById("button-menu-level-online");
-oButtonMenuLevelOnline.addEventListener("click", lancerMenuLevelOnline, false); 
+oButtonMenuLevelOnline.addEventListener(endEvent, lancerMenuLevelOnline, false); 
 
 // Evénement pour lancer un niveau online
 var oButtonNewLevelOnline = document.getElementById("button-new-level-online");
-oButtonNewLevelOnline.addEventListener("click", function(){lancerMenuNiveaux(aListeNiveauxEnLigne)}, false); 
+oButtonNewLevelOnline.addEventListener(endEvent, function(){lancerMenuNiveaux(aListeNiveauxEnLigne)}, false); 
 
 // Evénement pour lancer un niveau perso
 var oButtonNewLevelCustom = document.getElementById("button-new-level-custom");
-oButtonNewLevelCustom.addEventListener("click", function(){lancerMenuNiveaux(aListeNiveauxPerso)}, false); 
+oButtonNewLevelCustom.addEventListener(endEvent, function(){lancerMenuNiveaux(aListeNiveauxPerso)}, false); 
 
 // Evénement pour lancer l'éditeur
 var oButtonEditor = document.getElementById("button-editor");
-oButtonEditor.addEventListener("click", lancerEditeur, false); 
+oButtonEditor.addEventListener(endEvent, lancerEditeur, false); 
 
 // Evénement pour quitter la partie et retourner au menu
 var oButtonMenu = document.getElementsByClassName("button-menu");
 for(var i in oButtonMenu) {
 	if(oButtonMenu[i] instanceof Element)
-		oButtonMenu[i].addEventListener("click", menuPrincipal, false); 
+		oButtonMenu[i].addEventListener(endEvent, menuPrincipal, false); 
 }
 
 // Evénement pour changer la langue du jeu
 var oButtonLangue = document.getElementsByClassName("iso-langue");
 for(var i in oButtonLangue) {
 	if(oButtonLangue[i] instanceof Element)
-		oButtonLangue[i].addEventListener("click", changerLangue, false); 
+		oButtonLangue[i].addEventListener(endEvent, changerLangue, false); 
 }
 
 // Evénement pour lancer le téléchargement d'un niveau en ligne
 var oButtonSubmitLevelOnline = document.getElementById("submit-level-online");
-oButtonSubmitLevelOnline.addEventListener("click", telechargerNiveau, false); 
+oButtonSubmitLevelOnline.addEventListener(endEvent, telechargerNiveau, false); 
 
 // ************************* Menus des niveaux
 

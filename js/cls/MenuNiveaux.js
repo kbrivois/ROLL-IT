@@ -29,6 +29,8 @@ MenuNiveaux.prototype.tracer = function()
 		oDivShowItemMenu.appendChild(oDivItemMenu);
 		oDivItemMenu.style.height = oDivItemMenu.offsetHeight + "px";
 		oDivItemMenu.style.width = eval(oDivItemMenu.style.height.replace("px","")) * fRatioLargeurHauteur + "px";
+		oDivItemMenu.style.border = "1px solid black";
+		oDivItemMenu.style.borderRadius = "6px";
 		
 		// ratio selon la taille de la vignette
 		fRatioHauteur = eval(oDivItemMenu.style.height.replace("px","")) / iHauteurDeBase;
@@ -93,7 +95,7 @@ MenuNiveaux.prototype.tracer = function()
 
 		// ajout de l'événement sur le clic de la vignette
 		(function(i) {
-			oDivItemMenu.addEventListener("click", function() {creerPartie(i)}, false);
+			oDivItemMenu.addEventListener(endEvent, function() { if(!touchMove){creerPartie(i)} }, false);
 		})(i);
 
 		// texte

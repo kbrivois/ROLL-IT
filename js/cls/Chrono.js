@@ -36,14 +36,14 @@ Chrono.prototype.calculChronometre = function()
 	}
 	
 	if(this.iChronoS < 10)
-		document.getElementById('time-sec').innerHTML = "0" + this.iChronoS;
+		this.oChronoSDiv.innerHTML = "0" + this.iChronoS;
 	else
-		document.getElementById('time-sec').innerHTML = this.iChronoS;
+		this.oChronoSDiv.innerHTML = this.iChronoS;
 		
 	if(this.iChronoM < 10)
-		document.getElementById('time-min').innerHTML = "0" + this.iChronoM;
+		this.oChronoMDiv.innerHTML = "0" + this.iChronoM;
 	else
-		document.getElementById('time-min').innerHTML = this.iChronoM;
+		this.oChronoMDiv.innerHTML = this.iChronoM;
 };
 
 // Méthode de reset
@@ -53,5 +53,6 @@ Chrono.prototype.reset = function()
 	this.iChronoCs = 0;
 	this.iChronoS = 0;
 	this.iChronoM = 0;
+	this.calculChronometre();
 	this.iChronoInterval = null;
 };

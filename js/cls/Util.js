@@ -1,7 +1,7 @@
 /** Fonctions utiles **/
 
 // Fonction qui va exécuter la fonction passée en paramètre après un double tap
-var doubletapDeltaTime_ = 300;
+var doubletapDeltaTime_ = 250;
 var doubletapFunction_ = null;
 var doubletapTimer = null;
 var timer = false;
@@ -132,21 +132,6 @@ var appelerAccelerometre = function() {
 		}
 	}
 };
-
-// permet de récupérer la position de la souris
-var getOffset = function(e) 
-{
-    var cx = 0;
-    var cy = 0;
- 
-    while(e && !isNaN(e.offsetLeft) && !isNaN(e.offsetTop)) 
-	{
-        cx += e.offsetLeft - e.scrollLeft;
-        cy += e.offsetTop - e.scrollTop;
-        e = e.offsetParent;
-    }
-    return { top: cy, left: cx };
-}
 
 // La fonction retourne la valeur que retourne la page appelée
 var valeurURL = function(url) {

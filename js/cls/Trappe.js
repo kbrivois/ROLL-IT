@@ -85,7 +85,7 @@ Trappe.prototype.tracerDansEditeur = function()
 {
 	var x = oPositionTouchArrivee.x;
 	var y = oPositionTouchArrivee.y-this.iTaille;
-	var oTerrain = oModeEnCours.oTerrain;
+	var oTerrain = oModeEnCours.oTerrainEditeur;
 	
 	// bord gauche
 	if(x < 0) {
@@ -176,7 +176,6 @@ Trappe.prototype.verifierCollision = function()
 			oBille.oPosition.x = this.oPosition.x + this.iTaille/2 - oBille.iTaille/2;
 			oBille.oPosition.y = this.oPosition.y + this.iTaille/2 - oBille.iTaille/2;
 			oBille.bTombeDansTrou = true;
-			oModeEnCours.oChrono.reset();
 		}
 	}
 };
@@ -207,6 +206,61 @@ Trappe.prototype.clone = function()
 	oTrappeClone.iImageActuelle = this.iImageActuelle;
 	
 	return oTrappeClone;
+};
+
+// Méthode de selection dans le terrain de l'éditeur
+Trappe.prototype.selectionner = function()
+{
+	this.oDiv.style.opacity = 0.5;
+	document.getElementById("edit").style.display = "initial";
+};
+
+// Méthode de modification dans le terrain de l'éditeur
+Trappe.prototype.modifier = function()
+{
+	var t = this;
+	document.getElementById("form-hatche").style.display = "block";
+	document.getElementById("time-hatche").value = this.iTempsOF;
+	if(t.bOuvert)
+		document.getElementById("state-hatche").options[0].defaultSelected = true;
+	else
+		document.getElementById("state-hatche").options[1].defaultSelected = true;
+		
+	
+	document.getElementById("time-hatche").onchange = function(){
+		if(!isNaN(this.value)) {
+			t.iTempsOF = this.value;
+		}
+		else {
+			this.value = "";
+		}
+	};
+	document.getElementById("state-hatche").onchange = function(){
+		var sValeur = this.options[this.selectedIndex].value;
+		if(sValeur == "false") {
+			t.bOuvertDepart = false;
+			t.bOuvert = t.bOuvertDepart;
+		}
+		else {
+			t.bOuvertDepart = true;
+			t.bOuvert = t.bOuvertDepart;
+		}
+	};
+};
+
+// Méthode de déplacement dans le terrain de l'éditeur
+Trappe.prototype.deplacer = function()
+{
+	this.oPosition.x = oPositionTouchArrivee.x;
+	this.oPosition.y = oPositionTouchArrivee.y;
+	this.oDiv.style.left = this.oPosition.x+"px";
+	this.oDiv.style.top = this.oPosition.y+"px";
+};
+
+// Méthode de suppression dans le terrain de l'éditeur
+Trappe.prototype.supprimer = function()
+{
+	oEditeur.oTerrainEditeur.aListeTrappes.unset(this);
 };
 
 // Méthode de reset

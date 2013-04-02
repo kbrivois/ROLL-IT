@@ -239,7 +239,29 @@ Mur.prototype.clone = function()
 	oMurClone.iForceRepulsion = this.iForceRepulsion;
 	
 	return oMurClone;
-}
+};
+
+// Méthode de selection dans le terrain de l'éditeur
+Mur.prototype.selectionner = function()
+{
+	this.oDiv.style.opacity = 0.5;
+	document.getElementById("edit").style.display = "none";
+};
+
+// Méthode de déplacement dans le terrain de l'éditeur
+Mur.prototype.deplacer = function()
+{
+	this.oPosition.x = oPositionTouchArrivee.x;
+	this.oPosition.y = oPositionTouchArrivee.y;
+	this.oDiv.style.left = this.oPosition.x+"px";
+	this.oDiv.style.top = this.oPosition.y+"px";
+};
+
+// Méthode de suppression dans le terrain de l'éditeur
+Mur.prototype.supprimer = function()
+{
+	oEditeur.oTerrainEditeur.aListeMurs.unset(this);
+};
 
 // Méthode de reset
 Mur.prototype.reset = function()
