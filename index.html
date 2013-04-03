@@ -63,13 +63,13 @@
 			
 			<div id="mode-game" class="overlay page" style="display: none;">
 				<span class="overlay-title">Roll it !</span>
-				<div id="button-new-level-normal" class="button-green">
+				<div id="button-new-level-normal" class="button-green txt-langue" data-lang="baselevel">
 					Niveau de base
 				</div>
-				<div id="button-menu-level-online" class="button-red">
+				<div id="button-menu-level-online" class="button-red txt-langue" data-lang="onlinelevel">
 					Niveau en ligne
 				</div>
-				<div id="button-new-level-custom" class="button-yellow">
+				<div id="button-new-level-custom" class="button-yellow txt-langue" data-lang="customlevel">
 					Niveau perso
 				</div>
 				
@@ -81,13 +81,15 @@
 			<div id="mode-game-online" class="overlay page" style="display: none;">
 				<span class="overlay-title">Roll it !</span>
 				<div id="form-level-online">
-					<span>Veuillez saisir l'identifiant du niveau que vous souhaitez ajouter à votre jeu.</span>
+					<span class="txt-langue" data-lang="txtonlinelevel">
+						Veuillez saisir l'identifiant du niveau que vous souhaitez ajouter à votre jeu.
+					</span>
 					<input id="id-level-online" type="text" value="" /><br />
-					<div id="submit-level-online" class="button-green">
+					<div id="submit-level-online" class="button-green txt-langue" data-lang="download">
 						Télécharger
 					</div>
 				</div>
-				<div id="button-new-level-online" class="button-red">
+				<div id="button-new-level-online" class="button-red txt-langue" data-lang="onlinelevel">
 					Niveau en ligne
 				</div>
 				<div class="button-menu button-blue txt-langue" data-lang="menu">
@@ -134,8 +136,8 @@
 			
 			<div id="error" class="overlay page" style="display: none;">
 				<span class="overlay-title txt-langue" data-lang="impossible">Impossible !</span>
-				<div id="error-txt" class="txt-langue" data-lang="error">
-					Il faut au moins placer la bille et la croix d'arrivée.
+				<div id="error-txt" class="txt-langue" data-lang="impossibleeditor">
+					Il est nécessaire de placer la bille de départ et la croix d'arrivée.
 				</div>
 				<div class="button-resume button-green txt-langue" data-lang="resume">
 					Reprendre
@@ -168,16 +170,16 @@
 			</div>
 			
 			<div id="form-diamond" class="overlay page" style="display: none;">
-				<span class="overlay-title">Diamants</span>
-				<div>Couleur</div>
+				<span class="overlay-title txt-langue" data-lang="diamond">Diamants</span>
+				<div class="txt-langue" data-lang="color">Couleur</div>
 				<select id="color-diamond">
-					<option value="red">Rouge</option>
-					<option value="green">Vert</option>
-					<option value="blue">Bleu</option>
-					<option value="cyan">Cyan</option>
-					<option value="yellow">Jaune</option>
-					<option value="pink">Rose</option>
-					<option value="random">Aléatoire</option>
+					<option value="red" class="txt-langue" data-lang="red">Rouge</option>
+					<option value="green" class="txt-langue" data-lang="green">Vert</option>
+					<option value="blue" class="txt-langue" data-lang="blue">Bleu</option>
+					<option value="cyan" class="txt-langue" data-lang="cyan">Cyan</option>
+					<option value="yellow" class="txt-langue" data-lang="yellow">Jaune</option>
+					<option value="pink" class="txt-langue" data-lang="pink">Rose</option>
+					<option value="random" class="txt-langue" data-lang="random">Aléatoire</option>
 				</select>
 				<div class="button-resume button-green txt-langue" data-lang="resume">
 					Reprendre

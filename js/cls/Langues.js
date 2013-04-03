@@ -158,6 +158,166 @@ var dataLangue = {
 		"it": "Lingue",
 		"pl": "Języki",
 		"hr": "Nyelven"
+	},
+	"baselevel": {
+		"fr": "Niveau normal",
+		"uk": "Base level",
+		"es": "Nivel de base",
+		"pt": "Nível de base",
+		"de": "Basislevel",
+		"it": "Livello base",
+		"pl": "Podstawowy poziom",
+		"hr": "Base szint"
+	},
+	"onlinelevel": {
+		"fr": "Niveau en ligne",
+		"uk": "Online level",
+		"es": "Nivel de línea",
+		"pt": "Nível on-line",
+		"de": "Onlinelevel",
+		"it": "Livello di linea",
+		"pl": "Online poziom",
+		"hr": "Online szint"
+	},
+	"customlevel": {
+		"fr": "Niveau perso",
+		"uk": "Custom level",
+		"es": "Nivel perso",
+		"pt": "Nível perso",
+		"de": "Customlevel",
+		"it": "Livello personalizzato",
+		"pl": "Nível Personalizado",
+		"hr": "Egyéni szint"
+	},
+	"txtonlinelevel": {
+		"fr": "Veuillez saisir l'identifiant du niveau que vous souhaitez ajouter à votre jeu.",
+		"uk": "Please enter the identifier of the level you want to add to your game.",
+		"es": "Por favor introduce el identificador del nivel que usted desea agregar a su juego.",
+		"pt": "Por favor, insira o identificador do nível que você deseja adicionar ao seu jogo.",
+		"de": "Bitte geben Sie die Kennung des gewünschten Pegel zu Ihrem Spiel hinzufügen.",
+		"it": "Si prega di inserire l'identificatore del livello che si desidera aggiungere al vostro gioco.",
+		"pl": "Wprowadź identyfikator poziomu, który chcesz dodać do swojej gry.",
+		"hr": "Kérjük, adja meg azonosítóját szintet szeretne felvenni a játék."
+	},
+	"download": {
+		"fr": "Télécharger",
+		"uk": "Download",
+		"es": "Descargar",
+		"pt": "Baixar",
+		"de": "Herunterladen",
+		"it": "Scarica",
+		"pl": "Pobierz",
+		"hr": "Letöltés"
+	},
+	"impossible": {
+		"fr": "Impossible !",
+		"uk": "Impossible !",
+		"es": "Imposible !",
+		"pt": "Impossível !",
+		"de": "Impossible !",
+		"it": "Impossible !",
+		"pl": "Niemożliwy",
+		"hr": "Lehetetlen"
+	},
+	"impossibleeditor": {
+		"fr": "Il est nécessaire de placer la bille de départ et la croix d'arrivée.",
+		"uk": "It is necessary to place the ball crosses the start and finish.",
+		"es": "Es necesario colocar el balón cruza la salida y la llegada.",
+		"pt": "É necessário colocar a bola atravessa o início e fim.",
+		"de": "Es ist notwendig, legen der Ball über die Start-Zielgerade.",
+		"it": "E 'necessario posizionare la palla attraversa la partenza e l'arrivo.",
+		"pl": "Konieczne jest to kulka przecina rozpoczęcia i zakończenia.",
+		"hr": "Meg kell, hogy helyezze a labda átmegy a rajt és a cél."
+	},
+	"random": {
+		"fr": "Aléatoire",
+		"uk": "Random",
+		"es": "Azar",
+		"pt": "Acaso",
+		"de": "Zufällig",
+		"it": "Casuale",
+		"pl": "Przypadkowy",
+		"hr": "Véletlen"
+	},
+	"diamond": {
+		"fr": "Diamant",
+		"uk": "Diamond",
+		"es": "Diamante",
+		"pt": "Diamante",
+		"de": "Diamant",
+		"it": "Diamante",
+		"pl": "Diament",
+		"hr": "Gyémánt"
+	},
+	"color": {
+		"fr": "Couleur",
+		"uk": "Color",
+		"es": "Color",
+		"pt": "Cor",
+		"de": "Farbe",
+		"it": "Colore",
+		"pl": "Kolor",
+		"hr": "Szín"
+	},
+	"red": {
+		"fr": "Rouge",
+		"uk": "Red",
+		"es": "Rojo",
+		"pt": "Vermelho",
+		"de": "Rot",
+		"it": "Rosso",
+		"pl": "Czerwony",
+		"hr": "Piros"
+	},
+	"green": {
+		"fr": "Vert",
+		"uk": "Green",
+		"es": "Verde",
+		"pt": "Verde",
+		"de": "Grün",
+		"it": "Verde",
+		"pl": "Zielony",
+		"hr": "Zöld"
+	},
+	"blue": {
+		"fr": "Bleue",
+		"uk": "Blue",
+		"es": "Azul",
+		"pt": "Azul",
+		"de": "Blau",
+		"it": "Blu",
+		"pl": "Niebieski",
+		"hr": "Kék"
+	},
+	"cyan": {
+		"fr": "Cyan",
+		"uk": "Cyan",
+		"es": "Cian",
+		"pt": "Ciano",
+		"de": "Cyan",
+		"it": "Ciano",
+		"pl": "Cyan",
+		"hr": "Ciánkék"
+	},
+	"yellow": {
+		"fr": "Jaune",
+		"uk": "Yellow",
+		"es": "Amarillo",
+		"pt": "Amarelo",
+		"de": "Gelb",
+		"it": "Giallo",
+		"pl": "Zółty",
+		"hr": "Sárga"
+	},
+	"pink": {
+		"fr": "Rose",
+		"uk": "Pink",
+		"es": "Rosa",
+		"pt": "Rosa",
+		"de": "Pink",
+		"it": "Rosa",
+		"pl": "Różowy",
+		"hr": "Rózsaszín"
 	}
 };
 
