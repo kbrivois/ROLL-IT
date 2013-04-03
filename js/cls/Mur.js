@@ -3,11 +3,11 @@ function Mur(oPositionTemp, iLargeurTemp, iHauteurTemp, bRepousseTemp)
 	// Element HTML du mur
 	this.oDiv = "";
 	// Position
-	this.oPosition = new Point(parseFloat((oPositionTemp.x*fRatioLargeur).toFixed(3)),  parseFloat((oPositionTemp.y*fRatioLargeur).toFixed(3)));
+	this.oPosition = new Point(parseFloat((oPositionTemp.x*fRatio).toFixed(3)),  parseFloat((oPositionTemp.y*fRatio).toFixed(3)));
 	// Largeur
-	this.iLargeur = parseFloat((iLargeurTemp*fRatioLargeur).toFixed(3));
+	this.iLargeur = parseFloat((iLargeurTemp*fRatio).toFixed(3));
 	// Hauteur
-	this.iHauteur =  parseFloat((iHauteurTemp*fRatioLargeur));
+	this.iHauteur =  parseFloat((iHauteurTemp*fRatio));
 	// Mur qui repousse ou non
 	this.bRepousse = bRepousseTemp;
 	// Force de répulsion des murs qui repoussent

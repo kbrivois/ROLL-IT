@@ -3,13 +3,13 @@ function Diamant(oPositionTemp, sImageTemp)
 	// Element HTML du Diamant
 	this.oDiv = "";
 	// Position
-	this.oPositionDepart = new Point(oPositionTemp.x * fRatioLargeur, oPositionTemp.y * fRatioHauteur);
+	this.oPositionDepart = new Point(oPositionTemp.x * fRatio, oPositionTemp.y * fRatio);
 	// Position
-	this.oPosition = new Point(oPositionTemp.x * fRatioLargeur, oPositionTemp.y * fRatioHauteur);
+	this.oPosition = new Point(oPositionTemp.x * fRatio, oPositionTemp.y * fRatio);
 	// taille de depart du diamant
-	this.iTailleDepart = 15 * ((fRatioLargeur + fRatioHauteur) / 2);
+	this.iTailleDepart = 15 * fRatio;
 	// taille du diamant
-	this.iTaille = 15 * ((fRatioLargeur + fRatioHauteur) / 2);
+	this.iTaille = 15 * fRatio;
 	// image du diamant
 	this.sImage = sImageTemp;
 	// sert pour l'animation du diamant
@@ -131,12 +131,12 @@ Diamant.prototype.verifierCollision = function()
 // Méthode qui anime le diamant
 Diamant.prototype.animer = function()
 {
-	var iPas = 0.5 * ((fRatioLargeur + fRatioHauteur) / 2);;
+	var iPas = 0.5 * fRatio;
 	
 	// si le diamant n'a pas été attrapé
 	// if(!this.bDisparaitre) {
-		// var iTailleMax = this.iTailleDepart + 4*((fRatioLargeur+fRatioHauteur)/2);;
-		// var iTailleMin = this.iTailleDepart - 2*((fRatioLargeur+fRatioHauteur)/2);;
+		// var iTailleMax = this.iTailleDepart + 4 * fRatio;
+		// var iTailleMin = this.iTailleDepart - 2 * fRatio;
 		
 		// // on l'agrandi
 		// if(this.iTaille < iTailleMax && this.bAgrandir) {
@@ -165,8 +165,8 @@ Diamant.prototype.animer = function()
 		
 		this.fOpacite -= 0.06;
 		this.iTaille += iPas * 5;
-		this.oPosition.x -= iPas * 5/2;
-		this.oPosition.y -= iPas * 5/2;
+		this.oPosition.x -= iPas * 5 / 2;
+		this.oPosition.y -= iPas * 5 / 2;
 		
 		this.oDiv.style.width = this.iTaille + "px";
 		this.oDiv.style.height = this.iTaille + "px";

@@ -65,7 +65,7 @@ function Terrain(sMode)
 		}
 		
 		// ************************* Arrivee
-		this.oArrivee = new Arrivee(new Point(oNiveau.arrivee.x*fRatioLargeur,oNiveau.arrivee.y*fRatioHauteur));
+		this.oArrivee = new Arrivee(new Point(oNiveau.arrivee.x * fRatio,oNiveau.arrivee.y * fRatio));
 	}
 	// si c'est l'éditeur qui a été lancé
 	else {
@@ -80,7 +80,7 @@ function Terrain(sMode)
 		
 		// ************************* Liste des trous
 		this.aListeTrous = new Array();
-		this.iTailleTrous = 17*((fRatioLargeur+fRatioHauteur)/2);
+		this.iTailleTrous = 17 * fRatio;
 		
 		// ************************* Liste des trappes
 		this.aListeTrappes = new Array();

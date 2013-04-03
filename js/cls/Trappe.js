@@ -5,7 +5,7 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	// Liste des elements HTML images de la trappe
 	this.aListeImgHTML = new Array();
 	// Position
-	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
+	this.oPosition = new Point(oPositionTemp.x * fRatio, oPositionTemp.y * fRatio);
 	// Temps d'ouverture et de fermeture
 	if(iTempsOFTemp<1000)
 		this.iTempsOF = 1000;
@@ -33,7 +33,7 @@ function Trappe(oPositionTemp, iTempsOFTemp, bOuvertTemp)
 	// Then des images de la trappes afin de les faire défiler au bon moment
 	this.iThenImages = Date.now();
 	// taille de la trappe
-	this.iTaille = 15*fRatioHauteur;
+	this.iTaille = 15 * fRatio;
 	// Animer ou non la trappe (ouverture et fermeture)
 	this.bAnimer = false;
 };

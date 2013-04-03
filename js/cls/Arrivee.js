@@ -5,7 +5,7 @@ function Arrivee(oPositionTemp)
 	// Position
 	this.oPosition = new Point(oPositionTemp.x,oPositionTemp.y);
 	// Taille
-	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
+	this.iTaille = 15 * fRatio;
 	// Variable à true quand la bille peut être tracer dans l'éditeur (pas sur un mur ou un vide)
 	this.bTraceDansEditeur = true;
 };

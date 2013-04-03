@@ -163,13 +163,15 @@ function changerLangue() {
 // On teste le téléchargement d'un niveau avec l'id de l'utilisateur
 function telechargerNiveau() {
 	var key = document.getElementById("id-level-online").value;
-
+	
 	if(key) {
-		var reponseHTTP = valeurURL("http://www.aymeric-auberton.fr/projets/dll/test.php?k=" + key);
+		var urlServeur = "http://aymeric-auberton.fr/projets/dll/test.php?k=" + key;
+		valeurURL(urlServeur);
+		console.log(valeurURL);
 		
 		if(valeurURL != 0) {
 			// Enregistrer le niveau dans la bonne variable de LocalStorage
-			enregistrerNiveauOnline(reponseHTTP);
+			enregistrerNiveauOnline(valeurURL);
 		} else {
 			alert("Aucun niveau n'est associé à cette identifiant");
 		}
@@ -180,7 +182,7 @@ function telechargerNiveau() {
 }
 
 // s'il y a un mouse ou un touch down sur le terrain de l'éditeur
-function eventDownSurTerrain() {
+function eventDownSurTerrain(event) {
 	if(!oEditeur.bEnModeJeu) {
 		var eventObj = isTouchSupported ? event.touches[0] : event;
 		oEditeur.bEventDown = true;
@@ -197,7 +199,7 @@ function eventDownSurTerrain() {
 }
 
 // s'il y a un mouse ou un touch move sur le terrain de l'éditeur
-function eventMoveSurTerrain() {
+function eventMoveSurTerrain(event) {
 	if(!oEditeur.bEnModeJeu) {
 		var eventObj = isTouchSupported ? event.touches[0] : event;
 		if(oEditeur.bEventDown) {
@@ -227,7 +229,7 @@ function eventMoveSurTerrain() {
 }
 
 // s'il y a un mouse ou un touch up sur le terrain de l'éditeur
-function eventUpSurTerrain() {
+function eventUpSurTerrain(event) {
 	if(!oEditeur.bEnModeJeu) {
 		var eventObj = isTouchSupported ? event.touches[0] : event;
 		oEditeur.bEventDown = false;
@@ -252,7 +254,7 @@ function eventUpSurTerrain() {
 }
 
 // s'il y a un mouse ou un touch down sur le bouton delete de l'éditeur
-function eventDownSurBoutonDelete() {
+function eventDownSurBoutonDelete(event) {
 	var oElementSelectionne = oEditeur.oElementSelectionne;
 
 	document.getElementById("move").style.backgroundColor = "rgb(230,230,230)";
@@ -277,7 +279,7 @@ function eventDownSurBoutonMove() {
 }
 
 // s'il y a un mouse ou un touch down sur le bouton edit de l'éditeur
-function eventDownSurBoutonEdit() {
+function eventDownSurBoutonEdit(event) {
 	if(!oEditeur.bElementEnModification) {
 		document.getElementById("move").style.backgroundColor = "rgb(230,230,230)";
 		oEditeur.oElementSelectionne.modifier();

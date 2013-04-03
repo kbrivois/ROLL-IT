@@ -28,13 +28,12 @@ MenuNiveaux.prototype.tracer = function()
 		oDivItemMenu.className = "level-item";
 		oDivShowItemMenu.appendChild(oDivItemMenu);
 		oDivItemMenu.style.height = oDivItemMenu.offsetHeight + "px";
-		oDivItemMenu.style.width = eval(oDivItemMenu.style.height.replace("px","")) * fRatioLargeurHauteur + "px";
+		oDivItemMenu.style.width = eval(oDivItemMenu.style.height.replace("px","")) * fRatioLH + "px";
 		oDivItemMenu.style.border = "1px solid black";
 		oDivItemMenu.style.borderRadius = "6px";
 		
 		// ratio selon la taille de la vignette
-		fRatioHauteur = eval(oDivItemMenu.style.height.replace("px","")) / iHauteurDeBase;
-		fRatioLargeur = fRatioHauteur;
+		fRatio = eval(oDivItemMenu.style.height.replace("px","")) / iHauteurDeBase;
 		
 		// murs
 		for(var j=0; j<this.aListeNiveaux[i].murs.length; j++) {
@@ -81,10 +80,10 @@ MenuNiveaux.prototype.tracer = function()
 		var oArrivee = document.createElement("img");
 		oArrivee.className = "arrivee";
 		oArrivee.style.position = "absolute";
-		oArrivee.style.left = oArriveeTemp.x*fRatioLargeur + "px";
-		oArrivee.style.top = oArriveeTemp.y*fRatioHauteur + "px";
-		oArrivee.style.width = 15 * ((fRatioLargeur+fRatioHauteur) / 2) + "px";
-		oArrivee.style.height = 15 * ((fRatioLargeur+fRatioHauteur) / 2) + "px";
+		oArrivee.style.left = oArriveeTemp.x * fRatio + "px";
+		oArrivee.style.top = oArriveeTemp.y * fRatio + "px";
+		oArrivee.style.width = 15 * fRatio + "px";
+		oArrivee.style.height = 15 * fRatio + "px";
 		oArrivee.src = "img/croix.png";
 		oDivItemMenu.appendChild(oArrivee);
 		
@@ -95,7 +94,7 @@ MenuNiveaux.prototype.tracer = function()
 
 		// ajout de l'événement sur le clic de la vignette
 		(function(i) {
-			oDivItemMenu.addEventListener(endEvent, function() { if(!touchMove){creerPartie(i)} }, false);
+			oDivItemMenu.addEventListener(endEvent, function() { if(!bTouchMove){creerPartie(i)} }, false);
 		})(i);
 
 		// texte

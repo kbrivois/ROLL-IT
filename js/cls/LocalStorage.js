@@ -97,30 +97,18 @@ function langueJoueur() {
 	}
 }
 
-// Retourne les niveaux téléchargés pour les menus ou pour stocker
-function chargerNiveauxOnline(menu) {
-	if(menu)
-		var online = JSON.parse(localStorage.getItem('rollit-online'));
-	else
-		var online = localStorage.getItem('rollit-online');
-	
-	if(online)
-		return online;
-	else
-		return null;
+// Retourne les niveaux téléchargés
+function chargerNiveauxOnline() {
+	return JSON.parse(localStorage.getItem('rollit-online'));
 }
 
 // Enregistrer le niveau télécharger du serveur
 function enregistrerNiveauOnline(niveauOnline) {
-	aListeNiveauxEnLigne.push(JSON.parse(niveauOnline));
-	var niveauxOnline = chargerNiveauxOnline(0);
+	var niveauxOnline = chargerNiveauxOnline();
 	if(niveauxOnline) {
-		// Récupérer les niveaux déjà enregistrés et ajouter à la fin le nouveau
-		niveauxOnline = niveauxOnline.slice(0, -1)
-		var online = niveauxOnline + ", " + niveauOnline + "]";
-		localStorage.setItem('rollit-online', online);
+		// Récupérer les niveaux déjà enregistrés et ajouter en plus le nouveau
+		localStorage.setItem('rollit-online', niveauxOnline);
 	} else {
-		var niveauOnline = "[" + niveauOnline + "]";
 		localStorage.setItem('rollit-online', niveauOnline);	
 	}
 }

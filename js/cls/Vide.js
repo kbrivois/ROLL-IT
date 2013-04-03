@@ -3,11 +3,11 @@ function Vide(oPositionTemp, iLargeurTemp, iHauteurTemp)
 	// Element HTML du Vide
 	this.oDiv = "";
 	// Position
-	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
+	this.oPosition = new Point(oPositionTemp.x * fRatio, oPositionTemp.y * fRatio);
 	// Largeur
-	this.iLargeur = iLargeurTemp*fRatioLargeur;
+	this.iLargeur = iLargeurTemp * fRatio;
 	// Hauteur
-	this.iHauteur = iHauteurTemp*fRatioHauteur;
+	this.iHauteur = iHauteurTemp * fRatio;
 	// Taille des bords
 	this.iTailleBords = 1;
 };
@@ -28,7 +28,7 @@ Vide.prototype.tracer = function(oDivTerrain)
 	oVide.style.width = this.iLargeur+"px";
 	oVide.style.height = this.iHauteur+"px";
 	
-	oVide.style.borderTop = 7*fRatioLargeur+"px solid rgb(80,80,80)";
+	oVide.style.borderTop = 7*fRatio+"px solid rgb(80,80,80)";
 	oVide.style.zIndex = 0;
 	
 	oDivTerrain.appendChild(oVide);

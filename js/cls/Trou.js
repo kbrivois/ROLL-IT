@@ -3,9 +3,9 @@ function Trou(oPositionTemp)
 	// Element HTML du trou
 	this.oDiv = "";
 	// Position
-	this.oPosition = new Point(oPositionTemp.x*fRatioLargeur, oPositionTemp.y*fRatioHauteur);
+	this.oPosition = new Point(oPositionTemp.x * fRatio, oPositionTemp.y * fRatio);
 	// taille du trou
-	this.iTaille = 15*((fRatioLargeur+fRatioHauteur)/2);
+	this.iTaille = 15 * fRatio;
 };
 
 // On dessine la trappe

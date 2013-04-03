@@ -2,11 +2,11 @@ function GroupeProjectiles(oPositionDepartTemp, oPositionArriveeTemp, fVitesseTe
 {  
 	if(oPositionDepartTemp != null && oPositionArriveeTemp != null && fVitesseTemp  != null && iDistanceEntreProjectilesTemp  != null) {
 		// Vitesse
-		this.fVitesse = fVitesseTemp*((fRatioLargeur+fRatioHauteur)/2);
+		this.fVitesse = fVitesseTemp * fRatio;
 		// Position de départ
-		this.oPositionDepart = new Point(oPositionDepartTemp.x*fRatioLargeur, oPositionDepartTemp.y*fRatioHauteur);
+		this.oPositionDepart = new Point(oPositionDepartTemp.x * fRatio, oPositionDepartTemp.y * fRatio);
 		// Position d'arrivée
-		this.oPositionArrivee = new Point(oPositionArriveeTemp.x*fRatioLargeur, oPositionArriveeTemp.y*fRatioHauteur);
+		this.oPositionArrivee = new Point(oPositionArriveeTemp.x * fRatio, oPositionArriveeTemp.y * fRatio);
 		// Vecteur direction
 		this.oVecteurDirection = new Point(	this.oPositionArrivee.x - this.oPositionDepart.x,
 											this.oPositionArrivee.y - this.oPositionDepart.y);
@@ -14,7 +14,7 @@ function GroupeProjectiles(oPositionDepartTemp, oPositionArriveeTemp, fVitesseTe
 		this.oDeplacement = new Point(0,0);
 		this.calculerDeplacement();
 		// Temps entre chaque projectile de la liste
-		iDistanceEntreProjectilesTemp = iDistanceEntreProjectilesTemp*((fRatioLargeur+fRatioHauteur)/2);
+		iDistanceEntreProjectilesTemp = iDistanceEntreProjectilesTemp * fRatio;
 		if(iDistanceEntreProjectilesTemp >= distance(this.oPositionDepart, this.oPositionArrivee))
 			this.iDistanceEntreProjectiles = distance(this.oPositionDepart, this.oPositionArrivee) - distance(new Point(0,0), this.oDeplacement) - 10; // --> marge
 		else

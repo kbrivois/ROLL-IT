@@ -3,9 +3,9 @@ function Bille(oPositionDepartTemp)
 	// Element sphere
 	this.oDiv = "";
 	// Position de la bille
-	this.oPositionDepart = new Point(oPositionDepartTemp.x * fRatioLargeur,oPositionDepartTemp.y * fRatioLargeur);
-	this.oPositionPrecedente = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
-	this.oPosition = new Point(this.oPositionDepart.x,this.oPositionDepart.y);
+	this.oPositionDepart = new Point(oPositionDepartTemp.x * fRatio, oPositionDepartTemp.y * fRatio);
+	this.oPositionPrecedente = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
+	this.oPosition = new Point(this.oPositionDepart.x, this.oPositionDepart.y);
 	// Vitesse
 	this.fVitesseX = 0;
 	this.fVitesseY = 0; 
@@ -13,8 +13,8 @@ function Bille(oPositionDepartTemp)
 	this.fAccelerationX = 0;
 	this.fAccelerationY = 0; 
 	// Taille
-	this.iTailleDepart = 15 * fRatioLargeur;
-	this.iTaille = 15 * fRatioLargeur;
+	this.iTailleDepart = 15 * fRatio;
+	this.iTaille = 15 * fRatio;
 	// Variable à true quand la balle tombe dans un trou
 	this.bTombeDansTrou = false;
 	// Variable à true quand la bille peut être tracer dans l'éditeur (pas sur un mur ou un vide)
@@ -117,8 +117,8 @@ Bille.prototype.rouler = function()
 	this.fVitesseX = this.fVitesseX * this.fCoefficientVitesse;
 	this.oPositionPrecedente.y = this.oPosition.y;
 	this.oPositionPrecedente.x = this.oPosition.x;
-	this.oPosition.y = this.oPosition.y + (this.fVitesseY / 50)  * fRatioLargeur;
-	this.oPosition.x = this.oPosition.x + (this.fVitesseX / 50)  * fRatioLargeur;
+	this.oPosition.y = this.oPosition.y + (this.fVitesseY / 50) * fRatio;
+	this.oPosition.x = this.oPosition.x + (this.fVitesseX / 50) * fRatio;
 	this.verifierCollisions();
 	this.oDiv.style.top = this.oPosition.y + "px";
 	this.oDiv.style.left = this.oPosition.x + "px";
@@ -131,7 +131,7 @@ Bille.prototype.tomber = function()
 
 	// tant que la bille n'a pas fini sa chute
 	if(this.iTaille > 0) {
-		var fPas = 0.3 * fRatioLargeur;
+		var fPas = 0.3 * fRatio;
 		this.iTaille -= fPas;
 		this.oPosition.y += fPas / 2;
 		this.oPosition.x += fPas / 2;

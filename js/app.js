@@ -15,8 +15,8 @@ var oPositionTouchDepart = new Point(0,0);
 var oPositionTouchArrivee = new Point(0,0);
 
 // variables qui permettent de savoir s'il y a eu un touch ou click move ou down
-var touchDown = false;
-var touchMove = false;
+var bTouchDown = false;
+var bTouchMove = false;
 
 // Partie
 var oPartie = null;
@@ -33,15 +33,14 @@ var oModeEnCours = null;
 // Largeur et hauteur qui vont nous servir pour calculer les ratio selon les différentes tailles d'écran
 var iLargeurDeBase = 320;
 var iHauteurDeBase = 400;
-var fRatioLargeurHauteur = iLargeurDeBase/iHauteurDeBase;
-var fLargeurA_Retenir = (document.documentElement.clientHeight-25) * fRatioLargeurHauteur;
+var fRatioLH = iLargeurDeBase/iHauteurDeBase;
+var fLargeurA_Retenir = (document.documentElement.clientHeight-25) * fRatioLH;
 var fHauteurA_Retenir = document.documentElement.clientHeight-25;
-if(document.documentElement.clientWidth/fHauteurA_Retenir < fRatioLargeurHauteur) {
+if(document.documentElement.clientWidth/fHauteurA_Retenir < fRatioLH) {
 	var fLargeurA_Retenir = document.documentElement.clientWidth;
-	var fHauteurA_Retenir = document.documentElement.clientWidth / fRatioLargeurHauteur;
+	var fHauteurA_Retenir = document.documentElement.clientWidth / fRatioLH;
 }
-var fRatioLargeur = fLargeurA_Retenir / iLargeurDeBase;
-var fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
+var fRatio = fLargeurA_Retenir / iLargeurDeBase;
 
 // on change le style du "content"
 var oElemContent = document.getElementById("content");
@@ -52,9 +51,7 @@ oElemContent.style.marginTop = (document.documentElement.clientHeight/2 - oElemC
 // Les différents niveaux (de base, perso, en ligne)
 var aListeNiveaux = chargerNiveaux();
 var aListeNiveauxPerso /*= chargerNiveauxPerso()*/;
-var aListeNiveauxEnLigne = chargerNiveauxOnline(1);
-if(aListeNiveauxEnLigne == null)
-	aListeNiveauxEnLigne = new Array();
+var aListeNiveauxEnLigne /*= chargerNiveauxEnLigne()*/;
 var aListeNiveauxEnCours = null;
 var iNiveauSelectionne = 0;
 
@@ -98,9 +95,9 @@ window.addEventListener(orientationEvent, function() {
 
 // Evénement qui va permettre de savoir s'il y a eu un touch down move ou up
 if(isTouchSupported) {
-	document.body.addEventListener(startEvent, function(){touchDown = true;}, false);
-	document.body.addEventListener(moveEvent, function(){touchMove = true;}, false);
-	document.body.addEventListener(endEvent, function(){touchDown = false; touchMove = false;}, false);
+	document.body.addEventListener(startEvent, function(){bTouchDown = true;}, false);
+	document.body.addEventListener(moveEvent, function(){bTouchMove = true;}, false);
+	document.body.addEventListener(endEvent, function(){bTouchDown = false; bTouchMove = false;}, false);
 }
 
 // ====== Partie ====== //
@@ -190,8 +187,7 @@ var initMenu = function(aListeNiveauxTemp)
 var initPartie = function() 
 {
 	// Les ratios selon la taille de l'écran
-	fRatioLargeur = fLargeurA_Retenir / iLargeurDeBase;
-	fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
+	fRatio = fLargeurA_Retenir / iLargeurDeBase;
 	
 	oPartie = new Partie();
 	appelerAccelerometre();
@@ -204,8 +200,7 @@ var initPartie = function()
 var initEditeur = function() 
 {
 	// Les ratios selon la taille de l'écran
-	fRatioLargeur = fLargeurA_Retenir / iLargeurDeBase;
-	fRatioHauteur = fHauteurA_Retenir / iHauteurDeBase;
+	fRatio = fLargeurA_Retenir / iLargeurDeBase;
 	
 	oEditeur = new Editeur();
 	
