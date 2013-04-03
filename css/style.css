@@ -201,6 +201,26 @@ body {
 }
 
 /* BUTTONS */
+/*page accueil*/
+#hp #button-editor, #hp #button-languages {
+	margin-top: 35px;
+}
+/*choix du mode*/
+#mode-game #button-menu-level-online, #mode-game #button-new-level-custom {
+	margin-top: 30px;
+}
+#mode-game .button-menu {
+	margin-top: 50px;
+}
+/*pause*/
+#pause #button-save-level, #pause .button-menu {
+	margin-top: 35px;
+}
+/*win*/
+#win #button-next-level, #win .button-menu {
+	margin-top: 35px;
+}
+
 .button-green {
 	width: 135px;
 	height: 31px;
