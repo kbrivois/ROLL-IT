@@ -427,7 +427,7 @@ var oNiveauxDonnees = [
 	{
 		"numero": 6,
 		"bille": {"x": 0, "y": 0},
-		"arrivee": {"x": 5, "y": 15},
+		"arrivee": {"x": 5, "y": 5},
 		"murs": 
 			[
 				{"x": 25, "y": 30, "largeur": 25, "hauteur": 25, "repousse": true},
@@ -477,29 +477,58 @@ var oNiveauxDonnees = [
 			],
 		"diamants": 
 			[
-				{"x": 30, "y": 60, "image": "img/d-yellow.png"},
-				{"x": 95, "y": 60, "image": "img/d-green.png"},
-				{"x": 155, "y": 60, "image": "img/d-cyan.png"},
-				{"x": 215, "y": 60, "image": "img/d-blue.png"},
-				{"x": 275, "y": 60, "image": "img/d-red.png"},
+				{"x": 30, "y": 60, "image": diamantsAleatoires()},
+				{"x": 95, "y": 60, "image": diamantsAleatoires()},
+				{"x": 155, "y": 60, "image": diamantsAleatoires()},
+				{"x": 215, "y": 60, "image": diamantsAleatoires()},
+				{"x": 275, "y": 60, "image": diamantsAleatoires()},
 				
-				{"x": 30, "y": 120, "image": "img/d-pink.png"},
-				{"x": 95, "y": 120, "image": "img/d-green.png"},
-				{"x": 155, "y": 120, "image": "img/d-cyan.png"},
-				{"x": 215, "y": 120, "image": "img/d-blue.png"},
-				{"x": 275, "y": 120, "image": "img/d-red.png"},
+				{"x": 30, "y": 120, "image": diamantsAleatoires()},
+				{"x": 95, "y": 120, "image": diamantsAleatoires()},
+				{"x": 155, "y": 120, "image": diamantsAleatoires()},
+				{"x": 215, "y": 120, "image": diamantsAleatoires()},
+				{"x": 275, "y": 120, "image": diamantsAleatoires()},
 				
-				{"x": 30, "y": 270, "image": "img/d-yellow.png"},
-				{"x": 95, "y": 270, "image": "img/d-green.png"},
-				{"x": 155, "y": 270, "image": "img/d-cyan.png"},
-				{"x": 215, "y": 270, "image": "img/d-blue.png"},
-				{"x": 275, "y": 270, "image": "img/d-red.png"},
+				{"x": 30, "y": 270, "image": diamantsAleatoires()},
+				{"x": 95, "y": 270, "image": diamantsAleatoires()},
+				{"x": 155, "y": 270, "image": diamantsAleatoires()},
+				{"x": 215, "y": 270, "image": diamantsAleatoires()},
+				{"x": 275, "y": 270, "image": diamantsAleatoires()},
 				
-				{"x": 30, "y": 330, "image": "img/d-pink.png"},
-				{"x": 95, "y": 330, "image": "img/d-green.png"},
-				{"x": 155, "y": 330, "image": "img/d-cyan.png"},
-				{"x": 215, "y": 330, "image": "img/d-blue.png"},
-				{"x": 275, "y": 330, "image": "img/d-red.png"}
+				{"x": 30, "y": 330, "image": diamantsAleatoires()},
+				{"x": 95, "y": 330, "image": diamantsAleatoires()},
+				{"x": 155, "y": 330, "image": diamantsAleatoires()},
+				{"x": 215, "y": 330, "image": diamantsAleatoires()},
+				{"x": 275, "y": 330, "image": diamantsAleatoires()}
+			],
+		"groupesProjectiles": []
+	},
+	{
+		"numero": 7,
+		"bille": {"x": 45, "y": 0},
+		"arrivee": {"x": 45, "y": 0},
+		"murs": [],
+		"vides": 
+			[
+				{"x": 0, "y": 0, "largeur": 30, "hauteur": 400},
+				{"x": 70, "y": 0, "largeur": 260, "hauteur": 60},
+				{"x": 30, "y": 100, "largeur": 110, "hauteur": 60},
+				{"x": 180, "y": 0, "largeur": 150, "hauteur": 220},
+				{"x": 70, "y": 200, "largeur": 250, "hauteur": 60},
+				{"x": 0, "y": 300, "largeur": 230, "hauteur": 40},
+				{"x": 270, "y": 260, "largeur": 50, "hauteur": 150},
+				{"x": 30, "y": 380, "largeur": 250, "hauteur": 20}
+			],
+		"trous": [],
+		"trappes": [],
+		"diamants":
+			[
+				{"x": 42, "y": 75, "image": "img/d-yellow.png"},
+				{"x": 42, "y": 175, "image": "img/d-pink.png"},
+				{"x": 152, "y": 175, "image": "img/d-red.png"},
+				{"x": 42, "y": 277, "image": "img/d-blue.png"},
+				{"x": 242, "y": 277, "image": "img/d-cyan.png"},
+				{"x": 42, "y": 357, "image": "img/d-green.png"}
 			],
 		"groupesProjectiles": []
 	}
