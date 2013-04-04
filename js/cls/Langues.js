@@ -318,6 +318,86 @@ var dataLangue = {
 		"it": "Rosa",
 		"pl": "Różowy",
 		"hr": "Rózsaszín"
+	},
+	"trap": {
+		"fr": "Trappe",
+		"uk": "Trap",
+		"es": "Trampa",
+		"pt": "Armadilha",
+		"de": "Falle",
+		"it": "Trappola",
+		"pl": "Pułapka",
+		"hr": "Csapda"
+	},
+	"timetrap": {
+		"fr": "Temps d'ouverture et de fermeture (1000ms min)",
+		"uk": "Time of opening and closing (1000 ms min)",
+		"es": "Tiempo de apertura y cierre (1000 ms min)",
+		"pt": "Tempo de abertura e fechamento (1000 ms min)",
+		"de": "Zeitpunkt des Öffnens und Schließens (1000 ms min)",
+		"it": "Orario di apertura e chiusura (1000 ms min)",
+		"pl": "Tempo de abertura e fechamento (1000 ms min)",
+		"hr": "Időpontja nyitó és záró (1000 ms min)"
+	},
+	"statetrap": {
+		"fr": "Etat de la trappe au début de la partie",
+		"uk": "State of the flap at the beginning of the part",
+		"es": "Polvo solapa al comienzo de la parte",
+		"pt": "Aba de pó no início da parte",
+		"de": "Staubklappe zu Beginn des Teils",
+		"it": "Lembo parapolvere all'inizio della parte",
+		"pl": "Klapa pyłu na początku części",
+		"hr": "Por csappantyú elején a rész"
+	},
+	"open": {
+		"fr": "Ouvert",
+		"uk": "Open",
+		"es": "Abierto",
+		"pt": "Abrir",
+		"de": "Offnen",
+		"it": "Aperto",
+		"pl": "Otwarte",
+		"hr": "Nyitva"
+	},
+	"close": {
+		"fr": "Fermé",
+		"uk": "Close",
+		"es": "Cerrar",
+		"pt": "Fechar",
+		"de": "Schließen",
+		"it": "Chiudere",
+		"pl": "Zamknąć",
+		"hr": "Közeli"
+	},
+	"projectiles": {
+		"fr": "Projectiles",
+		"uk": "Projectiles",
+		"es": "Proyectiles",
+		"pt": "Projéteis",
+		"de": "Projektile",
+		"it": "Proiettili",
+		"pl": "Pociski",
+		"hr": "Lövedék"
+	},
+	"speedprojectiles": {
+		"fr": "Vitesse (1=lent, 5=rapide)",
+		"uk": "Speed ​​(1 = low, 5 = high)",
+		"es": "Speed ​​(1 = bajo, 5 = alto)",
+		"pt": "Velocidade (1 = baixo, 5 = alto)",
+		"de": "Speed ​​(1 = niedrig, 5 = hoch)",
+		"it": "Velocità (1 = basso, 5 = alto)",
+		"pl": "Prędkość (1 = niski, 5 = wysoki)",
+		"hr": "Speed ​​(1 = gyenge, 5 = magas)"
+	},
+	"distanceprojectiles": {
+		"fr": "Distance entre les projectiles",
+		"uk": "Distance between shots",
+		"es": "Distancia entre disparos",
+		"pt": "Distância entre tiros",
+		"de": "Entfernung zwischen den Aufnahmen",
+		"it": "Distanza tra gli scatti",
+		"pl": "Odległość między ujęciami",
+		"hr": "Távolság a felvételek között"
 	}
 };
 

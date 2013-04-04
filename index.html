@@ -145,13 +145,13 @@
 			</div>
 			
 			<div id="form-hatche" class="overlay page" style="display: none;">
-				<span class="overlay-title">Trappes</span>
-				<div>Temps d'ouverture et de fermeture (1000ms min)</div>
+				<span class="overlay-title txt-langue" data-lang="trap">Trappe</span>
+				<div class="txt-langue" data-lang="timetrap">Temps d'ouverture et de fermeture (1000ms min)</div>
 				<input id="time-hatche" type="text" value="" /><br />
-				<div>Etat de la trappe au début de la partie</div>
+				<div class="txt-langue" data-lang="statetrap">Etat de la trappe au début de la partie</div>
 				<select id="state-hatche">
-					<option value="true">Ouverte</option>
-					<option value="false">Fermée</option>
+					<option class="txt-langue" data-lang="open" value="true">Ouvert</option>
+					<option class="txt-langue" data-lang="close" value="false">Fermé</option>
 				</select>
 				<div class="button-resume button-green txt-langue" data-lang="resume">
 					Reprendre
@@ -159,10 +159,10 @@
 			</div>
 			
 			<div id="form-projectile" class="overlay page" style="display: none;">
-				<span class="overlay-title">Projectiles</span>
-				<div>Vitesse (1=lent, 5=rapide)</div>
+				<span class="overlay-title txt-langue" data-lang="projectiles">Projectiles</span>
+				<div class="txt-langue" data-lang="speedprojectiles">Vitesse (1=lent, 5=rapide)</div>
 				<input id="speed-projectiles" type="text" value="" /><br />
-				<div>Distance entre les projectiles</div>
+				<div class="txt-langue" data-lang="distanceprojectiles">Distance entre les projectiles</div>
 				<input id="state-projectiles" type="text" value="" /><br />
 				<div class="button-resume button-green txt-langue" data-lang="resume">
 					Reprendre
