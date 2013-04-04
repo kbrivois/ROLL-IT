@@ -442,17 +442,19 @@ var oNiveauxDonnees = [
 				{"x": 210, "y": 140, "largeur": 25, "hauteur": 25, "repousse": true},
 				{"x": 270, "y": 140, "largeur": 25, "hauteur": 25, "repousse": true},
 				
-				{"x": 25, "y": 220, "largeur": 25, "hauteur": 25, "repousse": true},
-				{"x": 90, "y": 220, "largeur": 25, "hauteur": 25, "repousse": true},
-				{"x": 150, "y": 220, "largeur": 25, "hauteur": 25, "repousse": true},
-				{"x": 210, "y": 220, "largeur": 25, "hauteur": 25, "repousse": true},
-				{"x": 270, "y": 220, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 25, "y": 240, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 90, "y": 240, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 150, "y": 240, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 210, "y": 240, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 270, "y": 240, "largeur": 25, "hauteur": 25, "repousse": true},
 				
-				{"x": 25, "y": 330, "largeur": 25, "hauteur": 25, "repousse": true},
-				{"x": 90, "y": 330, "largeur": 25, "hauteur": 25, "repousse": true},
-				{"x": 150, "y": 330, "largeur": 25, "hauteur": 25, "repousse": true},
-				{"x": 210, "y": 330, "largeur": 25, "hauteur": 25, "repousse": true},
-				{"x": 270, "y": 330, "largeur": 25, "hauteur": 25, "repousse": true}
+				{"x": 25, "y": 350, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 90, "y": 350, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 150, "y": 350, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 210, "y": 350, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 270, "y": 350, "largeur": 25, "hauteur": 25, "repousse": true},
+				
+				{"x": 20, "y": 185, "largeur": 300, "hauteur": 30, "repousse": false}
 				
 			],
 		"vides": [],
@@ -462,9 +464,17 @@ var oNiveauxDonnees = [
 				{"x": 95, "y": 90},
 				{"x": 155, "y": 90},
 				{"x": 215, "y": 90},
-				{"x": 275, "y": 90}
+				{"x": 275, "y": 90},
+				{"x": 30, "y": 300},
+				{"x": 95, "y": 300},
+				{"x": 155, "y": 300},
+				{"x": 215, "y": 300},
+				{"x": 275, "y": 300}
 			],
-		"trappes": [],
+		"trappes": 
+			[
+				{"x": 3, "y": 192, "tempsOuverture": 1500, "ouvert": false}
+			],
 		"diamants": 
 			[
 				{"x": 30, "y": 60, "image": "img/d-yellow.png"},
@@ -477,7 +487,19 @@ var oNiveauxDonnees = [
 				{"x": 95, "y": 120, "image": "img/d-green.png"},
 				{"x": 155, "y": 120, "image": "img/d-cyan.png"},
 				{"x": 215, "y": 120, "image": "img/d-blue.png"},
-				{"x": 275, "y": 120, "image": "img/d-red.png"}
+				{"x": 275, "y": 120, "image": "img/d-red.png"},
+				
+				{"x": 30, "y": 270, "image": "img/d-yellow.png"},
+				{"x": 95, "y": 270, "image": "img/d-green.png"},
+				{"x": 155, "y": 270, "image": "img/d-cyan.png"},
+				{"x": 215, "y": 270, "image": "img/d-blue.png"},
+				{"x": 275, "y": 270, "image": "img/d-red.png"},
+				
+				{"x": 30, "y": 330, "image": "img/d-pink.png"},
+				{"x": 95, "y": 330, "image": "img/d-green.png"},
+				{"x": 155, "y": 330, "image": "img/d-cyan.png"},
+				{"x": 215, "y": 330, "image": "img/d-blue.png"},
+				{"x": 275, "y": 330, "image": "img/d-red.png"}
 			],
 		"groupesProjectiles": []
 	}
