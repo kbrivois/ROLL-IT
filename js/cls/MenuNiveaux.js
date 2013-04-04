@@ -103,19 +103,29 @@ MenuNiveaux.prototype.tracer = function()
 		oDivTextItemMenu.className = "show-level-text";
 		oDivTextItemMenu.innerHTML = dataLangue['level'][joueurISO] + " " + (i + 1) + "<br /><span>" + record + "</span>";
 		oDivShowItemMenu.appendChild(oDivTextItemMenu);
+		
+		// Suppression
+		var oDivSupprimer = document.createElement("div");
+		oDivSupprimer.className = "delete-level";
+		oDivShowItemMenu.appendChild(oDivSupprimer);
+		
+		// Ajout de l'événement pour la suppresion du niveau
+		(function(i) {
+			oDivSupprimer.addEventListener(endEvent, function() { if(!bTouchMove){alert(1);} }, false);
+		})(i);
 	}
 
 	// on calcul la taille que doit avoir le conteneur des vignettes
-	document.getElementById("select-level").style.width = fLargeurA_Retenir+"px";
+	document.getElementById("select-level").style.width = fLargeurA_Retenir + "px";
 	var iLargeur = 0;
 	
-	document.getElementById("show-level").style.width = this.aListeVignettes[0].offsetWidth*this.aListeVignettes.length*2+"px";
+	document.getElementById("show-level").style.width = this.aListeVignettes[0].offsetWidth*this.aListeVignettes.length * 2 + "px";
 	
-	iLargeur = this.aListeVignettes[this.aListeVignettes.length-1].offsetLeft
+	iLargeur = this.aListeVignettes[this.aListeVignettes.length - 1].offsetLeft
 			 - this.aListeVignettes[0].offsetLeft
-			 + this.aListeVignettes[this.aListeVignettes.length-1].offsetWidth*2;
+			 + this.aListeVignettes[this.aListeVignettes.length - 1].offsetWidth * 2;
 			 
-	document.getElementById("show-level").style.width = iLargeur+"px";
+	document.getElementById("show-level").style.width = iLargeur + "px";
 };
 
 // Méthode de reset

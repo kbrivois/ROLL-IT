@@ -72,7 +72,9 @@ function lancerMenuChoixMode() {
 }
 
 // Détecte le click pour lancer le menu des niveaux
-function lancerMenuNiveaux(arrayListeNiveau) {
+function lancerMenuNiveaux(arrayListeNiveau, idModeNiveaux) {
+	// idModeNiveaux : 1=niveaux de base, 2=niveaux en ligne, 3=niveaux perso
+	iChoixModeNiveaux = idModeNiveaux;
 	cacherPages();
 	document.getElementById('new-game').style.display = 'block';
 	initMenu(arrayListeNiveau);
@@ -165,13 +167,11 @@ function telechargerNiveau() {
 	var key = document.getElementById("id-level-online").value;
 	
 	if(key) {
-		var urlServeur = "http://aymeric-auberton.fr/projets/dll/test.php?k=" + key;
-		valeurURL(urlServeur);
-		console.log(valeurURL);
+		var reponseHTTP = valeurURL("http://www.aymeric-auberton.fr/projets/dll/test.php?k=" + key);
 		
-		if(valeurURL != 0) {
+		if(reponseHTTP != 0) {
 			// Enregistrer le niveau dans la bonne variable de LocalStorage
-			enregistrerNiveauOnline(valeurURL);
+			enregistrerNiveauOnline(reponseHTTP);
 		} else {
 			alert("Aucun niveau n'est associé à cette identifiant");
 		}

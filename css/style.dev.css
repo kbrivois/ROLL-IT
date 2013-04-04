@@ -144,6 +144,7 @@ body {
 	display: inline-block;
 	margin: 0 10px;
 	padding: 0;
+	position: relative;
 }
 #show-level div.show-level-item .show-level-text {
 	text-align: center;
@@ -164,6 +165,14 @@ body {
 }
 #show-level div.show-level-text span.nlevel {
 	font-weight: bold;
+}
+#show-level div.delete-level {
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: red;
 }
 
 /* OVERLAY */
