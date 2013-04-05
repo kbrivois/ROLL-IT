@@ -531,5 +531,30 @@ var oNiveauxDonnees = [
 				{"x": 42, "y": 357, "image": "img/d-green.png"}
 			],
 		"groupesProjectiles": []
+	},
+	{
+		"numero": 8,
+		"bille": {"x": 0, "y": 0},
+		"arrivee": {"x": 0, "y": 0},
+		"murs": [],
+		"vides": [],
+		"trous": [],
+		"trappes": [],
+		"diamants":
+			[
+				{"x": 295, "y": 100, "image": "img/d-yellow.png"},
+				{"x": 145, "y": 150, "image": "img/d-pink.png"},
+				{"x": 145, "y": 18, "image": "img/d-red.png"},
+				{"x": 42, "y": 250, "image": "img/d-blue.png"},
+				{"x": 255, "y": 250, "image": "img/d-cyan.png"},
+				{"x": 41, "y": 352, "image": "img/d-green.png"}
+			],
+		"groupesProjectiles": 
+			[
+				{"xDepart": 0, "yDepart": 50, "xArrivee": 350, "yArrivee": 50, "vitesse": 1, "distance": 85},
+				{"xDepart": 0, "yDepart": 150, "xArrivee": 350, "yArrivee": 150, "vitesse": 2, "distance": 100},
+				{"xDepart": 0, "yDepart": 250, "xArrivee": 350, "yArrivee": 250, "vitesse": 2, "distance": 100},
+				{"xDepart": 0, "yDepart": 350, "xArrivee": 350, "yArrivee": 350, "vitesse": 1, "distance": 85}
+			]
 	}
 ];
