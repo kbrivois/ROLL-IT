@@ -55,6 +55,8 @@ Trappe.prototype.tracer = function(oDivTerrain)
 
 	oDivTerrain.appendChild(oTrappe);
 
+	this.aListeImgHTML = new Array();
+	
 	for(var i=0; i<this.aListeImages.length; i++) {
 		var oImgTrappe = document.createElement("img");
 		oImgTrappe.style.position = "absolute";
@@ -219,7 +221,9 @@ Trappe.prototype.clone = function()
 Trappe.prototype.selectionner = function()
 {
 	this.oDiv.style.opacity = 0.5;
+	document.getElementById("move").style.display = "initial";
 	document.getElementById("edit").style.display = "initial";
+	document.getElementById("delete").style.display = "initial";
 };
 
 // Méthode de modification dans le terrain de l'éditeur
@@ -276,6 +280,7 @@ Trappe.prototype.deplacer = function()
 // Méthode de suppression dans le terrain de l'éditeur
 Trappe.prototype.supprimer = function()
 {
+	oEditeur.oTerrainEditeur.aListeElements.unset(this);
 	oEditeur.oTerrainEditeur.aListeTrappes.unset(this);
 };
 

@@ -23,6 +23,7 @@ function Editeur()
 	// vignette choisie, élément en cours de traçage et élément sélectionné sur le terrain
 	this.bElementEnModification = false;
 	this.bElementEnDeplacement = false;
+	this.bProjectileCibleEnCours = false;
 	// vignette choisie, élément en cours de traçage et élément sélectionné sur le terrain
 	this.iVignetteSelectionnee = 0;
 	this.oElementEnCours = null;
@@ -121,9 +122,15 @@ Editeur.prototype.initialiser = function()
 	// évènement sur le bouton "modifier"
 	document.getElementById("edit").removeEventListener(startEvent, eventDownSurBoutonEdit, false);
 	document.getElementById("edit").addEventListener(startEvent, eventDownSurBoutonEdit, false);
+	// évènement sur le bouton "valider"
+	document.getElementById("check").removeEventListener(startEvent, eventDownSurBoutonCheck, false);
+	document.getElementById("check").addEventListener(startEvent, eventDownSurBoutonCheck, false);
 	// évènement sur le bouton "supprimer"
 	document.getElementById("delete").removeEventListener(startEvent, eventDownSurBoutonDelete, false);
 	document.getElementById("delete").addEventListener(startEvent, eventDownSurBoutonDelete, false);
+	// évènement sur le bouton "changer cible" dans le formulaire des projectiles
+	document.getElementById("change-target").removeEventListener(startEvent, eventDownSurBoutonChangeCible, false);
+	document.getElementById("change-target").addEventListener(startEvent, eventDownSurBoutonChangeCible, false);
 	
 	// sur le menu d'édition
 	this.oDivMenuEdition.ontouchmove = function(event){t.bTouchMoveMenu = true;};
@@ -163,44 +170,55 @@ Editeur.prototype.tracerElement = function()
 				this.bTouchMoveTerrain = true;
 			}
 			else if(this.iVignetteSelectionnee == 2) { // Murs
-				this.oElementEnCours = new Mur(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 0, 0, false);
+				this.oElementEnCours = new Mur(new Point(oPositionTouchDepart.x, oPositionTouchDepart.y), 0, 0, false);
 				this.oTerrainEditeur.aListeMurs.push(this.oElementEnCours);
 				this.oElementEnCours.tracer(this.oTerrainEditeur.oDiv);
 				this.bTouchMoveTerrain = true;
 			}
 			else if(this.iVignetteSelectionnee == 3) { // Murs qui repoussent
-				this.oElementEnCours = new Mur(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 0, 0, true);
+				this.oElementEnCours = new Mur(new Point(oPositionTouchDepart.x, oPositionTouchDepart.y), 0, 0, true);
 				this.oTerrainEditeur.aListeMurs.push(this.oElementEnCours);
 				this.oElementEnCours.tracer(this.oTerrainEditeur.oDiv);
 				this.bTouchMoveTerrain = true;
 			}
 			else if(this.iVignetteSelectionnee == 4) { // Trappes
-				this.oElementEnCours = new Trappe(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 1000, true);
+				this.oElementEnCours = new Trappe(new Point(oPositionTouchDepart.x, oPositionTouchDepart.y), 1000, true);
 				this.oTerrainEditeur.aListeTrappes.push(this.oElementEnCours);
 				this.oElementEnCours.tracer(this.oTerrainEditeur.oDiv);
 				this.bTouchMoveTerrain = true;
 			}
 			else if(this.iVignetteSelectionnee == 5) { // Trous
-				this.oElementEnCours = new Trou(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y));
+				this.oElementEnCours = new Trou(new Point(oPositionTouchDepart.x, oPositionTouchDepart.y));
 				this.oTerrainEditeur.aListeTrous.push(this.oElementEnCours);
 				this.oElementEnCours.tracer(this.oTerrainEditeur.oDiv);
 				this.bTouchMoveTerrain = true;
 			}
+			else if(this.iVignetteSelectionnee == 6) { // Projectile
+				this.oElementEnCours = new GroupeProjectiles();
+				var aListeProjectiles = this.oTerrainEditeur.aListeProjectiles;
+				aListeProjectiles.push(this.oElementEnCours);
+				var oProjectile = new Projectile(new Point(oPositionTouchDepart.x, oPositionTouchDepart.y));
+				this.oElementEnCours.aListeProjectiles.push(oProjectile);
+				oProjectile.tracer(this.oTerrainEditeur.oDiv);
+				oProjectile.aListeImgHTML[0].style.display = "block";
+				this.oElementEnCours.oDiv = oProjectile.oDiv;
+				this.bTouchMoveTerrain = true;
+			}
 			else if(this.iVignetteSelectionnee == 7) { // Vides
-				this.oElementEnCours = new Vide(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), 0, 0);
+				this.oElementEnCours = new Vide(new Point(oPositionTouchDepart.x, oPositionTouchDepart.y), 0, 0);
 				this.oTerrainEditeur.aListeVides.push(this.oElementEnCours);
 				this.oElementEnCours.tracer(this.oTerrainEditeur.oDiv);
 				this.bTouchMoveTerrain = true;
 			}
 			else if(this.iVignetteSelectionnee == 8) { // Diamants
-				this.oElementEnCours = new Diamant(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y), "img/d-red.png");
+				this.oElementEnCours = new Diamant(new Point(oPositionTouchDepart.x, oPositionTouchDepart.y), "img/d-red.png");
 				this.oElementEnCours.tracer(this.oTerrainEditeur.oDiv);
 				this.bTouchMoveTerrain = true;
 			}
 			else if(this.iVignetteSelectionnee == 9) { // Arrivee
 				// si c'est la première fois qu'on trace une arrivée
 				if(this.oTerrainEditeur.oArrivee == null) {
-					this.oElementEnCours = new Arrivee(new Point(oPositionTouchDepart.x,oPositionTouchDepart.y));
+					this.oElementEnCours = new Arrivee(new Point(oPositionTouchDepart.x, oPositionTouchDepart.y));
 					this.oElementEnCours.tracer(this.oTerrainEditeur.oDiv);
 					this.oElementEnCours.oDiv.style.display = "block";
 					this.oTerrainEditeur.oArrivee = this.oElementEnCours;
@@ -226,10 +244,6 @@ Editeur.prototype.finirTracer = function()
 	var bPeutEtreTrace = true;
 	
 	if(this.oElementEnCours != null) {
-		// si c'est un vide, on recalcul le zindex afin de lui donner un border top propre qui ne chevauche pas les autres vides
-		if(this.iVignetteSelectionnee == 7) {
-			this.oElementEnCours.recalculZindex(this.oTerrainEditeur.aListeVides);
-		}
 		// si c'est la bille, on vérifie qu'elle n'est pas sur un mur ou autre
 		if(this.iVignetteSelectionnee == 1) {
 			if(!this.oElementEnCours.bTraceDansEditeur) {
@@ -238,13 +252,18 @@ Editeur.prototype.finirTracer = function()
 				this.oTerrainEditeur.oBille = null;
 			}
 		}
-		// si c'est l'arrivée, on vérifie qu'elle n'est pas sur un mur ou autre
-		if(this.iVignetteSelectionnee == 9) {
-			if(!this.oElementEnCours.bTraceDansEditeur) {
-				bPeutEtreTrace = false;
-				this.oTerrainEditeur.oDiv.removeChild(this.oElementEnCours.oDiv);
-				this.oTerrainEditeur.oArrivee = null;
-			}
+		// si c'est un projectile, on trace la cible pour choisir l'arrivée du projectile
+		if(this.iVignetteSelectionnee == 6) {
+			this.oElementSelectionne = this.oElementEnCours;
+			if(this.oElementEnCours.oPositionDepart == null)
+				this.oElementEnCours.oPositionDepart = new Point(oPositionTouchArrivee.x, oPositionTouchArrivee.y);			
+			this.oElementEnCours.oPositionArrivee = new Point(this.oTerrainEditeur.iLargeur / 2 - 15 * fRatio / 2, 
+															  this.oTerrainEditeur.iHauteur / 2 - 15 * fRatio / 2);
+			this.oElementEnCours.tracerCible();
+		}
+		// si c'est un vide, on recalcul le zindex afin de lui donner un border top propre qui ne chevauche pas les autres vides
+		if(this.iVignetteSelectionnee == 7) {
+			this.oElementEnCours.recalculZindex(this.oTerrainEditeur.aListeVides);
 		}
 		// si c'est un diamant, on vérifie qu'il n'est pas sur un mur ou autre
 		if(this.iVignetteSelectionnee == 8) {
@@ -257,18 +276,25 @@ Editeur.prototype.finirTracer = function()
 				this.oTerrainEditeur.iNbreDiamants++;
 			}
 		}
+		// si c'est l'arrivée, on vérifie qu'elle n'est pas sur un mur ou autre
+		if(this.iVignetteSelectionnee == 9) {
+			if(!this.oElementEnCours.bTraceDansEditeur) {
+				bPeutEtreTrace = false;
+				this.oTerrainEditeur.oDiv.removeChild(this.oElementEnCours.oDiv);
+				this.oTerrainEditeur.oArrivee = null;
+			}
+		}
 		
 		if(bPeutEtreTrace) {
 			this.oTerrainEditeur.aListeElements.push(this.oElementEnCours);
-			this.oElementEnCours.oDiv.style.opacity = "1";
-			this.oElementEnCours.oDiv.style.left = this.oElementEnCours.oPosition.x+"px";
-			this.oElementEnCours.oDiv.style.top = this.oElementEnCours.oPosition.y+"px";
+			this.oElementEnCours.oDiv.style.opacity = 1;
+			
 			// on lui ajoute l'événement qui permettra de le modifier
 			(function(i) {
 				var oElement = t.oElementEnCours;
 				t.oElementEnCours.oDiv.addEventListener(endEvent,
 					function(event){			
-						if(!t.bTouchMoveTerrain && !t.bEnModeJeu) {
+						if(!t.bTouchMoveTerrain && !t.bEnModeJeu && !t.bElementEnDeplacement && !t.bProjectileCibleEnCours) {
 							t.oTerrainEditeur.selectionnerElement(oElement);
 						}
 					},false);
@@ -281,10 +307,10 @@ Editeur.prototype.finirTracer = function()
 // on trace la vignette dans le menu
 Editeur.prototype.tracerVignette = function(oDivVignette, oItem, iItemLargeur, iItemHauteur)
 {
-	oDivVignette.style.height = this.oDivMenuEdition.offsetWidth*0.8 + "px";
-	oDivVignette.style.width = this.oDivMenuEdition.offsetWidth*0.8 + "px";
-	oDivVignette.style.marginTop = this.oDivMenuEdition.offsetWidth*0.1 + "px";
-	oDivVignette.style.marginBottom = this.oDivMenuEdition.offsetWidth*0.1 + "px";
+	oDivVignette.style.height = this.oDivMenuEdition.offsetWidth * 0.8 + "px";
+	oDivVignette.style.width = this.oDivMenuEdition.offsetWidth * 0.8 + "px";
+	oDivVignette.style.marginTop = this.oDivMenuEdition.offsetWidth * 0.1 + "px";
+	oDivVignette.style.marginBottom = this.oDivMenuEdition.offsetWidth * 0.1 + "px";
 	
 	this.oDivMenuEdition.appendChild(oDivVignette);
 	

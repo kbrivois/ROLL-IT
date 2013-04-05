@@ -33,11 +33,11 @@ Mur.prototype.tracer = function(oDivTerrain)
 	// mur qui repousse
 	if(this.bRepousse) {
 		oMur.style.backgroundImage = "url(img/murs/rouge.bmp)";
-		oMur.style.backgroundPosition = -(this.oPosition.x)+"px "+(-this.oPosition.y)+"px";
+		oMur.style.backgroundPosition = -(this.oPosition.x) + "px " + (-this.oPosition.y) + "px";
 	}
 	else {
 		oMur.style.backgroundImage = "url(img/murs/normal.bmp)";
-		oMur.style.backgroundPosition = -(this.oPosition.x)+"px "+(-this.oPosition.y)+"px";
+		oMur.style.backgroundPosition = -(this.oPosition.x) + "px " + (-this.oPosition.y) + "px";
 	}
 
 	oDivTerrain.appendChild(oMur);
@@ -50,6 +50,8 @@ Mur.prototype.tracerDansEditeur = function()
 	if(oPositionTouchArrivee.x > oPositionTouchDepart.x) {
 		this.iLargeur = oPositionTouchArrivee.x - oPositionTouchDepart.x;
 		this.oDiv.style.width = this.iLargeur+"px";
+		this.oPosition.x = oPositionTouchDepart.x;
+		this.oDiv.style.left = oPositionTouchDepart.x+"px";
 	}
 	else {
 		this.iLargeur = oPositionTouchDepart.x - oPositionTouchArrivee.x;
@@ -61,6 +63,8 @@ Mur.prototype.tracerDansEditeur = function()
 	if(oPositionTouchArrivee.y > oPositionTouchDepart.y) {
 		this.iHauteur = oPositionTouchArrivee.y - oPositionTouchDepart.y;
 		this.oDiv.style.height = this.iHauteur+"px";
+		this.oPosition.y = oPositionTouchDepart.y;
+		this.oDiv.style.top = oPositionTouchDepart.y+"px";
 	}
 	else {
 		this.iHauteur = oPositionTouchDepart.y - oPositionTouchArrivee.y;
@@ -68,6 +72,7 @@ Mur.prototype.tracerDansEditeur = function()
 		this.oPosition.y = oPositionTouchArrivee.y;
 		this.oDiv.style.top = oPositionTouchArrivee.y+"px";
 	}
+	
 	// background
 	this.oDiv.style.backgroundPosition = -(this.oDiv.offsetLeft)+"px "+(-this.oDiv.offsetTop)+"px";
 	this.oDiv.style.opacity = "0.7";
@@ -243,7 +248,8 @@ Mur.prototype.clone = function()
 Mur.prototype.selectionner = function()
 {
 	this.oDiv.style.opacity = 0.5;
-	document.getElementById("edit").style.display = "none";
+	document.getElementById("move").style.display = "initial";
+	document.getElementById("delete").style.display = "initial";
 };
 
 // Méthode de déplacement dans le terrain de l'éditeur
@@ -253,12 +259,13 @@ Mur.prototype.deplacer = function()
 	this.oPosition.y = oPositionTouchArrivee.y;
 	this.oDiv.style.left = this.oPosition.x+"px";
 	this.oDiv.style.top = this.oPosition.y+"px";
-	this.oDiv.style.backgroundPosition = -(this.oPosition.x)+"px "+(-this.oPosition.y)+"px";
+	this.oDiv.style.backgroundPosition = -(this.oPosition.x) + "px " + (-this.oPosition.y) + "px";
 };
 
 // Méthode de suppression dans le terrain de l'éditeur
 Mur.prototype.supprimer = function()
 {
+	oEditeur.oTerrainEditeur.aListeElements.unset(this);
 	oEditeur.oTerrainEditeur.aListeMurs.unset(this);
 };
 

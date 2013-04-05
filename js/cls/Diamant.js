@@ -94,6 +94,8 @@ Diamant.prototype.tracerDansEditeur = function()
 	if(!bCollision) {
 		this.oPosition.x = x;
 		this.oPosition.y = y;
+		this.oPositionDepart.x = x;
+		this.oPositionDepart.y = y;
 		this.bTraceDansEditeur = true;
 		this.oDiv.style.opacity = "1";
 	}
@@ -212,7 +214,9 @@ Diamant.prototype.clone = function()
 Diamant.prototype.selectionner = function()
 {
 	this.oDiv.style.opacity = 0.5;
+	document.getElementById("move").style.display = "initial";
 	document.getElementById("edit").style.display = "initial";
+	document.getElementById("delete").style.display = "initial";
 };
 
 // Méthode de modification dans le terrain de l'éditeur
@@ -267,7 +271,9 @@ Diamant.prototype.deplacer = function()
 // Méthode de suppression dans le terrain de l'éditeur
 Diamant.prototype.supprimer = function()
 {
+	oEditeur.oTerrainEditeur.aListeElements.unset(this);
 	oEditeur.oTerrainEditeur.aListeDiamants.unset(this);
+	oEditeur.oTerrainEditeur.iNbreDiamants--;
 };
 
 // Méthode de reset

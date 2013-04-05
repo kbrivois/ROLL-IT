@@ -31,14 +31,16 @@ var oMenuNiveaux = null;
 var oModeEnCours = null;
 
 // Largeur et hauteur qui vont nous servir pour calculer les ratio selon les différentes tailles d'écran
+var iLargeurEcran = document.documentElement.clientWidth;
+var iHauteurEcran = document.documentElement.clientHeight;
 var iLargeurDeBase = 320;
 var iHauteurDeBase = 400;
-var fRatioLH = iLargeurDeBase/iHauteurDeBase;
-var fLargeurA_Retenir = (document.documentElement.clientHeight-25) * fRatioLH;
-var fHauteurA_Retenir = document.documentElement.clientHeight-25;
-if(document.documentElement.clientWidth/fHauteurA_Retenir < fRatioLH) {
-	var fLargeurA_Retenir = document.documentElement.clientWidth;
-	var fHauteurA_Retenir = document.documentElement.clientWidth / fRatioLH;
+var fRatioLH = iLargeurDeBase / iHauteurDeBase;
+var fLargeurA_Retenir = (iHauteurEcran - 25) * fRatioLH;
+var fHauteurA_Retenir = iHauteurEcran - 25;
+if(iLargeurEcran / fHauteurA_Retenir < fRatioLH) {
+	var fLargeurA_Retenir = iLargeurEcran;
+	var fHauteurA_Retenir = iLargeurEcran / fRatioLH;
 }
 var fRatio = fLargeurA_Retenir / iLargeurDeBase;
 
@@ -46,7 +48,7 @@ var fRatio = fLargeurA_Retenir / iLargeurDeBase;
 var oElemContent = document.getElementById("content");
 oElemContent.style.width = fLargeurA_Retenir+"px";
 oElemContent.style.height = (fHauteurA_Retenir+25)+"px";
-oElemContent.style.marginTop = (document.documentElement.clientHeight/2 - oElemContent.offsetHeight/2) +"px";
+oElemContent.style.marginTop = (iHauteurEcran/2 - oElemContent.offsetHeight/2) +"px";
 
 // Les différents niveaux (de base, perso, en ligne)
 var aListeNiveaux = chargerNiveaux();

@@ -191,7 +191,7 @@ function eventDownSurTerrain(event) {
 		oPositionTouchDepart.x = eventObj.pageX-oDivContent.offsetLeft;
 		oPositionTouchDepart.y = eventObj.pageY-60-oDivContent.offsetTop;
 		// on cache le menu au double tap
-		if(oEditeur.oDivMenuEdition.style.display == "none")
+		if(oEditeur.oDivMenuEdition.style.display == "none" && !oEditeur.bProjectileCibleEnCours)
 			doubleTap(function(){oEditeur.oDivMenuEdition.style.display = "block";});
 		else
 			doubleTap(function(){oEditeur.oDivMenuEdition.style.display = "none";});
@@ -216,6 +216,14 @@ function eventMoveSurTerrain(event) {
 				if(oEditeur.oDivMenuEdition.style.display == "block")
 					oEditeur.oDivMenuEdition.style.display = "none";
 			}
+			// si l'utilisateur veut placer la cible d'un groupe de projectiles
+			else if(oEditeur.bProjectileCibleEnCours) {
+				// on cache le menu d'édition pour pouvoir tracer sur tout le terrain
+				if(oEditeur.oDivMenuEdition.style.display == "block")
+					oEditeur.oDivMenuEdition.style.display = "none";
+				// on trace la cible
+				oEditeur.oElementSelectionne.deplacerCible();
+			}
 			// sinon, si un élément à été sélectionné dans une vignette, on le trace
 			else if(oEditeur.iVignetteSelectionnee != 0) {
 				// on cache le menu d'édition pour pouvoir tracer sur tout le terrain
@@ -233,14 +241,13 @@ function eventUpSurTerrain(event) {
 	if(!oEditeur.bEnModeJeu) {
 		var eventObj = isTouchSupported ? event.touches[0] : event;
 		oEditeur.bEventDown = false;
-		document.getElementById("move").style.backgroundColor = "rgb(230,230,230)";
 		// on rend visible le menu d'édition après avoir fini de tracer l'élément
 		if(oEditeur.bTouchMoveTerrain) {
 			oEditeur.oDivMenuEdition.style.display = "block";
 			oEditeur.finirTracer();
 		}
 		// si on clique sur le terrain sans cliquer sur un élément, alors on désélectionne le dernier élément sélectionné
-		else if(!oEditeur.bTouchMoveTerrain && oEditeur.oElementSelectionne != null) {
+		else if(!oEditeur.bTouchMoveTerrain && oEditeur.oElementSelectionne != null && !oEditeur.bElementEnDeplacement && !oEditeur.bProjectileCibleEnCours) {
 			if(!oEditeur.bClickSurElement)
 				oEditeur.oTerrainEditeur.deselectionnerElement();
 			else
@@ -248,6 +255,7 @@ function eventUpSurTerrain(event) {
 		}
 		else if(oEditeur.bElementEnDeplacement){
 			oEditeur.oDivMenuEdition.style.display = "block";
+			oEditeur.oTerrainEditeur.deselectionnerElement();
 			oEditeur.bElementEnDeplacement = false;
 		}
 	}
@@ -259,7 +267,6 @@ function eventDownSurBoutonDelete(event) {
 
 	document.getElementById("move").style.backgroundColor = "rgb(230,230,230)";
 	oEditeur.oTerrainEditeur.oDiv.removeChild(oElementSelectionne.oDiv);
-	oEditeur.oTerrainEditeur.aListeElements.unset(oElementSelectionne);
 	oElementSelectionne.supprimer();
 	oElementSelectionne = null;
 	document.getElementById("time").style.display = "block";
@@ -288,4 +295,19 @@ function eventDownSurBoutonEdit(event) {
 	else {
 		oEditeur.bElementEnModification = false;
 	}
+}
+
+// s'il y a un mouse ou un touch down sur le bouton check de l'éditeur (dans le cas du placement de la cible du projectile)
+function eventDownSurBoutonCheck(event) {
+	oEditeur.oTerrainEditeur.deselectionnerElement();
+	oEditeur.oElementSelectionne.validerCible();
+	oEditeur.oElementSelectionne.aListeProjectiles[0].aListeImgHTML[0].style.opacity = 1;
+	oEditeur.bProjectileCibleEnCours = false;
+}
+
+// s'il y a un mouse ou un touch down sur le bouton pour déplacer la cible du projectile
+function eventDownSurBoutonChangeCible(event) {
+	document.getElementById("form-projectile").style.display = "none";
+	oEditeur.oElementSelectionne.oDiv.style.opacity = 1;
+	oEditeur.oElementSelectionne.tracerCible();
 }

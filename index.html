@@ -156,17 +156,6 @@
 				</div>
 			</div>
 			
-			<div id="form-projectile" class="overlay page" style="display: none;">
-				<span class="overlay-title">Projectiles</span>
-				<div>Vitesse (1=lent, 5=rapide)</div>
-				<input id="speed-projectiles" type="text" value="" /><br />
-				<div>Distance entre les projectiles</div>
-				<input id="state-projectiles" type="text" value="" /><br />
-				<div class="button-resume button-green txt-langue" data-lang="resume">
-					Reprendre
-				</div>
-			</div>
-			
 			<div id="form-diamond" class="overlay page" style="display: none;">
 				<span class="overlay-title">Diamants</span>
 				<div>Couleur</div>
@@ -184,6 +173,20 @@
 				</div>
 			</div>
 			
+			<div id="form-projectile" class="overlay page" style="display: none;">
+				<span class="overlay-title">Projectiles</span>
+				<div>Vitesse (1=lent, 5=rapide)</div>
+				<input id="speed-projectile" type="text" value="" /><br />
+				<div>Distance entre les projectiles</div>
+				<input id="distance-projectile" type="text" value="" /><br />
+				<div id="change-target" class="button-red">
+					Changer Cible
+				</div>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
+			
 			<div id="partie" class="page">
 				<div id="top">
 					<span id="level"><span class="txt-langue" data-lang="level">Niveau</span> <span id="level-number">0</span></span>
@@ -194,9 +197,10 @@
 					</div>
 					<!-- dans le cas on l'on se trouvera dans l'éditeur -->
 					<div id="choices">
-						<img id="move" src="img/editeur/deplacer.png"/>
-						<img id="edit" src="img/editeur/modifier.png"/>
-						<img id="delete" src="img/editeur/supprimer.png"/>
+						<img id="move" src="img/editeur/deplacer.png" style="display:none"/>
+						<img id="edit" src="img/editeur/modifier.png" style="display:none"/>
+						<img id="check" src="img/editeur/valider.png" style="display:none"/>
+						<img id="delete" src="img/editeur/supprimer.png" style="display:none"/>
 					</div>
 					<div id="top-pause">
 						<span class="txt-langue" data-lang="pause">Pause</span>
@@ -205,8 +209,8 @@
 				<div id="level-content">
 					<div id="terrain"></div>
 					<!-- dans le cas on l'on se trouvera dans l'éditeur -->
-					<div id="items-menu-edit">
-					</div>
+					<div id="items-menu-edit"></div>
+					<div id="circle"></div>
 				</div>
 			</div>
 		</div>

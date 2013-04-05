@@ -9,7 +9,7 @@ function Vide(oPositionTemp, iLargeurTemp, iHauteurTemp)
 	// Hauteur
 	this.iHauteur = iHauteurTemp * fRatio;
 	// Taille des bords
-	this.iTailleBords = 1;
+	this.iTailleBords = 7 * fRatio;
 };
 
 // On dessine le Vide
@@ -22,14 +22,17 @@ Vide.prototype.tracer = function(oDivTerrain)
 	oVide.className = "vide";
 	oVide.style.position = "absolute";
 	
-	oVide.style.left = this.oPosition.x+"px";
-	oVide.style.top = this.oPosition.y+"px";
+	oVide.style.left = this.oPosition.x + "px";
+	oVide.style.top = this.oPosition.y + "px";
 	
-	oVide.style.width = this.iLargeur+"px";
-	oVide.style.height = this.iHauteur+"px";
+	oVide.style.width = this.iLargeur + "px";
+	oVide.style.height = this.iHauteur + "px";
 	
-	oVide.style.borderTop = 7*fRatio+"px solid rgb(80,80,80)";
+	oVide.style.borderTop = this.iTailleBords + "px solid rgb(110,110,110)";
 	oVide.style.zIndex = 0;
+	
+	oVide.style.backgroundImage = "url(img/vide.png)";
+	oVide.style.backgroundPosition = -(this.oPosition.x) + "px " + (-this.oPosition.y) + "px";
 	
 	oDivTerrain.appendChild(oVide);
 }
@@ -76,6 +79,8 @@ Vide.prototype.tracerDansEditeur = function()
 	if(oPositionTouchArrivee.x > oPositionTouchDepart.x) {
 		this.iLargeur = oPositionTouchArrivee.x - oPositionTouchDepart.x;
 		this.oDiv.style.width = this.iLargeur+"px";
+		this.oPosition.x = oPositionTouchDepart.x;
+		this.oDiv.style.left = oPositionTouchDepart.x+"px";
 	}
 	else {
 		this.iLargeur = oPositionTouchDepart.x - oPositionTouchArrivee.x;
@@ -87,6 +92,8 @@ Vide.prototype.tracerDansEditeur = function()
 	if(oPositionTouchArrivee.y > oPositionTouchDepart.y) {
 		this.iHauteur = oPositionTouchArrivee.y - oPositionTouchDepart.y;
 		this.oDiv.style.height = this.iHauteur+"px";
+		this.oPosition.y = oPositionTouchDepart.y;
+		this.oDiv.style.top = oPositionTouchDepart.y+"px";
 	}
 	else {
 		this.iHauteur = oPositionTouchDepart.y - oPositionTouchArrivee.y;
@@ -104,21 +111,36 @@ Vide.prototype.verifierCollision = function(oPositionTemp, iTailleTemp)
 {
 	var oTerrain = oModeEnCours.oTerrain;
 	var oPosition = oTerrain.oBille.oPosition;
-	var iTaille = oTerrain.oBille.iTaille;
+	var oPositionPrecedente = oTerrain.oBille.oPositionPrecedente;
+	var iTailleBille = oTerrain.oBille.iTaille;
 	var bDansEditeur = false;
 
 	if(oPositionTemp != null && iTailleTemp != null) {
 		oPosition = oPositionTemp;
-		iTaille = iTailleTemp;
+		iTailleBille = iTailleTemp;
 		bDansEditeur = true;
 	}
 	
-	var oPointMilieu = new Point(oPosition.x + iTaille/2, oPosition.y + iTaille/2);
+	var oPointMilieu = new Point(oPosition.x + iTailleBille/2, oPosition.y + iTailleBille/2);
+	var oPointMilieuPrecedent = new Point(oPositionPrecedente.x + iTailleBille/2, oPositionPrecedente.y + iTailleBille/2);
+	
 	// si la bille se trouve dans le vide
 	if(oPointMilieu.x > this.oPosition.x 
 	&& oPointMilieu.x < this.oPosition.x + this.iLargeur
 	&& oPointMilieu.y > this.oPosition.y
-	&& oPointMilieu.y < this.oPosition.y + this.iHauteur) {
+	&& oPointMilieu.y < this.oPosition.y + this.iHauteur + this.iTailleBords) {
+		// si la bille se trouvait en haut du vide
+		if(oPointMilieuPrecedent.y <= this.oPosition.y)
+			oTerrain.oBille.oPosition.y += iTailleBille/2;
+		// si la bille se trouvait en bas du vide
+		else if(oPointMilieuPrecedent.y >= this.oPosition.y + this.iHauteur + this.iTailleBords)
+			oTerrain.oBille.oPosition.y -= iTailleBille/2;
+		// si la bille se trouvait à gauche du vide
+		else if(oPointMilieuPrecedent.x <= this.oPosition.x)
+			oTerrain.oBille.oPosition.x += iTailleBille/2;
+		// si la bille se trouvait à droite du vide
+		else if(oPointMilieuPrecedent.x >= this.oPosition.x + this.iLargeur)
+			oTerrain.oBille.oPosition.x -= iTailleBille/2;
 		oTerrain.oBille.bTombeDansTrou = true;
 		oModeEnCours.oChrono.reset();
 	}
@@ -167,7 +189,8 @@ Vide.prototype.clone = function()
 Vide.prototype.selectionner = function()
 {
 	this.oDiv.style.opacity = 0.5;
-	document.getElementById("edit").style.display = "none";
+	document.getElementById("move").style.display = "initial";
+	document.getElementById("delete").style.display = "initial";
 };
 
 // Méthode de déplacement dans le terrain de l'éditeur
@@ -175,14 +198,16 @@ Vide.prototype.deplacer = function()
 {
 	this.oPosition.x = oPositionTouchArrivee.x;
 	this.oPosition.y = oPositionTouchArrivee.y;
-	this.oDiv.style.left = this.oPosition.x+"px";
-	this.oDiv.style.top = this.oPosition.y+"px";
+	this.oDiv.style.left = this.oPosition.x + "px";
+	this.oDiv.style.top = this.oPosition.y + "px";
+	this.oDiv.style.backgroundPosition = -(this.oPosition.x) + "px " + (-this.oPosition.y) + "px";
 	this.recalculZindex(oEditeur.oTerrainEditeur.aListeVides);
 };
 
 // Méthode de suppression dans le terrain de l'éditeur
 Vide.prototype.supprimer = function()
 {
+	oEditeur.oTerrainEditeur.aListeElements.unset(this);
 	oEditeur.oTerrainEditeur.aListeVides.unset(this);
 };
 

@@ -11,7 +11,7 @@ function Projectile(oPositionTemp)
 	// Temps entre chaque images
 	this.iTempsEntreImages = 20;
 	// taille
-	this.iTaille = 15 * fRatio;
+	this.iTaille = 20 * fRatio;
 	// image actuelle
 	this.iImageActuelle = 0;
 	// Images
@@ -39,6 +39,7 @@ Projectile.prototype.tracer = function(oDivTerrain)
 	oProjectile.style.height = this.iTaille + "px";
 
 	oDivTerrain.appendChild(oProjectile);
+	this.aListeImgHTML = new Array();
 
 	for(var i=0; i<this.aListeImages.length; i++) {
 		
@@ -68,7 +69,7 @@ Projectile.prototype.cacher = function()
 };
 
 // Méthode qui retrace le projectile
-Projectile.prototype.deplacer = function()
+Projectile.prototype.lancer = function()
 {
 	this.oDiv.style.top = this.oPosition.y+"px";
 	this.oDiv.style.left = this.oPosition.x+"px";
@@ -86,6 +87,15 @@ Projectile.prototype.deplacer = function()
 		this.aListeImgHTML[this.iImageActuelle].style.display = "block";
 		this.iThenImages = Date.now();
 	}
+};
+
+// Méthode de déplacement dans le terrain de l'éditeur
+Projectile.prototype.deplacer = function()
+{
+	this.oPosition.x = oPositionTouchArrivee.x;
+	this.oPosition.y = oPositionTouchArrivee.y;
+	this.oDiv.style.left = this.oPosition.x+"px";
+	this.oDiv.style.top = this.oPosition.y+"px";
 };
 
 // Méthode de clonage

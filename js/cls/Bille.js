@@ -89,6 +89,8 @@ Bille.prototype.tracerDansEditeur = function()
 	}
 	
 	if(!bCollision) {
+		this.oPositionDepart.x = x;
+		this.oPositionDepart.y = y;
 		this.oPosition.x = x;
 		this.oPosition.y = y;
 		this.bTraceDansEditeur = true;
@@ -214,8 +216,8 @@ Bille.prototype.clone = function()
 	oBilleClone.oDiv = this.oDiv;
 	// Position
 	oBilleClone.oPositionDepart = clone(this.oPositionDepart);
-	oBilleClone.oPositionPrecedente = clone(this.oPositionPrecedente);
-	oBilleClone.oPosition = clone(this.oPosition);
+	oBilleClone.oPositionPrecedente = clone(this.oPositionDepart);
+	oBilleClone.oPosition = clone(this.oPositionDepart);
 	// Autres varibles
 	oBilleClone.fVitesseX = this.fVitesseX;
 	oBilleClone.fVitesseY = this.fVitesseY;
@@ -236,7 +238,8 @@ Bille.prototype.clone = function()
 Bille.prototype.selectionner = function()
 {
 	this.oDiv.style.opacity = 0.5;
-	document.getElementById("edit").style.display = "none";
+	document.getElementById("move").style.display = "initial";
+	document.getElementById("delete").style.display = "initial";
 };
 
 // Méthode de déplacement dans le terrain de l'éditeur
@@ -255,6 +258,7 @@ Bille.prototype.deplacer = function()
 // Méthode de suppression dans le terrain de l'éditeur
 Bille.prototype.supprimer = function()
 {
+	oEditeur.oTerrainEditeur.aListeElements.unset(this);
 	oEditeur.oTerrainEditeur.oBille = null;
 };
 

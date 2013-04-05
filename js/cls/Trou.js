@@ -110,7 +110,8 @@ Trou.prototype.clone = function()
 Trou.prototype.selectionner = function()
 {
 	this.oDiv.style.opacity = 0.5;
-	document.getElementById("edit").style.display = "none";
+	document.getElementById("move").style.display = "initial";
+	document.getElementById("delete").style.display = "initial";
 };
 
 // Méthode de déplacement dans le terrain de l'éditeur
@@ -125,6 +126,7 @@ Trou.prototype.deplacer = function()
 // Méthode de suppression dans le terrain de l'éditeur
 Trou.prototype.supprimer = function()
 {
+	oEditeur.oTerrainEditeur.aListeElements.unset(this);
 	oEditeur.oTerrainEditeur.aListeTrous.unset(this);
 };
 

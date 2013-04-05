@@ -146,8 +146,14 @@ Terrain.prototype.tracer = function(bTracerDansEditeur)
 	
 	// ===== projectiles ===== //
 	for(var i=0; i<this.aListeProjectiles.length; i++) {
-		this.aListeProjectiles[i].tracer(this.oDiv);
-		this.aListeElements.push(this.aListeProjectiles[i].aListeProjectiles[0]);
+		var oGroupeProjectiles = this.aListeProjectiles[i];
+		oGroupeProjectiles.tracer(this.oDiv);
+		this.aListeElements.push(oGroupeProjectiles);
+		if(bTracerDansEditeur != null && bTracerDansEditeur == true) {
+			var oProjectile = oGroupeProjectiles.aListeProjectiles[oGroupeProjectiles.iNbreProjectiles-1];
+			oProjectile.iImageActuelle = 0;
+			oProjectile.aListeImgHTML[0].style.display = "block";
+		}
 	}
 
 	// ===== diamants ===== //
@@ -171,7 +177,7 @@ Terrain.prototype.tracer = function(bTracerDansEditeur)
 				var oElement = t.aListeElements[i];
 				t.aListeElements[i].oDiv.addEventListener(endEvent,
 					function(event){						
-						if(!t.bTouchMoveTerrain) {
+						if(!oEditeur.bTouchMoveTerrain && !oEditeur.bEnModeJeu && !oEditeur.bElementEnDeplacement && !oEditeur.bProjectileCibleEnCours) {
 							t.selectionnerElement(oElement);
 						}
 					},false);
@@ -209,10 +215,11 @@ Terrain.prototype.selectionnerElement = function(oElement)
 	// si on sélectionne l'élément
 	if(oElement != oEditeur.oElementSelectionne) {
 		document.getElementById("time").style.display = "none";
-		document.getElementById("choices").style.display = "block";
 		for(var i=0; i<this.aListeElements.length; i++) {
 			this.aListeElements[i].oDiv.style.opacity = 1;
 		}
+		this.cacherIcones();
+		document.getElementById("choices").style.display = "block";
 		oElement.selectionner();
 		oEditeur.oElementSelectionne = oElement;
 		oEditeur.bClickSurElement = true;
@@ -220,7 +227,7 @@ Terrain.prototype.selectionnerElement = function(oElement)
 	// si on le désélectionne
 	else {
 		document.getElementById("time").style.display = "block";
-		document.getElementById("choices").style.display = "none";
+		this.cacherIcones();
 		oElement.oDiv.style.opacity = 1;
 		oEditeur.oElementSelectionne = null;
 	}
@@ -231,10 +238,25 @@ Terrain.prototype.deselectionnerElement = function()
 {	
 	var oElementSelectionne = oEditeur.oElementSelectionne;
 	document.getElementById("time").style.display = "block";
-	document.getElementById("choices").style.display = "none";
+	this.cacherIcones();
 	oElementSelectionne.oDiv.style.opacity = 1;
 	oElementSelectionne = null;
 };
+
+// cache les icones de parametrage d'un element
+Terrain.prototype.cacherIcones = function()
+{	
+	document.getElementById("circle").style.display = "none";
+	document.getElementById("choices").style.display = "none";
+	document.getElementById("move").style.backgroundColor = "rgb(230,230,230)";
+	document.getElementById("edit").style.backgroundColor = "rgb(230,230,230)";
+	document.getElementById("check").style.backgroundColor = "rgb(230,230,230)";
+	document.getElementById("delete").style.backgroundColor = "rgb(230,230,230)";
+	document.getElementById("move").style.display = "none";
+	document.getElementById("edit").style.display = "none";
+	document.getElementById("check").style.display = "none";
+	document.getElementById("delete").style.display = "none";
+}
 
 // Méthode de clonage
 Terrain.prototype.clone = function()

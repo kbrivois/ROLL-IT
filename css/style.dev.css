@@ -62,6 +62,12 @@ body {
 	margin-left: 3px;
 	margin-right: 3px;
 }
+#choices #check {
+	width: 20px;
+	height: 20px;
+	margin-left: 3px;
+	margin-right: 3px;
+}
 #choices #delete {
 	width: 20px;
 	height: 20px;
@@ -110,7 +116,6 @@ body {
 .vide {
 	position: absolute;
 	z-index: 100;
-	background: url(../img/vide.png) repeat;
 }
 .projectile {
 	position: absolute;
@@ -194,6 +199,14 @@ body {
 	color: black;
 	margin: 0;
 	padding: 0;
+}
+#circle {
+	position: absolute;
+	border-radius: 1000px;
+	display: none;
+	background: rgba(200, 200, 200, 0.5);
+	border: solid 3px rgb(100, 100, 100);
+	z-index: 10000;
 }
 #win-time {
 	display: block;
