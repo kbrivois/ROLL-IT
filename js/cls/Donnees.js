@@ -552,9 +552,44 @@ var oNiveauxDonnees = [
 		"groupesProjectiles": 
 			[
 				{"xDepart": 0, "yDepart": 50, "xArrivee": 350, "yArrivee": 50, "vitesse": 1, "distance": 85},
-				{"xDepart": 0, "yDepart": 150, "xArrivee": 350, "yArrivee": 150, "vitesse": 2, "distance": 100},
-				{"xDepart": 0, "yDepart": 250, "xArrivee": 350, "yArrivee": 250, "vitesse": 2, "distance": 100},
+				{"xDepart": 0, "yDepart": 150, "xArrivee": 350, "yArrivee": 150, "vitesse": 1, "distance": 100},
+				{"xDepart": 0, "yDepart": 250, "xArrivee": 350, "yArrivee": 250, "vitesse": 1, "distance": 100},
 				{"xDepart": 0, "yDepart": 350, "xArrivee": 350, "yArrivee": 350, "vitesse": 1, "distance": 85}
+			]
+	},
+	{
+		"numero": 9,
+		"bille": {"x": 0, "y": 0},
+		"arrivee": {"x": 155, "y": 340},
+		"murs": 
+			[
+				
+			],
+		"vides": 
+			[
+				{"x": 0, "y": 180, "largeur": 90, "hauteur": 25},
+				{"x": 115, "y": 180, "largeur": 90, "hauteur": 25},
+				{"x": 230, "y": 180, "largeur": 90, "hauteur": 25},
+				{"x": 0, "y": 365, "largeur": 320, "hauteur": 35}
+			],
+		"trous": 
+			[
+				{"x": 25, "y": 105},
+				{"x": 90, "y": 105},
+				{"x": 150, "y": 105},
+				{"x": 215, "y": 105},
+				{"x": 280, "y": 105}
+			],
+		"trappes":
+			[
+				{"x": 96, "y": 188, "tempsOuverture": 1500, "ouvert": false},
+				{"x": 210, "y": 188, "tempsOuverture": 1500, "ouvert": false}
+			],
+		"diamants": [],
+		"groupesProjectiles": 
+			[
+				{"xDepart": 0, "yDepart": 55, "xArrivee": 325, "yArrivee": 55, "vitesse": 5, "distance": 85},
+				{"xDepart": 0, "yDepart": 260, "xArrivee": 325, "yArrivee": 260, "vitesse": 5, "distance": 85}
 			]
 	}
 ];
