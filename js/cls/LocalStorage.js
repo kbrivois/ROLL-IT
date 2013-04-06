@@ -1,4 +1,4 @@
-// Enregistrer la base de donnÈes (Local Storage)
+// Enregistrer la base de donn√©es (Local Storage)
 function enregistrerDonnees() {
 	localStorage.setItem('rollit', JSON.stringify(oNiveauxDonnees));	
 }
@@ -97,18 +97,31 @@ function langueJoueur() {
 	}
 }
 
-// Retourne les niveaux tÈlÈchargÈs
-function chargerNiveauxOnline() {
-	return JSON.parse(localStorage.getItem('rollit-online'));
-}
+// Retourne les niveaux t√©l√©charg√©s pour les menus ou pour stocker
+function chargerNiveauxOnline(menu) {
+	if(menu)
+		var online = JSON.parse(localStorage.getItem('rollit-online'));
+	else
+		var online = localStorage.getItem('rollit-online');
+	
+	if(online)
+		return online;
+	else
+		return null;
+} 
 
-// Enregistrer le niveau tÈlÈcharger du serveur
+// Enregistrer le niveau t√©l√©charger du serveur
 function enregistrerNiveauOnline(niveauOnline) {
-	var niveauxOnline = chargerNiveauxOnline();
+	aListeNiveauxEnLigne.push(JSON.parse(niveauOnline));
+	var niveauxOnline = chargerNiveauxOnline(0);
 	if(niveauxOnline) {
-		// RÈcupÈrer les niveaux dÈj‡ enregistrÈs et ajouter en plus le nouveau
-		localStorage.setItem('rollit-online', niveauxOnline);
+		// R√©cup√©rer les niveaux d√©j√† enregistr√©s et ajouter √† la fin le nouveau
+		niveauxOnline = niveauxOnline.slice(0, -1)
+		var online = niveauxOnline + ", " + niveauOnline + "]";
+		localStorage.setItem('rollit-online', online);
 	} else {
-		localStorage.setItem('rollit-online', niveauOnline);	
+		var niveauOnline = "[" + niveauOnline + "]";
+		localStorage.setItem('rollit-online', niveauOnline); 
 	}
+	alert("Niveau ajout√© avec succ√®s !");
 }

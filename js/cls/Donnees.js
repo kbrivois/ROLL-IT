@@ -423,5 +423,173 @@ var oNiveauxDonnees = [
 				{"x": 304, "y": 305, "image": diamantsAleatoires()}
 			],
 		"groupesProjectiles": {},
+	},
+	{
+		"numero": 6,
+		"bille": {"x": 0, "y": 0},
+		"arrivee": {"x": 5, "y": 5},
+		"murs": 
+			[
+				{"x": 25, "y": 30, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 90, "y": 30, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 150, "y": 30, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 210, "y": 30, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 270, "y": 30, "largeur": 25, "hauteur": 25, "repousse": true},
+				
+				{"x": 25, "y": 140, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 90, "y": 140, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 150, "y": 140, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 210, "y": 140, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 270, "y": 140, "largeur": 25, "hauteur": 25, "repousse": true},
+				
+				{"x": 25, "y": 240, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 90, "y": 240, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 150, "y": 240, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 210, "y": 240, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 270, "y": 240, "largeur": 25, "hauteur": 25, "repousse": true},
+				
+				{"x": 25, "y": 350, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 90, "y": 350, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 150, "y": 350, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 210, "y": 350, "largeur": 25, "hauteur": 25, "repousse": true},
+				{"x": 270, "y": 350, "largeur": 25, "hauteur": 25, "repousse": true},
+				
+				{"x": 20, "y": 185, "largeur": 300, "hauteur": 30, "repousse": false}
+				
+			],
+		"vides": [],
+		"trous":
+			[
+				{"x": 30, "y": 90},
+				{"x": 95, "y": 90},
+				{"x": 155, "y": 90},
+				{"x": 215, "y": 90},
+				{"x": 275, "y": 90},
+				{"x": 30, "y": 300},
+				{"x": 95, "y": 300},
+				{"x": 155, "y": 300},
+				{"x": 215, "y": 300},
+				{"x": 275, "y": 300}
+			],
+		"trappes": 
+			[
+				{"x": 3, "y": 192, "tempsOuverture": 1500, "ouvert": false}
+			],
+		"diamants": 
+			[
+				{"x": 30, "y": 60, "image": diamantsAleatoires()},
+				{"x": 95, "y": 60, "image": diamantsAleatoires()},
+				{"x": 155, "y": 60, "image": diamantsAleatoires()},
+				{"x": 215, "y": 60, "image": diamantsAleatoires()},
+				{"x": 275, "y": 60, "image": diamantsAleatoires()},
+				
+				{"x": 30, "y": 120, "image": diamantsAleatoires()},
+				{"x": 95, "y": 120, "image": diamantsAleatoires()},
+				{"x": 155, "y": 120, "image": diamantsAleatoires()},
+				{"x": 215, "y": 120, "image": diamantsAleatoires()},
+				{"x": 275, "y": 120, "image": diamantsAleatoires()},
+				
+				{"x": 30, "y": 270, "image": diamantsAleatoires()},
+				{"x": 95, "y": 270, "image": diamantsAleatoires()},
+				{"x": 155, "y": 270, "image": diamantsAleatoires()},
+				{"x": 215, "y": 270, "image": diamantsAleatoires()},
+				{"x": 275, "y": 270, "image": diamantsAleatoires()},
+				
+				{"x": 30, "y": 330, "image": diamantsAleatoires()},
+				{"x": 95, "y": 330, "image": diamantsAleatoires()},
+				{"x": 155, "y": 330, "image": diamantsAleatoires()},
+				{"x": 215, "y": 330, "image": diamantsAleatoires()},
+				{"x": 275, "y": 330, "image": diamantsAleatoires()}
+			],
+		"groupesProjectiles": []
+	},
+	{
+		"numero": 7,
+		"bille": {"x": 45, "y": 0},
+		"arrivee": {"x": 45, "y": 0},
+		"murs": [],
+		"vides": 
+			[
+				{"x": 0, "y": 0, "largeur": 30, "hauteur": 400},
+				{"x": 70, "y": 0, "largeur": 260, "hauteur": 60},
+				{"x": 30, "y": 100, "largeur": 110, "hauteur": 60},
+				{"x": 180, "y": 0, "largeur": 150, "hauteur": 220},
+				{"x": 70, "y": 200, "largeur": 250, "hauteur": 60},
+				{"x": 0, "y": 300, "largeur": 230, "hauteur": 40},
+				{"x": 270, "y": 260, "largeur": 50, "hauteur": 150},
+				{"x": 30, "y": 380, "largeur": 250, "hauteur": 20}
+			],
+		"trous": [],
+		"trappes": [],
+		"diamants":
+			[
+				{"x": 42, "y": 75, "image": "img/d-yellow.png"},
+				{"x": 42, "y": 175, "image": "img/d-pink.png"},
+				{"x": 152, "y": 175, "image": "img/d-red.png"},
+				{"x": 42, "y": 277, "image": "img/d-blue.png"},
+				{"x": 242, "y": 277, "image": "img/d-cyan.png"},
+				{"x": 42, "y": 357, "image": "img/d-green.png"}
+			],
+		"groupesProjectiles": []
+	},
+	{
+		"numero": 8,
+		"bille": {"x": 0, "y": 0},
+		"arrivee": {"x": 0, "y": 0},
+		"murs": [],
+		"vides": [],
+		"trous": [],
+		"trappes": [],
+		"diamants":
+			[
+				{"x": 295, "y": 100, "image": "img/d-yellow.png"},
+				{"x": 145, "y": 150, "image": "img/d-pink.png"},
+				{"x": 145, "y": 18, "image": "img/d-red.png"},
+				{"x": 42, "y": 250, "image": "img/d-blue.png"},
+				{"x": 255, "y": 250, "image": "img/d-cyan.png"},
+				{"x": 41, "y": 352, "image": "img/d-green.png"}
+			],
+		"groupesProjectiles": 
+			[
+				{"xDepart": 0, "yDepart": 50, "xArrivee": 350, "yArrivee": 50, "vitesse": 1, "distance": 85},
+				{"xDepart": 0, "yDepart": 150, "xArrivee": 350, "yArrivee": 150, "vitesse": 1, "distance": 100},
+				{"xDepart": 0, "yDepart": 250, "xArrivee": 350, "yArrivee": 250, "vitesse": 1, "distance": 100},
+				{"xDepart": 0, "yDepart": 350, "xArrivee": 350, "yArrivee": 350, "vitesse": 1, "distance": 85}
+			]
+	},
+	{
+		"numero": 9,
+		"bille": {"x": 0, "y": 0},
+		"arrivee": {"x": 155, "y": 340},
+		"murs": 
+			[
+				
+			],
+		"vides": 
+			[
+				{"x": 0, "y": 180, "largeur": 90, "hauteur": 25},
+				{"x": 115, "y": 180, "largeur": 90, "hauteur": 25},
+				{"x": 230, "y": 180, "largeur": 90, "hauteur": 25},
+				{"x": 0, "y": 365, "largeur": 320, "hauteur": 35}
+			],
+		"trous": 
+			[
+				{"x": 25, "y": 105},
+				{"x": 90, "y": 105},
+				{"x": 150, "y": 105},
+				{"x": 215, "y": 105},
+				{"x": 280, "y": 105}
+			],
+		"trappes":
+			[
+				{"x": 96, "y": 188, "tempsOuverture": 1500, "ouvert": false},
+				{"x": 210, "y": 188, "tempsOuverture": 1500, "ouvert": false}
+			],
+		"diamants": [],
+		"groupesProjectiles": 
+			[
+				{"xDepart": 0, "yDepart": 55, "xArrivee": 325, "yArrivee": 55, "vitesse": 5, "distance": 85},
+				{"xDepart": 0, "yDepart": 260, "xArrivee": 325, "yArrivee": 260, "vitesse": 5, "distance": 85}
+			]
 	}
 ];

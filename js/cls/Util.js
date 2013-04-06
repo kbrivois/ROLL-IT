@@ -134,18 +134,15 @@ var appelerAccelerometre = function() {
 };
 
 // La fonction retourne la valeur que retourne la page appelée
-var valeurURL = function(url) {
-    if (window.XMLHttpRequest) {
-        xmlhttp = new XMLHttpRequest();
-    } else {
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange=function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			valeurURL = xmlhttp.responseText;
-            return valeurURL;
-        }
-    }
-    xmlhttp.open("GET", url, false);
-    xmlhttp.send();    
-}
+var valeurURL = function(url) {  
+	if (window.XMLHttpRequest) {
+		xmlhttp = new XMLHttpRequest();
+	} else {
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	xmlhttp.open('GET', url, false); 
+	xmlhttp.send(null);
+	if(xmlhttp.status == 200)
+		return xmlhttp.responseText;
+} 

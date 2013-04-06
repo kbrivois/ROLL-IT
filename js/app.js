@@ -53,8 +53,15 @@ oElemContent.style.marginTop = (iHauteurEcran/2 - oElemContent.offsetHeight/2) +
 // Les différents niveaux (de base, perso, en ligne)
 var aListeNiveaux = chargerNiveaux();
 var aListeNiveauxPerso /*= chargerNiveauxPerso()*/;
-var aListeNiveauxEnLigne /*= chargerNiveauxEnLigne()*/;
+var aListeNiveauxEnLigne = chargerNiveauxOnline(1);
+if(aListeNiveauxEnLigne == null)
+	aListeNiveauxEnLigne = new Array(); 
 var aListeNiveauxEnCours = null;
+
+// Mode de menu des niveaux
+var iChoixModeNiveaux = 0;	
+
+// Niveau sélectionné
 var iNiveauSelectionne = 0;
 
 // ISO de la langue de l'utilisateur
@@ -138,7 +145,7 @@ for(var i in oButtonNewLevel) {
 
 // Evénement pour lancer un niveau normal
 var oButtonNewLevelNormal = document.getElementById("button-new-level-normal");
-oButtonNewLevelNormal.addEventListener(endEvent, function(){lancerMenuNiveaux(aListeNiveaux)}, false);
+oButtonNewLevelNormal.addEventListener(endEvent, function(){lancerMenuNiveaux(aListeNiveaux, 1)}, false);
 
 // Evénement pour lancer un niveau online
 var oButtonMenuLevelOnline = document.getElementById("button-menu-level-online");
@@ -146,11 +153,11 @@ oButtonMenuLevelOnline.addEventListener(endEvent, lancerMenuLevelOnline, false);
 
 // Evénement pour lancer un niveau online
 var oButtonNewLevelOnline = document.getElementById("button-new-level-online");
-oButtonNewLevelOnline.addEventListener(endEvent, function(){lancerMenuNiveaux(aListeNiveauxEnLigne)}, false); 
+oButtonNewLevelOnline.addEventListener(endEvent, function(){lancerMenuNiveaux(aListeNiveauxEnLigne, 2)}, false); 
 
 // Evénement pour lancer un niveau perso
 var oButtonNewLevelCustom = document.getElementById("button-new-level-custom");
-oButtonNewLevelCustom.addEventListener(endEvent, function(){lancerMenuNiveaux(aListeNiveauxPerso)}, false); 
+oButtonNewLevelCustom.addEventListener(endEvent, function(){lancerMenuNiveaux(aListeNiveauxPerso, 3)}, false); 
 
 // Evénement pour lancer l'éditeur
 var oButtonEditor = document.getElementById("button-editor");
