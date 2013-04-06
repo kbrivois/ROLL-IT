@@ -398,6 +398,16 @@ var dataLangue = {
 		"it": "Distanza tra gli scatti",
 		"pl": "Odległość między ujęciami",
 		"hr": "Távolság a felvételek között"
+	},
+	"changetarget": {
+		"fr": "Changer cible",
+		"uk": "Change target",
+		"es": "Cambiar objetivo",
+		"pt": "Mudar target",
+		"de": "Change target",
+		"it": "Cambiare target",
+		"pl": "Zmień cel",
+		"hr": "Módosítása cél"
 	}
 };
 
