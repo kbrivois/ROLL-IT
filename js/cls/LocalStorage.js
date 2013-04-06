@@ -10,19 +10,6 @@ function chargerNiveaux() {
 	enregistrerDonnees();
 	var oNiveaux = JSON.parse(localStorage.getItem('rollit'));
 	return oNiveaux;
-	
-	// alert(oNiveaux[0].vides[0].x);
-
-	// for(key in oNiveaux.niveaux) {
-		// htmlNiveaux = htmlNiveaux + '<div class="show-level-item"><img src="img/ex-1.png" title="' + oNiveaux.niveaux[key]["titre"] + '" alt="Niveau 1" /><div class="show-level-text"><span class="nlevel"><span class="txt-langue" data-lang="level">Niveau</span> ' + numNiveau + '</span><br /><span class="record">02:35</span></div></div>';
-		// numNiveau++;
-		// //for(k in oNiveaux.niveaux[key]) {
-			
-		// //}
-	// }
-	
-	// // Insertion des niveaux dans le div #show-level
-	// document.getElementById('show-level').innerHTML = htmlNiveaux;
 }
 
 // Enregistrement du nouveau record du joueur si l'ancien est battu
@@ -110,18 +97,47 @@ function chargerNiveauxOnline(menu) {
 		return null;
 } 
 
-// Enregistrer le niveau télécharger du serveur
+// Retourne les niveaux perso pour les menus ou pour stocker
+function chargerNiveauxPerso(menu) {
+	if(menu)
+		var perso = JSON.parse(localStorage.getItem('rollit-perso'));
+	else
+		var perso = localStorage.getItem('rollit-perso');
+	
+	if(perso)
+		return perso;
+	else
+		return null;
+} 
+
+// Enregistrer le niveau téléchargé du serveur
 function enregistrerNiveauOnline(niveauOnline) {
 	aListeNiveauxEnLigne.push(JSON.parse(niveauOnline));
 	var niveauxOnline = chargerNiveauxOnline(0);
 	if(niveauxOnline) {
 		// Récupérer les niveaux déjà enregistrés et ajouter à la fin le nouveau
-		niveauxOnline = niveauxOnline.slice(0, -1)
+		niveauxOnline = niveauxOnline.slice(0, -1);
 		var online = niveauxOnline + ", " + niveauOnline + "]";
 		localStorage.setItem('rollit-online', online);
 	} else {
 		var niveauOnline = "[" + niveauOnline + "]";
 		localStorage.setItem('rollit-online', niveauOnline); 
+	}
+	alert("Niveau ajouté avec succès !");
+}
+
+// Enregistrer le niveau créé dans l'éditeur
+function enregistrerNiveauPerso(niveauPerso) {
+	aListeNiveauxPerso.push(JSON.parse(niveauPerso));
+	var niveauxPerso = chargerNiveauxPerso(0);
+	if(niveauxPerso) {
+		// Récupérer les niveaux déjà enregistrés et ajouter à la fin le nouveau
+		niveauxPerso = niveauxPerso.slice(0, -1);
+		var niveauxPerso = niveauxPerso + ", " + niveauPerso + "]";
+		localStorage.setItem('rollit-perso', niveauxPerso);
+	} else {
+		var niveauxPerso = "[" + niveauPerso + "]";
+		localStorage.setItem('rollit-perso', niveauxPerso); 
 	}
 	alert("Niveau ajouté avec succès !");
 }

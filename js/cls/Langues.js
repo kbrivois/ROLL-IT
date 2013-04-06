@@ -101,13 +101,33 @@ var dataLangue = {
 	},
 	"savelevel": {
 		"fr": "Sauver niveau",
-		"uk": "Save nivel",
+		"uk": "Save level",
 		"es": "Salvar nivel",
 		"pt": "Salvar nível",
 		"de": "Sparen level",
 		"it": "Salvare Livello",
 		"pl": "Zapisz poziom",
 		"hr": "Mentés szint"
+	},
+	"save": {
+		"fr": "Sauver",
+		"uk": "Save",
+		"es": "Salvar",
+		"pt": "Salvar",
+		"de": "Sparen",
+		"it": "Salvare",
+		"pl": "Zapisz",
+		"hr": "Mentés"
+	},
+	"savelevelchoice": {
+		"fr": "Sauver niveau en ligne",
+		"uk": "Save level online",
+		"es": "Salvar nivel en línea",
+		"pt": "Salvar nível on-line",
+		"de": "Sparen level online",
+		"it": "Salvare Livello on-line",
+		"pl": "Zapisz poziom on-line",
+		"hr": "Mentés szint online"
 	},
 	"success": {
 		"fr": "Bravo",
@@ -148,6 +168,16 @@ var dataLangue = {
 		"it": "Riprendere",
 		"pl": "Wznowić",
 		"hr": "Folytatódik"
+	},
+	"cancel": {
+		"fr": "Annuler",
+		"uk": "Cancel",
+		"es": "Cancelar",
+		"pt": "Cancelar",
+		"de": "Stornieren",
+		"it": "Annullare",
+		"pl": "Anulować",
+		"hr": "Töröl"
 	},
 	"languages": {
 		"fr": "Langues",
@@ -408,6 +438,26 @@ var dataLangue = {
 		"it": "Cambiare target",
 		"pl": "Zmień cel",
 		"hr": "Módosítása cél"
+	},
+	"backup": {
+		"fr": "Sauvegarde",
+		"uk": "Backup",
+		"es": "Backup",
+		"pt": "Backup",
+		"de": "Backup",
+		"it": "Backup",
+		"pl": "Backup",
+		"hr": "Backup"
+	},
+	"idlevel": {
+		"fr": "ID du niveau (taille max : 12)",
+		"uk": "Level ID (max size : 12)",
+		"es": "ID del nivel (tamaño máximo : 12)",
+		"pt": "ID de nível (tamanho máximo : 12)",
+		"de": "ID der Level (max size : 12)",
+		"it": "ID del livello (formato max : 12)",
+		"pl": "ID poziomu (max rozmiar : 12)",
+		"hr": "ID szint (max méret : 12)"
 	}
 };
 

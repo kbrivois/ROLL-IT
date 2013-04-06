@@ -145,6 +145,17 @@ function lancerPartieEditeur() {
 	}
 }
 
+function sauverNiveauEditeur() {
+	cacherPages();
+	// si au moins une bille et une arrivée ont été tracées
+	if(oEditeur.oTerrainEditeur.oBille != null && oEditeur.oTerrainEditeur.oArrivee != null) {
+		oEditeur.oTerrainEditeur.sauvegarder();
+	}
+	else {
+		document.getElementById("error").style.display = "block";
+	}
+}
+
 // on lance un partie après avoir choisi le niveau dans le menu
 function creerPartie(iNumeroTerrain) {
 	cacherPages();

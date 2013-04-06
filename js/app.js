@@ -52,8 +52,12 @@ oElemContent.style.marginTop = (iHauteurEcran/2 - oElemContent.offsetHeight/2) +
 
 // Les différents niveaux (de base, perso, en ligne)
 var aListeNiveaux = chargerNiveaux();
-var aListeNiveauxPerso /*= chargerNiveauxPerso()*/;
+var aListeNiveauxPerso = chargerNiveauxPerso(1);
 var aListeNiveauxEnLigne = chargerNiveauxOnline(1);
+if(aListeNiveaux == null)
+	aListeNiveaux = new Array(); 
+if(aListeNiveauxPerso == null)
+	aListeNiveauxPerso = new Array(); 
 if(aListeNiveauxEnLigne == null)
 	aListeNiveauxEnLigne = new Array(); 
 var aListeNiveauxEnCours = null;
@@ -109,7 +113,7 @@ if(isTouchSupported) {
 	document.body.addEventListener(endEvent, function(){bTouchDown = false; bTouchMove = false;}, false);
 }
 
-// ====== Partie ====== //
+// ====== Partie et Editeur ====== //
 
 // Evénement pour mettre en pause la partie
 document.getElementById("top-pause").addEventListener(endEvent, pausePartie, false);
@@ -130,6 +134,9 @@ document.getElementById("button-next-level").addEventListener(endEvent, niveauSu
 
 // Evénement pour lancer une partie dans l'éditeur ou pour reprendre l'édition
 document.getElementById("level").addEventListener(endEvent, lancerPartieEditeur, false);
+
+// Evénement pour lancer une partie dans l'éditeur ou pour reprendre l'édition
+document.getElementById("button-save-level").addEventListener(endEvent, sauverNiveauEditeur, false);
 
 // ====== Menus ====== //
 

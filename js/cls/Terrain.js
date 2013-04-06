@@ -42,7 +42,7 @@ function Terrain(sMode)
 		this.aListeTrappes = new Array();
 		for(var j=0; j<oNiveau.trappes.length; j++) {
 			var oTrappeTemp = oNiveau.trappes[j];
-			this.aListeTrappes.push(new Trappe(new Point(oTrappeTemp.x, oTrappeTemp.y), oTrappeTemp.tempsOuverture, true));
+			this.aListeTrappes.push(new Trappe(new Point(oTrappeTemp.x, oTrappeTemp.y), oTrappeTemp.tempsOuverture, oTrappeTemp.ouvert));
 		}	
 		
 		// ************************* Liste des diamants
@@ -257,6 +257,115 @@ Terrain.prototype.cacherIcones = function()
 	document.getElementById("check").style.display = "none";
 	document.getElementById("delete").style.display = "none";
 }
+
+// sauvegarde le terrain créé dans l'éditeur
+Terrain.prototype.sauvegarder = function()
+{
+	var t = this;
+	document.getElementById("menu-save").style.display = "block";
+	
+	// au moment de sauvegarder
+	document.getElementById("button-save").addEventListener(endEvent, 
+		function(){
+			// si l'id a été saisi correctement
+			if(document.getElementById("id-level").value != "") {
+				// niveau à sauvegarder
+				var oNiveauASauvegarde = '{' +
+			
+			// id
+				'"id": "' + document.getElementById("id-level").value + '",' +
+			// bille
+				'"bille":{"x":' + (t.oBille.oPosition.x / fRatio) + ',"y":' + (t.oBille.oPosition.y / fRatio) + '},' +
+			// arrivée
+				'"arrivee":{"x":' + (t.oArrivee.oPosition.x / fRatio) + ',"y":' + (t.oArrivee.oPosition.y / fRatio) + '},' +
+			// murs
+				'"murs":[';
+				var aListe = t.aListeMurs;
+				var iTailleTableau = aListe.length;
+				for(var i = 0; i < iTailleTableau; i++) {
+					oElem = aListe[i];
+					oNiveauASauvegarde += '{"x":' + (oElem.oPosition.x / fRatio) + ',"y":' + (oElem.oPosition.y / fRatio) + 
+										  ',"largeur":' + (oElem.iLargeur / fRatio) + ',"hauteur":' + (oElem.iHauteur / fRatio) + 
+										  ',"repousse":' + oElem.bRepousse + '}';
+					if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+				}
+				oNiveauASauvegarde += '],' +
+			// vides
+				'"vides":[';
+				aListe = t.aListeVides;
+				iTailleTableau = aListe.length;
+				for(var i = 0; i < iTailleTableau; i++) {
+					oElem = aListe[i];
+					oNiveauASauvegarde += '{"x":' + (oElem.oPosition.x / fRatio) + ',"y":' + (oElem.oPosition.y / fRatio) + 
+										  ',"largeur":' + (oElem.iLargeur / fRatio) + ',"hauteur":' + (oElem.iHauteur / fRatio) + '}';
+					if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+				}
+				oNiveauASauvegarde += '],' +
+			// trous
+				'"trous":[';
+				aListe = t.aListeTrous;
+				iTailleTableau = aListe.length;
+				for(var i = 0; i < iTailleTableau; i++) {
+					oElem = aListe[i];
+					oNiveauASauvegarde += '{"x":' + (oElem.oPosition.x / fRatio) + ',"y":' + (oElem.oPosition.y / fRatio) + '}';
+					if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+				}
+				oNiveauASauvegarde += '],' +
+			// trappes
+				'"trappes":[';
+				aListe = t.aListeTrappes;
+				iTailleTableau = aListe.length;
+				for(var i = 0; i < iTailleTableau; i++) {
+					oElem = aListe[i];
+					oNiveauASauvegarde += '{"x":' + (oElem.oPosition.x / fRatio) + ',"y":' + (oElem.oPosition.y / fRatio) + 
+										  ',"tempsOuverture":' + oElem.iTempsOF + ',"ouvert":' + oElem.bOuvert + '}';
+					if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+				}
+				oNiveauASauvegarde += '],' +
+			// diamants
+				'"diamants":[';
+				aListe = t.aListeTrappes;
+				iTailleTableau = aListe.length;
+				for(var i = 0; i < iTailleTableau; i++) {
+					oElem = aListe[i];
+					oNiveauASauvegarde += '{"x":' + (oElem.oPosition.x/ fRatio) + ',"y":' + (oElem.oPosition.y / fRatio) + 
+										  ',"image": "' + oElem.sImage + '"}';
+					if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+				}
+				oNiveauASauvegarde += '],' +
+			// groupes de projectiles
+				'"groupesProjectiles":[';
+				aListe = t.aListeProjectiles;
+				iTailleTableau = aListe.length;
+				for(var i = 0; i < iTailleTableau; i++) {
+					oElem = aListe[i];
+					oNiveauASauvegarde += '{"xDepart":' + (oElem.oPositionDepart.x / fRatio) + ',"yDepart":' + (oElem.oPositionDepart.y / fRatio) + 
+										  ',"xArrivee":' + (oElem.oPositionArrivee.x / fRatio) + ',"yArrivee":' + (oElem.oPositionArrivee.y / fRatio) + 
+										  ',"vitesse":' + (oElem.fVitesse / fRatio) + ',"distance":' + (oElem.iDistanceEntreProjectiles / fRatio) + '}';
+					if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+				}
+				oNiveauASauvegarde += ']}';
+
+				enregistrerNiveauPerso(oNiveauASauvegarde);
+				menuPrincipal();
+			}
+			else{
+				document.getElementById("choice-id-level").style.color = "red";
+			}
+		}, false);
+	
+	// après avoir saisi l'id
+	document.getElementById("id-level").onchange = function(){
+		// s'il est plus grand que 12 caractères
+		if(this.value.length > 12) {
+			this.value = "";
+			document.getElementById("choice-id-level").style.color = "red";
+		}
+		else {
+			document.getElementById("choice-id-level").style.color = "black";
+		}
+	};
+};
 
 // Méthode de clonage
 Terrain.prototype.clone = function()

@@ -31,7 +31,7 @@ Vide.prototype.tracer = function(oDivTerrain)
 	oVide.style.borderTop = this.iTailleBords + "px solid rgb(110,110,110)";
 	oVide.style.zIndex = 0;
 	
-	oVide.style.backgroundImage = "url(img/vide.png)";
+	oVide.style.backgroundColor = "rgb(30,30,30)";
 	oVide.style.backgroundPosition = -(this.oPosition.x) + "px " + (-this.oPosition.y) + "px";
 	
 	oDivTerrain.appendChild(oVide);

@@ -516,7 +516,7 @@ var oNiveauxDonnees = [
 				{"x": 180, "y": 0, "largeur": 150, "hauteur": 220},
 				{"x": 70, "y": 200, "largeur": 250, "hauteur": 60},
 				{"x": 0, "y": 300, "largeur": 230, "hauteur": 40},
-				{"x": 270, "y": 260, "largeur": 50, "hauteur": 150},
+				{"x": 270, "y": 200, "largeur": 60, "hauteur": 200},
 				{"x": 30, "y": 380, "largeur": 250, "hauteur": 20}
 			],
 		"trous": [],
@@ -582,7 +582,7 @@ var oNiveauxDonnees = [
 			],
 		"trappes":
 			[
-				{"x": 96, "y": 188, "tempsOuverture": 1500, "ouvert": false},
+				{"x": 96, "y": 188, "tempsOuverture": 1500, "ouvert": true},
 				{"x": 210, "y": 188, "tempsOuverture": 1500, "ouvert": false}
 			],
 		"diamants": [],
