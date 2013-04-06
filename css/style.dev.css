@@ -181,6 +181,7 @@ body {
 	top: 0;
 	right: 0;
 	background: red;
+	z-index: 105;
 }
 
 /* OVERLAY */

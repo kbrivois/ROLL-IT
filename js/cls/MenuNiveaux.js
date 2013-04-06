@@ -104,15 +104,17 @@ MenuNiveaux.prototype.tracer = function()
 		oDivTextItemMenu.innerHTML = dataLangue['level'][joueurISO] + " " + (i + 1) + "<br /><span>" + record + "</span>";
 		oDivShowItemMenu.appendChild(oDivTextItemMenu);
 		
-		// Suppression
-		var oDivSupprimer = document.createElement("div");
-		oDivSupprimer.className = "delete-level";
-		oDivShowItemMenu.appendChild(oDivSupprimer);
-		
-		// Ajout de l'événement pour la suppresion du niveau
-		(function(i) {
-			oDivSupprimer.addEventListener(endEvent, function() { if(!bTouchMove){alert(1);} }, false);
-		})(i);
+		// Suppression (afficher seulement sur le choix des menus des niveaux en lignes ou persos)
+		if(iChoixModeNiveaux == 1 || iChoixModeNiveaux == 3) {
+			var oDivSupprimer = document.createElement("div");
+			oDivSupprimer.className = "delete-level";
+			oDivShowItemMenu.appendChild(oDivSupprimer);
+			
+			// Ajout de l'événement pour la suppresion du niveau
+			(function(i) {
+				oDivSupprimer.addEventListener(endEvent, function() { if(!bTouchMove){alert(1);} }, false);
+			})(i);
+		}
 	}
 
 	// on calcul la taille que doit avoir le conteneur des vignettes

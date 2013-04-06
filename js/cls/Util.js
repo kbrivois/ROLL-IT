@@ -145,4 +145,32 @@ var valeurURL = function(url) {
 	xmlhttp.send(null);
 	if(xmlhttp.status == 200)
 		return xmlhttp.responseText;
-} 
+}
+
+// La fonction enregistre un niveau dans la BDD 
+// 0 = Niveau enregistré
+// 1 = Les valeurs POST ne sont pas bien récupérées/envoyées
+// 2 = Identifiant déjà pris
+// 3 = L'insertion en BDD n'a pas réussi
+// ************ POUR TEST
+// postNiveau("LEVEL", "iDDDDD", 5);
+// console.log(postNiveau);
+// alert(postNiveau);
+
+var postNiveau = function(id, level, difficulty) {
+	var url = "http://aymeric-auberton.fr/projets/dll/add.php";
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			postNiveau = xmlhttp.responseText;
+            return postNiveau;
+        }
+    }
+    xmlhttp.open("POST", url, false);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send("niveau="+ level + "&id=" + id + "&difficulty=" + difficulty);  
+}
