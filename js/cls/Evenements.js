@@ -89,14 +89,14 @@ function lancerMenuNiveaux(arrayListeNiveau, idModeNiveaux) {
 			var nOnline = chargerNiveauxOnline(0);
 			if(!nOnline) {
 				ok = 0;
-				alert("Aucun niveau.");
+				alert(dataLang['nolevel'][joueurISO]);
 			}
 		}
 		else if(idModeNiveaux == 3) {
 			var nPerso = chargerNiveauxPerso(0);
 			if(!nPerso) {
 				ok = 0;
-				alert("Aucun niveau.");
+				alert(dataLang['nolevel'][joueurISO]);
 			}
 		}
 	}
@@ -178,19 +178,19 @@ function sauverNiveauEditeur() {
 	// si au moins une bille et une arrivée ont été tracées
 	if(oEditeur.oTerrainEditeur.oBille != null && oEditeur.oTerrainEditeur.oArrivee != null) {
 		oEditeur.oTerrainEditeur.sauvegarder();
-	}
-	else {
+	} else {
 		document.getElementById("error").style.display = "block";
 	}
 }
 
 // on lance un partie après avoir choisi le niveau dans le menu
-function creerPartie(iNumeroTerrain) {
+function creerPartie(iNumeroTerrain, sNumeroTerrainIdentifiant) {
 	cacherPages();
 	// on vide le menu
 	document.getElementById("show-level").innerHTML = "";
 	document.getElementById('partie').style.display = 'block';
 	iNiveauSelectionne = iNumeroTerrain;
+	sNiveauSelectionneIdentifiant = sNumeroTerrainIdentifiant;
 	initPartie();
 }
 
@@ -203,7 +203,7 @@ function changerLangue() {
 
 // Supprime un niveau online
 function supprimerNiveauOnline(iNumeroNiveauOnline) {
-	var choixUtilisateur = confirm("Voulez-vous vraiment supprimer le niveau " + eval(iNumeroNiveauOnline + 1));
+	var choixUtilisateur = confirm(dataLang['choicesuppression'][joueurISO] + " " + eval(iNumeroNiveauOnline + 1) + " ?");
 	if(choixUtilisateur) {
 		// On supprime le niveau du tableau courant
 		aListeNiveauxEnLigne.unset(aListeNiveauxEnLigne[iNumeroNiveauOnline]);
@@ -235,11 +235,11 @@ function telechargerNiveau() {
 			// Enregistrer le niveau dans la bonne variable de LocalStorage
 			enregistrerNiveauOnline(reponseHTTP);
 		} else {
-			alert("Aucun niveau n'est associé à cette identifiant");
+			alert(dataLang['nolevelid'][joueurISO]);
 		}
 		
 	} else {
-		alert("Veuillez saisir un identifiant");
+		alert(dataLang['enterid'][joueurISO]);
 	}
 }
 

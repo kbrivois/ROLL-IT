@@ -132,7 +132,7 @@ function enregistrerNiveauOnline(niveauOnline) {
 		var niveauOnline = "[" + niveauOnline + "]";
 		localStorage.setItem('rollit-online', niveauOnline); 
 	}
-	alert("Niveau ajouté avec succès !");
+	alert(dataLang['leveladded'][joueurISO]);
 }
 
 // Reorganiser les niveaux téléchargés du serveur après une suppression
@@ -161,5 +161,5 @@ function enregistrerNiveauPerso(niveauPerso) {
 		var niveauxPerso = "[" + niveauPerso + "]";
 		localStorage.setItem('rollit-perso', niveauxPerso); 
 	}
-	alert("Niveau ajouté avec succès !");
+	alert(dataLang['leveladded'][joueurISO]);
 }

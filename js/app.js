@@ -67,6 +67,7 @@ var iChoixModeNiveaux = 0;
 
 // Niveau sélectionné
 var iNiveauSelectionne = 0;
+var sNiveauSelectionneIdentifiant = "";
 
 // ISO de la langue de l'utilisateur
 var joueurISO = langueJoueur();

@@ -93,10 +93,18 @@ MenuNiveaux.prototype.tracer = function()
 		oBille.tracer(oDivItemMenu);
 
 		// ajout de l'événement sur le clic de la vignette
-		(function(i) {
-			oDivItemMenu.addEventListener(endEvent, function() { if(!bTouchMove){creerPartie(i)} }, false);
-		})(i);
-
+		if(iChoixModeNiveaux == 2 || iChoixModeNiveaux == 3) {
+			var sId = this.aListeNiveaux[i].id;
+			(function(i) {
+				var sIdTemp = sId;
+				oDivItemMenu.addEventListener(endEvent, function() { if(!bTouchMove){creerPartie(i, sIdTemp)} }, false);
+			})(i);
+		} else {
+			(function(i) {
+				oDivItemMenu.addEventListener(endEvent, function() { if(!bTouchMove){creerPartie(i, i)} }, false);
+			})(i);
+		}
+		
 		// texte
 		var oDivTextItemMenu = document.createElement("div");
 		oDivTextItemMenu.className = "show-level-text";
