@@ -353,8 +353,7 @@ Terrain.prototype.sauvegarder = function()
 				if(document.getElementById("choice-online").checked) {
 					var iDifficulte = document.getElementById("difficulty").value;
 					var sId = document.getElementById("id-level").value;
-					var temp = postNiveau(sId, oNiveauASauvegarde, iDifficulte);
-					alert(temp);
+					postNiveau(sId, oNiveauASauvegarde, iDifficulte);
 				}
 				
 				menuPrincipal();
