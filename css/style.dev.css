@@ -175,12 +175,12 @@ body {
 	font-weight: bold;
 }
 #show-level div.delete-level {
-	width: 25px;
-	height: 25px;
+	width: 20px;
+	height: 20px;
 	position: absolute;
-	top: 0;
-	right: 0;
-	background: red;
+	top: 5px;
+	right: 5px;
+	background: url(../img/editeur/supprimer.png);
 	z-index: 105;
 }
 

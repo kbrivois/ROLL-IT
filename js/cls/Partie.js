@@ -5,7 +5,13 @@ function Partie()
 	====================================================================================================================================================*/
 	
 	oModeEnCours = this;
-	document.getElementById("level").innerHTML = dataLangue['level'][joueurISO]+" "+(iNiveauSelectionne+1);
+	
+	if(iChoixModeNiveaux == 2 || iChoixModeNiveaux == 3) {
+		document.getElementById("level").innerHTML = sNiveauSelectionneIdentifiant;
+	} else {
+		document.getElementById("level").innerHTML = dataLangue['level'][joueurISO]+" "+(iNiveauSelectionne+1);
+	}
+	
 	document.getElementById("items-menu-edit").style.display = "none";
 	this.oTerrain = new Terrain("Partie");
 	this.oTerrain.tracer();
@@ -55,7 +61,8 @@ Partie.prototype.gagner = function()
 	var iGagneMinutes = document.getElementById('time-min').innerHTML;
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
 	document.getElementById('win-time').innerHTML = sTempsGagne;
-	enregistrementRecord(iNiveauSelectionne, iGagneMinutes, iGagneSecondes);
+	var id = sNiveauSelectionneIdentifiant;
+	enregistrementRecord(id, iGagneMinutes, iGagneSecondes, iChoixModeNiveaux);
 	
 	// s'il n'existe pas de niveau suivant
 	if(aListeNiveaux.length-1 < iNiveauSelectionne+1) {

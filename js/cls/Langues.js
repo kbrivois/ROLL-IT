@@ -42,7 +42,7 @@ var dataLangue = {
 	"impossible": {
 		"fr": "Impossible !",
 		"uk": "Impossible !",
-		"es": "Imposible !",
+		"es": "¡Imposible!",
 		"pt": "Impossível !",
 		"de": "Unmöglich !",
 		"it": "Impossibile !",
@@ -50,7 +50,7 @@ var dataLangue = {
 		"hr": "Lehetetlen !"
 	},
 	"error": {
-		"fr": "Il faut au moins placer la bille et la croix d'arrivée.",
+		"fr": "Il est nécessaire de placer la bille de départ et la croix d'arrivée.",
 		"uk": "You must place the ball and finish.",
 		"es": "Usted debe colocar la bola y el acabado.",
 		"pt": "Você deve colocar a bola e acabamento.",
@@ -132,7 +132,7 @@ var dataLangue = {
 	"success": {
 		"fr": "Bravo",
 		"uk": "Bravo",
-		"es": "¡bravo!",
+		"es": "¡Bravo!",
 		"pt": "Bravo",
 		"de": "Erfolg",
 		"it": "Successo",
@@ -239,16 +239,6 @@ var dataLangue = {
 		"pl": "Pobierz",
 		"hr": "Letöltés"
 	},
-	"impossible": {
-		"fr": "Impossible !",
-		"uk": "Impossible !",
-		"es": "Imposible !",
-		"pt": "Impossível !",
-		"de": "Impossible !",
-		"it": "Impossible !",
-		"pl": "Niemożliwy",
-		"hr": "Lehetetlen"
-	},
 	"impossibleeditor": {
 		"fr": "Il est nécessaire de placer la bille de départ et la croix d'arrivée.",
 		"uk": "It is necessary to place the ball crosses the start and finish.",
@@ -310,7 +300,7 @@ var dataLangue = {
 		"hr": "Zöld"
 	},
 	"blue": {
-		"fr": "Bleue",
+		"fr": "Bleu",
 		"uk": "Blue",
 		"es": "Azul",
 		"pt": "Azul",
@@ -410,9 +400,9 @@ var dataLangue = {
 		"hr": "Lövedék"
 	},
 	"speedprojectiles": {
-		"fr": "Vitesse (1=lent, 5=rapide)",
+		"fr": "Vitesse (1 = lent, 5 = rapide)",
 		"uk": "Speed ​​(1 = low, 5 = high)",
-		"es": "Speed ​​(1 = bajo, 5 = alto)",
+		"es": "Velocidad ​​(1 = bajo, 5 = alto)",
 		"pt": "Velocidade (1 = baixo, 5 = alto)",
 		"de": "Speed ​​(1 = niedrig, 5 = hoch)",
 		"it": "Velocità (1 = basso, 5 = alto)",
@@ -442,12 +432,12 @@ var dataLangue = {
 	"backup": {
 		"fr": "Sauvegarde",
 		"uk": "Backup",
-		"es": "Backup",
-		"pt": "Backup",
-		"de": "Backup",
-		"it": "Backup",
+		"es": "Copia de seguridad",
+		"pt": "Apoio",
+		"de": "Sichern",
+		"it": "Eseguire il backup",
 		"pl": "Backup",
-		"hr": "Backup"
+		"hr": "Mentés"
 	},
 	"idlevel": {
 		"fr": "ID du niveau (taille max : 12)",
@@ -468,6 +458,66 @@ var dataLangue = {
 		"it": "Difficoltà",
 		"pl": "Trudność",
 		"hr": "Nehézség"
+	},
+	"choicesuppression": {
+		"fr": "Voulez-vous vraiment supprimer le niveau",
+		"uk": "Do you really want delete level",
+		"es": "¿Estás seguro que quieres eliminar el nivel",
+		"pt": "Você realmente quer apagar nível",
+		"de": "Wollen Sie wirklich löschen Ebene",
+		"it": "Sei sicuro di voler eliminare livello",
+		"pl": "Czy na pewno chcesz usunąć poziom",
+		"hr": "Nem akarja törölni szint"
+	},
+	"nolevel": {
+		"fr": "Aucun niveau",
+		"uk": "No level",
+		"es": "No hay un nivel",
+		"pt": "Nenhum nível",
+		"de": "Keine Ebene",
+		"it": "Nessun livello",
+		"pl": "No poziom",
+		"hr": "No szint"
+	},
+	"nolevelid": {
+		"fr": "Aucun niveau n'est associé à cet identifiant",
+		"uk": "No level is associated with this id",
+		"es": "No hay un nivel asociado a este identificador",
+		"pt": "Nenhum nível está associado a este identificador",
+		"de": "Keine Ebene mit dieser Kennung zugeordnet",
+		"it": "Nessun livello è associato a questo identificatore",
+		"pl": "Poziom nie jest związane z tym identyfikatora",
+		"hr": "Nincs szint is társítva van a azonosítóval"
+	},
+	"enterid": {
+		"fr": "Veuillez saisir un identifiant",
+		"uk": "Please enter id",
+		"es": "Por favor, introduzca un identificador",
+		"pt": "Por favor insira um identificador",
+		"de": "Bitte geben Sie einen Benutzernamen",
+		"it": "Inserisci un identificatore",
+		"pl": "Wpisz identyfikatora",
+		"hr": "Kérjük, adjon meg egy felhasználónevet"
+	},
+	"leveladded": {
+		"fr": "Niveau ajouté avec succès !",
+		"uk": "Level successfully added!",
+		"es": "¡Nivel agregado con éxito!",
+		"pt": "Nível adicionado com sucesso!",
+		"de": "Stufe erfolgreich hinzugefügt!",
+		"it": "Livello aggiunto con successo!",
+		"pl": "Poziom został dodany!",
+		"hr": "Level sikeresen hozzáadva!"
+	},
+	"noapi": {
+		"fr": "Votre matériel ne supporte pas les API Device Motion ou Device Orientation. Vous ne pouvez pas jouer au jeu ROLL IT!",
+		"uk": "Your device does not support the Motion API Device or Device Orientation. You can not play the game ROLL IT!",
+		"es": "El hardware no es compatible con la API de dispositivos de movimiento o la orientación del dispositivo. No se puede jugar el juego Roll It!",
+		"pt": "Seu hardware não suporta o dispositivo API Movimento ou orientação do dispositivo. Você não pode jogar o jogo Roll It!",
+		"de": "Ihre Hardware nicht unterstützt Motion-API Geräte oder Geräte-Orientierung. Man kann nicht das Spiel zu spielen ROLL IT!",
+		"it": "L'hardware non supporta il dispositivo API movimento o orientamento del dispositivo. Non è possibile riprodurre il gioco IT ROLL!",
+		"pl": "Twój sprzęt nie obsługuje Device API Motion lub orientację urządzenia. Nie można odtwarzać gry ROLL IT!",
+		"hr": "A hardver nem támogatja a Motion API készüléket és tájolása. Nem lehet játszani a játékot ROLL IT!"
 	}
 };
 

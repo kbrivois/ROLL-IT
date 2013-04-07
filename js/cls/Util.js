@@ -109,7 +109,7 @@ var appelerAccelerometre = function() {
 				oModeEnCours.oTerrain.oBille.fAccelerationY = event.beta * -2;
 			}, false);
 		} else {
-			alert("Votre téléphone ne supporte pas les API Device Motion ou Device Orientation. Vous ne pouvez pas jouer au jeu ROLL IT!"); 
+			alert(dataLang['noapi'][joueurISO]);
 		}
 	}
 };

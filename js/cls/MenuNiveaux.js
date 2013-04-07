@@ -93,15 +93,28 @@ MenuNiveaux.prototype.tracer = function()
 		oBille.tracer(oDivItemMenu);
 
 		// ajout de l'événement sur le clic de la vignette
-		(function(i) {
-			oDivItemMenu.addEventListener(endEvent, function() { if(!bTouchMove){creerPartie(i)} }, false);
-		})(i);
-
+		if(iChoixModeNiveaux == 2 || iChoixModeNiveaux == 3) {
+			var sId = this.aListeNiveaux[i].id;
+			(function(i) {
+				var sIdTemp = sId;
+				oDivItemMenu.addEventListener(endEvent, function() { if(!bTouchMove){creerPartie(i, sIdTemp)} }, false);
+			})(i);
+		} else {
+			(function(i) {
+				oDivItemMenu.addEventListener(endEvent, function() { if(!bTouchMove){creerPartie(i, i)} }, false);
+			})(i);
+		}
+		
 		// texte
 		var oDivTextItemMenu = document.createElement("div");
-		var record = recordJoueur(i, 1);
 		oDivTextItemMenu.className = "show-level-text";
-		oDivTextItemMenu.innerHTML = dataLangue['level'][joueurISO] + " " + (i + 1) + "<br /><span>" + record + "</span>";
+		if(iChoixModeNiveaux == 2 || iChoixModeNiveaux == 3) {
+			var record = recordJoueur(this.aListeNiveaux[i].id, 1, iChoixModeNiveaux);
+			oDivTextItemMenu.innerHTML = dataLangue['level'][joueurISO] + " " + this.aListeNiveaux[i].id + "<br /><span>" + record + "</span>";
+		} else {
+			var record = recordJoueur(i, 1, iChoixModeNiveaux);
+			oDivTextItemMenu.innerHTML = dataLangue['level'][joueurISO] + " " + (i + 1) + "<br /><span>" + record + "</span>";
+		}
 		oDivShowItemMenu.appendChild(oDivTextItemMenu);
 		
 		// Suppression (afficher seulement sur le choix des menus des niveaux en lignes ou persos)
