@@ -65,25 +65,6 @@ Array.prototype.unset = function(val) {
 	}
 };
 
-// La fonction retourne la valeur que retourne la page appelée
-var valeurURL = function(key) {
-    var url = "http://www.aymeric-auberton.fr/projets/dll/test.php?k=" + key;
-	
-	if (window.XMLHttpRequest) {
-        xmlhttp = new XMLHttpRequest();
-    } else {
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			valeurURL = xmlhttp.responseText;
-            return valeurURL;
-        }
-    }
-    xmlhttp.open("GET", url, false);
-    xmlhttp.send();    
-};
-
 /*
  * Fonction de clonage
  * @author Keith Devens
