@@ -263,6 +263,8 @@ Terrain.prototype.sauvegarder = function()
 {
 	var t = this;
 	document.getElementById("menu-save").style.display = "block";
+	document.getElementById("difficulty").style.display = "none";
+	document.getElementById("txt-difficulty").style.display = "none";
 	
 	// au moment de sauvegarder
 	document.getElementById("button-save").addEventListener(endEvent, 
@@ -324,7 +326,7 @@ Terrain.prototype.sauvegarder = function()
 				oNiveauASauvegarde += '],' +
 			// diamants
 				'"diamants":[';
-				aListe = t.aListeTrappes;
+				aListe = t.aListeDiamants;
 				iTailleTableau = aListe.length;
 				for(var i = 0; i < iTailleTableau; i++) {
 					oElem = aListe[i];
@@ -347,6 +349,14 @@ Terrain.prototype.sauvegarder = function()
 				oNiveauASauvegarde += ']}';
 
 				enregistrerNiveauPerso(oNiveauASauvegarde);
+				
+				if(document.getElementById("choice-online").checked) {
+					var iDifficulte = document.getElementById("difficulty").value;
+					var sId = document.getElementById("id-level").value;
+					var temp = postNiveau(sId, oNiveauASauvegarde, iDifficulte);
+					alert(temp);
+				}
+				
 				menuPrincipal();
 			}
 			else{
@@ -363,6 +373,18 @@ Terrain.prototype.sauvegarder = function()
 		}
 		else {
 			document.getElementById("choice-id-level").style.color = "black";
+		}
+	};
+	
+	// après avoir cocher "mettre en ligne"
+	document.getElementById("choice-online").onchange = function(){
+		if(this.checked) {
+			document.getElementById("difficulty").style.display = "initial";
+			document.getElementById("txt-difficulty").style.display = "initial";
+		}
+		else {
+			document.getElementById("difficulty").style.display = "none";
+			document.getElementById("txt-difficulty").style.display = "none";
 		}
 	};
 };

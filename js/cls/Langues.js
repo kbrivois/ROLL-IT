@@ -458,6 +458,16 @@ var dataLangue = {
 		"it": "ID del livello (formato max : 12)",
 		"pl": "ID poziomu (max rozmiar : 12)",
 		"hr": "ID szint (max méret : 12)"
+	},
+	"difficulty": {
+		"fr": "Difficulté",
+		"uk": "Difficulty",
+		"es": "Dificultad",
+		"pt": "Dificuldade",
+		"de": "Schwierigkeit",
+		"it": "Difficoltà",
+		"pl": "Trudność",
+		"hr": "Nehézség"
 	}
 };
 

@@ -55,8 +55,17 @@ function niveauSuivant() {
 // Détecte le click pendant que le menu Pause est afficher pour retourner au menu
 function menuPrincipal() {
 	cacherPages();
+	
+	if(oEditeur != null) {
+		oEditeur.oDivMenuEdition.ontouchmove = function(event){t.bTouchMoveMenu = true;};
+		document.getElementById("terrain").removeEventListener(startEvent, eventDownSurTerrain, false);
+		document.getElementById("terrain").removeEventListener(moveEvent, eventMoveSurTerrain, false);
+		document.getElementById("terrain").removeEventListener(endEvent, eventUpSurTerrain, false);
+	}
+	
 	oPartie = null;
 	oEditeur = null;
+	
 	// on vide le terrain
 	document.getElementById('terrain').innerHTML = "";
 	document.getElementById('items-menu-edit').innerHTML = "";
@@ -76,10 +85,19 @@ function lancerMenuNiveaux(arrayListeNiveau, idModeNiveaux) {
 	// idModeNiveaux : 1=niveaux de base, 2=niveaux en ligne, 3=niveaux perso
 	var ok = 1;
 	if(idModeNiveaux != 1) {
-		var nOnline = chargerNiveauxOnline(0);
-		if(!nOnline) {
-			ok = 0;
-			alert("Aucun niveaux.");
+		if(idModeNiveaux == 2) {
+			var nOnline = chargerNiveauxOnline(0);
+			if(!nOnline) {
+				ok = 0;
+				alert("Aucun niveau.");
+			}
+		}
+		else if(idModeNiveaux == 3) {
+			var nPerso = chargerNiveauxPerso(0);
+			if(!nPerso) {
+				ok = 0;
+				alert("Aucun niveau.");
+			}
 		}
 	}
 	if(ok) {
