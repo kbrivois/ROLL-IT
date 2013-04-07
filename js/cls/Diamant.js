@@ -228,27 +228,27 @@ Diamant.prototype.modifier = function()
 	document.getElementById("color-diamond").onchange = function(){
 		var sValeur = this.options[this.selectedIndex].value;
 		if(sValeur == "red") {
-			t.sImage = "img/d-red";
+			t.sImage = "img/d-red.png";
 			t.oDiv.src = t.sImage;
 		}
 		else if(sValeur == "green") {
-			t.sImage = "img/d-green";
+			t.sImage = "img/d-green.png";
 			t.oDiv.src = t.sImage;
 		}
 		else if(sValeur == "blue") {
-			t.sImage = "img/d-blue";
+			t.sImage = "img/d-blue.png";
 			t.oDiv.src = t.sImage;
 		}
 		else if(sValeur == "cyan") {
-			t.sImage = "img/d-cyan";
+			t.sImage = "img/d-cyan.png";
 			t.oDiv.src = t.sImage;
 		}
 		else if(sValeur == "yellow") {
-			t.sImage = "img/d-yellow";
+			t.sImage = "img/d-yellow.png";
 			t.oDiv.src = t.sImage;
 		}
 		else if(sValeur == "pink") {
-			t.sImage = "img/d-pink";
+			t.sImage = "img/d-pink.png";
 			t.oDiv.src = t.sImage;
 		}
 		else if(sValeur == "random") {
