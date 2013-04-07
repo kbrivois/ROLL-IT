@@ -126,6 +126,19 @@ function enregistrerNiveauOnline(niveauOnline) {
 	alert("Niveau ajouté avec succès !");
 }
 
+// Reorganiser les niveaux téléchargés du serveur après une suppression
+function reorganiserNiveauOnline(niveauOnline, first) {
+	if(first) {
+		var niveauOnline = "[" + niveauOnline + "]";
+		localStorage.setItem('rollit-online', niveauOnline); 
+	} else {
+		var niveauxOnline = chargerNiveauxOnline(0);
+		niveauxOnline = niveauxOnline.slice(0, -1);
+		var online = niveauxOnline + ", " + niveauOnline + "]";
+		localStorage.setItem('rollit-online', online);
+	}
+}
+
 // Enregistrer le niveau créé dans l'éditeur
 function enregistrerNiveauPerso(niveauPerso) {
 	aListeNiveauxPerso.push(JSON.parse(niveauPerso));

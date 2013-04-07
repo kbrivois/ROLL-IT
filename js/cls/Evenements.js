@@ -197,7 +197,11 @@ function supprimerNiveauOnline(iNumeroNiveauOnline) {
 		}
 		// On MAJ la bdd
 		for(var j=0; j<aListeNiveauxEnLigne.length; j++) {
-			console.log(aListeNiveauxEnLigne[j]);
+			if(!j) {
+				reorganiserNiveauOnline(JSON.stringify(aListeNiveauxEnLigne[j]), 1);
+			} else {
+				reorganiserNiveauOnline(JSON.stringify(aListeNiveauxEnLigne[j]), 0);
+			}
 		}
 	}
 }
