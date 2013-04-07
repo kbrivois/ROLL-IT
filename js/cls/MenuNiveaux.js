@@ -123,10 +123,18 @@ MenuNiveaux.prototype.tracer = function()
 			oDivSupprimer.className = "delete-level";
 			oDivShowItemMenu.appendChild(oDivSupprimer);
 			
-			// Ajout de l'événement pour la suppresion du niveau
-			(function(i) {
-				oDivSupprimer.addEventListener(endEvent, function() { if(!bTouchMove){supprimerNiveauOnline(i)} }, false);
-			})(i);
+			if(iChoixModeNiveaux == 2) {
+				// Ajout de l'événement pour la suppresion du niveau
+				(function(i) {
+					oDivSupprimer.addEventListener(endEvent, function() { if(!bTouchMove){supprimerNiveauOnline(i)} }, false);
+				})(i);
+			}
+			else {
+				// Ajout de l'événement pour la suppresion du niveau
+				(function(i) {
+					oDivSupprimer.addEventListener(endEvent, function() { if(!bTouchMove){supprimerNiveauPerso(i)} }, false);
+				})(i);
+			}
 		}
 	}
 

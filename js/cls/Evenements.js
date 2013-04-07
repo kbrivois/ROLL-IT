@@ -14,13 +14,23 @@ function pausePartie() {
 	oModeEnCours.bPause = true;
 }
 
-// Détecte le click pendant que le menu Pause est afficher pour reprendre la partie
-function reprendrePartie() {
-	cacherPages();
-	document.getElementById('partie').style.display = 'block';
-	if(oEditeur == null)
-		oModeEnCours.oChrono.start();
-	oModeEnCours.bPause = false;
+// Détecte le click sur un bouton reprendre
+function reprendre() {
+	// dans l'éditeur ou la partie
+	if(oEditeur != null || oPartie != null) {
+		cacherPages();
+		document.getElementById('partie').style.display = 'block';	
+		oModeEnCours.bPause = false;
+		// dans la partie
+		if(oEditeur == null && oPartie != null)
+			oModeEnCours.oChrono.start();
+		// dans l'éditeur en mode jeu
+		else if(oEditeur != null && oEditeur.bEnModeJeu)
+			oModeEnCours.oChrono.start();
+	}
+	else {
+		document.getElementById("message").style.display = "none";
+	}
 }
 
 // Détecte le click après la victoire pour recommencer la partie
@@ -82,6 +92,9 @@ function lancerMenuChoixMode() {
 
 // Détecte le click pour lancer le menu des niveaux
 function lancerMenuNiveaux(arrayListeNiveau, idModeNiveaux) {
+
+	document.getElementById("show-level").innerHTML = "";
+	
 	// idModeNiveaux : 1=niveaux de base, 2=niveaux en ligne, 3=niveaux perso
 	var ok = 1;
 	if(idModeNiveaux != 1) {
@@ -89,14 +102,14 @@ function lancerMenuNiveaux(arrayListeNiveau, idModeNiveaux) {
 			var nOnline = chargerNiveauxOnline(0);
 			if(!nOnline) {
 				ok = 0;
-				alert(dataLang['nolevel'][joueurISO]);
+				afficherMessage(dataLangue['nolevel'][joueurISO]);
 			}
 		}
 		else if(idModeNiveaux == 3) {
 			var nPerso = chargerNiveauxPerso(0);
 			if(!nPerso) {
 				ok = 0;
-				alert(dataLang['nolevel'][joueurISO]);
+				afficherMessage(dataLangue['nolevel'][joueurISO]);
 			}
 		}
 	}
@@ -118,6 +131,12 @@ function lancerMenuLevelOnline() {
 function menuLangues() {
 	cacherPages();
 	document.getElementById('languages').style.display = 'block';
+}
+
+// Affiche un message donné en paramètre
+function afficherMessage(sMessage) {
+	document.getElementById('message').style.display = 'block';
+	document.getElementById('message-txt').innerHTML = sMessage;
 }
 
 // on lance un partie après avoir choisi le niveau dans le menu
@@ -203,27 +222,51 @@ function changerLangue() {
 
 // Supprime un niveau online
 function supprimerNiveauOnline(iNumeroNiveauOnline) {
-	var choixUtilisateur = confirm(dataLang['choicesuppression'][joueurISO] + " " + eval(iNumeroNiveauOnline + 1) + " ?");
+	var choixUtilisateur = confirm(dataLangue['choicesuppression'][joueurISO] + " " + eval(iNumeroNiveauOnline + 1) + " ?");
 	if(choixUtilisateur) {
 		// On supprime le niveau du tableau courant
 		aListeNiveauxEnLigne.unset(aListeNiveauxEnLigne[iNumeroNiveauOnline]);
-		// On fait disparaitre le div
-		var oShowLevelItem = document.getElementsByClassName("show-level-item");
-		for(var i in oShowLevelItem) {
-			if(oShowLevelItem[i] instanceof Element && i == iNumeroNiveauOnline)
-				oShowLevelItem[i].style.display = 'none';
-		}
 		// On MAJ la bdd
-		for(var j=0; j<aListeNiveauxEnLigne.length; j++) {
-			if(!j) {
-				reorganiserNiveauOnline(JSON.stringify(aListeNiveauxEnLigne[j]), 1);
-			} else {
-				reorganiserNiveauOnline(JSON.stringify(aListeNiveauxEnLigne[j]), 0);
+		if(aListeNiveauxEnLigne.length != 0) {
+			for(var j=0; j<aListeNiveauxEnLigne.length; j++) {
+				if(!j) {
+					reorganiserNiveauOnline(JSON.stringify(aListeNiveauxEnLigne[j]), 1);
+				} else {
+					reorganiserNiveauOnline(JSON.stringify(aListeNiveauxEnLigne[j]), 0);
+				}
 			}
 		}
+		else {
+			reorganiserNiveauOnline(null);
+		}
+		// on retourne sur le menu du choix du mode de jeu (perso...)
+		lancerMenuChoixMode();
 	}
 }
 
+// Supprime un niveau perso
+function supprimerNiveauPerso(iNumeroNiveauPerso) {
+	var choixUtilisateur = confirm(dataLangue['choicesuppression'][joueurISO] + " " + eval(iNumeroNiveauPerso + 1) + " ?");
+	if(choixUtilisateur) {
+		// On supprime le niveau du tableau courant
+		aListeNiveauxPerso.unset(aListeNiveauxPerso[iNumeroNiveauPerso]);
+		// On MAJ la bdd
+		if(aListeNiveauxPerso.length != 0) {
+			for(var j=0; j<aListeNiveauxPerso.length; j++) {
+				if(!j) {
+					reorganiserNiveauPerso(JSON.stringify(aListeNiveauxPerso[j]), 1);
+				} else {
+					reorganiserNiveauPerso(JSON.stringify(aListeNiveauxPerso[j]), 0);
+				}
+			}
+		}
+		else {
+			reorganiserNiveauPerso(null);
+		}
+		// on retourne sur le menu du choix du mode de jeu (perso...)
+		lancerMenuChoixMode();
+	}
+}
 // On teste le téléchargement d'un niveau avec l'id de l'utilisateur
 function telechargerNiveau() {
 	var key = document.getElementById("id-level-online").value;
@@ -235,11 +278,11 @@ function telechargerNiveau() {
 			// Enregistrer le niveau dans la bonne variable de LocalStorage
 			enregistrerNiveauOnline(reponseHTTP);
 		} else {
-			alert(dataLang['nolevelid'][joueurISO]);
+			afficherMessage(dataLangue['nolevelid'][joueurISO]);
 		}
 		
 	} else {
-		alert(dataLang['enterid'][joueurISO]);
+		afficherMessage(dataLangue['enterid'][joueurISO]);
 	}
 }
 

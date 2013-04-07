@@ -132,7 +132,7 @@ function enregistrerNiveauOnline(niveauOnline) {
 		var niveauOnline = "[" + niveauOnline + "]";
 		localStorage.setItem('rollit-online', niveauOnline); 
 	}
-	alert(dataLang['leveladded'][joueurISO]);
+	afficherMessage(dataLangue['leveladded'][joueurISO]);
 }
 
 // Reorganiser les niveaux téléchargés du serveur après une suppression
@@ -145,6 +145,37 @@ function reorganiserNiveauOnline(niveauOnline, first) {
 		niveauxOnline = niveauxOnline.slice(0, -1);
 		var online = niveauxOnline + ", " + niveauOnline + "]";
 		localStorage.setItem('rollit-online', online);
+	}
+}
+
+
+// Reorganiser les niveaux téléchargés du serveur après une suppression
+function reorganiserNiveauOnline(niveauOnline, first) {
+	if(first && niveauOnline != null) {
+		var niveauOnline = "[" + niveauOnline + "]";
+		localStorage.setItem('rollit-online', niveauOnline); 
+	} else if(niveauOnline != null) {
+		var niveauxOnline = chargerNiveauxOnline(0);
+		niveauxOnline = niveauxOnline.slice(0, -1);
+		var online = niveauxOnline + ", " + niveauOnline + "]";
+		localStorage.setItem('rollit-online', online);
+	} else {
+		localStorage.removeItem('rollit-online');
+	}
+}
+
+// Reorganiser les niveaux perso après une suppression
+function reorganiserNiveauPerso(niveauPerso, first) {
+	if(first && niveauPerso != null) {
+		var niveauPerso = "[" + niveauPerso + "]";
+		localStorage.setItem('rollit-perso', niveauPerso); 
+	} else if(niveauPerso != null) {
+		var niveauxPerso = chargerNiveauxOnline(0);
+		niveauxPerso = niveauxPerso.slice(0, -1);
+		var perso = niveauxPerso + ", " + niveauPerso + "]";
+		localStorage.setItem('rollit-perso', perso);
+	} else {
+		localStorage.removeItem('rollit-perso');
 	}
 }
 
@@ -161,5 +192,5 @@ function enregistrerNiveauPerso(niveauPerso) {
 		var niveauxPerso = "[" + niveauPerso + "]";
 		localStorage.setItem('rollit-perso', niveauxPerso); 
 	}
-	alert(dataLang['leveladded'][joueurISO]);
+	afficherMessage(dataLangue['leveladded'][joueurISO]);
 }

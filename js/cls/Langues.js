@@ -196,7 +196,7 @@ var dataLangue = {
 		"pt": "Nível de base",
 		"de": "Basislevel",
 		"it": "Livello base",
-		"pl": "Podstawowy poziom",
+		"pl": "Poziom baza",
 		"hr": "Base szint"
 	},
 	"onlinelevel": {
@@ -215,8 +215,8 @@ var dataLangue = {
 		"es": "Nivel perso",
 		"pt": "Nível perso",
 		"de": "Customlevel",
-		"it": "Livello personalizzato",
-		"pl": "Nível Personalizado",
+		"it": "Custom level",
+		"pl": "Poziom osobisty",
 		"hr": "Egyéni szint"
 	},
 	"txtonlinelevel": {
@@ -432,10 +432,10 @@ var dataLangue = {
 	"backup": {
 		"fr": "Sauvegarde",
 		"uk": "Backup",
-		"es": "Copia de seguridad",
+		"es": "Backup",
 		"pt": "Apoio",
 		"de": "Sichern",
-		"it": "Eseguire il backup",
+		"it": "Backup",
 		"pl": "Backup",
 		"hr": "Mentés"
 	},

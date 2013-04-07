@@ -109,7 +109,7 @@ var appelerAccelerometre = function() {
 				oModeEnCours.oTerrain.oBille.fAccelerationY = event.beta * -2;
 			}, false);
 		} else {
-			alert(dataLang['noapi'][joueurISO]);
+			afficherMessage(dataLangue['noapi'][joueurISO]);
 		}
 	}
 };

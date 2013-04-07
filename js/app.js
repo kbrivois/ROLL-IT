@@ -123,7 +123,7 @@ document.getElementById("top-pause").addEventListener(endEvent, pausePartie, fal
 var oButtonReprendre = document.getElementsByClassName("button-resume");
 for(var i in oButtonReprendre) {
 	if(oButtonReprendre[i] instanceof Element) {
-		oButtonReprendre[i].addEventListener(endEvent, reprendrePartie, false); 
+		oButtonReprendre[i].addEventListener(endEvent, reprendre, false); 
 	}
 }
 

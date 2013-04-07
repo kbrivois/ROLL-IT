@@ -195,6 +195,9 @@ body {
 	background: rgba(217, 217, 217, 0.8);
 	text-align: center;
 }
+#message {
+	background: rgb(217, 217, 217);
+}
 .overlay-title {
 	height: 100px;
 	display: block;
@@ -288,7 +291,7 @@ body {
 	margin: 15px auto;
 }
 #button-new-level-online {
-	margin: 30px auto 15px auto;
+	margin: 15px auto 15px auto;
 }
 
 /* DRAPEAUX */
