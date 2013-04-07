@@ -99,9 +99,14 @@ MenuNiveaux.prototype.tracer = function()
 
 		// texte
 		var oDivTextItemMenu = document.createElement("div");
-		var record = recordJoueur(i, 1);
 		oDivTextItemMenu.className = "show-level-text";
-		oDivTextItemMenu.innerHTML = dataLangue['level'][joueurISO] + " " + (i + 1) + "<br /><span>" + record + "</span>";
+		if(iChoixModeNiveaux == 2 || iChoixModeNiveaux == 3) {
+			var record = recordJoueur(this.aListeNiveaux[i].id, 1, iChoixModeNiveaux);
+			oDivTextItemMenu.innerHTML = dataLangue['level'][joueurISO] + " " + this.aListeNiveaux[i].id + "<br /><span>" + record + "</span>";
+		} else {
+			var record = recordJoueur(i, 1, iChoixModeNiveaux);
+			oDivTextItemMenu.innerHTML = dataLangue['level'][joueurISO] + " " + (i + 1) + "<br /><span>" + record + "</span>";
+		}
 		oDivShowItemMenu.appendChild(oDivTextItemMenu);
 		
 		// Suppression (afficher seulement sur le choix des menus des niveaux en lignes ou persos)

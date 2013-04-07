@@ -55,7 +55,7 @@ Partie.prototype.gagner = function()
 	var iGagneMinutes = document.getElementById('time-min').innerHTML;
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
 	document.getElementById('win-time').innerHTML = sTempsGagne;
-	enregistrementRecord(iNiveauSelectionne, iGagneMinutes, iGagneSecondes);
+	enregistrementRecord(iNiveauSelectionne, iGagneMinutes, iGagneSecondes, iChoixModeNiveaux);
 	
 	// s'il n'existe pas de niveau suivant
 	if(aListeNiveaux.length-1 < iNiveauSelectionne+1) {

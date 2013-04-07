@@ -5,58 +5,67 @@ function enregistrerDonnees() {
 
 // Afficher les niveaux dans le menu
 function chargerNiveaux() {
-	var htmlNiveaux = "";
-	var numNiveau = 1;
 	enregistrerDonnees();
 	var oNiveaux = JSON.parse(localStorage.getItem('rollit'));
 	return oNiveaux;
 }
 
 // Enregistrement du nouveau record du joueur si l'ancien est battu
-function enregistrementRecord(niveau, min, sec) {
+function enregistrementRecord(niveau, min, sec, modeNiveaux) {
 	if(min == "00") {
 		var record = (sec[0] * 10) + (sec[1] * 1);
 	} else {
-		if(min[0] == "0") {
+		if(min[0] == "0")
 			var record = (min[1] * 60) + (sec[0] * 10) + (sec[1] * 1);
-		} else {
+		else
 			var record = ((min[0] + 10) * 60) + (min[1] * 60) + (sec[0] * 10) + (sec[1] * 1);
-		}
 	}
 	
-	var keyRecord = "rollit" + eval(niveau + 1);
-	var exRecord = recordJoueur(niveau, 0);
-
+	if(modeNiveaux == 1) {
+		var keyRecord = "rollit" + eval(niveau + 1);
+		var exRecord = recordJoueur(niveau, 0);
+	} else if(modeNiveaux == 2) {
+		var keyRecord = "rollit-online" + niveau;
+		var exRecord = recordJoueur(niveau, 0);
+	} else if(modeNiveaux == 3) {
+		var keyRecord = "rollit-perso" + niveau;
+		var exRecord = recordJoueur(niveau, 0);
+	}
+	
 	if(exRecord) {
-		if(exRecord > record) {
+		if(exRecord > record)
 			localStorage.setItem(keyRecord, JSON.stringify(record));
-		}
 	} else {
 		localStorage.setItem(keyRecord, JSON.stringify(record));
 	}
 }
 
 // Retourner le record d'un niveau
-function recordJoueur(niveau, texte) {
-	var keyRecord = "rollit" + eval(niveau + 1);
+function recordJoueur(niveau, texte, modeNiveaux) {
+
+	if(modeNiveaux == 1)
+		var keyRecord = "rollit" + eval(niveau + 1);
+	else if(modeNiveaux == 2)
+		var keyRecord = "rollit-online" + niveau;
+	else if(modeNiveaux == 3)
+		var keyRecord = "rollit-perso" + niveau;
+		
 	var record = JSON.parse(localStorage.getItem(keyRecord));
 	
 	if(texte && record) {
 		if(record < 60) {
-			if(record < 10) {
+			if(record < 10)
 				record = "0" + record;
-			}
 			
 			return "00 : " + record;
 		} else {
 			var minutes = Math.floor(record / 60);
 			var secondes = record - (minutes * 60);
-			if(minutes < 10) {
+			if(minutes < 10)
 				minutes = "0" + minutes;
-			}
-			if(secondes < 10) {
+				
+			if(secondes < 10)
 				secondes = "0" + secondes;
-			}
 			
 			return minutes + " : " + secondes;
 		}
