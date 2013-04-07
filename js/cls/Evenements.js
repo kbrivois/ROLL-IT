@@ -173,6 +173,25 @@ function changerLangue() {
 	textesLangue(this.id);
 }
 
+// Supprime un niveau online
+function supprimerNiveauOnline(iNumeroNiveauOnline) {
+	var choixUtilisateur = confirm("Voulez-vous vraiment supprimer le niveau " + eval(iNumeroNiveauOnline + 1));
+	if(choixUtilisateur) {
+		// On supprime le niveau du tableau courant
+		aListeNiveauxEnLigne.unset(aListeNiveauxEnLigne[iNumeroNiveauOnline]);
+		// On fait disparaitre le div
+		var oShowLevelItem = document.getElementsByClassName("show-level-item");
+		for(var i in oShowLevelItem) {
+			if(oShowLevelItem[i] instanceof Element && i == iNumeroNiveauOnline)
+				oShowLevelItem[i].style.display = 'none';
+		}
+		// On MAJ la bdd
+		for(var j=0; j<aListeNiveauxEnLigne.length; j++) {
+			console.log(aListeNiveauxEnLigne[j]);
+		}
+	}
+}
+
 // On teste le téléchargement d'un niveau avec l'id de l'utilisateur
 function telechargerNiveau() {
 	var key = document.getElementById("id-level-online").value;

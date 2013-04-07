@@ -105,14 +105,14 @@ MenuNiveaux.prototype.tracer = function()
 		oDivShowItemMenu.appendChild(oDivTextItemMenu);
 		
 		// Suppression (afficher seulement sur le choix des menus des niveaux en lignes ou persos)
-		if(iChoixModeNiveaux == 1 || iChoixModeNiveaux == 3) {
+		if(iChoixModeNiveaux == 2 || iChoixModeNiveaux == 3) {
 			var oDivSupprimer = document.createElement("div");
 			oDivSupprimer.className = "delete-level";
 			oDivShowItemMenu.appendChild(oDivSupprimer);
 			
 			// Ajout de l'événement pour la suppresion du niveau
 			(function(i) {
-				oDivSupprimer.addEventListener(endEvent, function() { if(!bTouchMove){alert(1);} }, false);
+				oDivSupprimer.addEventListener(endEvent, function() { if(!bTouchMove){supprimerNiveauOnline(i)} }, false);
 			})(i);
 		}
 	}
