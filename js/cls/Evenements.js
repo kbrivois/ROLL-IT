@@ -74,10 +74,20 @@ function lancerMenuChoixMode() {
 // Détecte le click pour lancer le menu des niveaux
 function lancerMenuNiveaux(arrayListeNiveau, idModeNiveaux) {
 	// idModeNiveaux : 1=niveaux de base, 2=niveaux en ligne, 3=niveaux perso
-	iChoixModeNiveaux = idModeNiveaux;
-	cacherPages();
-	document.getElementById('new-game').style.display = 'block';
-	initMenu(arrayListeNiveau);
+	var ok = 1;
+	if(idModeNiveaux != 1) {
+		var nOnline = chargerNiveauxOnline(0);
+		if(!nOnline) {
+			ok = 0;
+			alert("Aucun niveaux.");
+		}
+	}
+	if(ok) {
+		iChoixModeNiveaux = idModeNiveaux;
+		cacherPages();
+		document.getElementById('new-game').style.display = 'block';
+		initMenu(arrayListeNiveau);
+	}
 }
 
 // Détecte le click pour lancer le menu des niveaux online
@@ -197,7 +207,7 @@ function telechargerNiveau() {
 	var key = document.getElementById("id-level-online").value;
 	
 	if(key) {
-		var reponseHTTP = valeurURL("http://www.aymeric-auberton.fr/projets/dll/test.php?k=" + key);
+		var reponseHTTP = valeurURL("http://www.aymeric-auberton.fr/projets/dll/get.php?k=" + key);
 		
 		if(reponseHTTP != 0) {
 			// Enregistrer le niveau dans la bonne variable de LocalStorage
