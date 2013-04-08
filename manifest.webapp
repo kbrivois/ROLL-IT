@@ -1,16 +1,16 @@
 {
   "name": "ROLL IT",
   "description": "Direct the ball with your equipment to the end location while avoiding obstacles.",
-  "launch_path": "/ROLL-IT/index.html",
+  "launch_path": "http://kbrivois.github.com/ROLL-IT/index.html",
   "icons": {
-    "32": "/ROLL-IT/img/icon_32.png",
-    "60": "/ROLL-IT/img/icon_60.png",
-    "120": "/ROLL-IT/img/icon_120.png",
-    "256": "/ROLL-IT/img/icon_256.png"
+    "32": "http://kbrivois.github.com/ROLL-IT/img/icon-32.png",
+    "64": "http://kbrivois.github.com/ROLL-IT/img/icon-64.png",
+    "128": "http://kbrivois.github.com/ROLL-IT/img/icon-128.png"
   },
   "developer": {
     "name": "Kevin BRIVOIS - Marine PREVEAUX - Aymeric AUBERTON",
-"url": "https://github.com/kbrivois/ROLL-IT"
+    "url": "https://github.com/kbrivois/ROLL-IT"
   },
-  "orientation": ["portrait"]
+  "orientation": ["portrait"],
+  "default_locale": "en"
 }
