@@ -39,6 +39,9 @@ into levels, and the difficulty of these will crescendo.</p>
 <p>The application can be tested at the following address :<br />
 <a href="http://kbrivois.github.com/ROLL-IT" title="Test ROLL-IT" target="_blank">http://kbrivois.github.com/ROLL-IT</a></p>
 
+<h2>INSTALL</h2>
+<p>You can also install it on your mobile FirefoxOS by accessing the application from installing <a href="http://kbrivois.github.com/ROLL-IT/install.html">http://kbrivois.github.com/ROLL-IT/install.html</a></p>
+
 <h2>DOCUMENTATION</h2>
 For any extra documentation, please read our <a href="http://www.aymeric-auberton.fr/projets/dll/development.html" target="_blank">online documentation</a>.
 
@@ -86,6 +89,9 @@ entraves. Le jeu sera divisé en niveaux, et la difficulté de ces derniers ira 
 <h2>TEST</h2>
 <p>L'application peut-être testée à l'adresse suivante :<br />
 <a href="http://kbrivois.github.com/ROLL-IT" title="Test ROLL-IT" target="_blank">http://kbrivois.github.com/ROLL-IT</a></p>
+
+<h2>INSTALLER</h2>
+<p>Vous pouvez également l'installer sur votre mobile FirefoxOS en accédant à l'installer de l'application depuis <a href="http://kbrivois.github.com/ROLL-IT/install.html">http://kbrivois.github.com/ROLL-IT/install.html</a></p>
 
 <h2>DOCUMENTATION</h2>
 Pour plus d'informations, vous pouvez lire notre <a href="http://www.aymeric-auberton.fr/projets/dll/development.html" target="_blank">documentation en ligne</a>.
