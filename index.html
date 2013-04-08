@@ -1,238 +1,260 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <title>Roll-it !</title>
-  </head>
-
-  <body>
-    <header>
-      <div class="inner">
-        <h1>Roll-it</h1>
-        <h2></h2>
-        <a href="https://github.com/kbrivois/ROLL-IT" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
-
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-		<section id="main-content">
-			<h3>Point sur nos tests (30-03-2013)</h3>
-
-			<p>Au cours de nos développement, nous avons testés sur de nombreux matériels ; smartphones, tablettes, pc. Le jeu fonctionne sur les matériels suivants :</p>
-
-			<ul>
-				<li>iPhone 3GS iOS 6.1.3 (Safari et Chrome)</li>
-				<li>iPhone 4</li>
-				<li>Galaxy S3 (Firefox et Chrome)</li>
-				<li>Galaxy S2</li>
-				<li>iPad 3 Retina iOS 6.0.1 (Safari)</li>
-				<li>Nexus 7 Android 4.2.2 (Chrome)</li>
-				<li>MacBook Pro Lion (Chrome mais pas Firefox)</li>
-				<li>Galaxy TAB 2 (Navigateur)</li>
-				<li>Asus Transformer Pad Infinity TF700** (Chrome)</li>
-			</ul>
+	<head>
+		<title>ROLL IT !</title>
+		<meta charset="utf8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<!-- <script src="js/lib/mouse_event_shim.js" type="text/javascript" defer="defer"></script>  -->
+		<script src="js/cls/Partie.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Editeur.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/MenuNiveaux.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Chrono.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Bille.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Arrivee.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Point.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Terrain.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Mur.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Vide.js" type="text/javascript" defer="defer"></script>
+		<script src="js/cls/Trappe.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Trou.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/GroupeProjectiles.js" type="text/javascript" defer="defer"></script>
+		<script src="js/cls/Projectile.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Diamant.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Evenements.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/cls/Util.js" type="text/javascript" defer="defer"></script>
+		<script src="js/cls/Langues.js" type="text/javascript" defer="defer"></script>
+		<script src="js/cls/Donnees.js" type="text/javascript" defer="defer"></script>
+		<script src="js/cls/LocalStorage.js" type="text/javascript" defer="defer"></script>
+		<script src="js/app.js" type="text/javascript" defer="defer"></script> 
+	</head>
+	<body>
+		<div id="content">
+			<div id="hp" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div class="button-new-level button-green txt-langue" data-lang="newlevel">
+					Nouveau jeu
+				</div>
+				<div id="button-editor" class="button-red txt-langue" data-lang="editorlevel">
+					Editer niveau
+				</div>
+				<div id="button-languages" class="button-blue txt-langue" data-lang="languages">
+					Langues
+				</div>
+			</div>
+			
+			<div id="languages" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="drapeaux">
+					<div id="fr" class="iso-langue" style="opacity: 1;"></div>
+					<div id="uk" class="iso-langue"></div>
+					<div id="es" class="iso-langue"></div>
+					<div id="pt" class="iso-langue"></div>
+					<br />
+					<div id="de" class="iso-langue"></div>
+					<div id="it" class="iso-langue"></div>
+					<div id="pl" class="iso-langue"></div>
+					<div id="hr" class="iso-langue"></div>
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
+			</div>
+			
+			<div id="mode-game" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="button-new-level-normal" class="button-green txt-langue" data-lang="baselevel">
+					Niveau de base
+				</div>
+				<div id="button-menu-level-online" class="button-red txt-langue" data-lang="onlinelevel">
+					Niveau en ligne
+				</div>
+				<div id="button-new-level-custom" class="button-yellow txt-langue" data-lang="customlevel">
+					Niveau perso
+				</div>
 				
-			<p>Le jeu ne fonctionne pas sur les matériels suivants :</p>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
+			</div>
 			
-			<ul>
-				<li>iPad 1 iOS 5.1.1 (Safari et Chrome)</li>
-			</ul>
-
-
-			<h3>Le projet s'accélère (27-03-2013)</h3>
+			<div id="mode-game-online" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="form-level-online">
+					<span class="txt-langue" data-lang="txtonlinelevel">
+						Veuillez saisir l'identifiant du niveau que vous souhaitez ajouter à votre jeu.
+					</span>
+					<input id="id-level-online" type="text" value="" /><br />
+					<div id="submit-level-online" class="button-green txt-langue" data-lang="download">
+						Télécharger
+					</div>
+				</div>
+				<div id="button-new-level-online" class="button-red txt-langue" data-lang="onlinelevel">
+					Niveau en ligne
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
+			</div>
 			
-			<p>La date de rendu du projet avance à grands pas. Nous avons terminé le plus gros du projet. Il reste encore beaucoup de travail pour l'éditeur de terrain et les fonctionnalités supplémentaires prévues pour la version 4. Nous aimerions les inclure dans la version 3, mais il est probable que nous manquions de temps. Néanmoins, voici la liste des fonctionnalités ajoutées dernièrement :</p>
+			<div id="new-game" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="select-level">
+					<div id="show-level"></div>
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
+			</div>
 			
-			<ul>
+			<div id="win" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="success">Bravo</span>
+				<span id="win-time"><span class="txt-langue" data-lang="time">Temps</span> : 01 : 45</span>
+				<div id="button-try-again" class="button-green txt-langue" data-lang="restart">
+					Recommencer
+				</div>
+				<div id="win-button-other-level" class="button-other-level button-red txt-langue" data-lang="anotherlevel">
+					Autre niveau
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
+			</div>
 			
-				<li>Lorsque le joueur choisit une langue dans le menu prévu à cet effet, celle-ci est enregistrée. Si le joueur vient à quitter le jeu, lorsqu'il le rouvrira le jeu sera traduit dans la dernière langue sélectionnée. La langue par défaut est le français.</li>
-				
-				<li>Nous avons accompli un important travail sur le redimensionnement du jeu. Il conserve un ratio largeur/hauteur fixe et s'adapte en fonction des propriétés des smartphones pour un rendu optimal.</li>
-				
-				<li>En ce qui concerne les smartphones dépourvus des API Device Motion et Device Orientation, nous avons ajouté un message d'alerte qui les préviendra que leur matériel ne permet pas de faire fonctionner le jeu dans des conditions optimales.</li>
-				
-				<li>Nous avons ajouté plusieurs niveaux. Pour le moment, les 5 premiers niveaux sont terminés. D'autres sont en cours de réalisation.</li>
-				
-				<li>La police personnalisée Gloria Hallelujah était auparavant téléchargée depuis le serveur de Google Web Fonts. Nous l'avons ajoutée au jeu en local afin qu'il se charge plus vite et que le jeu fonctionne sans connexion Internet.</li>
-				
-				<li>La création de l'éditeur de jeu est compliquée. Nous découvrons entre autres la difficile gestion des événements Touch. L'interface de l'éditeur apparaîtra et disparaîtra lors de touches rapides sur l'écran (double tap).</li>
-				
-				<li>Nous publierons prochainement sur le compte GitHub une documentation qui détaillera l'organisation générale du jeu. Les classes y seront détaillées.</li>
-				
-				<li>Dans les prochains jours, nous enrichirons le README.md d'informations diverses.</li>
-			</ul>
-
-			<h3>Point projet (20-03-2013)</h3>
+			<div id="pause" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="pause">Pause</span>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+				<div id="pause-button-other-level" class="button-other-level button-red txt-langue" data-lang="anotherlevel">
+					Autre niveau
+				</div>
+				<div id="button-save-level" class="button-red txt-langue" data-lang="savelevel" style="display: none;">
+					Sauver niveau
+				</div>
+				<div class="button-menu button-blue txt-langue" data-lang="menu">
+					Menu
+				</div>
+			</div>
 			
-			<p>Il ne reste désormais plus que 20 jours avant le rendu du projet. Le temps est venu de faire un nouveau point sur le projet :</p>
+			<div id="menu-save" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="backup">Sauvegarde</span>
+				<div id="choice-id-level" class="txt-langue" data-lang="idlevel">
+					Id du niveau (taille max = 12)
+				</div>
+				<input id="id-level" type="text" value="" /><br />
+				<div class="txt-langue" data-lang="savelevelchoice" style="display: initial">
+					Sauver niveau en ligne
+				</div>
+				<input id="choice-online" type="checkbox" value="" style="display: initial"/><br />
+				<div id="txt-difficulty" class="txt-langue" data-lang="difficulty">
+					Difficulté
+				</div>
+				<select id="difficulty">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select><br/><br/>
+				<div id="button-save"class="button-red txt-langue" data-lang="save">
+					Sauver
+				</div>
+				<div class="button-resume button-blue txt-langue" data-lang="cancel">
+					Annuler
+				</div>
+			</div>
 			
-			<ul>
+			<div id="message" class="overlay page" style="display: none;">
+				<span class="overlay-title">Roll it !</span>
+				<div id="message-txt">
+				</div>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
 			
-				<li>Le fichier de stockage des niveaux est maintenant terminé (Donnees.js). La structure du fichier nous a demandé beaucoup de temps, mais le plus dur est dorénavant fait. Dans les prochains jours, nous allons ajouter plusieurs niveaux. Nous enrichirons le jeu de niveaux au fur à mesure du développement de celui-ci.</li>
-				
-				<li>Nous avons réalisé le lien entre le fichier de stockage et les menus du jeu. Le joueur peut maintenant lancer le niveau de son choix depuis le menu.</li>
-				
-				<li>Le menu qui permet de choisir son niveau s'est vu enrichir d'une fonctionnalité intéressante. Au lieu d'afficher un aperçu du niveau sous forme d'image pour le joueur, nous avons décidé d'afficher le niveau dynamiquement. Par conséquent, si un niveau vient à être modifié dans le fichier de données, son aperçu sera modifié automatiquement dans le menu. Ce mécanisme évite le chargement des images et les problématiques liées à celles-ci. En effet, avec des images, il aurait été obligatoire de recréer une image d'aperçu des niveaux à chaque modification de ceux-ci. </li>
-				
-				<li>L'enregistrement du record est désormais fonctionnel. Il est stocké pour chaque niveau grâce à Local Storage. Dans le menu de sélection des niveaux, le record du joueur s'affiche en dessous de chaque niveau. Si le joueur ne possède pas encore de record pour un niveau, le record par défaut est 00 : 00. </li>
-				
-				<li>Lorsqu'un joueur termine un niveau, un menu apparaît, d'une part pour le féliciter mais également pour lui proposer des actions. Le joueur peut ainsi retourner au menu principal, recommencer le niveau, ou jouer le niveau suivant. Dans le lot de commits du 20 mars, les boutons Recommencer et Niveau suivant ont été rendus fonctionnels. </li>
-				
-				<li>Comme annoncé précédemment, il est nécessaire de ramasser tous les diamants pour que le trou de fin apparaisse. Le code associé à cette fonctionnalité est terminé et le mécanisme marche correctement.</li>
-				
-				<li>Petite surprise pour la prochaine version, un nouveau piège fera son apparition. Le piège est en réalité le vide. Dans le jeu, il sera matérialisé par une zone grise. Si la bille tombe dedans, la partie redémarre.</li>
-				
-				<li>Dernièrement, nous nous sommes fixés comme perspective d'évolution la création d'un éditeur de terrain. Nous ne nous engageons pas à l'avoir finalisée pour la version 3.0 mais nous mettrons tout en œuvre pour la réaliser dans les temps. C'est pourquoi l'issue n'est pas dans le milestone de la 3.0 mais de la 4.0. L'éditeur de terrain permettra aux joueurs de continuer l'expérience du jeu, puisqu'ils pourront concevoir leurs propres niveaux. Le joueur pourra bien évidemment les tester. </li>
-				
-				<li>Nous sommes très enchantés de concevoir et de développer ce projet, et cet enthousiasme nous pousse à continuer le projet au-delà du cadre du projet DLL. C'est pourquoi Roll It! aura une version 4.0. Pour le moment, nous l'avons fixée au 1er juillet 2013 et seulement trois fonctionnalités sont attendues : un éditeur de niveau, pouvoir partager ses niveaux sur un serveur, et la possibilité de partager ses scores sur différents réseaux sociaux.</li>
-		
-			</ul>
-		
-		
-			<h3>Version 2.0 (15-03-2013)</h3>
-
-			<p>Le projet en est déjà à sa version 2.0. Cette nouvelle mouture du jeu embarque de nombreuses nouveautés depuis la première version.</p>
+			<div id="error" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="impossible">Impossible !</span>
+				<div id="error-txt" class="txt-langue" data-lang="impossibleeditor">
+					Il est nécessaire de placer la bille de départ et la croix d'arrivée.
+				</div>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
 			
-			<ul>
-		    	<li>En plus des murs normaux, le jeu est enrichi de murs rebondissants. Lorsque la bille en heurte un, elle est repoussée dans le sens inverse, à plus grande vitesse. Ils sont pour le moment dessinés en rouge à l'inverse des murs normaux en noir.</li>
-		    	<li>Pièges par excellence du jeu, les trous sont désormais fonctionnels. Si une bille vient à tomber dedans, la partie retourne à l'état initial.</li>
-		    	<li>Le principe des trappes est semblable à celui des trous. Si la bille tombe dedans, la partie s'arrête. A l'exception près que les trappes se ferment et s'ouvrent à intervalle régulier. L'utilisateur peut donc profiter du temps pendant lequel la trappe est fermée pour passer dessus.</li>
-		    	<li>Les shurikens, les célèbres étoiles de ninja, traverseront la zone de jeu de manière linéaire. Si par malheur un shuriken frappe la bille, le joueur doit recommencer le niveau du départ. C'est la dernière fonctionnalité sur laquelle nous avons travaillé. Elle nous a demandé beaucoup de temps pour des raisons de performance. En effet, les shurikens tournent sur eux-mêmes. Au début de notre développement, dans le cas où plusieurs shurikens étaient lancés en même temps, le jeu avait tendance à freezer sur certains smartphones. Ce problème a été résolu dans la version 2.0.</li>
-			    <li>Les diamants disparaissent lorsque la bille les traverse. Il faut désormais que le trou de fin apparaisse uniquement quand tous les diamants ont disparu.</li>
-			    <li>Pour ce qui est du trou de fin de partie, il est fonctionnel. Lorsque l'utilisateur rentre dans le trou de fin, la partie s'arrête et l'utilisateur est félicité pour son adresse. Pour le moment, le trou de fin est matérialisé par une croix rouge.</li>
-			    <li>Nous avons amélioré la gestion des API pour l'orientation et l'accéléromètre suivant les smartphones.</li>
-			    <li>Il est désormais possible de changer la langue du jeu. Dans cette version, 4 langues sont disponibles : français, anglais, espagnol et portugais. D'autres langues seront ajoutées dans la prochaine version.</li>
-			    <li>En ce qui concerne le stockage des données du jeu, nous avons opté pour l'API Local Storage. Nos premiers tests ont été concluants. Le lien entre l'interface et les données sera présent dans la version ultérieure.</li>
-			    <li>Le fonctionnement des menus est terminé. L'utilisateur peut naviguer dans le jeu mais ne peut pas encore lancer de nouvelle partie. Il manque le lien avec les données.</li>
-			</ul>
+			<div id="form-hatche" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="trap">Trappe</span>
+				<div class="txt-langue" data-lang="timetrap">Temps d'ouverture et de fermeture (1000ms min)</div>
+				<input id="time-hatche" type="text" value="" /><br />
+				<div class="txt-langue" data-lang="statetrap">Etat de la trappe au début de la partie</div>
+				<select id="state-hatche">
+					<option class="txt-langue" data-lang="open" value="true">Ouvert</option>
+					<option class="txt-langue" data-lang="close" value="false">Fermé</option>
+				</select>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
 			
-		<p>Le jeu peut être testé sur la branch gh-pages dans le dossier jeu :<br />
-		<a href="http://kbrivois.github.com/ROLL-IT/jeu">http://kbrivois.github.com/ROLL-IT/jeu</a></p>
-		
-		<p>Aperçu de la version 2.0 :<br />
-		<a href="http://www.aymeric-auberton.fr/projets/dll/blog/screen-test-13-03-15.png" target="_blank">Aperçu de la version 2.0</a></p>
-
-
-			<h3>Le projet vit toujours (11-03-2013)</h3>
-
-			<p>Il y a eu peu d'activité sur le projet ces derniers temps. En effet, les membres du projet avaient d'autres échéances. Désormais, nous avons plus de temps pour avancer sur ROLL IT!</p>
-
-			<ul>
-		    	<li>Nous nous sommes replongés dans l'API Device Motion et Device Orientation pour que le jeu soit compatible avec le plus grand nombre de smartphones. Sur un téléphone équipé de FirefoxOS, c'est l'API Device Motion qui fonctionnera.</li>
-		    	<li>Lors d'une séance projet DLL, nous avons eu l'occasion de tester notre application sur un smartphone équipé du système d'exploitation FirefoxOS. Nous nous sommes focalisés sur des tests de performance, et nos tests ont été concluants. Le jeu est fluide.</li>
-		    	<li>Nos efforts se portent désormais sur le stockage des données. Nous avons décidé d'utiliser l'API Local Storage. Bien que cette API soit synchrone, cela ne pose pas de problèmes de conception pour le jeu, car l'API sera sollicitée uniquement en début et en fin de partie.</li>
-		    	<li>L'internationalisation est terminée. Une nouvelle classe a été créée pour contenir l'ensemble des traductions (Langues.js). Pour le moment, le jeu est disponible dans les langues Française, Anglaise, Portugaise et Espagnole.</li>
-		    </ul>
-
-
-			<h3>Point sur le projet (13-02-2013)</h3>
-		
-			<p>Le projet se dirige tranquillement vers la version 0.2. Les commits sont plus rares en ce moment. En effet, d'autres échéances arrivent à grands pas, notamment le projet R&D. Il est à rendre pour le 24 février. C'est pourquoi les membres du projet mettent les bouchées doubles pour terminer ce travail dans leur groupe respectif.</p>
+			<div id="form-projectile" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="projectiles">Projectiles</span>
+				<div class="txt-langue" data-lang="speedprojectiles">Vitesse (1=lent, 5=rapide)</div>
+				<input id="speed-projectile" type="text" value="" /><br />
+				<div class="txt-langue" data-lang="distanceprojectiles">Distance entre les projectiles</div>
+				<input id="distance-projectile" type="text" value="" /><br />
+				<div id="change-target" class="button-red txt-langue" data-lang="changetarget">
+					Changer Cible
+				</div>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
 			
-			<p>Cependant, le projet ROLL IT! continue d'avancer.</p>
+			<div id="form-diamond" class="overlay page" style="display: none;">
+				<span class="overlay-title txt-langue" data-lang="diamond">Diamants</span>
+				<div class="txt-langue" data-lang="color">Couleur</div>
+				<select id="color-diamond">
+					<option value="red" class="txt-langue" data-lang="red">Rouge</option>
+					<option value="green" class="txt-langue" data-lang="green">Vert</option>
+					<option value="blue" class="txt-langue" data-lang="blue">Bleu</option>
+					<option value="cyan" class="txt-langue" data-lang="cyan">Cyan</option>
+					<option value="yellow" class="txt-langue" data-lang="yellow">Jaune</option>
+					<option value="pink" class="txt-langue" data-lang="pink">Rose</option>
+					<option value="random" class="txt-langue" data-lang="random">Aléatoire</option>
+				</select>
+				<div class="button-resume button-green txt-langue" data-lang="resume">
+					Reprendre
+				</div>
+			</div>
 			
-			<ul>
-				<li>Une nouvelle branche a été créée ; gh-pages. Cette nouvelle branche nous permettra de bénéficier d'un serveur HTTP, grâce aux services de GitHub. Ainsi, le wiki va être dupliqué sur la page d'accueil du serveur et une version de production sera déposée dans le dossier /jeu/ du serveur. L'adresse du serveur est la suivante : <a href="http://kbrivois.github.com/ROLL-IT" title="ROLL-IT">http://kbrivois.github.com/ROLL-IT</a></li>
-				<li>Le mécanisme des menus se perfectionne de commit en commit. Dans l'ensemble, le fonctionnement de ces derniers est maintenant déterminé, reste à implémenter ce mécanisme dans les prochains menus qui n'ont pas encore vu le jour.</li>
-				<li>Une première version de l'icône pour FirefoxOS a été déposée sur le dépôt.</li>
-				<li>Au niveau du code, la déclaration des pièges et obstacles a été modifiée. Dorénavant, un tableau a été mis en place pour chaque élément de la zone de jeu. Nous avons pris cette décision pour plus de lisibilité et de maintenabilité.</li>
-				<li>En ce qui concerne le trou de fin, cette fonctionnalité a été développée et est dorénavant en ligne sur le dépôt.</li>
-			</ul>
-
-			
-			<h3>Menu (06-02-2013)</h3>
-			
-			<p>Le temps passe et les issues se ferment ! Le projet continue à bien avancer. Une première version du menu du jeu devrait être mise en ligne dans les prochains jours. En ce qui concerne les pièges et les obstacles :</p>
-			
-			<ul>
-				<li>Le développement du fonctionnement des trous est terminé. Pour ce qui est du design de ces derniers, une première version est sur le point d'être validée par l'équipe du projet.</li>
-				<li>Autre piège, le développement des trappes est sur le point d'être achevé, mais le design n'a pas encore commencé.</li>
-				<li>Les murs rebondissants en sont au même point que les trappes.</li>
-				<li>Tandis que pour les shurikens, le design des étoiles de ninja est fait, mais le développement commence tout juste.</li>
-			</ul>
-			
-			<p>Pour rappel :</p>
-			
-			<ul>
-				<li>Piège par excellence pour une bille, le trou est aussi simple que redoutable. Si la bille tombe dedans, le joueur recommence le niveau.</li>
-				<li>Les trappes sont similaires aux trous, à l'exception près qu'elles apparaissent et disparaissent à intervalle régulier à une position fixe.</li>
-				<li>Les shurikens, les célèbres étoiles de ninja, traverseront la zone de jeu de manière linéaire. Si par malheur un shuriken frappe la bille, le joueur doit recommencer le niveau.</li>
-				<li>Obstacles imprévisibles, les murs rebondissants seront sans nul doute les ennemis les plus redoutables. Si la bille heurte un mur rebondissant, elle est alors repoussée dans le sens inverse.</li>
-			</ul>
-			
-			<p>La structure du fichier où seront stockés les niveaux se dessine petit à petit. La pause en cours de partie est désormais complètement fonctionnelle.</p>
-
-			<p>Ci-dessous un lien pour un aperçu du menu pour choisir le niveau du jeu. A noter qu'il faut se déplacer en scrollant horizontalement dans la liste pour parcourir la totalité des niveaux disponibles.<br /><a href="http://www.aymeric-auberton.fr/projets/dll/blog/screen-test-13-02-06.png" target="_blank">Aperçu du menu</a>
-			</p>
-			
-			
-			<h3>Normes (04-02-2013)</h3>
-			
-			<p>Pour le bon déroulement du projet, nous nous sommes fixés quelques règles et normes pour coder. Ainsi, nous appliquons pour nos variables le principe de lowerCamelCase. Nos variables JavaScript sont également typées grâce à la première lettre. Par exemple, pour une variable integer : var iVariable = 12;</p>		
-			
-			<p>En ce qui concerne les commits, nous avons décidé de respecter la norme suivante :</p>
-			
-			<ul>
-				<li>[+] Une nouvelle fonctionnalité</li>
-				<li>[*] Une amélioration</li>
-				<li>[-] Un bug résolu</li>
-				<li>[~] Une fonctionnalité enlevée</li>
-			</ul>
-			
-			
-			<h3>Win overlay (02-02-2013)</h3>
-
-			<p>Le projet avance. La version 0.1 finale est terminée et nous travaillons sur la prochaine version du jeu. Le système de collisions est sur le point d'être finalisé. Nous commençons à travailler sur le système de pièges et de trappes.</p>
-
-			<p>Étant donné que nous testons principalement sur des iPhones 3GS et donc Safari mobile, nous avons été surpris quand nous avons testé avec Firefox sur Android. Cette version du navigateur a un comportement similaire à celle présente sous FirefoxOS. Malheureusement, l'API Device Motion n'est pas supportée. C'est fort contraignant car elle marche très bien sur les versions mobiles de Safari. De ce fait, nous nous sommes attardés à gérer la compatibilité. Nous utiliserons donc en absence de l'API Device Motion, l'API Device Orientation. Elles sont similaires mais ne renvoient pas exactement les mêmes valeurs.</p>
-
-			<p>Côté interface, le style du menu est terminé. Ci-après un lien pour un aperçu de l'écran de fin d'un niveau.<br /><a href="http://www.aymeric-auberton.fr/projets/dll/blog/screen-test-13-02-06.png" target="_blank">Style des menus</a></p>
-    
-			
-			<h3>Test de l'interface (30-01-2013)</h3>
-			
-			<p>La version 0.1 finale n'est pas encore sortie, mais nous travaillons parallèlement déjà sur la 0.2. En ce qui concerne la version 0.1 finale, elle devrait sortir comme prévu initialement, pour le 4 février.</p>
-
-			<p><a href="https://github.com/kbrivois">@kbrivois</a> travaille sur le problème de rebond sur le bord inférieur et sur le bord droit. La détection des collisions sera son gros chantier pour la 0.2. Déjà mis en place par ses soins sur le projet Spacelash, c'est tout naturellement qu'il prend le lead sur le développement de cette fonctionnalité.</p>
-
-			<p><a href="https://github.com/pmarine">@PMarine</a> a attaqué le développement d'une fonctionnalité indispensable du jeu prévue pour la 0.2, à savoir les menus. La sélection du niveau se fera en scroll horizontal dans un div. Un aperçu visuel des niveaux et leurs numéros permettront de les identifier.</p>
-
-			<p><a href="https://github.com/aaymeric">@AAymeric</a> a déjà mis en place une première version du chronomètre du jeu. La version finale de cette fonctionnalité sera présente dans la 0.2. La boule du jeu, élément graphique incontournable et centrale, en est à sa première version.</p>
-
-			<p>Pour tester, le jeu il faut impérativement avoir un smartphone supportant l'API Device Motion. Chaque personne du projet possède un iPhone 3GS. Les tests initiaux sont donc effectués sur ce type de smartphone.</p>
-
-			<p>Nous avons créé un environnement de test dédié pour chaque membre du projet sur un de nos serveurs webs. Ainsi, chacun peut effectuer ses propres tests, indépendamment des autres.</p>
-		</section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/kbrivois/ROLL-IT/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/kbrivois/ROLL-IT/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/kbrivois/ROLL-IT"></a> is maintained by <a href="https://github.com/kbrivois">@kbrivois</a>, <a href="https://github.com/pmarine">@PMarine</a> and <a href="https://github.com/aaymeric">@AAymeric</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
-
-  
-  </body>
+			<div id="partie" class="page">
+				<div id="top">
+					<span id="level"><span class="txt-langue" data-lang="level">Niveau</span> <span id="level-number">0</span></span>
+					<div id="time">
+						<span id="time-min">00</span>
+						:
+						<span id="time-sec">00</span>
+					</div>
+					<!-- dans le cas on l'on se trouvera dans l'éditeur -->
+					<div id="choices">
+						<img id="move" src="img/editeur/deplacer.png" style="display:none"/>
+						<img id="edit" src="img/editeur/modifier.png" style="display:none"/>
+						<img id="check" src="img/editeur/valider.png" style="display:none"/>
+						<img id="delete" src="img/editeur/supprimer.png" style="display:none"/>
+					</div>
+					<div id="top-pause">
+						<span class="txt-langue" data-lang="pause">Pause</span>
+					</div>
+				</div>
+				<div id="level-content">
+					<div id="terrain"></div>
+					<!-- dans le cas on l'on se trouvera dans l'éditeur -->
+					<div id="items-menu-edit"></div>
+					<div id="circle"></div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
