@@ -87,6 +87,8 @@ function menuPrincipal() {
 // Détecte le click pour lancer le menu qui propose les différents type de menu avec 3 boutons (niveaux de base, perso et en ligne)
 function lancerMenuChoixMode() {
 	cacherPages();
+	document.getElementById("show-level").innerHTML = "";
+	document.getElementById("show-level").style.width = "100%";
 	document.getElementById('mode-game').style.display = 'block';
 }
 
