@@ -131,7 +131,11 @@ for(var i in oButtonReprendre) {
 document.getElementById("button-try-again").addEventListener(endEvent, recommencerPartie, false);
 
 // Evénement pour passer au niveau suivant, une fois la partie gagnée
-document.getElementById("button-next-level").addEventListener(endEvent, niveauSuivant, false);
+var oButtonNewLevel = document.getElementsByClassName("button-other-level");
+for(var i in oButtonNewLevel) {
+	if(oButtonNewLevel[i] instanceof Element)
+		oButtonNewLevel[i].addEventListener(endEvent, autreNiveau, false); 
+}
 
 // Evénement pour lancer une partie dans l'éditeur ou pour reprendre l'édition
 document.getElementById("level").addEventListener(endEvent, lancerPartieEditeur, false);

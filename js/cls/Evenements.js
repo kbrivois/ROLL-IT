@@ -12,6 +12,15 @@ function pausePartie() {
 	document.getElementById('pause').style.display = 'block';
 	oModeEnCours.oChrono.pause();
 	oModeEnCours.bPause = true;
+	if(oEditeur != null && oEditeur.bEnModeJeu)
+		document.getElementById("button-save-level").style.display = "none";
+	else if(oEditeur != null && !oEditeur.bEnModeJeu)
+		document.getElementById("button-save-level").style.display = "block";
+		
+	if(oEditeur != null)
+		document.getElementById("pause-button-other-level").style.display = "none";
+	else
+		document.getElementById("pause-button-other-level").style.display = "block";
 }
 
 // Détecte le click sur un bouton reprendre
@@ -52,14 +61,21 @@ function recommencerPartie() {
 	}
 }
 
-// Détecte le click après la victoire pour passer au niveau suivant
-function niveauSuivant() {
+// Détecte le click après la victoire pour passer à un autre niveau
+function autreNiveau() {
 	document.getElementById('win').style.display = 'none';
-	// on vide le terrain
+	oPartie = null;
+	oEditeur = null;
 	document.getElementById('terrain').innerHTML = "";
-	// on incremente le numéro du niveau
-	iNiveauSelectionne++;
-	oPartie = new Partie();
+	cacherPages();
+	document.getElementById('new-game').style.display = 'block';
+	if(iChoixModeNiveaux == 1) {
+		initMenu(aListeNiveaux);
+	} else if(iChoixModeNiveaux == 2) {
+		initMenu(aListeNiveauxEnLigne);
+	} else if(iChoixModeNiveaux == 3) {
+		initMenu(aListeNiveauxPerso);
+	}
 }
 
 // Détecte le click pendant que le menu Pause est afficher pour retourner au menu
@@ -81,6 +97,7 @@ function menuPrincipal() {
 	document.getElementById('items-menu-edit').innerHTML = "";
 	// on vide le menu
 	document.getElementById("show-level").innerHTML = "";
+	document.getElementById("show-level").style.width = "100%";
 	document.getElementById('hp').style.display = 'block';
 }
 
@@ -96,6 +113,7 @@ function lancerMenuChoixMode() {
 function lancerMenuNiveaux(arrayListeNiveau, idModeNiveaux) {
 
 	document.getElementById("show-level").innerHTML = "";
+	document.getElementById("button-save-level").style.display = "none";
 	
 	// idModeNiveaux : 1=niveaux de base, 2=niveaux en ligne, 3=niveaux perso
 	var ok = 1;

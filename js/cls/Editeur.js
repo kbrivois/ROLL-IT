@@ -366,7 +366,13 @@ Editeur.prototype.gagner = function()
 	var iGagneMinutes = document.getElementById('time-min').innerHTML;
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
 	document.getElementById('win-time').innerHTML = sTempsGagne;	
-	document.getElementById("button-next-level").style.display = "none";
+
+	var oButtonNewLevel = document.getElementsByClassName("button-other-level");
+	for(var i in oButtonNewLevel) {
+		if(oButtonNewLevel[i] instanceof Element)
+			oButtonNewLevel[i].style.display = "none";
+	}
+	
 	document.getElementById("button-try-again").style.margin = "auto auto 15px auto";
 };
 

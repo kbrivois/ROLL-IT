@@ -518,6 +518,16 @@ var dataLangue = {
 		"it": "L'hardware non supporta il dispositivo API movimento o orientamento del dispositivo. Non è possibile riprodurre il gioco IT ROLL!",
 		"pl": "Twój sprzęt nie obsługuje Device API Motion lub orientację urządzenia. Nie można odtwarzać gry ROLL IT!",
 		"hr": "A hardver nem támogatja a Motion API készüléket és tájolása. Nem lehet játszani a játékot ROLL IT!"
+	},
+	"anotherlevel": {
+		"fr": "Autre niveau",
+		"uk": "Another level",
+		"es": "Otro nivel",
+		"pt": "Outro nível",
+		"de": "Eine weitere Ebene",
+		"it": "Un altro livello",
+		"pl": "Inny poziom",
+		"hr": "Egy másik szint"
 	}
 };
 

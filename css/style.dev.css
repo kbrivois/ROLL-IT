@@ -244,11 +244,11 @@ body {
 	margin-top: 50px;
 }
 /*pause*/
-#pause #button-save-level, #pause .button-menu {
+#pause #button-save-level, #pause .button-other-level, #pause .button-menu {
 	margin-top: 35px;
 }
 /*win*/
-#win #button-next-level, #win .button-menu {
+#win .button-other-level, #win .button-menu {
 	margin-top: 35px;
 }
 
@@ -287,7 +287,7 @@ body {
 .button-resume, .button-new-level, #button-new-level-normal {
 	margin: 10px auto 15px auto;
 }
-#button-next-level, #button-editor, #button-save-level, #button-new-level-custom {
+#button-editor, #button-save-level, #button-new-level-custom {
 	margin: 15px auto;
 }
 #button-new-level-online {

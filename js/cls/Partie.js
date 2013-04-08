@@ -57,6 +57,7 @@ Partie.prototype.pause = function()
 Partie.prototype.gagner = function()
 {
 	document.getElementById('win').style.display = 'block';
+	document.getElementById('win-button-other-level').style.display = 'block';
 	var iGagneSecondes = document.getElementById('time-sec').innerHTML;
 	var iGagneMinutes = document.getElementById('time-min').innerHTML;
 	var sTempsGagne = "Temps : " + iGagneMinutes + " : " + iGagneSecondes;
@@ -66,11 +67,8 @@ Partie.prototype.gagner = function()
 	
 	// s'il n'existe pas de niveau suivant
 	if(aListeNiveaux.length-1 < iNiveauSelectionne+1) {
-		document.getElementById("button-next-level").style.display = "none";
 		document.getElementById("button-try-again").style.margin = "auto auto 15px auto";
-	}
-	else {
-		document.getElementById("button-next-level").style.display = "block";
+	} else {
 		document.getElementById("button-try-again").style.margin = "auto";
 	}
 };
