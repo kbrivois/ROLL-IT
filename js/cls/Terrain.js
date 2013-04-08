@@ -101,6 +101,9 @@ function Terrain(sMode)
 // Méthode de tracé
 Terrain.prototype.tracer = function(bTracerDansEditeur)
 {
+	this.cacherIcones();
+	document.getElementById("time").style.display = "block";
+
 	this.aListeElements = new Array();
 
 	// ===== bille ===== //
