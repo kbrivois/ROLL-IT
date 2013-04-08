@@ -45,7 +45,11 @@ For any extra documentation, please read our <a href="http://www.aymeric-auberto
 <h2>WANT TO CONTRIBUTE?</h2>
 <p>If you've found a bug or have a great idea for new feature let me know by <a href="https://github.com/kbrivois/ROLL-IT/issues/new">adding your suggestion</a> to <a href="https://github.com/kbrivois/ROLL-IT/issues">issues list</a>.</p>
 
+<br />
+
 <hr />
+
+<br />
 
 <h1>ROLL IT!</h1>
 
