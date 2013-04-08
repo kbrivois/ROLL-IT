@@ -1327,5 +1327,54 @@ var oNiveauxDonnees = [
 				{"x": 302, "y": 375, "image": diamantsAleatoires()}
 			],
 		"groupesProjectiles": []
+	},
+  {
+		"numero": 14,
+		"bille": {"x": 0, "y": 0},
+		"arrivee": {"x": 145, "y": 360},
+		"murs": 
+			[
+				{"x": 30, "y": 0, "largeur": 10, "hauteur": 50, "repousse": false},
+				{"x": 30, "y": 50, "largeur": 290, "hauteur": 10, "repousse": false},
+				{"x": 0, "y": 80, "largeur": 290, "hauteur": 10, "repousse": false},
+				{"x": 280, "y": 90, "largeur": 10, "hauteur": 20, "repousse": false},
+				{"x": 0, "y": 110, "largeur": 290, "hauteur": 10, "repousse": false},
+				{"x": 30, "y": 140, "largeur": 290, "hauteur": 10, "repousse": false},
+				{"x": 30, "y": 150, "largeur": 10, "hauteur": 60, "repousse": false},
+				{"x": 30, "y": 210, "largeur": 250, "hauteur": 10, "repousse": false},
+				{"x": 30, "y": 275, "largeur": 250, "hauteur": 10, "repousse": false},
+        {"x": 140, "y": 160, "largeur": 20, "hauteur": 5, "repousse": true}
+			],
+		"vides": [],
+		"trous": 
+      [
+        {"x": 125, "y": 360},
+				{"x": 166, "y": 360}
+      ],
+		"trappes": 
+      [
+        {"x": 50, "y": 62, "tempsOuverture": 1000, "ouvert": false},
+        {"x": 100, "y": 62, "tempsOuverture": 1000, "ouvert": false},
+        {"x": 150, "y": 62, "tempsOuverture": 1000, "ouvert": false},
+        {"x": 200, "y": 62, "tempsOuverture": 1000, "ouvert": false},
+        {"x": 250, "y": 62, "tempsOuverture": 1000, "ouvert": false},
+      ],
+		"diamants": 
+      [
+        {"x": 30, "y": 122, "image": "img/d-red.png"},
+        {"x": 80, "y": 122, "image": "img/d-red.png"},
+        {"x": 130, "y": 122, "image": "img/d-red.png"},
+        {"x": 180, "y": 122, "image": "img/d-red.png"},
+        {"x": 230, "y": 122, "image": "img/d-red.png"},
+        {"x": 142, "y": 175, "image": "img/d-red.png"}
+      ],
+		"groupesProjectiles": 
+      [
+        {"xDepart": 100, "yDepart": 175, "xArrivee": 200, "yArrivee": 175, "vitesse": 1, "distance": 100},
+        {"xDepart": 300, "yDepart": 225, "xArrivee": 0, "yArrivee": 225, "vitesse": 1, "distance": 100},
+        {"xDepart": 300, "yDepart": 255, "xArrivee": 0, "yArrivee": 255, "vitesse": 2, "distance": 100},
+        {"xDepart": 0, "yDepart": 295, "xArrivee": 320, "yArrivee": 295, "vitesse": 2, "distance": 100},
+        {"xDepart": 0, "yDepart": 325, "xArrivee": 320, "yArrivee": 325, "vitesse": 1, "distance": 100}
+      ]
 	}
 ];
