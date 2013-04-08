@@ -2,7 +2,7 @@ function MenuNiveaux(aListeNiveauxTemp)
 {
 	// liste des niveaux
 	this.aListeNiveaux = aListeNiveauxTemp;
-	aListeNiveauxEnCours = this.aListeNiveaux;
+	aListeNiveauxEnCours = aListeNiveauxTemp;
 	
 	// ************************* Liste des vignettes
 	this.aListeVignettes = new Array();
@@ -44,8 +44,8 @@ MenuNiveaux.prototype.tracer = function()
 
 		// vides		
 		this.aListeVides.push(new Array());
-		for(var j=0; j<aListeNiveaux[i].vides.length; j++) {
-			this.aListeVides[i].push(new Vide(new Point(aListeNiveaux[i].vides[j].x, aListeNiveaux[i].vides[j].y), aListeNiveaux[i].vides[j].largeur, aListeNiveaux[i].vides[j].hauteur));
+		for(var j=0; j<this.aListeNiveaux[i].vides.length; j++) {
+			this.aListeVides[i].push(new Vide(new Point(this.aListeNiveaux[i].vides[j].x, this.aListeNiveaux[i].vides[j].y), this.aListeNiveaux[i].vides[j].largeur, this.aListeNiveaux[i].vides[j].hauteur));
 		}
 		for(var j=0; j<this.aListeVides[i].length; j++) {
 			this.aListeVides[i][j].tracer(oDivItemMenu);
