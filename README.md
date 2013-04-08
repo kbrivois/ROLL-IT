@@ -47,6 +47,8 @@ For any extra documentation, please read our <a href="http://www.aymeric-auberto
 
 <hr />
 
+<h1>ROLL IT!</h1>
+
 <p>ROLL IT! est une application web open source pour FirefoxOS.</p>
 
 <p>Le but du jeu consiste à diriger une bille dans l'emplacement de fin. Pour déplacer la bille dans le sens désiré, il faudra orienter 
