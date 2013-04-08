@@ -131,6 +131,8 @@ Editeur.prototype.initialiser = function()
 	// évènement sur le bouton "changer cible" dans le formulaire des projectiles
 	document.getElementById("change-target").removeEventListener(startEvent, eventDownSurBoutonChangeCible, false);
 	document.getElementById("change-target").addEventListener(startEvent, eventDownSurBoutonChangeCible, false);
+	// évènement sur le bouton "changer cible" dans le formulaire des projectiles
+	document.getElementById("button-save").removeEventListener(endEvent, eventDownSurSauvegardeTerrain, false);
 	
 	// sur le menu d'édition
 	this.oDivMenuEdition.ontouchmove = function(event){t.bTouchMoveMenu = true;};

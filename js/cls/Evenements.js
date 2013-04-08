@@ -436,3 +436,100 @@ function eventDownSurBoutonChangeCible(event) {
 	oEditeur.oElementSelectionne.oDiv.style.opacity = 1;
 	oEditeur.oElementSelectionne.tracerCible();
 }
+
+// s'il y a un mouse ou un touch down sur le bouton qui permet de sauvegarder un terrain dans l'éditeur
+function eventDownSurSauvegardeTerrain(event) {
+
+	// si l'id a été saisi correctement
+	if(document.getElementById("id-level").value != "") {
+		// niveau à sauvegarder
+		var oNiveauASauvegarde = '{' +
+	
+	// id
+		'"id": "' + document.getElementById("id-level").value + '",' +
+	// bille
+		'"bille":{"x":' + (oEditeur.oTerrainEditeur.oBille.oPosition.x / fRatio) + ',"y":' + (oEditeur.oTerrainEditeur.oBille.oPosition.y / fRatio) + '},' +
+	// arrivée
+		'"arrivee":{"x":' + (oEditeur.oTerrainEditeur.oArrivee.oPosition.x / fRatio) + ',"y":' + (oEditeur.oTerrainEditeur.oArrivee.oPosition.y / fRatio) + '},' +
+	// murs
+		'"murs":[';
+		var aListe = oEditeur.oTerrainEditeur.aListeMurs;
+		var iTailleTableau = aListe.length;
+		for(var i = 0; i < iTailleTableau; i++) {
+			oElem = aListe[i];
+			oNiveauASauvegarde += '{"x":' + (oElem.oPosition.x / fRatio) + ',"y":' + (oElem.oPosition.y / fRatio) + 
+								  ',"largeur":' + (oElem.iLargeur / fRatio) + ',"hauteur":' + (oElem.iHauteur / fRatio) + 
+								  ',"repousse":' + oElem.bRepousse + '}';
+			if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+		}
+		oNiveauASauvegarde += '],' +
+	// vides
+		'"vides":[';
+		aListe = oEditeur.oTerrainEditeur.aListeVides;
+		iTailleTableau = aListe.length;
+		for(var i = 0; i < iTailleTableau; i++) {
+			oElem = aListe[i];
+			oNiveauASauvegarde += '{"x":' + (oElem.oPosition.x / fRatio) + ',"y":' + (oElem.oPosition.y / fRatio) + 
+								  ',"largeur":' + (oElem.iLargeur / fRatio) + ',"hauteur":' + (oElem.iHauteur / fRatio) + '}';
+			if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+		}
+		oNiveauASauvegarde += '],' +
+	// trous
+		'"trous":[';
+		aListe = oEditeur.oTerrainEditeur.aListeTrous;
+		iTailleTableau = aListe.length;
+		for(var i = 0; i < iTailleTableau; i++) {
+			oElem = aListe[i];
+			oNiveauASauvegarde += '{"x":' + (oElem.oPosition.x / fRatio) + ',"y":' + (oElem.oPosition.y / fRatio) + '}';
+			if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+		}
+		oNiveauASauvegarde += '],' +
+	// trappes
+		'"trappes":[';
+		aListe = oEditeur.oTerrainEditeur.aListeTrappes;
+		iTailleTableau = aListe.length;
+		for(var i = 0; i < iTailleTableau; i++) {
+			oElem = aListe[i];
+			oNiveauASauvegarde += '{"x":' + (oElem.oPosition.x / fRatio) + ',"y":' + (oElem.oPosition.y / fRatio) + 
+								  ',"tempsOuverture":' + oElem.iTempsOF + ',"ouvert":' + oElem.bOuvert + '}';
+			if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+		}
+		oNiveauASauvegarde += '],' +
+	// diamants
+		'"diamants":[';
+		aListe = oEditeur.oTerrainEditeur.aListeDiamants;
+		iTailleTableau = aListe.length;
+		for(var i = 0; i < iTailleTableau; i++) {
+			oElem = aListe[i];
+			oNiveauASauvegarde += '{"x":' + (oElem.oPosition.x/ fRatio) + ',"y":' + (oElem.oPosition.y / fRatio) + 
+								  ',"image": "' + oElem.sImage + '"}';
+			if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+		}
+		oNiveauASauvegarde += '],' +
+	// groupes de projectiles
+		'"groupesProjectiles":[';
+		aListe = oEditeur.oTerrainEditeur.aListeProjectiles;
+		iTailleTableau = aListe.length;
+		for(var i = 0; i < iTailleTableau; i++) {
+			oElem = aListe[i];
+			oNiveauASauvegarde += '{"xDepart":' + (oElem.oPositionDepart.x / fRatio) + ',"yDepart":' + (oElem.oPositionDepart.y / fRatio) + 
+								  ',"xArrivee":' + (oElem.oPositionArrivee.x / fRatio) + ',"yArrivee":' + (oElem.oPositionArrivee.y / fRatio) + 
+								  ',"vitesse":' + (oElem.fVitesse / fRatio) + ',"distance":' + (oElem.iDistanceEntreProjectiles / fRatio) + '}';
+			if(i != iTailleTableau - 1) { oNiveauASauvegarde += ','; }
+		}
+		oNiveauASauvegarde += ']}';
+
+		enregistrerNiveauPerso(oNiveauASauvegarde);
+		
+		if(document.getElementById("choice-online").checked) {
+			var iDifficulte = document.getElementById("difficulty").value;
+			var sId = document.getElementById("id-level").value;
+			postNiveau(sId, oNiveauASauvegarde, iDifficulte);
+		}
+		
+		menuPrincipal();
+	}
+	else{
+		document.getElementById("choice-id-level").style.color = "red";
+	}
+}
