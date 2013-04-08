@@ -37,7 +37,7 @@ into levels, and the difficulty of these will crescendo.</p>
 
 <h2>TEST</h2>
 <p>The application can be tested at the following address :<br />
-<a href="http://kbrivois.github.com/ROLL-IT/jeu" title="Test ROLL-IT" target="_blank">http://kbrivois.github.com/ROLL-IT</a></p>
+<a href="http://kbrivois.github.com/ROLL-IT" title="Test ROLL-IT" target="_blank">http://kbrivois.github.com/ROLL-IT</a></p>
 
 <h2>DOCUMENTATION</h2>
 For any extra documentation, please read our <a href="http://www.aymeric-auberton.fr/projets/dll/development.html" target="_blank">online documentation</a>.
@@ -45,11 +45,7 @@ For any extra documentation, please read our <a href="http://www.aymeric-auberto
 <h2>WANT TO CONTRIBUTE?</h2>
 <p>If you've found a bug or have a great idea for new feature let me know by <a href="https://github.com/kbrivois/ROLL-IT/issues/new">adding your suggestion</a> to <a href="https://github.com/kbrivois/ROLL-IT/issues">issues list</a>.</p>
 
-<br />
-
 <hr />
-
-<br />
 
 <h1>ROLL IT!</h1>
 
@@ -89,7 +85,7 @@ entraves. Le jeu sera divisé en niveaux, et la difficulté de ces derniers ira 
 
 <h2>TEST</h2>
 <p>L'application peut-être testée à l'adresse suivante :<br />
-<a href="http://kbrivois.github.com/ROLL-IT/jeu" title="Test ROLL-IT" target="_blank">http://kbrivois.github.com/ROLL-IT</a></p>
+<a href="http://kbrivois.github.com/ROLL-IT" title="Test ROLL-IT" target="_blank">http://kbrivois.github.com/ROLL-IT</a></p>
 
 <h2>DOCUMENTATION</h2>
 Pour plus d'informations, vous pouvez lire notre <a href="http://www.aymeric-auberton.fr/projets/dll/development.html" target="_blank">documentation en ligne</a>.
