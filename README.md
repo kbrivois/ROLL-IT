@@ -86,7 +86,7 @@ entraves. Le jeu sera divisé en niveaux, et la difficulté de ces derniers ira 
 <a href="http://kbrivois.github.com/ROLL-IT/jeu" title="Test ROLL-IT" target="_blank">http://kbrivois.github.com/ROLL-IT</a></p>
 
 <h2>DOCUMENTATION</h2>
-Pour plus d'informations, vous pouvez lire notre a href="http://www.aymeric-auberton.fr/projets/dll/development.html" target="_blank">documentation en ligne</a>.
+Pour plus d'informations, vous pouvez lire notre <a href="http://www.aymeric-auberton.fr/projets/dll/development.html" target="_blank">documentation en ligne</a>.
 
 <h2>VOUS VOULEZ CONTRIBUEZ ?</h2>
-<p>Si vous avez trouvez un bug ou vous avez une bonne idée pour une nouvelle fonctionallité, faites le nous savoir en <a href="https://github.com/kbrivois/ROLL-IT/issues/new">ajoutant une suggestion</a> dans la <a href="https://github.com/kbrivois/ROLL-IT/issues">liste</a>.</p>
+<p>Si vous trouvez un bug ou avez une bonne idée pour une nouvelle fonctionnalité, faites-le nous savoir en <a href="https://github.com/kbrivois/ROLL-IT/issues/new">ajoutant une suggestion</a> dans la <a href="https://github.com/kbrivois/ROLL-IT/issues">liste</a>.</p>
