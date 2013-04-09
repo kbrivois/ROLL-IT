@@ -69,6 +69,11 @@ function autreNiveau() {
 	document.getElementById('terrain').innerHTML = "";
 	cacherPages();
 	document.getElementById('new-game').style.display = 'block';
+	
+	document.getElementById("show-level").innerHTML = "";
+	document.getElementById("show-level").style.width = "100%";
+	document.getElementById("button-save-level").style.display = "none";
+	
 	if(iChoixModeNiveaux == 1) {
 		initMenu(aListeNiveaux);
 	} else if(iChoixModeNiveaux == 2) {
@@ -113,6 +118,7 @@ function lancerMenuChoixMode() {
 function lancerMenuNiveaux(arrayListeNiveau, idModeNiveaux) {
 
 	document.getElementById("show-level").innerHTML = "";
+	document.getElementById("show-level").style.width = "100%";
 	document.getElementById("button-save-level").style.display = "none";
 	
 	// idModeNiveaux : 1=niveaux de base, 2=niveaux en ligne, 3=niveaux perso
