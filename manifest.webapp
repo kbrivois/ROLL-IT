@@ -1,7 +1,7 @@
 {
   "name": "ROLL IT",
   "description": "Direct the ball with your equipment to the end location while avoiding obstacles.",
-  "launch_path": "http://kbrivois.github.com/ROLL-IT/index.html",
+  "launch_path": "/ROLL-IT/",
   "icons": {
     "32": "http://kbrivois.github.com/ROLL-IT/img/icon-32.png",
     "64": "http://kbrivois.github.com/ROLL-IT/img/icon-64.png",
